@@ -3,7 +3,6 @@ import {useEffect, useState} from 'react';
 import {useNetwork} from 'wagmi';
 import UtBetsTokenRoutes from "../tokenRoutes";
 
-import {ethers} from 'ethers';
 import {mumbaiChainId, uniswapAddLP, utbetsTokenAddresses} from '../../../utils/config';
 
 const StakeUtbets = () => {
