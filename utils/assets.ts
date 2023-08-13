@@ -47,14 +47,7 @@ import sbcNFTAbi from '../abis/sbcNFTContract.json';
 import ultibetsSignAbi from '../abis/ultibetsSignContract.json';
 import ultibetsRewardAbi from '../abis/UltibetsReward.json';
 import UltiBetsLeaderBoardAbi from '../abis/UltiBetsLeaderBoard.json';
-import uniswapV2Router02Abi from '../abis/uniswapV2Router02.json';
-import usdcAbi from '../abis/usdc.json';
 
-import usdcUtbetsLpStakingAbi from '../abis/usdcUtbetsLpStakingAbi.json';
-import nativeUtbetsLpStakingAbi from '../abis/nativeUtbetsLpStaking.json';
-import nativeUtbetsLpAbi from '../abis/nativeUtbetsLp.json';
-import usdcUtbetsLpAbi from '../abis/usdcUtbetsLp.json';
-import UniswapV2PairAbi from '../abis/uniswapV2Pair.json';
 import utbetsAirdropAbi from '../abis/utbetsAirdrop.json';
 import UltiBetsTokenAbi from '../abis/UltiBetsToken.json';
 
@@ -69,13 +62,6 @@ export {
     ultibetsSignAbi,
     ultibetsRewardAbi,
     UltiBetsLeaderBoardAbi,
-    uniswapV2Router02Abi,
-    usdcAbi,
-    usdcUtbetsLpStakingAbi,
-    nativeUtbetsLpStakingAbi,
-    nativeUtbetsLpAbi,
-    usdcUtbetsLpAbi,
-    UniswapV2PairAbi,
     utbetsAirdropAbi,
     UltiBetsTokenAbi,
 }
