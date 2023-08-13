@@ -29,7 +29,7 @@ import {
 	useSwapExactTokensForETH,
 	useSwapExactTokensForTokens,
 	useApprove,
-} from '../../../utils/interact/sc/swap-router';
+} from '../../../utils/interact/sc/utbets';
 import { checkIconInGreenBg } from '../../../utils/assets';
 import AnnounceModal from '../../../components/modal/AnnounceModal';
 import { ethers } from 'ethers';

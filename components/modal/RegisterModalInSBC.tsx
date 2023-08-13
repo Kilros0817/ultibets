@@ -21,7 +21,7 @@ import { chainAttrs, chainRPCs, contractAddressesInSBC, EventCategory, mumbaiCha
 import AnnounceModal from './AnnounceModal'
 import { checkIconInGreenBg, exclamationIconInRedBg, UltiBetsTokenAbi } from '../../utils/assets'
 import Account from '../Account'
-import { useApprove } from '../../utils/interact/sc/swap-router';
+import { useApprove } from '../../utils/interact/sc/utbets';
 import { ethers } from 'ethers';
 
 export type RegisterModalInSBCProps = {

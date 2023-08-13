@@ -24,7 +24,7 @@ import AnnounceModal from './AnnounceModal';
 import { convertBetValue2Number } from '../../utils/interact/utility';
 import axios from 'axios';
 import { PerkInfo } from '../../utils/types';
-import { useApprove } from '../../utils/interact/sc/swap-router';
+import { useApprove } from '../../utils/interact/sc/utbets';
 import { checkIconInGreenBg, UltiBetsTokenAbi } from '../../utils/assets';
 import { toast } from 'react-toastify';
 import { ethers } from 'ethers';
