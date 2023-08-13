@@ -1,0 +1,47 @@
+body {
+    g[fill-opacity='0'] {
+        polyline {
+            stroke-width: 2px;
+            stroke: white;
+        }
+    }
+
+    tspan {
+        content: '50,000,000 $UTBETS';
+        // stroke: white;
+    }
+
+    g[transform="translate(258,-254.824)"] {
+        fill: #739AF0;
+
+        tspan::before {
+            content: '50,000,000 $UTBETS';
+            // color: white;
+            // stroke: white;
+        }
+    }
+
+    g[transform="translate(258,-182.434)"] {
+        fill: #A5D8DB;
+    }
+
+    g[transform="translate(258,-40.36)"] {
+        fill: #FDE774;
+    }
+
+    g[transform="translate(258,117.13)"] {
+        fill: #ECA33F;
+    }
+
+    g[transform="translate(258,245.373)"] {
+        fill: #F9653C;
+    }
+
+    g[transform="translate(-258,208.726)"] {
+        fill: #D07574;
+    }
+
+    g[transform="translate(-258,-151.649)"] {
+        fill: #BA7CE8;
+    }
+}

@@ -1,0 +1,377 @@
+import {
+	Flex,
+	Text,
+	Image,
+	Button,
+	useDisclosure,
+	Tooltip,
+} from '@chakra-ui/react';
+import { CgProfile, } from 'react-icons/cg'
+import { useAccount, useNetwork } from 'wagmi';
+import copy from 'copy-text-to-clipboard';
+import { getEllipsisTxt } from '../../utils/formatters';
+import { useEffect, useState } from 'react'; 
+import { ethers } from 'ethers';
+import axios from 'axios';
+import { useClaimReferralBettingReward } from '../../utils/interact/sc/ultibetsreward';
+import AnnounceModal from '../modal/AnnounceModal';
+import { checkIconInGreenBg } from '../../utils/assets';
+import { chainRPCs, polygonChainId, mumbaiChainId, } from '../../utils/config';
+import { toast } from 'react-toastify';
+
+type ProfileProps = {
+	totalReferrals: number
+	isFirstPredictionRewardDisable: boolean
+	referralBettingReward: number
+}
+const Profile = ({
+	totalReferrals,
+	isFirstPredictionRewardDisable,
+	referralBettingReward,
+}: ProfileProps) => {
+	const { chain, } = useNetwork();
+	const { address, } = useAccount();
+	const [signature, setSignature] = useState<string>('');
+	const {
+		isOpen: isOpenClaimFirstBettingRewardSuccessAnnounceModal,
+		onOpen: onOpenClaimFirstBettingRewardSuccessAnnounceModal,
+		onClose: onCloseClaimFirstBettingRewardSuccessAnnounceModal,
+	} = useDisclosure();
+
+	const profileInfo = [
+		{
+			label: 'My Referral Code :',
+			value: window.btoa(address ?? ''),
+		},
+		{
+			label: ' My Referral URL to share:',
+			value: (window.location.hostname ?? 'no-host') + "/?r=" + window.btoa(address ?? ''),
+		},
+	];
+
+	console.log("default link id: ", (window.location.hostname ?? 'no-host') + "/?r=" + window.btoa(address ?? ''))
+
+	const referralStatistics = [
+		{
+			label: 'referals:',
+			value: totalReferrals,
+			borderColor: 'linear-gradient(to bottom, #FF720A, #739AF0)'
+		},
+		{
+			label: 'You recieve:',
+			value: '10%*',
+			borderColor: 'linear-gradient(to bottom, #19A2A5, #739AF0)'
+		},
+	]
+
+	useEffect(() => {
+		console.log("totalReferrals: ", totalReferrals);
+	}, [totalReferrals])
+
+	const getSignature = async () => {
+		try {
+			const data = {
+				chainId: chain?.id ?? 0,
+				rpc: (chainRPCs as any)[chain?.id ?? mumbaiChainId],
+				eventID: ethers.utils.parseEther(referralBettingReward?.toString() ?? '0'), // this is not just eventid, but use here
+				bettor: address,
+			};
+
+			console.log("data: ", data);
+
+			const result = await axios.post(
+				'/api/createSignature',
+				data,
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+				});
+
+			if ((result as any).data.isSuccess) {
+				console.log("sinature:  ", (result as any).data.signature)
+				setSignature((result as any).data.signature)
+			}
+		} catch (err) {
+			console.log('error in creating signature: ', err);
+		}
+	}
+
+	const claimReferralBettingReward = useClaimReferralBettingReward(
+		referralBettingReward,
+		signature,
+	)
+
+	const handleFirstPredictionReward = async () => {
+		const isMainnet = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? true : false;
+		const referralChainId = isMainnet ? polygonChainId : mumbaiChainId;
+		if (referralChainId != chain?.id ?? 0) {
+			toast.error(`Please switch your chain to ${isMainnet ? 'Polygon' : 'Mumbai'}`);
+			return;
+		}
+
+		await getSignature();
+
+		if (signature == '') return;
+		if (claimReferralBettingReward.isLoading) return;
+		try {
+			claimReferralBettingReward.claimReferralBettingRewardFunction?.();
+			onOpenClaimFirstBettingRewardSuccessAnnounceModal();
+		} catch (err) {
+			console.log('error in claim reward: ', err);
+		}
+	}
+
+	return (
+		<Flex
+			direction={'column'}
+		>
+			<Flex
+			>
+				<Flex
+					alignItems={'center'}
+					mr='14px'
+				>
+					<CgProfile
+						color='#E18933'
+					/>
+				</Flex>
+
+				<Text
+					fontFamily={'nunito'}
+					fontWeight='700'
+					fontSize={'20px'}
+					lineHeight='27px'
+					textTransform={'capitalize'}
+					color='#E18933'
+				>
+					{`${address?.slice(0, 8)}... Profile`}
+				</Text>
+			</Flex>
+
+			<Flex
+				mt='33px'
+				direction={['column', 'column', 'column', 'column', 'row']}
+			>
+				<Flex
+					direction={['column', 'column', 'row']}
+					mr='23px'
+					gap={['15px', '15px', 'unset']}
+				>
+					{
+						profileInfo.map((item, index) => (
+							<Flex
+								direction={'column'}
+								mr={['20px', '20px', '50px']}
+								key={index}
+							>
+								<Text
+									fontFamily={'Nunito'}
+									fontWeight='700'
+									fontSize={'12px'}
+									lineHeight='16px'
+									textTransform={'capitalize'}
+									mb='12px'
+								>
+									{item.label}
+								</Text>
+								<Flex>
+									<Text
+										fontFamily={'Nunito'}
+										fontWeight='700'
+										fontSize={'22px'}
+										lineHeight='30px'
+										textTransform={'capitalize'}
+									>
+										{getEllipsisTxt(item.value, 3)}
+									</Text>
+									<Flex
+										alignItems={'center'}
+										display={['flex']}
+										ml='16px'
+										onClick={() => copy(item.value)}
+										cursor={'pointer'}
+									>
+										<Image
+											src='/images/svgs/referral/copy.svg'
+										/>
+									</Flex>
+								</Flex>
+							</Flex>
+						))
+					}
+
+				</Flex>
+			</Flex>
+
+			<Flex
+				direction={['column', 'column', 'column', 'row']}
+				gap='37px'
+			>
+				<Flex
+					gap='37px'
+					mt='47px'
+					direction={['column', 'row']}
+				>
+					{
+						referralStatistics.map((item, index) => (
+							<Tooltip
+								label={
+									<Flex
+										direction={'column'}
+									>
+										<Flex
+										>
+											first prediction of minimum 100 uTBETS to get a 10 UTBETS reward
+										</Flex>
+										<Flex
+											fontSize={'15px'}
+										>
+											*(first prediction made on UltiBets, no matter which chain you've used)
+                                        </Flex>
+                                    </Flex>
+                                }
+                                bg={'#1F1F1F'}
+								placement={'top'}
+								borderRadius={'20px'}
+								textTransform={'capitalize'}
+								fontWeight={'700'}
+								fontFamily={'Nunito'}
+								offset={[0, 20]}
+								fontSize={'20px'}
+								border={'1px solid white'}
+								p={'20px'}
+								display={index == 1 ? 'flex' : 'none'}
+							>
+								<Flex
+									key={index}
+									borderRadius={'15px'}
+									fontFamily={'Nunito'}
+									fontStyle={'normal'}
+									textAlign='center'
+									textTransform={'capitalize'}
+									fontWeight={'700'}
+									px='1px'
+									py='1px'
+									width={'max-content'}
+									background={item.borderColor}
+									cursor={index == 1 ? 'pointer' : 'auto'}
+								>
+									<Flex
+										direction='column'
+										background={'#1F1F1F'}
+										px='24px'
+										py='12px'
+										borderRadius={'15px'}
+
+									>
+										<Text
+											fontSize={'18px'}
+											lineHeight={'27px'}
+										>
+											{item.label}
+										</Text>
+
+										<Text
+											fontSize={'24px'}
+											lineHeight={'33px'}
+										>
+											{item.value}
+										</Text>
+									</Flex>
+
+								</Flex>
+							</Tooltip>
+						))
+					}
+				</Flex>
+
+				<Flex
+					gap='37px'
+					mt={['0px', '0px', '0px', '47px']}
+					direction={['column', 'row']}
+				>
+					<Flex
+						borderRadius={'15px'}
+						fontFamily={'Nunito'}
+						fontStyle={'normal'}
+						textAlign='center'
+						textTransform={'capitalize'}
+						fontWeight={'700'}
+						px='1px'
+						py='1px'
+						width={'max-content'}
+						background={'linear-gradient(to bottom, #19A2A5, #739AF0)'}
+					>
+						<Flex
+							background={'#1F1F1F'}
+							px='24px'
+							py='12px'
+							borderRadius={'15px'}
+							gap={['10px', '30px']}
+							direction={['column', 'row']}
+						>
+							<Flex
+								direction={'column'}
+								justifyContent={'center'}
+							>
+								<Text
+									fontSize={'18px'}
+									lineHeight={'25px'}
+								>
+									First Prediction
+								</Text>
+								<Text
+									fontSize={'18px'}
+									lineHeight={'25px'}
+								>
+									Reward
+								</Text>
+							</Flex>
+
+							<Flex
+								alignItems={'center'}
+							>
+								<Button
+									onClick={handleFirstPredictionReward}
+									height={'46px'}
+									width={'155px'}
+									background={'unset'}
+									borderRadius={'34px'}
+									border={'1px solid #FC541C'}
+									_hover={{
+										background: '#FC541C',
+									}}
+									fontSize={'14px'}
+									lineHeight={'19px'}
+									textTransform={'capitalize'}
+									isDisabled={isFirstPredictionRewardDisable}
+								>
+									claim reward
+								</Button>
+							</Flex>
+						</Flex>
+					</Flex>
+				</Flex>
+			</Flex>
+			<AnnounceModal
+				isOpenAnnounceModal={isOpenClaimFirstBettingRewardSuccessAnnounceModal && claimReferralBettingReward.isSuccess}
+				onCloseAnnounceModal={onCloseClaimFirstBettingRewardSuccessAnnounceModal}
+				announceText={'You successfully claimed your first betting reward.'}
+				announceLogo={checkIconInGreenBg}
+				announceModalButtonText={'Close'}
+			/>
+			<AnnounceModal
+				isOpenAnnounceModal={
+					(isOpenClaimFirstBettingRewardSuccessAnnounceModal && claimReferralBettingReward.isLoading)
+				}
+				onCloseAnnounceModal={onCloseClaimFirstBettingRewardSuccessAnnounceModal}
+				announceText={'Your transaction is currently processing on the blockchain'}
+				announceGif={true}
+				announceModalButtonText={'Close'}
+			/>
+		</Flex >
+	)
+}
+
+export default Profile;
