@@ -36,13 +36,13 @@ export const addEvents = async (
 
             if (response.isSuccess) result.push({ [`${key}`]: true })
             else result.push({ [`${key}`]: false })
-            await delay(6000);
+            await delay(5000);
 
         }, Promise.resolve())
 
     } else if (data.repeatLevel == 2) {
         const chainIds = {
-            "testnet": [43113, 97, 80001, 420],
+            "testnet": [43113, 420, 80001, 97],
             "mainnet": [43114, 56, 10, 137]
         }
 
