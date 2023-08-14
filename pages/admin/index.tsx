@@ -53,6 +53,10 @@ const Admin = () => {
     location.reload();
   })
 
+  useEffect(() => {
+    console.log("category in pm: ", categoryInPM);
+  }, [categoryInPM]);
+
   (window as any).ethereum?.on('accountsChanged', async (accounts: any) => {
     if (accounts[0] !== process.env.ADMIN_WALLET_PUBLIC_KEY?.toLowerCase()) {
       toast.error('You are not an admin');
