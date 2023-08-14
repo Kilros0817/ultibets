@@ -43,16 +43,10 @@ const AddEventModalInPM = ({
   const [subcategory, setSubcategory] = useState<number>(0);
   const [filteredCategories, setFilteredCategories] = useState<any[]>();
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [allChainTxAnnounceResult, setAllChainTxAnnounceResult] = useState<any>([]);
   const {
     isOpen: isOpenAddEventSuccessAnnounceModal,
     onOpen: onOpenAddEventSuccessAnnounceModal,
     onClose: onCloseAddEventSuccessAnnounceModal,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenAllChainTxAnnounceModal,
-    onOpen: onOpenAllChainTxAnnounceModal,
-    onClose: onCloseAllChainTxAnnounceModal,
   } = useDisclosure();
 
   const checkIfIsInputValid = () => {
@@ -94,9 +88,6 @@ const AddEventModalInPM = ({
 
 
       const result = await addEvents(data);
-
-      setAllChainTxAnnounceResult(result);
-      onOpenAllChainTxAnnounceModal();
 
       onClose();
       setDescription('');
@@ -348,11 +339,6 @@ const AddEventModalInPM = ({
         announceText={'Event has been successfully added'}
         announceLogo={checkIconInGreenBg}
         announceModalButtonText={'Close'}
-      />
-      <AllChainTxAnnounceModal
-        isOpenAllChainTxAnnounceModal={isOpenAllChainTxAnnounceModal}
-        onCloseAllChainTxAnnounceModal={onCloseAllChainTxAnnounceModal}
-        allChainTxAnnounceResult={allChainTxAnnounceResult}
       />
       <AnnounceModal
         isOpenAnnounceModal={isProcessing || (isOpenAddEventSuccessAnnounceModal && addEvent.isLoading)}

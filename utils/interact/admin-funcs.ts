@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { delay } from '../../utils/interact/utility';
+import { toast } from 'react-toastify';
+import { newChainAttrs } from '../config';
 
 // function approve(address spender, uint256 amount) public virtual override returns (bool) {
 export const addEvents = async (
@@ -13,7 +15,6 @@ export const addEvents = async (
             isNative: false
         }
     ]
-    let result: any = [];
     if (data.repeatLevel == 1) {
 
         await callArr.reduce(async (promise1, callItem, _2) => {
@@ -34,8 +35,11 @@ export const addEvents = async (
                 }
             )).data;
 
-            if (response.isSuccess) result.push({ [`${key}`]: true })
-            else result.push({ [`${key}`]: false })
+            if (response.isSuccess) {
+                toast.success(`${(newChainAttrs as any)[data.chainId].name} - ${callItem.isNative ? "Native" : "UTBETS"} deployed.`);
+            } else {
+                toast.warn(`${(newChainAttrs as any)[data.chainId].name} - ${callItem.isNative ? "Native" : "UTBETS"} failed.`);
+            }
             await delay(5000);
 
         }, Promise.resolve())
@@ -50,7 +54,6 @@ export const addEvents = async (
         await Promise.all(Object.values(currentChainIds).map(async (chainId: any) => {
             await callArr.reduce(async (promise1, callItem, _2) => {
                 await promise1;
-                const key = callItem.isNative ? `${chainId}a` : `${chainId}b`;
                 data.chainId = chainId;
                 const requestBody = {
                     info: data,
@@ -66,15 +69,15 @@ export const addEvents = async (
                     }
                 )).data;
 
-                if (response.isSuccess) result.push({ [`${key}`]: true })
-                else result.push({ [`${key}`]: false })
+                if (response.isSuccess) {
+                    toast.success(`${(newChainAttrs as any)[chainId].name} - ${callItem.isNative ? "Native" : "UTBETS"} deployed.`);
+                } else {
+                    toast.warn(`${(newChainAttrs as any)[chainId].name} - ${callItem.isNative ? "Native" : "UTBETS"} failed.`);
+                }
 
                 await delay(5000);
 
             }, Promise.resolve())
         }))
     }
-    console.log(result, "==========result===========")
-
-    return result;
 }
