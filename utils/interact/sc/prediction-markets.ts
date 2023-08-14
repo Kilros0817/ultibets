@@ -30,8 +30,6 @@ export const usePlaceBetInPM = (
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
     const { address, } = useAccount();
 
-    console.log("referer: ", referer != '' ? referer : address)
-
     const { config, error: prepareError } = usePrepareContractWrite({
         address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
         abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,

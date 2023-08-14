@@ -28,7 +28,7 @@ const polygonMumbai = {
     symbol: 'MATIC',
   },
   rpcUrls: {
-    default: { http: ['https://rpc-mumbai.maticvigil.com/'] },
+    default: { http: ['https://rpc-mumbai.maticvigil.com'] },
   },
   blockExplorers: {
     etherscan: { name: 'PolygonScan', url: 'https://mumbai.polygonscan.com/' },
