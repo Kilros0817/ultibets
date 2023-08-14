@@ -22,7 +22,6 @@ import { secondsInHalfHour, sidebarItems, subCategoriesInPredictionMarkets } fro
 import { useAddEvent } from '../../utils/interact/sc/prediction-markets';
 import AllChainTxAnnounceModal from './AllChainTxAnnounceModal';
 import AnnounceModal from './AnnounceModal';
-import { addEvents } from '../../utils/interact/admin-funcs';
 
 type AddEventModalProps = {
   isOpen: boolean,
@@ -43,10 +42,16 @@ const AddEventModalInPM = ({
   const [subcategory, setSubcategory] = useState<number>(0);
   const [filteredCategories, setFilteredCategories] = useState<any[]>();
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [allChainTxAnnounceResult, setAllChainTxAnnounceResult] = useState<any>([]);
   const {
     isOpen: isOpenAddEventSuccessAnnounceModal,
     onOpen: onOpenAddEventSuccessAnnounceModal,
     onClose: onCloseAddEventSuccessAnnounceModal,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenAllChainTxAnnounceModal,
+    onOpen: onOpenAllChainTxAnnounceModal,
+    onClose: onCloseAllChainTxAnnounceModal,
   } = useDisclosure();
 
   const checkIfIsInputValid = () => {
@@ -86,8 +91,24 @@ const AddEventModalInPM = ({
         chainId: chain?.id ?? 0,
       };
 
+      console.log("data: ", data);
 
-      const result = await addEvents(data);
+      const response = (await axios.post(
+        '/api/addEventAllInPM',
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          timeout: 600000, // 10 min
+        }
+      )).data;
+
+      console.log("**********   response: ", response);
+      if (response.isSuccess) {
+        setAllChainTxAnnounceResult(response.result);
+        onOpenAllChainTxAnnounceModal();
+      }
 
       onClose();
       setDescription('');
@@ -339,6 +360,11 @@ const AddEventModalInPM = ({
         announceText={'Event has been successfully added'}
         announceLogo={checkIconInGreenBg}
         announceModalButtonText={'Close'}
+      />
+      <AllChainTxAnnounceModal
+        isOpenAllChainTxAnnounceModal={isOpenAllChainTxAnnounceModal}
+        onCloseAllChainTxAnnounceModal={onCloseAllChainTxAnnounceModal}
+        allChainTxAnnounceResult={allChainTxAnnounceResult}
       />
       <AnnounceModal
         isOpenAnnounceModal={isProcessing || (isOpenAddEventSuccessAnnounceModal && addEvent.isLoading)}
