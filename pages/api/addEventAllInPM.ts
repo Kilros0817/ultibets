@@ -33,7 +33,7 @@ export const addEventAllInPM = async (req: any, res: any) => {
                 contractAddressForUtbetsToken: contractAddressesInDailyBets[bscTestnetChainId][1],
             },
             opGoerliChainId: {
-            chainId: opGoerliChainId,
+                chainId: opGoerliChainId,
                 rpc: (chainRPCs as any)[opGoerliChainId],
                 contractAddressForNativeToken: contractAddressesInDailyBets[opGoerliChainId][0],
                 contractAddressForUtbetsToken: contractAddressesInDailyBets[opGoerliChainId][1],

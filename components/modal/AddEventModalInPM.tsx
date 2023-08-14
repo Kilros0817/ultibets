@@ -22,6 +22,7 @@ import { secondsInHalfHour, sidebarItems, subCategoriesInPredictionMarkets } fro
 import { useAddEvent } from '../../utils/interact/sc/prediction-markets';
 import AllChainTxAnnounceModal from './AllChainTxAnnounceModal';
 import AnnounceModal from './AnnounceModal';
+import { addEvents } from '../../utils/interact/admin-funcs';
 
 type AddEventModalProps = {
   isOpen: boolean,
@@ -91,24 +92,11 @@ const AddEventModalInPM = ({
         chainId: chain?.id ?? 0,
       };
 
-      console.log("data: ", data);
 
-      const response = (await axios.post(
-        '/api/addEventAllInPM',
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          timeout: 600000, // 10 min
-        }
-      )).data;
+      const result = await addEvents(data);
 
-      console.log("**********   response: ", response);
-      if (response.isSuccess) {
-        setAllChainTxAnnounceResult(response.result);
-        onOpenAllChainTxAnnounceModal();
-      }
+      setAllChainTxAnnounceResult(result);
+      onOpenAllChainTxAnnounceModal();
 
       onClose();
       setDescription('');

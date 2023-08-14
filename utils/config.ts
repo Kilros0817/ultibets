@@ -375,7 +375,7 @@ export const supportedChainIds = {
 
 // 0 : native token daily bets contract
 // 1 : utbets token daily bets contract
-export const contractAddressesInDailyBets = {
+export const contractAddressesInDailyBets: {[key: number]: {[key: number] : string}} = {
 	[fujiChainId]: {
 		[0]: '0x0d7F53247c4C6190c71a3eF89DAd0329AB3eAE6B',
 		[1]: '0x4EFC118E67A6B44A0C403a0f4BD55aD70fec830A',
@@ -534,7 +534,7 @@ export const airdropContractAddresses = {
 	[polygonChainId]: '',
 }
 
-export const chainRPCs = {
+export const chainRPCs: {[key: number]: string} = {
 	[fujiChainId]: 'https://api.avax-test.network/ext/bc/C/rpc',
 	[bscTestnetChainId]: 'https://bsc-testnet.publicnode.com',
 	[opGoerliChainId]: 'https://goerli.optimism.io',
