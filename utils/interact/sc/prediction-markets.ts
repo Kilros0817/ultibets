@@ -30,8 +30,6 @@ export const usePlaceBetInPM = (
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
     const { address, } = useAccount();
 
-    console.log("referer: ", referer != '' ? referer : address)
-
     const { config, error: prepareError } = usePrepareContractWrite({
         address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
         abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
@@ -233,7 +231,6 @@ export const useAddEvent = (
 ) => {
     const { chain } = useNetwork();
     const { isNativeToken, } = useChainContext();
-    console.log(isNativeToken, "===========")
     let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
 

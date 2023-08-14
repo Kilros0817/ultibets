@@ -74,6 +74,7 @@ export const addEvents = async (
             }, Promise.resolve())
         }))
     }
+    console.log(result, "==========result===========")
 
     return result;
 }
