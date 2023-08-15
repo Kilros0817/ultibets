@@ -2,8 +2,8 @@ import { readContract, writeContract } from "@wagmi/core";
 
 // function approve(address spender, uint256 amount) public virtual override returns (bool) {
 export const approveUtbets = async (tokenAddress: any,
-    spender: string,
-    amount: string) => {
+    spender: any,
+    amount: any) => {
     const { wait } = await writeContract({
         mode: "recklesslyUnprepared",
         address: tokenAddress,
