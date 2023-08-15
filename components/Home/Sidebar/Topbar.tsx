@@ -13,12 +13,6 @@ const Sidebar = () => {
   const [sidebarLink, setSideBarLink] = useState<string | undefined>('/world-cup');
   const SidebarItems: Array<SidebarItemProps> = [
     {
-      id: '13',
-      name: 'World Cup',
-      href: '/world-cup',
-      icon: '/images/svgs/sidebar/world-cup.svg',
-    },
-    {
       id: '1',
       name: 'Soccer',
       href: '/',

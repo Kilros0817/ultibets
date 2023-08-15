@@ -42,11 +42,6 @@ const Partners = () => {
             height={"auto"}
           />
           <Image
-            src={"/images/svgs/Sushi_logo.svg"}
-            width={["200px", "200px", "250px", "220px", "250px", "350px"]}
-            height={"auto"}
-          />
-          <Image
             src={"/images/svgs/Thorstarter_logo.svg"}
             position={"relative"}
             width={["200px", "200px", "250px", "220px", "250px", "350px"]}
