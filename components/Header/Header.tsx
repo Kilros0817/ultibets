@@ -20,14 +20,16 @@ import { useNetwork, useSwitchNetwork, } from 'wagmi';
 import NavLink from './Navlink'
 import Account from '../Account'
 import {
+  LinkArry1,
+  LinkArry2,
   bannedCountries,
   bannedCountriesCodes,
   chainAttrs,
-  LinkArry,
   mumbaiChainId,
   newChainAttrs,
   polygonChainId,
   profileContext,
+  snapshotURL,
 } from '../../utils/config';
 import axios from 'axios';
 import GeoBlockModal from '../modal/startup/GeoBlockModal';
@@ -37,6 +39,7 @@ import AdBlockDetectModal from '../modal/startup/AdBlockDetectModal';
 import { ChainAttrItemType } from '../../utils/types';
 import AnnounceModal from '../modal/AnnounceModal';
 import { exclamationIconInRedBg } from '../../utils/assets';
+import ExLink from './ExLink';
 
 const Header = () => {
   const router = useRouter();
@@ -126,6 +129,8 @@ const Header = () => {
               router.push('/');
             }
           }
+        } else if (router.asPath == '/') {
+          router.push('/home');
         }
       }
 
@@ -138,26 +143,6 @@ const Header = () => {
 
     })()
   }, [router])
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     const rawChainId = chain?.id;
-  //     console.log("raw chain id: ", rawChainId, Math.round(Date.now() / 1000));
-  //     const isMainnet = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet";
-
-  //     if (
-  //       (
-  //         rawChainId == undefined
-  //         || !supportedChainIds[isMainnet ? "mainnet" : "testnet"].includes(rawChainId)
-  //       )
-  //       && router.asPath != '/'
-  //     ) {
-  //       console.log("raw chain id: ", rawChainId, Math.round(Date.now() / 1000));
-  //       console.log("unsupported chain");
-  //       router.push('/');
-  //     }
-  //   }, 2000)
-  // }, [chain?.id, router])
 
   const ChainIcon = () => (
     <Flex
@@ -371,7 +356,20 @@ const Header = () => {
           px='2'
         >
           {
-            LinkArry.map((item, index) => (
+            LinkArry1.map((item, index) => (
+              <NavLink
+                key={index}
+                name={item.name}
+                href={item.href}
+              />
+            ))
+          }
+          <ExLink 
+            name="Governance"
+            href={snapshotURL}
+          />
+          {
+            LinkArry2.map((item, index) => (
               <NavLink
                 key={index}
                 name={item.name}
@@ -452,7 +450,22 @@ const Header = () => {
           zIndex={'2'}
         >
           {
-            LinkArry.map((item, index) => (
+            LinkArry1.map((item, index) => (
+              <NavLink
+                key={index}
+                href={item.href}
+                name={item.name}
+                onClose={onClose}
+              />
+            ))
+          }
+          <ExLink 
+            name="Governance"
+            href={snapshotURL}
+            onClose={onClose}
+          />
+          {
+            LinkArry2.map((item, index) => (
               <NavLink
                 key={index}
                 href={item.href}

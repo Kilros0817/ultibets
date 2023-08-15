@@ -36,7 +36,8 @@ const UtbetsAirdrop = () => {
   useEffect(() => {
     if (prizeAmount.isLoading) return;
     if (prizeAmount.status) {
-      setIsEligible(Number(ethers.utils.formatEther(prizeAmount.result as string)) > 0);
+      const amount = prizeAmount.result ? prizeAmount.result : 0;
+      setIsEligible(Number(ethers.utils.formatEther(amount as string)) > 0);
     }
   }, [
     chain,

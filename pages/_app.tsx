@@ -4,19 +4,21 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { configureChains, createClient, WagmiConfig, Chain } from 'wagmi';
-
+import { polygon } from "wagmi/chains";
 import { publicProvider } from 'wagmi/providers/public';
-import Layout from '../layouts/layout'
-import theme from '../utils/theme'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { Provider } from 'react-redux';
 import sal from 'sal.js'
 import './../node_modules/sal.js/dist/sal.css'
 import Head from 'next/head'
 import "./utbets-token/token-information/Pie.scss";
+import store from '../store';
+import Layout from '../layouts/layout'
+import theme from '../utils/theme'
 
 const polygonMumbai = {
   id: 80_001,
@@ -77,7 +79,7 @@ const avalancheFuji = {
   },
   rpcUrls: {
     // public: { http: ['https://maximum-fragrant-borough.avalanche-testnet.quiknode.pro/de295874f97f6a24d4766de77e120d94eb6e59e1/ext/bc/C/rpc'] },
-    default: { http: ['https://api.avax-test.network/ext/bc/C/rpc'] },
+    default: { http: ['https://rpc.ankr.com/avalanche_fuji-c'] },
   },
   blockExplorers: {
     etherscan: { name: 'SnowTrace', url: 'https://testnet.snowtrace.io/' },
@@ -125,8 +127,8 @@ const optimismGoerli = {
 const { chains, provider, webSocketProvider } = configureChains(
   [
     ...(process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? [
-
     ] : [
+      polygon,
       avalancheFuji,
       bscTestnet,
       polygonMumbai,
@@ -183,16 +185,18 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       {
         ready ? (
-          <WagmiConfig client={wagmiClient}>
-            <RainbowKitProvider chains={chains}>
-              <ChakraProvider theme={theme}>
-                <Layout>
-                  <Component {...pageProps} />
-                  <ToastContainer position="top-center" />
-                </Layout>
-              </ChakraProvider>
-            </RainbowKitProvider>
-          </WagmiConfig>
+          <Provider store={store}>
+              <WagmiConfig client={wagmiClient}>
+                <RainbowKitProvider chains={chains}>
+                  <ChakraProvider theme={theme}>
+                    <Layout>
+                      <Component {...pageProps} />
+                      <ToastContainer position="top-center" />
+                    </Layout>
+                  </ChakraProvider>
+                </RainbowKitProvider>
+              </WagmiConfig>
+          </Provider>
         ) : null
       }
     </>

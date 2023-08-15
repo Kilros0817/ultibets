@@ -109,10 +109,10 @@ export const rounds = [
 	'winner-page', // 7
 ]
 
-export const LinkArry = [
+export const LinkArry1 = [
 	{
 		name: 'Home',
-		href: 'https://ultibets.vercel.app/',
+		href: '/home',
 	},
 	{
 		name: 'Prediction Markets',
@@ -127,19 +127,20 @@ export const LinkArry = [
 		name: 'UtBets Token',
 		href: '/utbets-token/token-information',
 	},
-	{
-		name: 'Governance',
-		href: '/governance',
-	},
+	
+	
+];
+
+export const LinkArry2 = [
 	{
 		name: 'Merch Store',
-		href: 'https://ultibetsmerchstore.vercel.app/merch-store',
+		href: '/merch-store',
 	},
 	{
 		name: 'FAQ',
 		href: '/faq',
 	},
-];
+]
 
 export const sortByItems = [
 	'Volume: High to Low',
@@ -1070,3 +1071,6 @@ export const referralChains = [
 export const bridgeURL = 'https://app.chainport.io/';
 export const uniswapURL = "https://app.uniswap.org/#/swap";
 export const uniswapAddLP = "https://app.uniswap.org/#/add/ETH/";
+export const snapshotURL = "https://demo.snapshot.org/#/kilros1.eth";
+
+export const polygonUSDCAddress = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174";

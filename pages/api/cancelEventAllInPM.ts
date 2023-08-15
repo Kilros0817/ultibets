@@ -32,12 +32,12 @@ export const cancelEventAllInPM = async (req: any, res: any) => {
                 contractAddressForNativeToken: contractAddressesInDailyBets[bscTestnetChainId][0],
                 contractAddressForUtbetsToken: contractAddressesInDailyBets[bscTestnetChainId][1],
             },
-            // opGoerliChainId: {
-            // chainId: opGoerliChainId,
-            //     rpc: (chainRPCs as any)[opGoerliChainId],
-            //     contractAddressForNativeToken: contractAddressesInDailyBets[opGoerliChainId][0],
-            //     contractAddressForUtbetsToken: contractAddressesInDailyBets[opGoerliChainId][1],
-            // },
+            opGoerliChainId: {
+            chainId: opGoerliChainId,
+                rpc: (chainRPCs as any)[opGoerliChainId],
+                contractAddressForNativeToken: contractAddressesInDailyBets[opGoerliChainId][0],
+                contractAddressForUtbetsToken: contractAddressesInDailyBets[opGoerliChainId][1],
+            },
             fujiChainId: {
                 chainId: fujiChainId,
                 // rpc: (chainRPCs as any)[fujiChainId],

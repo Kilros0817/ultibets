@@ -7,7 +7,8 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import NavLink from '../Header/Navlink'
-import { LinkArry } from '../../utils/config'
+import { LinkArry1, LinkArry2, snapshotURL } from '../../utils/config'
+import ExLink from '../Header/ExLink'
 
 const Footer = () => {
 
@@ -41,7 +42,15 @@ const Footer = () => {
               px='6'
               alignItems='center'
             >
-              {LinkArry.map((item, index) => (
+              {LinkArry1.map((item, index) => (
+                <NavLink key={index} name={item.name} footer href={item.href} />
+              ))}
+              <ExLink 
+                name="Governance"
+                href={snapshotURL}
+                footer
+              />
+              {LinkArry2.map((item, index) => (
                 <NavLink key={index} name={item.name} footer href={item.href} />
               ))}
             </Flex>
@@ -53,7 +62,17 @@ const Footer = () => {
               columnGap={['15px', '100px']}
             >
               {
-                LinkArry.map((item, index) => (
+                LinkArry1.map((item, index) => (
+                  <NavLink key={index} name={item.name} footer href={item.href} />
+                ))
+              }
+              <ExLink 
+                name="Governance"
+                href={snapshotURL}
+                footer
+              />
+              {
+                LinkArry2.map((item, index) => (
                   <NavLink key={index} name={item.name} footer href={item.href} />
                 ))
               }

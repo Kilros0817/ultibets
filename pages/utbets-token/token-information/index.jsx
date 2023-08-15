@@ -202,6 +202,7 @@ const TokenInformation = () => {
             <Flex
               direction='column'
               justifyContent='start'
+              key={index}
             >
               <Text
                 color={item.color}
