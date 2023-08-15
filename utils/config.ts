@@ -858,7 +858,7 @@ export const secondsInWeek = secondsInDay * 7;
 export const secondsInMonth = secondsInDay * 30;
 
 export const bannedCountries = [
-	// 'Afghanistan',
+	'Afghanistan',
 	// 'Belarus',
 	// 'Central African Republic',
 	// 'Democratic Republic Of China',
@@ -881,7 +881,7 @@ export const bannedCountries = [
 
 
 export const bannedCountriesCodes = [
-	// 'AF',
+	'AF',
 	// 'BY',
 	// 'CF',
 	// 'CN',
