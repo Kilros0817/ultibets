@@ -79,7 +79,7 @@ const avalancheFuji = {
   },
   rpcUrls: {
     // public: { http: ['https://maximum-fragrant-borough.avalanche-testnet.quiknode.pro/de295874f97f6a24d4766de77e120d94eb6e59e1/ext/bc/C/rpc'] },
-    default: { http: ['https://rpc.ankr.com/avalanche_fuji-c'] },
+    default: { http: ['https://rpc.ankr.com/avalanche_fuji'] },
   },
   blockExplorers: {
     etherscan: { name: 'SnowTrace', url: 'https://testnet.snowtrace.io/' },
@@ -128,7 +128,7 @@ const { chains, provider, webSocketProvider } = configureChains(
   [
     ...(process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? [
     ] : [
-      polygon,
+      // polygon,
       avalancheFuji,
       bscTestnet,
       polygonMumbai,

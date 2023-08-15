@@ -15,6 +15,7 @@ import {
 } from '../../config';
 import { useChainContext, } from '../../Context';
 import { nativeTokenBetsAbiInSBC, ultibetsTokenBetsAbiInSBC } from '../../assets';
+import { readContract, writeContract } from "@wagmi/core";
 
 // function getEventList(
 //     uint256 _pageNumber,
@@ -83,7 +84,7 @@ export const useEventData = (
 }
 
 // function registerOnEvent(uint256 _eventID) external payable
-export const useRegisterOnEvent = (
+export const registerOnEvent = async (
     eventID: number,
     registerAmount: number,
 ) => {
@@ -93,40 +94,18 @@ export const useRegisterOnEvent = (
     let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
 
-    const { config, error: prepareError } = usePrepareContractWrite({
+    const { wait } = await writeContract({
+        mode: "recklesslyUnprepared",
         address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
         abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
-        functionName: 'registerOnEvent',
-        cacheTime: 2_000,
-        args: isNativeToken ? [eventID] : [eventID,],
+        functionName: "registerOnEvent",
+        args: [eventID],
         overrides: {
             value: isNativeToken ? ethers.utils.parseEther((registerAmount ?? '0')?.toString()) : 0,
         },
-        onSuccess(data) {
-            console.log('prepare contract write Success', data)
-        },
-        onError(prepareError) {
-            console.log('prepare contract write Error', prepareError)
-        },
-    })
-    const { write: registerOnEventFunction, data } = useContractWrite(config)
-    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
-        hash: data?.hash,
-        cacheTime: 2_000,
-        onSuccess(data) {
-            console.log("wait for transaction success: ", data);
-        },
-        onError(error) {
-            console.log('wait for transaction result error: ', error);
-        },
-    })
+    });
 
-    return {
-        status: error == undefined ? true : false,
-        isLoading,
-        registerOnEventFunction,
-        isSuccess,
-    }
+    await wait();
 }
 
 // function getRegisterIDOfBettor(
@@ -1041,49 +1020,23 @@ export const useGetWinnersNumber = (
 //     uint256 _eventID,
 //     bytes memory _signature
 // ) external
-export const useRegisterOnWarriorEvent = (
+export const registerOnWarriorEvent = async (
     eventID: number,
     signature: string,
 ) => {
-    console.log("eventID in winner claims prize: ", eventID)
 
     const { chain } = useNetwork();
     const isNativeToken = false;
     let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
 
-    const { config, error: prepareError } = usePrepareContractWrite({
+    const { wait } = await writeContract({
+        mode: "recklesslyUnprepared",
         address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
         abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
-        functionName: 'registerOnWarriorEvent',
-        cacheTime: 2_000,
-        args: [eventID, signature,],
-        // overrides: {
-        //     gasLimit: BigNumber.from(3000000),
-        // },
-        onSuccess(data) {
-            console.log('prepare contract write Success', data)
-        },
-        onError(prepareError) {
-            console.log('prepare contract write Error', prepareError)
-        },
-    })
-    const { write: registerOnWarriorEventFunction, data } = useContractWrite(config)
-    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
-        hash: data?.hash,
-        cacheTime: 2_000,
-        onSuccess(data) {
-            console.log("wait for transaction success: ", data);
-        },
-        onError(error) {
-            console.log('wait for transaction result error: ', error);
-        },
-    })
-
-    return {
-        status: error == undefined ? true : false,
-        isLoading,
-        registerOnWarriorEventFunction,
-        isSuccess,
-    }
+        functionName: "registerOnWarriorEvent",
+        args: [eventID, signature],
+    });
+    
+    await wait();
 }
