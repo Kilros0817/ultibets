@@ -22,7 +22,7 @@ import AnnounceModal from './AnnounceModal'
 import { checkIconInGreenBg, exclamationIconInRedBg, UltiBetsTokenAbi } from '../../utils/assets'
 import Account from '../Account'
 import { approveUtbets, getAllowance } from '../../utils/interact/sc/utbets';
-import { ethers } from 'ethers';
+import { BigNumberish, ethers } from 'ethers';
 
 export type RegisterModalInSBCProps = {
     isOpen: boolean
@@ -50,7 +50,7 @@ const RegisterModalInSBC = ({
     const { address, } = useAccount();
     const [chainId, setChainId] = useState<number>(polygonChainId);
     const [isApprovedUtbets, setIsApprovedUtbets] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const {
         isOpen: isOpenAnnounceModal,
         onOpen: onOpenAnnounceModal,
@@ -71,7 +71,7 @@ const RegisterModalInSBC = ({
         const tokenAddress = (utbetsTokenAddresses as any)[chainId];
         const sbcUAddress = (contractAddressesInSBC as any)[chainId][1];
         const allowance = await getAllowance(tokenAddress, address, sbcUAddress);
-        setIsApprovedUtbets(ethers.utils.formatEther(allowance as string) >= (registerAmount as any))
+        setIsApprovedUtbets(ethers.utils.formatEther(allowance as BigNumberish) >= (registerAmount as any))
     }
 
     useEffect(() => {

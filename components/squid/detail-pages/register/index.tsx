@@ -2,15 +2,11 @@ import {
   Box,
   Flex,
   Text,
-  useDisclosure,
 } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import '@fontsource/inter'
 import '@fontsource/nunito'
-import { useNetwork, } from 'wagmi';
 import Welcome from '../Welcome'
-import { chainAttrs, EventStateInSBC, VotingResultInSBC } from '../../../../utils/config'
-import { useChainContext } from '../../../../utils/Context'
 import TotalCurrentPrizePool from './TotalCurrentPrizePool'
 import SquidGrid from '../SquidGrid'
 
