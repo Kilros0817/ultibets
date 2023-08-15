@@ -24,10 +24,10 @@ import AnnounceModal from './AnnounceModal';
 import { convertBetValue2Number } from '../../utils/interact/utility';
 import axios from 'axios';
 import { PerkInfo } from '../../utils/types';
-import { useApprove } from '../../utils/interact/sc/utbets';
 import { checkIconInGreenBg, UltiBetsTokenAbi } from '../../utils/assets';
 import { toast } from 'react-toastify';
 import { ethers } from 'ethers';
+import { approveUtbets } from '../../utils/interact/sc/utbets';
 const crossIconInRedBg = "/images/svgs/modal/cross-icon-in-red-bg.svg";
 
 export type PredictionsModalProps = {
@@ -177,19 +177,12 @@ const PredictionsModal = ({
     }
   }
 
-  const approveUtbets = useApprove(
-    (utbetsTokenAddresses as any)[chainId],
-    type == 'prediction' ? (contractAddressesInDailyBets as any)[chainId][1] : (contractAddressesInSBC as any)[chainId][1],
-    ((type == 'prediction' ? newBetAmount : roundBetAmount) ?? 0)?.toString(),
-  );
-
   const handleApproveUtbets = async () => {
     if (isNativeToken) return;
     if (((type == 'prediction' ? newBetAmount : roundBetAmount) ?? 0) == 0) {
       toast.error('Please input amount at first');
       return;
     }
-    if (approveUtbets.isLoading) return;
 
     console.log("new bet amount: ", newBetAmount);
     console.log("balance of native token: ", parseFloat(balanceOfNativeTokenInWallet?.formatted ?? '0'));
@@ -198,7 +191,9 @@ const PredictionsModal = ({
     const balanceOfUtbets = await contract.balanceOf(address);
     console.log("balance of utbets token: ", ethers.utils.formatEther(balanceOfUtbets));
     try {
-      approveUtbets.approveFunction?.();
+      await approveUtbets((utbetsTokenAddresses as any)[chainId],
+      type == 'prediction' ? (contractAddressesInDailyBets as any)[chainId][1] : (contractAddressesInSBC as any)[chainId][1],
+      ((type == 'prediction' ? newBetAmount : roundBetAmount) ?? 0)?.toString())
       onOpenApproveSuccessAnnounceModal();
       await getSignature();
     } catch (err) {
@@ -429,7 +424,7 @@ const PredictionsModal = ({
         </ModalContent>
       </Modal>
       <AnnounceModal
-        isOpenAnnounceModal={isOpenApproveSuccessAnnounceModal && approveUtbets.isSuccess}
+        isOpenAnnounceModal={isOpenApproveSuccessAnnounceModal}
         onCloseAnnounceModal={onCloseApproveSuccessAnnounceModal}
         announceText={'UTBETS successfully approved'}
         announceLogo={checkIconInGreenBg}
@@ -459,7 +454,7 @@ const PredictionsModal = ({
       />
       <AnnounceModal
         isOpenAnnounceModal={
-          (isOpenApproveSuccessAnnounceModal && approveUtbets.isLoading) ||
+          (isOpenApproveSuccessAnnounceModal) ||
           (isOpenThird && (placeBetInPM.isLoading || placeBetInSBC.isLoading || placeBetUsingPerk.isLoading))
         }
         onCloseAnnounceModal={onCloseApproveSuccessAnnounceModal}
