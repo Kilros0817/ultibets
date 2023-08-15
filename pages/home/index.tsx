@@ -24,7 +24,7 @@ const Home = () => {
         src={'/images/svgs/bg/simple-bg.png'}
         height={['0px', '752px', '600px', '752px']}
         width={['0px', '100vw', '100vw', '100vw']}
-        marginLeft={['0', '0', '0', '50px', '50px']}
+        marginLeft={['0', '0', '0', '80px', '50px']}
         backgroundBlendMode={'lighten'}
         alt={'background'}
       />
