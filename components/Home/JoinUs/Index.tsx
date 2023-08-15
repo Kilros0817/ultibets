@@ -12,7 +12,7 @@ const JoinUs = () => {
         display={["none", "none", "block", "block"]}
         width={["300px", "100vw", "100vw", "100vw","98.7vw"]}
         height={["640px", "800px", "1000px", "1200px"]}
-        marginLeft={['0px', '0px', '0px', '100px']}
+        marginLeft={['0px', '0px', '0px', '80px',]}
         background={"url(/images/svgs/bg/bg-last.png) center/cover no-repeat"}
       >
         <Flex
