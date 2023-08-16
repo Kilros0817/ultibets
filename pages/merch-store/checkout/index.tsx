@@ -105,6 +105,7 @@ const Checkout: NextPage = () => {
                 autoClose: 4000,
                 theme: 'dark'
             });
+            await writeUserData();
             onClose();
             onSecondModalOpen();
 
@@ -734,8 +735,6 @@ const Checkout: NextPage = () => {
                                           onClick={
                                               async () => {
                                                   await getBalance();
-                                                  console.log("=======1111========")
-                                                  await writeUserData();
                                               }
                                           }
                                           variant='ghost'
