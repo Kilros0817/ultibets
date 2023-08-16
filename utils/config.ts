@@ -1073,5 +1073,5 @@ export const uniswapURL = "https://app.uniswap.org/#/swap";
 export const uniswapAddLP = "https://app.uniswap.org/#/add/ETH/";
 export const snapshotURL = "https://snapshot.org/#/ultibets.eth";
 
-// export const polygonUSDCAddress = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174";
-export const polygonUSDCAddress = "0x03944D714cE2a05Af2a53B0807E3268115945675";
+export const polygonUSDCAddress = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174";
+// export const polygonUSDCAddress = "0x03944D714cE2a05Af2a53B0807E3268115945675";

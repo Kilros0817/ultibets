@@ -153,7 +153,7 @@ const Checkout: NextPage = () => {
     }
 
     useEffect(() => {
-        setIsCorrectChain(chain?. id == bscTestnetChainId)
+        setIsCorrectChain(chain?. id == polygonChainId)
     }, [signer])
 
     return (
