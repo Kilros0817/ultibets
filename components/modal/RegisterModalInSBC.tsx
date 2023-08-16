@@ -14,14 +14,14 @@ import {
 import React, { useEffect, useState } from 'react'
 import '@fontsource/inter'
 import '@fontsource/nunito'
-import { useAccount, useBalance, useNetwork } from 'wagmi';
+import { useAccount, useBalance, useNetwork, } from 'wagmi';
 import { useChainContext } from '../../utils/Context'
-import { registerOnEvent, registerOnWarriorEvent } from '../../utils/interact/sc/squid-competition'
+import { useRegisterOnEvent, useRegisterOnWarriorEvent } from '../../utils/interact/sc/squid-competition'
 import { chainAttrs, chainRPCs, contractAddressesInSBC, EventCategory, mumbaiChainId, polygonChainId, utbetsTokenAddresses } from '../../utils/config'
 import AnnounceModal from './AnnounceModal'
 import { checkIconInGreenBg, exclamationIconInRedBg, UltiBetsTokenAbi } from '../../utils/assets'
 import Account from '../Account'
-import { approveUtbets, getAllowance } from '../../utils/interact/sc/utbets';
+import { getAllowance, useApprove } from '../../utils/interact/sc/utbets';
 import { BigNumberish, ethers } from 'ethers';
 
 export type RegisterModalInSBCProps = {
@@ -44,13 +44,13 @@ const RegisterModalInSBC = ({
 }: RegisterModalInSBCProps) => {
     const { isNativeToken, } = useChainContext();
     const { chain, } = useNetwork();
-
     const [currentMainnetOrTestnetAttrs,] = useState(
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
+    const [chainAttrsIndex, setChainAttrsIndex] = useState(1);
+    const [currentToken, setCurrentToken] = useState(isNativeToken ? currentMainnetOrTestnetAttrs[chainAttrsIndex].nativeToken : "UTBETS");
     const { address, } = useAccount();
     const [chainId, setChainId] = useState<number>(polygonChainId);
     const [isApprovedUtbets, setIsApprovedUtbets] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState(false);
     const {
         isOpen: isOpenAnnounceModal,
         onOpen: onOpenAnnounceModal,
@@ -67,11 +67,16 @@ const RegisterModalInSBC = ({
         onClose: onCloseRegisterEventSuccessAnnounceModal,
     } = useDisclosure();
 
-    const initApproval = async () => {
-        const tokenAddress = (utbetsTokenAddresses as any)[chainId];
-        const sbcUAddress = (contractAddressesInSBC as any)[chainId][1];
-        const allowance = await getAllowance(tokenAddress, address, sbcUAddress);
-        setIsApprovedUtbets(ethers.utils.formatEther(allowance as BigNumberish) >= (registerAmount as any))
+    const getApproval = async () => {
+        console.log(chainId, "===========chainID===========")
+        console.log(address, "===========address=========")
+        console.log((utbetsTokenAddresses as any)[chainId], "===========utbetsTokenAddresses=========")
+        console.log((contractAddressesInSBC as any)[chainId][1], "===========contractAddressesInSBC=========")
+        // const allowance = await getAllowance((utbetsTokenAddresses as any)[chainId], address, (contractAddressesInSBC as any)[chainId][1]);
+        // console.log(allowance, "============allowance==========")
+        // const amount = Number(ethers.utils.formatEther(allowance as BigNumberish));
+        // if (amount >= (registerAmount ?? 0)) setIsApprovedUtbets(true)
+
     }
 
     useEffect(() => {
@@ -83,29 +88,45 @@ const RegisterModalInSBC = ({
             currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
         }
         setChainId(chainId);
+        setChainAttrsIndex(currentChainAttrsItem[0].index);
+        setCurrentToken(isNativeToken ? currentMainnetOrTestnetAttrs[currentChainAttrsItem[0].index].nativeToken : "UTBETS")
 
-        if (!isNativeToken) {
-            initApproval()
+        const initApproval = async () => {
+            await getApproval();
+        }
+        if (!isNativeToken && chain?.id) {
+            initApproval();
         }
     }, [chain, isNativeToken]);
+
+    const approveUtbets = useApprove(
+        (utbetsTokenAddresses as any)[chainId],
+        (contractAddressesInSBC as any)[chainId][1],
+        (registerAmount ?? 0)?.toString(),
+    );
 
     const handleApproveUtbets = async () => {
         if (isNativeToken) return;
         if ((registerAmount ?? 0) == 0) return;
+        if (approveUtbets.isLoading) return;
 
         try {
-            
-            await approveUtbets(
-                (utbetsTokenAddresses as any)[chainId],
-                (contractAddressesInSBC as any)[chainId][1],
-                (registerAmount ?? 0)?.toString()
-                )
-            await initApproval();
+            approveUtbets.approveFunction?.();
             onOpenApproveSuccessAnnounceModal();
         } catch (err) {
             console.log('error in approve utbets token: ', err);
         }
     }
+
+    const registerOnEvent = useRegisterOnEvent(
+        eventID ?? 1,
+        registerAmount ?? 0,
+    )
+
+    const registerOnWarriorEvent = useRegisterOnWarriorEvent(
+        eventID ?? 1,
+        signature,
+    )
 
     useEffect(() => {
         console.log("signature: ", signature);
@@ -113,6 +134,12 @@ const RegisterModalInSBC = ({
 
     const { data: balanceOfNativeTokenInWallet, isLoading: fetchingBalanceOfNativeTokenInWallet, isError: isErrorInFetchingBalanceOfNativeTokenInWallet } = useBalance({
         address: address,
+    })
+
+    const { data: balanceOfUtbetsTokenInWallet, isLoading: fetchingBalanceOfUtbetsTokenInWallet, isError: isErrorInFetchingBalanceOfUtbetsTokenInWallet } = useBalance({
+        address: address,
+        // @ts-ignore
+        token: utbetsTokenAddresses[chain?.id!]
     })
 
     const handleRegister = async () => {
@@ -143,26 +170,23 @@ const RegisterModalInSBC = ({
         }
 
         if (category == EventCategory.WarriorBet) {
+            console.log("category: ", category == EventCategory.WarriorBet);
+            if (registerOnWarriorEvent.isLoading) return;
+
             try {
-                setIsLoading(true)
-                await registerOnWarriorEvent(eventID ?? 1, signature)
-                setIsLoading(false);
+                registerOnWarriorEvent.registerOnWarriorEventFunction?.();
                 onOpenRegisterEventSuccessAnnounceModal();
             } catch (err) {
-                setIsLoading(false);
                 console.log('error in register warrior bet: ', err);
             }
         } else {
-            try {
-                setIsLoading(true)
+            console.log("category: register on event");
+            if (registerOnEvent.isLoading) return;
 
-                await registerOnEvent(
-                    eventID ?? 1,
-                    registerAmount ?? 0)
-                setIsLoading(false);
+            try {
+                registerOnEvent.registerOnEventFunction?.();
                 onOpenRegisterEventSuccessAnnounceModal();
             } catch (err) {
-                setIsLoading(false);
                 console.log('error in register bet: ', err);
             }
         }
@@ -407,20 +431,22 @@ const RegisterModalInSBC = ({
                 announceModalButtonText={'Close'}
             />
             <AnnounceModal
-                isOpenAnnounceModal={isOpenApproveSuccessAnnounceModal}
+                isOpenAnnounceModal={isOpenApproveSuccessAnnounceModal && approveUtbets.isSuccess}
                 onCloseAnnounceModal={onCloseApproveSuccessAnnounceModal}
                 announceText={'UTBETS successfully approved'}
                 announceLogo={checkIconInGreenBg}
                 announceModalButtonText={'Close'}
-                announceModalButtonAction={() => {
+                announceModalButtonAction={async() => {
+                    await getApproval()
                     onCloseApproveSuccessAnnounceModal();
                 }}
             />
             <AnnounceModal
-                isOpenAnnounceModal={isOpenRegisterEventSuccessAnnounceModal}
+                isOpenAnnounceModal={isOpenRegisterEventSuccessAnnounceModal && (registerOnEvent.isSuccess || registerOnWarriorEvent.isSuccess)}
                 onCloseAnnounceModal={() => {
                     onCloseRegisterEventSuccessAnnounceModal();
                     onClose();
+                    setIsApprovedUtbets(false);
                 }}
                 announceText={'You successfully registered for this event.'}
                 announceLogo={checkIconInGreenBg}
@@ -428,7 +454,8 @@ const RegisterModalInSBC = ({
             />
             <AnnounceModal
                 isOpenAnnounceModal={
-                    isLoading
+                    (isOpenApproveSuccessAnnounceModal && approveUtbets.isLoading) ||
+                    (isOpenRegisterEventSuccessAnnounceModal && (registerOnEvent.isLoading || registerOnWarriorEvent.isLoading))
                 }
                 onCloseAnnounceModal={onCloseApproveSuccessAnnounceModal}
                 announceText={'Your transaction is currently processing on the blockchain'}

@@ -36,7 +36,7 @@ import {countries} from '../../../constant/countries';
 import {continents} from '../../../constant/continents';
 import {shippingCost} from '../../../constant/continents';
 import {getUSDCBalance, transferUSDC} from '../../../utils/interact/sc/usdc';
-import {polygonChainId} from '../../../utils/config';
+import {bscTestnetChainId, polygonChainId} from '../../../utils/config';
 import Account from '../../../components/Account';
 import SubHeader from '../../../components/MerchStore/SubHeader';
 
@@ -152,7 +152,7 @@ const Checkout: NextPage = () => {
     }
 
     useEffect(() => {
-        setIsCorrectChain(chain ?. id == polygonChainId)
+        setIsCorrectChain(chain?. id == bscTestnetChainId)
     }, [signer])
 
     return (
@@ -734,6 +734,7 @@ const Checkout: NextPage = () => {
                                           onClick={
                                               async () => {
                                                   await getBalance();
+                                                  console.log("=======1111========")
                                                   await writeUserData();
                                               }
                                           }

@@ -1,11 +1,18 @@
 import { readContract, writeContract } from "@wagmi/core";
+import {
+    useContractWrite,
+    usePrepareContractWrite,
+    useWaitForTransaction,
+} from 'wagmi';
+import { ethers } from 'ethers';
 
 // function approve(address spender, uint256 amount) public virtual override returns (bool) {
-export const approveUtbets = async (tokenAddress: any,
-    spender: any,
-    amount: any) => {
-    const { wait } = await writeContract({
-        mode: "recklesslyUnprepared",
+export const useApprove = (
+    tokenAddress: any,
+    spender: string,
+    amount: string
+) => {
+    const { config, error: prepareError } = usePrepareContractWrite({
         address: tokenAddress,
         abi: [{
             "inputs": [
@@ -31,15 +38,42 @@ export const approveUtbets = async (tokenAddress: any,
             "stateMutability": "nonpayable",
             "type": "function"
         },],
-        functionName: "approve",
-        args: [spender, amount],
-    });
+        functionName: 'approve',
+        cacheTime: 2_000,
+        args: [
+            //@ts-ignore
+            spender,
+            ethers.utils.parseEther(amount),
+        ],
+        onSuccess(data) {
+            console.log('prepare contract write Success', data)
+        },
+        onError(prepareError) {
+            console.log('prepare contract write Error', prepareError)
+        },
+    })
+    const { write: approveFunction, data } = useContractWrite(config)
+    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
+        hash: data?.hash,
+        cacheTime: 2_000,
+        onSuccess(data) {
+            console.log("wait for transaction success: ", data);
+        },
+        onError(error) {
+            console.log('wait for transaction result error: ', error);
+        },
+    })
 
-    await wait();
-
-};
+    return {
+        status: error == undefined ? true : false,
+        isLoading,
+        approveFunction,
+        isSuccess,
+    }
+}
 
 export const getAllowance = async (tokenAddress: any, owner: any, spender: any) => {
+    console.log(tokenAddress, "=========tokenAddress===========")
     const allowance = await readContract({
         address: tokenAddress,
         abi: [{
@@ -69,35 +103,5 @@ export const getAllowance = async (tokenAddress: any, owner: any, spender: any) 
         functionName: "allowance",
         args: [owner, spender],
     });
-
     return allowance;
 }
-
-export const getUSDCBalance = async (tokenAddress: any, account: any) => {
-    const balance = await readContract({
-        address: tokenAddress,
-        abi: [{
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "account",
-                    "type": "address"
-                }
-            ],
-            "name": "balanceOf",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        }],
-        functionName: "balanceOf",
-        args: [account],
-    });
-
-    return balance;
-};
