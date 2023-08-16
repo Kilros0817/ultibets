@@ -34,13 +34,14 @@ const SubHeader = () => {
       bgColor={'#1F1F1F'}
       justifyContent='center'
       alignItems={'center'}
-      display={['none', 'none', 'flex', 'flex']}
+      display={'flex'}
       zIndex={11}
     >
       <Flex
         alignItems={'center'}
         justifyContent={'space-between'}
-        width={'600px'}
+        width={['300px', '400px','600px']}
+        fontSize={['10px', '12px', '14px']}
         mb={'20px'}
       >
         {subCategories.map((subCategory) => (
@@ -57,7 +58,6 @@ const SubHeader = () => {
               _selected={{
                 color: '#E18833',
               }}
-              fontSize={'14px'}
               fontWeight={'bold'}
             >
               {subCategory.name}
