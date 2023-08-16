@@ -304,7 +304,7 @@ const Checkout: NextPage = () => {
                                             {' '}
                                             Select Continent
                                         </FormLabel>
-                                        <Select color={'white'} value="Continent"
+                                        <Select color={'white'} defaultValue="Continent"
                                             {...register('continent', {
                                                                           required: 'Continent is required',
                                                                         })}>
@@ -349,7 +349,7 @@ const Checkout: NextPage = () => {
                                             {' '}
                                             Select Country
                                         </FormLabel>
-                                        <Select color={'white'} value="Country"
+                                        <Select color={'white'} defaultValue="Country"
                                             {...register('country', {
                                                                           required: 'Country is required',
                                                                         })}>
