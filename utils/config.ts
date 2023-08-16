@@ -859,47 +859,47 @@ export const secondsInMonth = secondsInDay * 30;
 
 export const bannedCountries = [
 	'Afghanistan',
-	'Belarus',
-	'Central African Republic',
-	'Democratic Republic Of China',
-	'Cuba',
-	'France',
-	'Haiti',
-	'Italy',
-	'Libya',
-	'Mali',
-	'Myanmar',
-	'North Korea',
+	// 'Belarus',
+	// 'Central African Republic',
+	// 'Democratic Republic Of China',
+	// 'Cuba',
+	// 'France',
+	// 'Haiti',
+	// 'Italy',
+	// 'Libya',
+	// 'Mali',
+	// 'Myanmar',
+	// 'North Korea',
 	// 'Federation Of Russia',
-	'Somalia',
-	'Syria',
-	'United Kingdom',
-	'United States',
-	'Yemen',
-	'Zimbabwe',
+	// 'Somalia',
+	// 'Syria',
+	// 'United Kingdom',
+	// 'United States',
+	// 'Yemen',
+	// 'Zimbabwe',
 ];
 
 
 export const bannedCountriesCodes = [
 	'AF',
-	'BY',
-	'CF',
-	'CN',
-	'CU',
-	'FR',
-	'HT',
-	'IT',
-	'LY',
-	'ML',
-	'MM',
-	'KP',
+	// 'BY',
+	// 'CF',
+	// 'CN',
+	// 'CU',
+	// 'FR',
+	// 'HT',
+	// 'IT',
+	// 'LY',
+	// 'ML',
+	// 'MM',
+	// 'KP',
 	// 'RU',
-	'SO',
-	'SY',
-	'GB',
-	'US',
-	'YE',
-	'ZW',
+	// 'SO',
+	// 'SY',
+	// 'GB',
+	// 'US',
+	// 'YE',
+	// 'ZW',
 ];
 
 export enum EventStateInSBC {
@@ -1071,6 +1071,6 @@ export const referralChains = [
 export const bridgeURL = 'https://app.chainport.io/';
 export const uniswapURL = "https://app.uniswap.org/#/swap";
 export const uniswapAddLP = "https://app.uniswap.org/#/add/ETH/";
-export const snapshotURL = "https://demo.snapshot.org/#/kilros1.eth";
+export const snapshotURL = "https://snapshot.org/#/ultibets.eth";
 
 export const polygonUSDCAddress = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174";
