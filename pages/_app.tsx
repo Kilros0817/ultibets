@@ -128,7 +128,7 @@ const { chains, provider, webSocketProvider } = configureChains(
   [
     ...(process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? [
     ] : [
-      // polygon,
+      polygon,
       avalancheFuji,
       bscTestnet,
       polygonMumbai,
