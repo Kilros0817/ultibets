@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import DetailedTee from '../../../components/MerchStore/DetailedTee';
 import { TeesData } from '../../../constant';
+import SubHeader from '../../../components/MerchStore/SubHeader';
 
 const ProductDetails: NextPage = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const ProductDetails: NextPage = () => {
       width={'100vw'}
       height={['auto', 'auto', '100vh', '100vh']}
     >
+      <SubHeader />
       {' '}
       <DetailedTee
         id={tee?.id as string}

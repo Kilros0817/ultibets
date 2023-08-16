@@ -38,6 +38,7 @@ import {shippingCost} from '../../../constant/continents';
 import {getUSDCBalance, transferUSDC} from '../../../utils/interact/sc/usdc';
 import {polygonChainId} from '../../../utils/config';
 import Account from '../../../components/Account';
+import SubHeader from '../../../components/MerchStore/SubHeader';
 
 const Checkout: NextPage = () => {
     const {address} = useAccount();
@@ -160,6 +161,7 @@ const Checkout: NextPage = () => {
             height={
                 cartItems.length ? 'auto' : '100vh'
         }>
+            <SubHeader />
             <Flex justifyContent={'center'}
                 direction={
                     ['column-reverse', 'column-reverse', 'row', 'row']
