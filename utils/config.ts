@@ -378,7 +378,7 @@ export const supportedChainIds = {
 // 1 : utbets token daily bets contract
 export const contractAddressesInDailyBets = {
 	[fujiChainId]: {
-		[0]: '0x16c1bdA5e400Eb4679ff55A8a86fF4ab8f80574E',
+		[0]: '0xFe5DE21aF57CDcA2714EC96A65F3b18B1d938762',
 		[1]: '0xb74090Eb3f049Ba23c177aE9359bC3835531f9ec',
 	},
 	[bscTestnetChainId]: {
