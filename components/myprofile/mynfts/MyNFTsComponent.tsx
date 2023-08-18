@@ -148,7 +148,7 @@ const MyNFTsComponent = ({
             let tokenURI = nftsFromSubgraph[i]?.tokenURI;
             if (tokenURI != "") {
                 let cid = (tokenURI.split('//'))[1];
-                const metadata = (await axios.get(`${process.env.NEXT_PUBLIC_PINATA_GATEWAY}/${cid}`)).data;
+                const metadata = (await axios.get(`${process.env.NEXT_PUBLIC_PINATA_GATEWAY}${cid}`)).data;
                 let imageUri = metadata.image;
                 imageUri = process.env.NEXT_PUBLIC_PINATA_GATEWAY + (imageUri.split('//'))[1]
 
@@ -172,8 +172,6 @@ const MyNFTsComponent = ({
                 }
             }
         }
-        console.log("============:  claimableNFTs", claimableNFTs);
-        console.log("============:  claimedNFTs", claimedNFTs);
         setClaimedNFTs(claimedNFTs);
         setClaimableNFTs(claimableNFTs);
     }
@@ -454,7 +452,7 @@ const MyNFTsComponent = ({
                                                 }}
                                                 isDisabled={!item.isFreeBet}
                                             >
-                                                sign to claim perks
+                                                {!item.isFreeBet ? 'Already claimed.' : 'sign to claim perks'}
                                             </Button>
                                         </Flex>
                                     </Flex>

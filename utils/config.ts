@@ -1,4 +1,4 @@
-import { avalancheLogo, basketballNBALogo, bscLogo, optimismLogo, moviesLogo, otherPredictionLogo, polygonLogo, soccerEnglandLogo, soccerFranceLogo, soccerGermanLogo, soccerItalyLogo, soccerSpainLogo, soccerUCLLogo, tvshowsLogo, usdcLogo, ussportNFLLogo, utbetsTokenLogo } from "./assets";
+import { basketballNBALogo, moviesLogo, otherPredictionLogo, soccerEnglandLogo, soccerFranceLogo, soccerGermanLogo, soccerItalyLogo, soccerSpainLogo, soccerUCLLogo, tvshowsLogo, ussportNFLLogo } from "./assets";
 
 const avalancheChain = {
 	chainId: 43114,
@@ -382,16 +382,16 @@ export const contractAddressesInDailyBets = {
 		[1]: '0x4EFC118E67A6B44A0C403a0f4BD55aD70fec830A',
 	},
 	[bscTestnetChainId]: {
-		[0]: '0xC8711154AC635dBdADD3d9e283F4B7652aFE1491',
-		[1]: '0xfA09687915348A79B421f44D12812068FFca33Df',
+		[0]: '0x99674f387e06450b699359d7f859638a5927e7F3',
+		[1]: '0x087F08382F7592064379513361C04AceAFE1f9F1',
 	},
 	[opGoerliChainId]: {
-		[0]: '0x98DcE4e32756e28c2B450e1128DaCae76dD84aEF',
-		[1]: '0x7fd4e21722b45DBFA2Db5a70F0354F61361108E1',
+		[0]: '0x6aae68622efA1e575eF57dbfE552e82561A36A92',
+		[1]: '0x47e9ab50062D13C1FA15b921aB3D027Bc2CCb8D1',
 	},
 	[mumbaiChainId]: {
-		[0]: '0x04db80D4Db5D043FC615e88c3e8b59bDC4AE0e53',
-		[1]: '0xeF8960Ab32B9a622C7ea9871001220d291fAcEF8',
+		[0]: '0xE5D956bae8CD817f75Ffa8469468De2AcB085cC4',
+		[1]: '0x63bcC004b432c1473fbDD9aa868Df1CDC13CA644',
 	},
 
 	[avalancheChainId]: {
@@ -416,20 +416,20 @@ export const contractAddressesInDailyBets = {
 // 1 : utbets token betting contract
 export const contractAddressesInSBC = {
 	[fujiChainId]: {
-		[0]: '0xc24DC48d223Dc98997f2D9EE4115DCC1ce182801',
-		[1]: '0x41a20ADE03A00Be0E01c030720c5583c50Ddc99b',
+		[0]: '0x20e86E3025552f64C23DFE92fb627eCE15fe8D8C',
+		[1]: '0x87fc7bFB36B806fc32950369551Bf8DeCbC23e60',
 	},
 	[bscTestnetChainId]: {
-		[0]: '0x3c3F4126979806E522A73aC144e3d254B61E3968',
-		[1]: '0x6aB0B6811c796515d257eFB1A2f7D55d3922bE5d',
+		[0]: '0x6ABB96b6B291828940E22AFe8a94F2dca639BE52',
+		[1]: '0xaf3D1bA2e497EB64561808e894F9efcfB95073EE',
 	},
 	[mumbaiChainId]: {
-		[0]: '0x7Abb6953D97588F1456e3384f0FBf6936a4F5B30',
-		[1]: '0x6e029b9A75Ef10Aa9d8114b875C55338437b7B6f',
+		[0]: '0x70C5058E8e1fD9A340f089a2C3AF0b98d10ED67c',
+		[1]: '0xcBC21F7f74fa78d8e8267CCC4f1D34F0FFDf5f99',
 	},
 	[opGoerliChainId]: {
-		[0]: '0xA3D63924D3761bd283E8FbDEf22bC0dDFC75FbBa',
-		[1]: '0x8b395898C7ddA896a6F1B4574b77ED915101dc5B',
+		[0]: '0x6C786aB69cc172bba6Bed2E2478D2633AdCeDFc3',
+		[1]: '0xBa5ece4e527c828d9B6B11393526E1B39D818845',
 	},
 	[avalancheChainId]: {
 		[0]: '',
@@ -446,10 +446,10 @@ export const contractAddressesInSBC = {
 }
 
 export const nftClaimerContract = {
-	[fujiChainId]: '0x0D319fF72fEB5B6B4e7EAb3421B14Dfbe63A3Da0',
-	[bscTestnetChainId]: '0x7F10c4F4538cCe5cb6d6B92949f3678FAB3161Ad',
-	[opGoerliChainId]: '0xB9106A666A05BF085301D934232aEf15a26650E9',
-	[mumbaiChainId]: '0x46518b4cBF352871C8f3A947b483Eb3fdc5A361B',
+	[fujiChainId]: '0x1761a6038D737485098Ca4294Cf1D0DE9803D66b',
+	[bscTestnetChainId]: '0xB6F8D729640EFD043Ebd163a9C2Cf3826c84F9AA',
+	[opGoerliChainId]: '0x69F9d419df79041C00a8AC17f9FcA6a85784cDbD',
+	[mumbaiChainId]: '0x2D3eF45a3d3A77ABbE46df9a840Ff63d1C6A09ED',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -457,10 +457,10 @@ export const nftClaimerContract = {
 }
 
 export const sbcNFTContract = {
-	[fujiChainId]: '0xB532b8B27dF704A14a0646848aD92750d1111Bed',
-	[bscTestnetChainId]: '0x40d304556EAEE2e594a2444B4e843E77F3C62a78',
-	[opGoerliChainId]: '0x4E225601377c6a1eFeddEf92088fbC685F46964f',
-	[mumbaiChainId]: '0xC534F296D5F1A5Bd7f61b5F2A57D32eb82ca81b2',
+	[fujiChainId]: '0xD61FEf1344dA7FB53D2E198366793FFa608BDFea',
+	[bscTestnetChainId]: '0x462772445bB08eDAFC6B7433A96Ab9102347cDb0',
+	[opGoerliChainId]: '0x23399aCcf1af900Ec67deB95f53779d9a4284824',
+	[mumbaiChainId]: '0x85eaAD3627d3c7ecD56aF86c5e495D75551Ab108',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -468,10 +468,10 @@ export const sbcNFTContract = {
 }
 
 export const rndGeneratorContract = {
-	[fujiChainId]: '0x5111082B05051acF7c98Ef207B2C601536BeFe24',
-	[bscTestnetChainId]: '0x88CF8D606822bf8542BA1156852DDFFF8Db3135b',
-	[opGoerliChainId]: '0xe6b9dfcF7E4C818B067532Ed9F012bA9FB5C3258',
-	[mumbaiChainId]: '0xBd6B68695309639361BAE49623F8d13141FcE2cd',
+	[fujiChainId]: '0xB69382d70B41220C24b92364c36edf886655b7E5',
+	[bscTestnetChainId]: '0x506c517aD25a01C8676C0eB0877821D12fF02c45',
+	[opGoerliChainId]: '0xe5fa07268deF20Af6eE3DF501eE2F5A74D110c14',
+	[mumbaiChainId]: '0x6B8ab16dDa3e31218E15fEae87F1648b7dB87aa7',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -479,10 +479,10 @@ export const rndGeneratorContract = {
 }
 
 export const ultibetsSignAddresses = {
-	[fujiChainId]: '0xe7c162860D032cA4925eb090996CC788420427Ea',
-	[bscTestnetChainId]: '0x1876f5C14E30e24f102DC06342b47E9a4D61A997',
-	[opGoerliChainId]: '0x011cd85cf9b7D32258290e0550305E04e4A48B20',
-	[mumbaiChainId]: '0xe650d71D69ABC1f481CFb5763247f698808F0A69',
+	[fujiChainId]: '0xf6B39c9916ff70811961Aa8512093F860A67f9b5',
+	[bscTestnetChainId]: '0xfE4247807Ac6A9a0381A1bC82a686870519372F5',
+	[opGoerliChainId]: '0x52d23896A083A27ECcDA45f747ef8c9D34b969c2',
+	[mumbaiChainId]: '0x6eace9AB0E4a30157fD0e793D726b833CCdf4F25',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -490,10 +490,10 @@ export const ultibetsSignAddresses = {
 }
 
 export const ultibetsRewardAddresses = {
-	[fujiChainId]: '0x793C6120206A37C347E2c7D43691C712f4c0c956',
-	[bscTestnetChainId]: '0x796fD5C60D804740a2546B653E99d712817b8E2c',
-	[opGoerliChainId]: '0x035ed5cbCA5816cd59e2D7413c445F282386c81A',
-	[mumbaiChainId]: '0x14Bec13bA34d37767FaEbC47b38D58C3F1Bf9B12',
+	[fujiChainId]: '0x16c1bdA5e400Eb4679ff55A8a86fF4ab8f80574E',
+	[bscTestnetChainId]: '0x1D384dbFC93F7170c312e65aAe0ab8194cDE559a',
+	[opGoerliChainId]: '0xF5F9CFf048971EEB619cCC30E111F36d829F9950',
+	[mumbaiChainId]: '0x522c1b7Bbe8f48eD80d693D52e1b16edd4BFC243',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -501,10 +501,10 @@ export const ultibetsRewardAddresses = {
 }
 
 export const ultiBetsLeaderBoardAddresses = {
-	[fujiChainId]: '0xFD62999C4582Ca4d9cCb77BbD10Ac4b3dC9b0264',
-	[bscTestnetChainId]: '0xB33D0033221Be747FB7aF08B65178D701905F06f',
-	[opGoerliChainId]: '0x573889149441C4F885D4d0cc551BdE613660a383',
-	[mumbaiChainId]: '0x2CFDD58910e5faaaA5910a1aa12eD266E6962E5d',
+	[fujiChainId]: '0x10F8541CD56f67106c125ac991e59bC5CE9F49ec',
+	[bscTestnetChainId]: '0xBf2Ea383eBE1dCd0Fba30E2E61b7f688b2c1c25f',
+	[opGoerliChainId]: '0xD8d8a41Cc24B0091052C3B56ac6Ca3e33B4c99C5',
+	[mumbaiChainId]: '0x5F5f60eAd2064cC42D49e617f9D4753b7C820645',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -514,10 +514,10 @@ export const ultiBetsLeaderBoardAddresses = {
 export const utbetsTokenAddresses: {
 	[key: number]: string
 } = {
-	[fujiChainId]: '0x3961D3E0F0AFa53eC23dDEe770c637d503A828cB',
-	[bscTestnetChainId]: '0x03944D714cE2a05Af2a53B0807E3268115945675',
-	[opGoerliChainId]: '0x15A75AD7B03A54e0b8d94435F839DADa5BbDcC9C',
-	[mumbaiChainId]: '0xbDA616a1DBF0090465aA84D3Aa4e735Ff3118876',
+	[fujiChainId]: '0xbadafA1404C5902c45c8B3596827Ec3003923D3B',
+	[bscTestnetChainId]: '0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE',
+	[opGoerliChainId]: '0x8369d50a6db55C0bEF4412101A8672F27E621Cf3',
+	[mumbaiChainId]: '0x2Ee0BCd22293Cd6b37Eff2765059ADCd9126E605',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -525,10 +525,10 @@ export const utbetsTokenAddresses: {
 }
 
 export const airdropContractAddresses = {
-	[fujiChainId]: '0xe4e6d7Da25583DdbBac48c87F1ac2bF44638839d',
-	[bscTestnetChainId]: '0xdA43928A5fDa90B663113D328268B9088674dac6',
-	[opGoerliChainId]: '0xd0b1Ac30638bA9E516cdF11bec52F3DA18AB7Dda',
-	[mumbaiChainId]: '0x8e3307CC24f88fB43d972BaDaD5fB79ce893C2a5',
+	[fujiChainId]: '0x919E10b18A122719AC63416d4f2b562eb3E554A8',
+	[bscTestnetChainId]: '0xA616458582e934046013557E33321D6919d3AA3D',
+	[opGoerliChainId]: '0x7e2FDda0572085b605EDF9fD2Dd1911B498d4Be0',
+	[mumbaiChainId]: '0x4Edb07D058954B40972F4925C277e488504472C4',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',

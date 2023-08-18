@@ -66,8 +66,6 @@ const AdminEventCardList = ({
       (async () => {
         const t = adminSelectedDate
         const dayTimestamps = getDateAndTimeIntervalsAccordingToUserTimeZone(t);
-        console.log("timestamp: predictionMarketFilteredData", eventList);
-        console.log("timestamp: predictionMarketFilteredData", dayTimestamps);
 
         const dailyEvents = await getDailyEventData(
           isNativeToken,

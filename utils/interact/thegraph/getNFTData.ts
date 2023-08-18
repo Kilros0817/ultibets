@@ -40,11 +40,7 @@ export const getNFTData = async (
 
         returnedData = res?.data?.data?.sbcnfts;
 
-        console.log("returned data: ==========", returnedData);
-
         if (returnedData?.length > 0) {
-            console.log("nft data: ", returnedData);
-
             isSuccess = true;
         } else {
             isSuccess = false;

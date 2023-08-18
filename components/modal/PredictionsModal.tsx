@@ -24,10 +24,10 @@ import AnnounceModal from './AnnounceModal';
 import { convertBetValue2Number } from '../../utils/interact/utility';
 import axios from 'axios';
 import { PerkInfo } from '../../utils/types';
-import { useApprove } from '../../utils/interact/sc/utbets';
+import { getAllowance, useApprove } from '../../utils/interact/sc/utbets';
 import { checkIconInGreenBg, UltiBetsTokenAbi } from '../../utils/assets';
 import { toast } from 'react-toastify';
-import { ethers } from 'ethers';
+import { BigNumberish, ethers } from 'ethers';
 const crossIconInRedBg = "/images/svgs/modal/cross-icon-in-red-bg.svg";
 
 export type PredictionsModalProps = {
@@ -94,9 +94,27 @@ const PredictionsModal = ({
     onClose: onCloseAnnounceModal,
   } = useDisclosure();
 
+  const getApproval = async () => {
+    const allowance = await getAllowance((utbetsTokenAddresses as any)[Number(chain?.id)], address, type == 'prediction' ? (contractAddressesInDailyBets as any)[Number(chain?.id)][1] : (contractAddressesInSBC as any)[Number(chain?.id)][1]);
+    const amount = Number(ethers.utils.formatEther(allowance as BigNumberish));
+    const betAmount = type == 'prediction' ? newBetAmount : roundBetAmount
+    if (amount >= (betAmount ?? 0)) setIsApprovedUtbets(true)
+    else setIsApprovedUtbets(false);
+  }
+
+  useEffect(() => {
+    const initApproval = async () => {
+      await getApproval();
+    }
+    if (!isNativeToken && chain?.id) {
+        initApproval();
+    }
+  }, [newBetAmount, address])
+
   useEffect(() => {
     let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId; setChainId(chainId);
+      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId; 
+    setChainId(chainId);
   }, [chain])
 
   useEffect(() => {
@@ -191,12 +209,6 @@ const PredictionsModal = ({
     }
     if (approveUtbets.isLoading) return;
 
-    console.log("new bet amount: ", newBetAmount);
-    console.log("balance of native token: ", parseFloat(balanceOfNativeTokenInWallet?.formatted ?? '0'));
-    const tokenAddress = (utbetsTokenAddresses as any)[chainId];
-    const contract = new ethers.Contract(tokenAddress, UltiBetsTokenAbi, new ethers.providers.StaticJsonRpcProvider((chainRPCs as any)[chainId]));
-    const balanceOfUtbets = await contract.balanceOf(address);
-    console.log("balance of utbets token: ", ethers.utils.formatEther(balanceOfUtbets));
     try {
       approveUtbets.approveFunction?.();
       onOpenApproveSuccessAnnounceModal();
@@ -210,10 +222,6 @@ const PredictionsModal = ({
     if (newBetAmount == 0) return;
     if (isPerks == "true") return;
     if (placeBetInPM.isLoading) return;
-
-    console.log("new bet amount: ", newBetAmount);
-    console.log("balance of native token: ", parseFloat(balanceOfNativeTokenInWallet?.formatted ?? '0'));
-    console.log("is native token: ", isNativeToken);
 
     if (isNativeToken) {
       if ((newBetAmount ?? 0) > parseFloat(balanceOfNativeTokenInWallet?.formatted ?? '0')) {
@@ -272,8 +280,6 @@ const PredictionsModal = ({
     }
   }
 
-
-
   const handlePredictInSBC = async () => {
 
     if (placeBetInSBC.isLoading) return;
@@ -288,14 +294,11 @@ const PredictionsModal = ({
       const balanceOfUtbets = await contract.balanceOf(address);
       const numberOfBalanceOfUtbetsToken = Number(ethers.utils.formatEther(balanceOfUtbets));
 
-      console.log("balance of utbets token: ", ethers.utils.formatEther(balanceOfUtbets));
-
       if ((roundBetAmount ?? 0) > numberOfBalanceOfUtbetsToken) {
         onOpenAnnounceModal();
         return;
       }
     }
-    console.log("handle predict 10");
 
     try {
       placeBetInSBC.placeBetFunction?.();
@@ -434,8 +437,8 @@ const PredictionsModal = ({
         announceText={'UTBETS successfully approved'}
         announceLogo={checkIconInGreenBg}
         announceModalButtonText={'Close'}
-        announceModalButtonAction={() => {
-          setIsApprovedUtbets(true);
+        announceModalButtonAction={async () => {
+          await getApproval();
           onCloseApproveSuccessAnnounceModal();
         }}
       />

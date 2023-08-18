@@ -47,7 +47,6 @@ const RegisterModalInSBC = ({
     const [currentMainnetOrTestnetAttrs,] = useState(
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
     const [chainAttrsIndex, setChainAttrsIndex] = useState(1);
-    const [currentToken, setCurrentToken] = useState(isNativeToken ? currentMainnetOrTestnetAttrs[chainAttrsIndex].nativeToken : "UTBETS");
     const { address, } = useAccount();
     const [chainId, setChainId] = useState<number>(polygonChainId);
     const [isApprovedUtbets, setIsApprovedUtbets] = useState<boolean>(false);
@@ -68,15 +67,10 @@ const RegisterModalInSBC = ({
     } = useDisclosure();
 
     const getApproval = async () => {
-        console.log(chainId, "===========chainID===========")
-        console.log(address, "===========address=========")
-        console.log((utbetsTokenAddresses as any)[chainId], "===========utbetsTokenAddresses=========")
-        console.log((contractAddressesInSBC as any)[chainId][1], "===========contractAddressesInSBC=========")
-        // const allowance = await getAllowance((utbetsTokenAddresses as any)[chainId], address, (contractAddressesInSBC as any)[chainId][1]);
-        // console.log(allowance, "============allowance==========")
-        // const amount = Number(ethers.utils.formatEther(allowance as BigNumberish));
-        // if (amount >= (registerAmount ?? 0)) setIsApprovedUtbets(true)
-
+        const allowance = await getAllowance((utbetsTokenAddresses as any)[Number(chain?.id)], address, (contractAddressesInSBC as any)[Number(chain?.id)][1]);
+        const amount = Number(ethers.utils.formatEther(allowance as BigNumberish));
+        if (amount >= (registerAmount ?? 0)) setIsApprovedUtbets(true)
+        else setIsApprovedUtbets(false)
     }
 
     useEffect(() => {
@@ -89,7 +83,6 @@ const RegisterModalInSBC = ({
         }
         setChainId(chainId);
         setChainAttrsIndex(currentChainAttrsItem[0].index);
-        setCurrentToken(isNativeToken ? currentMainnetOrTestnetAttrs[currentChainAttrsItem[0].index].nativeToken : "UTBETS")
 
         const initApproval = async () => {
             await getApproval();
@@ -97,7 +90,7 @@ const RegisterModalInSBC = ({
         if (!isNativeToken && chain?.id) {
             initApproval();
         }
-    }, [chain, isNativeToken]);
+    }, [chain, isNativeToken, address]);
 
     const approveUtbets = useApprove(
         (utbetsTokenAddresses as any)[chainId],
@@ -437,7 +430,7 @@ const RegisterModalInSBC = ({
                 announceLogo={checkIconInGreenBg}
                 announceModalButtonText={'Close'}
                 announceModalButtonAction={async() => {
-                    await getApproval()
+                    await getApproval();
                     onCloseApproveSuccessAnnounceModal();
                 }}
             />
