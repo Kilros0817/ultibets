@@ -10,6 +10,7 @@ import {
     opGoerliChainId,
     fujiChainId,
     mumbaiChainId,
+    newChainAttrs,
 } from '../../utils/config';
 import { delay } from '../../utils/interact/utility';
 
@@ -20,28 +21,25 @@ export const addEventInPM = async (req: any, res: any) => {
         "testnet": {
             mumbaiChainId: {
                 chainId: mumbaiChainId,
-                // rpc: (chainRPCs as any)[mumbaiChainId],
-                rpc: 'https://polygon-mumbai.blockpi.network/v1/rpc/public',
+                rpc: (chainRPCs as any)[mumbaiChainId],
                 contractAddressForNativeToken: contractAddressesInSBC[mumbaiChainId][0],
                 contractAddressForUtbetsToken: contractAddressesInSBC[mumbaiChainId][1],
             },
             bscTestnetChainId: {
                 chainId: bscTestnetChainId,
-                // rpc: (chainRPCs as any)[bscTestnetChainId],
-                rpc: 'https://bsc-testnet.public.blastapi.io',
+                rpc: (chainRPCs as any)[bscTestnetChainId],
                 contractAddressForNativeToken: contractAddressesInSBC[bscTestnetChainId][0],
                 contractAddressForUtbetsToken: contractAddressesInSBC[bscTestnetChainId][1],
             },
             opGoerliChainId: {
-            chainId: opGoerliChainId,
+                chainId: opGoerliChainId,
                 rpc: (chainRPCs as any)[opGoerliChainId],
                 contractAddressForNativeToken: contractAddressesInSBC[opGoerliChainId][0],
                 contractAddressForUtbetsToken: contractAddressesInSBC[opGoerliChainId][1],
             },
             fujiChainId: {
                 chainId: fujiChainId,
-                // rpc: (chainRPCs as any)[fujiChainId],
-                rpc: 'https://avalanche-fuji-c-chain.publicnode.com',
+                rpc: (chainRPCs as any)[fujiChainId],
                 contractAddressForNativeToken: contractAddressesInSBC[fujiChainId][0],
                 contractAddressForUtbetsToken: contractAddressesInSBC[fujiChainId][1],
             },
@@ -88,8 +86,6 @@ export const addEventInPM = async (req: any, res: any) => {
             const key = contractItem.isNative ? `${chainParam.chainId}a` : `${chainParam.chainId}b`;
             try {
                 let contractAddress = contractItem?.address;
-                console.log("contract address: ", contractAddress);
-
                 const contract = new ethers.Contract(contractAddress, contractItem?.abi, provider.getSigner(wallet.address));
 
                 let unsignedTx;
@@ -97,20 +93,20 @@ export const addEventInPM = async (req: any, res: any) => {
                     unsignedTx = await contract.populateTransaction.createNewEvent(
                         data.description,
                         data.maxPlayers,
-                        ethers.utils.parseEther(data.registrationCost.toString()),
+                        ethers.utils.parseEther(`${(newChainAttrs as any)[chainParam.chainId].entryFee}`),
                         data.registerDeadline,
                         data.totalRound,
-                        ethers.utils.parseEther(data.roundBetCost.toString()),
+                        ethers.utils.parseEther(`${(newChainAttrs as any)[chainParam.chainId].roundFee}`),
                         data.orgFeePercent,
                     );
                 } else {
                     unsignedTx = await contract.populateTransaction.createNewEvent(
                         data.description,
                         data.maxPlayers,
-                        ethers.utils.parseEther(data.registrationCost.toString()),
+                        ethers.utils.parseEther("100"),
                         data.registerDeadline,
                         data.totalRound,
-                        ethers.utils.parseEther(data.roundBetCost.toString()),
+                        ethers.utils.parseEther("50"),
                         data.orgFeePercent,
                         data.isWarrior,
                     );

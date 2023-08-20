@@ -91,18 +91,26 @@ export const newChainAttrs = {
 	[43113]: {
 		...avalancheChain,
 		chainId: 43113,
+		entryFee: 0.1,
+		roundFee: 0.05
 	},
 	[97]: {
 		...bscChain,
 		chainId: 97,
+		entryFee: 0.02,
+		roundFee: 0.01
 	},
 	[420]: {
 		...optimismChain,
 		chainId: 420,
+		entryFee: 0.002,
+		roundFee: 0.001
 	},
 	[80001]: {
 		...polygonChain,
 		chainId: 80001,
+		entryFee: 0.2,
+		roundFee: 0.1
 	}
 };
 
@@ -135,8 +143,8 @@ export const LinkArry1 = [
 		name: 'UtBets Token',
 		href: '/utbets-token/token-information',
 	},
-	
-	
+
+
 ];
 
 export const LinkArry2 = [

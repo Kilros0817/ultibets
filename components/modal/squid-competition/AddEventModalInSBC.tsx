@@ -324,68 +324,6 @@ const AddEventModalInSBC = ({
             </Flex>
 
             <Flex
-              className='sbc-event-registration-cost-wrapper'
-              direction={'column'}
-              mt={'32px'}
-            >
-              <Flex
-                fontFamily={'Nunito'}
-                fontWeight={'700'}
-                fontSize={'22px'}
-                lineHeight={'30px'}
-                color={'white'}
-                textTransform={'capitalize'}
-              >
-                Registeration Cost
-              </Flex>
-              <Flex
-                alignItems={'flex-end'}
-              >
-                <Input
-                  value={registrationCost == null ? '' : registrationCost}
-                  placeholder={'0'}
-                  type={'number'}
-                  variant="flushed"
-                  borderBottom={'2px solid #739AF0 !important'}
-                  onChange={(e) => setRegistrationCost(e?.target?.value == '' ? null : Number(e?.target?.value))}
-                  fontFamily={'Nunito'}
-                />
-                {tokenSymbol}
-              </Flex>
-            </Flex>
-
-            <Flex
-              className='sbc-event-round-bet-cost-wrapper'
-              direction={'column'}
-              mt={'32px'}
-            >
-              <Flex
-                fontFamily={'Nunito'}
-                fontWeight={'700'}
-                fontSize={'22px'}
-                lineHeight={'30px'}
-                color={'white'}
-                textTransform={'capitalize'}
-              >
-                Round Bet Cost
-              </Flex>
-              <Flex
-                alignItems={'flex-end'}
-              >
-                <Input
-                  value={roundBetCost == null ? '' : roundBetCost}
-                  placeholder={'0'}
-                  type={'number'}
-                  variant="flushed"
-                  borderBottom={'2px solid #739AF0 !important'}
-                  onChange={(e) => setRoundBetCost(e?.target?.value == '' ? null : Number(e?.target?.value))}
-                  fontFamily={'Nunito'}
-                />
-                {tokenSymbol}
-              </Flex>
-            </Flex>
-
-            <Flex
               className='sbc-event-organization-fee-percent-wrapper'
               direction={'column'}
               mt={'32px'}
