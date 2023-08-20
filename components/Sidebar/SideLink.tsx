@@ -160,6 +160,11 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
   ])
 
   useEffect(() => {
+    setCategoryInPM(1);
+    setSubCategoryInPM(1);
+  }, [])
+
+  useEffect(() => {
     if (categoryOfThisItem == Object.keys(sidebarItems).length) {
       fetchDataFromSubgraph5();
     } else {

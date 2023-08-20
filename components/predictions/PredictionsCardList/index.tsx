@@ -28,7 +28,6 @@ type PredictionsCardListProps = {
 const PredictionsCardList = ({
   sortByIndex,
 }: PredictionsCardListProps) => {
-  const [image, setImage] = useState('');
   const { chain, } = useNetwork();
   const [chainAttrsIndex, setChainAttrsIndex] = useState(1);
   const [eventList, setEventList] = useState<any[]>([]);
