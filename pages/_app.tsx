@@ -176,12 +176,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         </style>
         <title>Ultibets | Main App</title>
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Ultibets Main App" />
+        <meta property="og:site_name" content="Ultibets.com" />
         <meta property="og:image" content="/images/ultibets-logo.svg" />
         <meta property="og:image:url" content="/images/ultibets-logo.svg" />
         <meta property="og:image:alt" content="Visit Ultibets" />
-        <meta property="og:title" content="Ultibets Main App" />
-        <meta property="og:description" content="UltiBets is the first Cryptocurrency Multichain Betting Platform, operating on 4 Blockchains. Ultibets Main Dapp developed by Lucas Iwai" />
+        <meta property="og:title" content="Ultibets.com" />
+        <meta property="og:description" content="UltiBets is the first Cryptocurrency Multichain Prediction Market & GameFi Platform, operating on 4 Blockchains (Avalanche, BSC, Optimism, and Polygon)." />
       </Head>
       {
         ready ? (

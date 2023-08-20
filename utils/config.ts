@@ -8,8 +8,8 @@ const avalancheChain = {
 	alt: 'avalanche-logo',
 	index: 0,
 	nativeToken: "AVAX",
-	entryFee: 0.5,
-	roundFee: 0.2,
+	entryFee: 0.9,
+	roundFee: 0.45,
 };
 
 const bscChain = {
@@ -20,8 +20,8 @@ const bscChain = {
 	alt: 'bsc-logo',
 	index: 1,
 	nativeToken: "BNB",
-	entryFee: 0.02,
-	roundFee: 0.01,
+	entryFee: 0.046,
+	roundFee: 0.023,
 };
 
 const optimismChain = {
@@ -32,8 +32,8 @@ const optimismChain = {
 	alt: 'optimism-logo',
 	index: 2,
 	nativeToken: "ETH",
-	entryFee: 0.004,
-	roundFee: 0.002,
+	entryFee: 0.006,
+	roundFee: 0.003,
 };
 
 const polygonChain = {
@@ -44,8 +44,8 @@ const polygonChain = {
 	alt: 'polygon-logo',
 	index: 3,
 	nativeToken: "MATIC",
-	entryFee: 5,
-	roundFee: 2,
+	entryFee: 17.2,
+	roundFee: 8.6,
 };
 
 export const chainAttrs = {
@@ -59,18 +59,26 @@ export const chainAttrs = {
 		{
 			...avalancheChain,
 			chainId: 43113,
+			entryFee: 0.1,
+			roundFee: 0.05
 		},
 		{
 			...bscChain,
 			chainId: 97,
+			entryFee: 0.02,
+			roundFee: 0.01
 		},
 		{
 			...optimismChain,
 			chainId: 420,
+			entryFee: 0.002,
+			roundFee: 0.001
 		},
 		{
 			...polygonChain,
 			chainId: 80001,
+			entryFee: 0.2,
+			roundFee: 0.1
 		}
 	],
 };
@@ -183,181 +191,6 @@ export const tiers = [
 	},
 ];
 
-export const stakingPools = {
-	mainnet: {
-		["43114a"]: {
-			pairTokenLogo: '/images/pngs/chain-logo/avalanche.svg',
-			poolName: 'UTBETS-AVAX LP',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 43114,
-			index: 0,
-			isNativeUtbetsLp: true,
-		},
-		["56a"]: {
-			pairTokenLogo: '/images/pngs/chain-logo/bsc.svg',
-			poolName: 'UTBETS-BNB LP',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 56,
-			index: 1,
-			isNativeUtbetsLp: true,
-		},
-		["10a"]: {
-			pairTokenLogo: '/images/pngs/chain-logo/optimism.svg',
-			poolName: 'UTBETS-OP LP',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 10,
-			index: 2,
-			isNativeUtbetsLp: true,
-		},
-		["137a"]: {
-			pairTokenLogo: '/images/pngs/chain-logo/matic.svg',
-			poolName: 'UTBETS-MATIC LP',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 137,
-			index: 3,
-			isNativeUtbetsLp: true,
-		},
-		["43114b"]: {
-			pairTokenLogo: '/images/pngs/token-logo/usdc.svg',
-			poolName: 'UTBETS-USDC LP',
-			chainName: 'Avalanche Chain',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 43114,
-			index: 4,
-			isNativeUtbetsLp: false,
-		},
-		["56b"]: {
-			pairTokenLogo: '/images/pngs/token-logo/usdc.svg',
-			poolName: 'UTBETS-USDC LP',
-			chainName: 'Binance Chain',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 56,
-			index: 5,
-			isNativeUtbetsLp: false,
-		},
-		["10b"]: {
-			pairTokenLogo: '/images/pngs/token-logo/usdc.svg',
-			poolName: 'UTBETS-USDC LP',
-			chainName: 'Optimism Chain',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 34,
-			chainId: 10,
-			index: 6,
-			isNativeUtbetsLp: false,
-		},
-		["137b"]: {
-			pairTokenLogo: '/images/pngs/token-logo/usdc.svg',
-			poolName: 'UTBETS-USDC LP',
-			chainName: 'Polygon Chain',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 137,
-			index: 7,
-			isNativeUtbetsLp: false,
-		},
-	},
-	testnet: {
-		["43113a"]: {
-			pairTokenLogo: '/images/pngs/chain-logo/avalanche.svg',
-			poolName: 'UTBETS-AVAX LP',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 43113,
-			index: 0,
-			isNativeUtbetsLp: true,
-		},
-		["97a"]: {
-			pairTokenLogo: '/images/pngs/chain-logo/bsc.svg',
-			poolName: 'UTBETS-BNB LP',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 97,
-			index: 1,
-			isNativeUtbetsLp: true,
-		},
-		["420a"]: {
-			pairTokenLogo: '/images/pngs/chain-logo/optimism.svg',
-			poolName: 'UTBETS-OP LP',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 420,
-			index: 2,
-			isNativeUtbetsLp: true,
-		},
-		["80001a"]: {
-			pairTokenLogo: '/images/pngs/chain-logo/matic.svg',
-			poolName: 'UTBETS-MATIC LP',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 80001,
-			index: 3,
-			isNativeUtbetsLp: true,
-		},
-		["43113b"]: {
-			pairTokenLogo: '/images/pngs/token-logo/usdc.svg',
-			poolName: 'UTBETS-USDC LP',
-			chainName: 'Avalanche Chain',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 43113,
-			index: 4,
-			isNativeUtbetsLp: false,
-		},
-		["97b"]: {
-			pairTokenLogo: '/images/pngs/token-logo/usdc.svg',
-			poolName: 'UTBETS-USDC LP',
-			chainName: 'Binance Chain',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 97,
-			index: 5,
-			isNativeUtbetsLp: false,
-		},
-		["420b"]: {
-			pairTokenLogo: '/images/pngs/token-logo/usdc.svg',
-			poolName: 'UTBETS-USDC LP',
-			chainName: 'Optimism Chain',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 420,
-			index: 6,
-			isNativeUtbetsLp: false,
-		},
-		["80001b"]: {
-			pairTokenLogo: '/images/pngs/token-logo/usdc.svg',
-			poolName: 'UTBETS-USDC LP',
-			chainName: 'Polygon Chain',
-			stakedAmount: 0,
-			claimAbleAmount: 0,
-			claimedAmount: 0,
-			chainId: 80001,
-			index: 7,
-			isNativeUtbetsLp: false,
-		},
-	}
-}
-
 // testnet
 export const fujiChainId = 43113;
 export const bscTestnetChainId = 97;
@@ -378,8 +211,8 @@ export const supportedChainIds = {
 // 1 : utbets token daily bets contract
 export const contractAddressesInDailyBets = {
 	[fujiChainId]: {
-		[0]: '0xFe5DE21aF57CDcA2714EC96A65F3b18B1d938762',
-		[1]: '0xb74090Eb3f049Ba23c177aE9359bC3835531f9ec',
+		[0]: '0x0d7F53247c4C6190c71a3eF89DAd0329AB3eAE6B',
+		[1]: '0x4EFC118E67A6B44A0C403a0f4BD55aD70fec830A',
 	},
 	[bscTestnetChainId]: {
 		[0]: '0x99674f387e06450b699359d7f859638a5927e7F3',
@@ -436,6 +269,10 @@ export const contractAddressesInSBC = {
 		[1]: '',
 	},
 	[bscChainId]: {
+		[0]: '',
+		[1]: '',
+	},
+	[opChainId]: {
 		[0]: '',
 		[1]: '',
 	},
