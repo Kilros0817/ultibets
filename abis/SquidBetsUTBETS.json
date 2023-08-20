@@ -25,37 +25,6 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "bettor",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "eventID",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint8",
-        "name": "roundLevel",
-        "type": "uint8"
-      },
-      {
-        "indexed": false,
-        "internalType": "enum SquidBetsCore.RoundResult",
-        "name": "result",
-        "type": "uint8"
-      }
-    ],
-    "name": "BetPlaced",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
         "internalType": "uint256",
         "name": "eventID",
         "type": "uint256"
@@ -94,6 +63,37 @@
       }
     ],
     "name": "PickEventWinner",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "bettor",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eventID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "roundLevel",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum SquidBetsCore.RoundResult",
+        "name": "result",
+        "type": "uint8"
+      }
+    ],
+    "name": "PredictionPlaced",
     "type": "event"
   },
   {
@@ -928,7 +928,7 @@
         "type": "uint8"
       }
     ],
-    "name": "placeBet",
+    "name": "placePrediction",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

@@ -15,7 +15,7 @@ import {
 import { useChainContext, } from '../../Context';
 import { nativeTokenDailyBetsAbiInPM, ultibetsTokenDailyBetsAbiInPM } from '../../assets';
 
-// function placeBet(uint256 _eventID, EventResultInPM _eventValue)
+// function placePrediction(uint256 _eventID, EventResultInPM _eventValue)
 export const usePlaceBetInPM = (
     eventID: number,
     _eventValue: number,
@@ -35,7 +35,7 @@ export const usePlaceBetInPM = (
     const { config, error: prepareError } = usePrepareContractWrite({
         address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
         abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
-        functionName: 'placeBet',
+        functionName: 'placePrediction',
         cacheTime: 2_000,
         args: isNativeToken ? [
             eventID,

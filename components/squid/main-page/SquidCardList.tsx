@@ -101,7 +101,7 @@ const SquidCardList = () => {
 
   useContractEvent({
     ...sbcContract,
-    eventName: 'BetPlaced',
+    eventName: 'PredictionPlaced',
     listener(bettor: any, eventID: any, roundLevel: any, result: any) {
       setShouldRender(!shouldRender);
     },

@@ -89,7 +89,7 @@ const MyPredictions = () => {
 
   useContractEvent({
     ...contract,
-    eventName: 'PlaceBet',
+    eventName: 'PlacePrediction',
     listener(bettor: any, eventID: any, decision: any, amount: any) {
       setShouldRender(!shouldRender);
     },

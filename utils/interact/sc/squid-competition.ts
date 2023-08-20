@@ -235,7 +235,7 @@ export const useGetBetByBettor = (
     }
 }
 
-// function placeBet(uint256 _eventID, RoundResult _result) external payable {
+// function placePrediction(uint256 _eventID, RoundResult _result) external payable {
 export const usePlaceBetInSBC = (
     eventID: number,
     result: number,
@@ -249,7 +249,7 @@ export const usePlaceBetInSBC = (
     const { config, error: prepareError } = usePrepareContractWrite({
         address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
         abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
-        functionName: 'placeBet',
+        functionName: 'placePrediction',
         cacheTime: 2_000,
         args: isNativeToken ? [eventID, result] : [eventID, result,],
         overrides: {
