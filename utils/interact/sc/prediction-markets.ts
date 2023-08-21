@@ -78,7 +78,7 @@ export const usePlaceBetInPM = (
     }
 }
 
-// function placeBetUsingPerk(
+// function placePredictionUsingPerk(
 //     uint256 _eventID,
 //     EventResult _eventValue,
 //     uint8 _perkRound
@@ -89,14 +89,13 @@ export const usePlaceBetUsingPerk = (
     perkRound: number,
 ) => {
     const { chain } = useNetwork();
-    const { isNativeToken, } = useChainContext();
     let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
 
     const { config, error: prepareError } = usePrepareContractWrite({
         address: (contractAddressesInDailyBets as any)[chainId][1],
         abi: ultibetsTokenDailyBetsAbiInPM,
-        functionName: 'placeBetUsingPerk',
+        functionName: 'placePredictionUsingPerk',
         cacheTime: 2_000,
         args: [
             eventID,
