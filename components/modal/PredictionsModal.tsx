@@ -98,7 +98,10 @@ const PredictionsModal = ({
     const allowance = await getAllowance((utbetsTokenAddresses as any)[Number(chain?.id)], address, type == 'prediction' ? (contractAddressesInDailyBets as any)[Number(chain?.id)][1] : (contractAddressesInSBC as any)[Number(chain?.id)][1]);
     const amount = Number(ethers.utils.formatEther(allowance as BigNumberish));
     const betAmount = type == 'prediction' ? newBetAmount : roundBetAmount
-    if (amount >= (betAmount ?? 0)) setIsApprovedUtbets(true)
+    if (amount >= (betAmount ?? 0)) {
+      setIsApprovedUtbets(true)
+      await getSignature();
+    }
     else setIsApprovedUtbets(false);
   }
 
@@ -232,7 +235,6 @@ const PredictionsModal = ({
       const tokenAddress = (utbetsTokenAddresses as any)[chainId];
       const contract = new ethers.Contract(tokenAddress, UltiBetsTokenAbi, (signer?.provider as any)?.getSigner());
       const balanceOfUtbets = await contract.balanceOf(address);
-      console.log("balance of utbets token: ", ethers.utils.formatEther(balanceOfUtbets));
 
       if ((newBetAmount ?? 0) > parseFloat(ethers.utils.formatEther(balanceOfUtbets))) {
         onOpenAnnounceModal();
