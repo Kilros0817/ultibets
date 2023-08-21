@@ -30,7 +30,7 @@ const polygonMumbai = {
     symbol: 'MATIC',
   },
   rpcUrls: {
-    default: { http: ['https://rpc-mumbai.maticvigil.com/'] },
+    default: { http: ['https://empty-yolo-water.matic-testnet.quiknode.pro/8ff24115b3f512f968a2e9f858043f83cc3f9198/'] },
   },
   blockExplorers: {
     etherscan: { name: 'PolygonScan', url: 'https://mumbai.polygonscan.com/' },
@@ -54,7 +54,7 @@ const bscTestnet = {
     symbol: 'BNB',
   },
   rpcUrls: {
-    default: { http: ['https://bsc-testnet.publicnode.com'] },
+    default: { http: ['https://attentive-twilight-frog.bsc-testnet.quiknode.pro/871c975adfdb298087b9b76e732be732fa499731/'] },
   },
   blockExplorers: {
     etherscan: { name: 'BSCScan', url: 'https://testnet.bscscan.com/' },
@@ -78,8 +78,7 @@ const avalancheFuji = {
     symbol: 'AVAX',
   },
   rpcUrls: {
-    // public: { http: ['https://maximum-fragrant-borough.avalanche-testnet.quiknode.pro/de295874f97f6a24d4766de77e120d94eb6e59e1/ext/bc/C/rpc'] },
-    default: { http: ['https://rpc.ankr.com/avalanche_fuji'] },
+    default: { http: ['https://multi-white-crater.avalanche-testnet.quiknode.pro/b581ac962a5564a662d2aa74bac0d55f2d6bfb38/ext/bc/C/rpc/'] },
   },
   blockExplorers: {
     etherscan: { name: 'SnowTrace', url: 'https://testnet.snowtrace.io/' },
@@ -100,7 +99,7 @@ const optimismGoerli = {
   nativeCurrency: { name: "Goerli Ether", symbol: "ETH", decimals: 18 },
   rpcUrls: {
     default: {
-      http: ["https://optimism-goerli.publicnode.com"]
+      http: ["https://lively-serene-snow.optimism-goerli.quiknode.pro/fbfc891a24e2b980e162877223148913550f1c55/"]
     }
   },
   blockExplorers: {
