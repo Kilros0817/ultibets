@@ -554,6 +554,21 @@ export type SidebarItemProps = {
 	isSubCategoryExist: boolean
 }
 
+export const categoryToNumber = {
+	"soccer": 1,
+	"basketball": 2,
+	"us-football": 3,
+	"tennis": 4,
+	"combat-sports": 5,
+	"motor-sports": 6,
+	"cryptos": 7,
+	"stocks": 8,
+	"politics": 9,
+	"movies-tv-Series": 10,
+	"music": 11,
+	"squid-competition": 12,
+}
+
 export const sidebarItems = {
 	[1]: {
 		menuIndex: 1,

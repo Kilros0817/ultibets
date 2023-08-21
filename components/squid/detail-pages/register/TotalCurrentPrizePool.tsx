@@ -22,6 +22,7 @@ export type TotalCurrentPrizePoolProps = {
     roundBetAmount?: number
     orgFeePercent?: number
     totalAmount?: number
+    currentLevel: number
     registerID: number
     category: number // 0: native, 1: utbets, 2: warrior
     maxPlayers: number
@@ -37,6 +38,7 @@ const TotalCurrentPrizePool = ({
     totalAmount,
     registerID,
     category,
+    currentLevel,
     maxPlayers,
     totalPlayers,
     registerDeadline,
@@ -228,7 +230,7 @@ const TotalCurrentPrizePool = ({
                         onClick={handleRegister}
                         fontFamily={'Nunito'}
                         // should add constraint if current user is not in the 500 winners list, it should be disabled
-                        isDisabled={registerID > 0 || (maxPlayers > 0 && maxPlayers == totalPlayers) || registerDeadline < (new Date().getTime() / 1000)}
+                        isDisabled={currentLevel > 0 || registerID > 0 || (maxPlayers > 0 && maxPlayers == totalPlayers) || registerDeadline < (new Date().getTime() / 1000)}
                     >
                         Register Now
                         <Image

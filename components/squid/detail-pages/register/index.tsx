@@ -17,6 +17,7 @@ export type RegisterComponentProps = {
   totalPlayers: number
   registerAmount?: number
   roundBetAmount?: number
+  currentLevel?: number
   orgFeePercent?: number
   registerID?: number
   currentToken: string
@@ -32,6 +33,7 @@ const RegisterComponent = ({
   totalPlayers,
   registerAmount,
   roundBetAmount,
+  currentLevel,
   orgFeePercent,
   registerID,
   currentToken,
@@ -221,6 +223,7 @@ const RegisterComponent = ({
         totalAmount={totalAmount}
         registerID={registerID ?? 0}
         category={category}
+        currentLevel={currentLevel ?? 0}
         maxPlayers={maxPlayers}
         totalPlayers={totalPlayers}
         registerDeadline={registerDeadline}

@@ -51,8 +51,6 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
     setCategoryInPM,
     setSubCategoryInPM,
     isNativeToken,
-    subCategoryInPM,
-    predictionMarketSelectedDate,
   } = useChainContext();
   const [liveBettings, setLiveBettings] = useState([]);
   const [currentHoveringSubMenuIndex, setCurrentHoveringSubMenuIndex] = useState(0);

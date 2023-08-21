@@ -80,10 +80,9 @@ const SquidBetPage = () => {
       (async () => {
         console.log("isNative: ", isNativeToken);
 
-        const sbeEvents = await getSBCEvents(isNativeToken, chainId);
-        console.log("sbcEvents: ", sbeEvents);
-        if (sbeEvents?.isSuccess) {
-          setCurrentEvent(sbeEvents?.eventData[0]);
+        const sbcEvents = await getSBCEvents(isNativeToken, chainId);
+        if (sbcEvents?.isSuccess) {
+          setCurrentEvent(sbcEvents?.eventData[0]);
         }
         setIsLoading(false);
       })()
@@ -307,6 +306,7 @@ const SquidBetPage = () => {
               orgFeePercent={currentEvent?.orgFeePercent}
               registerID={Number(registerID ?? 0)}
               currentToken={currentToken}
+              currentLevel={Number(currentEvent?.currentLevel)}
               registerDeadline={currentEvent?.registerDeadline}
               shouldRender={shouldRender}
               category={currentEvent?.category}

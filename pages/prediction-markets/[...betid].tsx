@@ -12,6 +12,7 @@ import PredictionsInfo from '../../components/predictions/PredictionsInfo'
 import Sidebar from '../../components/Sidebar'
 import { useChainContext } from '../../utils/Context';
 import {
+  categoryToNumber,
   chainAttrs,
   contractAddressesInDailyBets,
   delayTimeFromSubgraph,
@@ -62,29 +63,42 @@ const PredictionPage = ({
   const [chainId, setChainId] = useState<number>();
   const [canBeInvited, setCanBeInvited] = useState(false);
 
-  useEffect(() => {
+  const checkPath = () => {
     const path = router.asPath;
     const slug = path.split('/');
+    if (slug.length >= 4 && categoryInPM == 0 || categoryInPM == undefined) {
+      router.push(`/${slug[1]}`)
+      return false;
+    }
+    return slug;
+  }
 
-    //@ts-ignore
-    if (slug.length >= 4 && slug[2] == sidebarItems[categoryInPM].keyword && parseInt(slug[3]) >= 1) {
-      console.log(" alternative event id: ", parseInt(slug[3]))
-      setAlternativeEventID(parseInt(slug[3]));
+  useEffect(() => {
+    const slug = checkPath();
+    if (slug && slug.length >= 4) {
+      //@ts-ignore
+      if (slug[2] == sidebarItems[categoryInPM].keyword && parseInt(slug[3]) >= 1) {
+        console.log(" alternative event id: ", parseInt(slug[3]))
+        setAlternativeEventID(parseInt(slug[3]));
+      }
     }
   }, [router]);
 
   useEffect(() => {
-        let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;    let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
-    if (currentChainAttrsItem.length == 0) {
-      const temporaryChainId = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? 137 : 80001
-      currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
+    const slug = checkPath();
+    if (slug && slug.length >= 4) {
+      let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
+        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId; let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
+      if (currentChainAttrsItem.length == 0) {
+        const temporaryChainId = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? 137 : 80001
+        currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
+      }
+      setChainId(chainId);
+      setContract({
+        address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
+        abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM
+      })
     }
-    setChainId(chainId);
-    setContract({
-      address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
-      abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM
-    })
   }, [chain, isNativeToken]);
 
   const fetchDataFromSubgraph1 = (delayTime?: number) => {
@@ -165,17 +179,23 @@ const PredictionPage = ({
   }
 
   useEffect(() => {
-    console.log("daily event detail: ", "before");
-    fetchDataFromSubgraph3(200);
+    const slug = checkPath();
+    if (slug && slug.length >= 4) {
+      console.log("daily event detail: ", "before");
+      fetchDataFromSubgraph3(200);
+    }
   }, [
     isNativeToken,
     address,
   ])
 
   useEffect(() => {
-    console.log("daily event detail: ", "before");
-    fetchDataFromSubgraph1(200);
-    fetchDataFromSubgraph2(200);
+    const slug = checkPath();
+    if (slug && slug.length >= 4) {
+      console.log("daily event detail: ", "before");
+      fetchDataFromSubgraph1(200);
+      fetchDataFromSubgraph2(200);
+    }
   }, [
     isNativeToken,
     categoryInPM,
@@ -185,9 +205,11 @@ const PredictionPage = ({
   ])
 
   useEffect(() => {
-    console.log("daily event detail: ", "before");
-    fetchDataFromSubgraph1();
-    fetchDataFromSubgraph2();
+    const slug = checkPath();
+    if (slug && slug.length >= 4) {
+      fetchDataFromSubgraph1();
+      fetchDataFromSubgraph2();
+    }
   }, [shouldRender])
 
   useContractEvent({
