@@ -38,7 +38,8 @@ const PredictionCard = ({
 }: PredictionCardProps) => {
   const router = useRouter()
   const {
-    categoryInPM,
+    setCategoryInPM,
+    setSubCategoryInPM,
     setCurrentPMEventID,
   } = useChainContext();
   const [isEventBeing, setIsEventBeing] = useState(false);
@@ -225,8 +226,10 @@ const PredictionCard = ({
                 //@ts-ignore
                 onClick={() => {
                   setCurrentPMEventID(eventID);
+                  setCategoryInPM(category);
+                  setSubCategoryInPM(subcategory);
                   //@ts-ignore
-                  router.push(`${router.asPath}/${sidebarItems[categoryInPM].keyword}/${eventID}`)
+                  router.push(`${router.asPath}/${sidebarItems[category].keyword}/${eventID}`)
                 }}
                 isDisabled={bettingDeadline - secondsInHalfHour < Date.now() / 1000}
               >
