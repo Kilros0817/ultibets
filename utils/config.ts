@@ -381,10 +381,10 @@ export const airdropContractAddresses = {
 }
 
 export const chainRPCs = {
-	[fujiChainId]: 'https://api.avax-test.network/ext/bc/C/rpc',
-	[bscTestnetChainId]: 'https://bsc-testnet.publicnode.com',
-	[opGoerliChainId]: 'https://goerli.optimism.io',
-	[mumbaiChainId]: 'https://rpc-mumbai.maticvigil.com/',
+	[fujiChainId]: 'https://multi-white-crater.avalanche-testnet.quiknode.pro/b581ac962a5564a662d2aa74bac0d55f2d6bfb38/ext/bc/C/rpc/',
+	[bscTestnetChainId]: 'https://attentive-twilight-frog.bsc-testnet.quiknode.pro/871c975adfdb298087b9b76e732be732fa499731/',
+	[opGoerliChainId]: 'https://lively-serene-snow.optimism-goerli.quiknode.pro/fbfc891a24e2b980e162877223148913550f1c55/',
+	[mumbaiChainId]: 'https://empty-yolo-water.matic-testnet.quiknode.pro/8ff24115b3f512f968a2e9f858043f83cc3f9198/',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
