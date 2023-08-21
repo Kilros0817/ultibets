@@ -204,8 +204,13 @@ const MyPredictions = () => {
                   let volumes = sidePools?.map(item => item.amount);
                   const totalVolume = volumes.reduce((sum, item1) => sum + parseFloat(ethers.utils.formatEther(item1)), 0);
                   const sidePoolVolume = (sidePools?.filter((item1) => item1.sideValue == item.prediction))[0];
-                  const odds = Math.round(parseFloat(ethers.utils.formatEther(sidePoolVolume.amount)) / totalVolume * 1000);
+                  const sidePoolVolumeValue = parseFloat(ethers.utils.formatEther(sidePoolVolume.amount));
+                  const odds = Math.round(sidePoolVolumeValue / totalVolume * 1000);
                   console.log("odds: ", odds);
+
+                  const gain = sidePoolVolumeValue > 0 ? Math.round(totalVolume * parseFloat(ethers.utils.formatEther(item.amount)) / sidePoolVolumeValue * 98 / 100 * 1000) / 1000 : 0;
+
+                  const gainvalue = item.event.status == 2 ? parseFloat(ethers.utils.formatEther(item.amount)) : gain;
 
                   const percentOfSidePool = Math.round(parseFloat(ethers.utils.formatEther(item?.amount)) / parseFloat(ethers.utils.formatEther(sidePoolVolume.amount)) * 1000);
 
@@ -228,6 +233,7 @@ const MyPredictions = () => {
                         paidAmount={parseFloat(ethers.utils.formatEther(item.paidAmount))}
                         odds={odds / 10} // returns 0 - 1000 from sc
                         percentOfSidePool={percentOfSidePool / 10} // returns 0 - 1000 from sc
+                        gain={gainvalue}
                         status={item?.event?.status}
                         prediction={item.prediction}
                         result={item?.event?.result}

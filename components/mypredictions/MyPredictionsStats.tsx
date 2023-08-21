@@ -21,6 +21,7 @@ export type MyPredictionsStatsProps = {
   betAmount: number,
   paidAmount: number,
   odds: number,
+  gain: number,
   percentOfSidePool: number,
   status: EventStatusInPM,
   prediction: EventResultInPM,
@@ -38,6 +39,7 @@ const MyPredictionsStats = ({
   odds,
   percentOfSidePool,
   status,
+  gain,
   prediction,
   result,
   currentToken,
@@ -272,7 +274,7 @@ const MyPredictionsStats = ({
           direction={['column']}
         >
           <Flex>
-            Odd :
+            Odds :
           </Flex>
           <Flex
             as={'span'}
@@ -381,7 +383,7 @@ const MyPredictionsStats = ({
               >
                 &nbsp;
                 {/* {' 0 FTM (0%)'} */}
-                {paidAmount} {currentToken} ({(paidAmount / betAmount * 100).toFixed(0)}%)
+                {gain} {currentToken} ({(gain / betAmount * 100).toFixed(0)}%)
               </Flex>
             </Button>
           </Flex>
