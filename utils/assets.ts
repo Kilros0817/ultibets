@@ -6,6 +6,7 @@ export const awayLogo = '/images/pngs/bets/away.svg';
 export const homeLogo = '/images/pngs/bets/home.svg';
 export const crossIconInRedBg = "/images/svgs/modal/cross-icon-in-red-bg.svg";
 export const checkIconInGreenBg = "/images/svgs/modal/check-icon-in-green-bg.svg";
+export const congretBg = "/images/svgs/chain/congrets.svg";
 export const calendarImage = "/images/svgs/calendar.svg";
 export const squidWhiteLogo = "/images/svgs/sidebar/squid.svg";
 export const exclamationIconInRedBg = '/images/svgs/modal/exclamation-logo.svg';

@@ -5,6 +5,7 @@ import { EventResultInPM, EventStatusInPM, EventType } from '../../utils/config'
 import {
   awayLogo,
   checkIconInGreenBg,
+  congretBg,
   drawLogo,
   homeLogo,
   noLogo,
@@ -415,8 +416,9 @@ const MyPredictionsStats = ({
           <AnnounceModal
             isOpenAnnounceModal={isOpenGainSuccessAnnounceModal && withdrawGain.isSuccess}
             onCloseAnnounceModal={onCloseGainSuccessAnnounceModal}
-            announceText={'Your gain has been successfully claimed'}
-            announceLogo={checkIconInGreenBg}
+            announceText={'Congratulations on your winning prediction UltiBettor!'}
+            announceCongrets={true}
+            announceLogo={congretBg}
             announceModalButtonText={'Close'}
           />
           <AnnounceModal

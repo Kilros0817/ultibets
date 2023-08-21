@@ -84,7 +84,7 @@ const MyPredictions = () => {
 
   useEffect(() => {
     console.log("user bet history: ", "before");
-    fetchDataFromSubgraph2();
+    fetchDataFromSubgraph2(2000);
   }, [shouldRender])
 
   useContractEvent({

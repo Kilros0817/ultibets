@@ -15,6 +15,7 @@ export type AnnounceModalProps = {
   announceText: string,
   announceLogo?: string,
   announceGif?: true,
+  announceCongrets?: true,
   announceModalButtonText: string,
   announceModalButtonAction?(): void,
   announceModalCloseButtonShow?: boolean
@@ -25,6 +26,7 @@ const AnnounceModal = ({
   onCloseAnnounceModal,
   announceText,
   announceLogo,
+  announceCongrets,
   announceGif,
   announceModalButtonText,
   announceModalButtonAction,
@@ -66,7 +68,18 @@ const AnnounceModal = ({
                 margin={'-8px'}
               />
               {
-                announceLogo && (
+                announceCongrets && announceLogo && (
+                  <Image
+                    width={'250px'}
+                    height={'250px'}
+                    src={announceLogo}
+                    top={'50px'}
+                    position={'absolute'}
+                  />
+                )
+              }
+              {
+                ! announceCongrets && announceLogo && (
                   <Image
                     width={'38px'}
                     height={'38px'}
