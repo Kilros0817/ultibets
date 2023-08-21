@@ -174,13 +174,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
           @import url('https://fonts.googleapis.com/css2?family=Inter&family=Nunito&display=swap');
         </style>
-        <title>Ultibets | Main App</title>
+        <title>UltiBets | Main App</title>
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Ultibets.com" />
+        <meta property="og:site_name" content="UltiBets.com" />
         <meta property="og:image" content="/images/ultibets-logo.svg" />
         <meta property="og:image:url" content="/images/ultibets-logo.svg" />
-        <meta property="og:image:alt" content="Visit Ultibets" />
-        <meta property="og:title" content="Ultibets.com" />
+        <meta property="og:image:alt" content="Visit UltiBets" />
+        <meta property="og:title" content="UltiBets.com" />
         <meta property="og:description" content="UltiBets is the first Cryptocurrency Multichain Prediction Market & GameFi Platform, operating on 4 Blockchains (Avalanche, BSC, Optimism, and Polygon)." />
       </Head>
       {
