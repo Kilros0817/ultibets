@@ -27,10 +27,9 @@ export type PredictionsSummary2Props = {
 const PredictionsSummary2 = ({
   sidePoolVolumes,
   sideBetAmounts,
-  eventID,
   eventStartTime,
 }: PredictionsSummary2Props) => {
-  const { isNativeToken, } = useChainContext();
+  const { isNativeToken, categoryInPM } = useChainContext();
   const { chain, } = useNetwork();
   const [currentMainnetOrTestnetAttrs,] = useState(
     process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
@@ -82,7 +81,7 @@ const PredictionsSummary2 = ({
       predictionHistoryHeader,
       {
         isHeader: false,
-        side: "Yes",
+        side: categoryInPM == 4 ? "Home" : "Yes",
         sidePool: sidePools[0],
         betAmount: sideBets[0],
         currentSidepoolShare: sidePools[0] > 0 ? parseFloat(((sideBets[0] / sidePools[0]) * 100).toFixed(1)) : 0,
@@ -91,7 +90,7 @@ const PredictionsSummary2 = ({
       },
       {
         isHeader: false,
-        side: "No",
+        side: categoryInPM == 4 ? "Away" : "No",
         sidePool: sidePools[1],
         betAmount: sideBets[1],
         currentSidepoolShare: sidePools[1] > 0 ? parseFloat(((sideBets[1] / sidePools[1]) * 100).toFixed(1)) : 0,

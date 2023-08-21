@@ -1,14 +1,10 @@
 import {
   Flex,
   Image,
-  others,
-  Progress,
-  Text,
-  useDisclosure,
 } from '@chakra-ui/react'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNetwork } from 'wagmi'
 import { chainAttrs, mumbaiChainId, polygonChainId } from '../../../utils/config'
 import { useChainContext } from '../../../utils/Context'
@@ -50,9 +46,7 @@ const PredictionsCoreComponent2 = ({
     const slug = pathName.split('/');
     if (slug[2]) {
       setCurrentSports(slug[2]);
-      setChoice(prediction.sideToPredict[currentSports]);
-      console.log("current sports: ", slug[2]);
-      console.log("current choice: ", prediction.sideToPredict[currentSports])
+      setChoice(slug[2] == 'tennis' ? 'home' : prediction.sideToPredict[currentSports]);
     }
   }, [router, prediction])
 
@@ -67,7 +61,6 @@ const PredictionsCoreComponent2 = ({
 
   const hanldeChoice = (choice: string) => {
     setChoice(choice);
-    console.log("prediction: ", prediction.sideToPredict);
     setPrediction({
       sideToPredict: {
         ...prediction.sideToPredict,
@@ -79,7 +72,7 @@ const PredictionsCoreComponent2 = ({
   const bettingPoolTypes = useMemo(() => {
     const poolInfo = [
       {
-        title: "'Yes' Pool",
+        title: currentSports == 'tennis' ? "'Home' Pool" : "'Yes' Pool",
         value: sidePools[0],
         percent: parseFloat(((sidePools[0] / (sidePools[0] + sidePools[1])) * 100).toFixed(1)),
         fakePercent: parseFloat(((sidePools[0] / (sidePools[0] + sidePools[1])) * 100).toFixed(1)),
@@ -87,7 +80,7 @@ const PredictionsCoreComponent2 = ({
         background: '/images/svgs/bets/orange-bets-background.svg',
       },
       {
-        title: "'No' Pool",
+        title: currentSports == 'tennis' ? "'Away' Pool" : "'No' Pool",
         value: sidePools[1],
         percent: parseFloat(((sidePools[1] / (sidePools[0] + sidePools[1])) * 100).toFixed(1)),
         fakePercent: parseFloat(((sidePools[1] / (sidePools[0] + sidePools[1])) * 100).toFixed(1)),
@@ -164,15 +157,15 @@ const PredictionsCoreComponent2 = ({
         >
           <Flex
             onClick={() => {
-              hanldeChoice('yes')
+              hanldeChoice(currentSports == 'tennis' ? 'home' : 'yes')
             }}
             cursor={'pointer'}
           >
             <Image
-              src="/images/svgs/bets/yes.svg"
+              src= { currentSports == 'tennis' ? "/images/pngs/bets/home.svg" : "/images/svgs/bets/yes.svg"}
               alt="yes"
-              width={choice == 'yes' ? '148px' : '120px'}
-              height={choice == 'yes' ? '148px' : '120px'}
+              width={choice == 'home' || 'yes' ? '148px' : '120px'}
+              height={choice == 'home' || 'yes' ? '148px' : '120px'}
               _hover={{
                 transform: 'scale(1.1)',
               }}
@@ -180,15 +173,15 @@ const PredictionsCoreComponent2 = ({
           </Flex>
           <Flex
             onClick={() => {
-              hanldeChoice('no')
+              hanldeChoice(currentSports == 'tennis' ? 'away' : 'no')
             }}
             cursor={'pointer'}
           >
             <Image
-              src="/images/svgs/bets/no.svg"
+              src= { currentSports == 'tennis' ? "/images/pngs/bets/away.svg" : "/images/svgs/bets/no.svg"}
               alt="no"
-              width={choice == 'no' ? '140px' : '120px'}
-              height={choice == 'no' ? '140px' : '120px'}
+              width={choice == 'away' || 'no' ? '140px' : '120px'}
+              height={choice == 'away' || 'no' ? '140px' : '120px'}
               _hover={{
                 transform: 'scale(1.1)',
               }}

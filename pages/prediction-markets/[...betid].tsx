@@ -207,8 +207,8 @@ const PredictionPage = ({
   useEffect(() => {
     const slug = checkPath();
     if (slug && slug.length >= 4) {
-      fetchDataFromSubgraph1();
-      fetchDataFromSubgraph2();
+      fetchDataFromSubgraph1(2000);
+      fetchDataFromSubgraph2(2000);
     }
   }, [shouldRender])
 

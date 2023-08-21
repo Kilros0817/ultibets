@@ -120,23 +120,6 @@ const PredictionsModal = ({
     setChainId(chainId);
   }, [chain])
 
-  useEffect(() => {
-    const pathName = router.asPath;
-    const slug = pathName.split('/');
-
-    if (slug && slug.length == 4) {
-      let cardId = type == "prediction" ? slug[3] : slug[2];
-      if (isNaN(parseInt(cardId))) {
-        console.log("cardId")
-        cardId = '1';
-      }
-      console.log("cardId: ", cardId)
-      console.log("type: ", type);
-      setEventID(parseInt(cardId));
-    }
-  }, [router]);
-
-
   const placeBetInPM = usePlaceBetInPM(
     eventID ?? 1,
     betValueNumber,
@@ -162,6 +145,15 @@ const PredictionsModal = ({
     const slug = pathName.split('/');
     if (slug[2]) {
       setCurrentSports(slug[2]);
+    }
+
+    if (slug && slug.length == 4) {
+      let cardId = type == "prediction" ? slug[3] : slug[2];
+      if (isNaN(parseInt(cardId))) {
+        console.log("cardId")
+        cardId = '1';
+      }
+      setEventID(parseInt(cardId));
     }
   }, [router]);
 
