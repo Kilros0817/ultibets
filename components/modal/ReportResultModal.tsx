@@ -249,6 +249,11 @@ const ReportResultModal = ({
                       <option value={2}>Draw</option>
                       <option value={3}>Away</option>
                     </>
+                  ) : category == 4 ? (
+                    <>
+                      <option value={1}>Home</option>
+                      <option value={2}>Away</option>
+                    </>
                   ) : (
                     <>
                       <option value={1}>Yes</option>
