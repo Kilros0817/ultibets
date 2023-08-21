@@ -14,6 +14,7 @@ import '@fontsource/inter'
 import { CSSProperties } from 'react'
 import CarouselLink from './CarouselLink'
 import { useRouter } from 'next/router'
+import { uniswapURL } from '../../utils/config'
 
 const HomeCarousel = () => {
   const router = useRouter();
@@ -185,7 +186,7 @@ const HomeCarousel = () => {
               border={'1px solid #FFFFFF'}
               borderRadius={'45px'}
               background={'unset'}
-              onClick={() => router.push('https://ultibetsmerchstore.vercel.app/merch-store')}
+              onClick={() => router.push('/merch-store')}
             >
               <Text
                 fontFamily={'Nunito'}
@@ -253,7 +254,6 @@ const HomeCarousel = () => {
               border={'1px solid #FFFFFF'}
               borderRadius={'45px'}
               background={'unset'}
-              onClick={() => router.push('/utbets-token/buy-utbets')}
             >
               <Text
                 fontFamily={'Nunito'}
@@ -264,7 +264,13 @@ const HomeCarousel = () => {
                 textTransform={'capitalize'}
                 color={'#FFFFFF'}
               >
-                Buy $UTBETS{' '}
+                <a
+                  href={uniswapURL}
+                  target="_new"
+                >
+                  Buy $UTBETS{' '}
+                </a>
+
               </Text>
             </Button>
           </Flex>
