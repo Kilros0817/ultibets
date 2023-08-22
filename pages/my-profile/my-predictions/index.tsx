@@ -209,9 +209,10 @@ const MyPredictions = () => {
                   console.log("odds: ", odds);
 
                   const gain = sidePoolVolumeValue > 0 ? Math.round(totalVolume * parseFloat(ethers.utils.formatEther(item.amount)) / sidePoolVolumeValue * 98 / 100 * 1000) / 1000 : 0;
-
-                  const gainvalue = item.event.status == 2 ? parseFloat(ethers.utils.formatEther(item.amount)) : gain;
-
+                  
+                  let gainvalue = item.event.status == 2 ? parseFloat(ethers.utils.formatEther(item.amount)) : gain;
+                  if (item.event.status == 1 && item.event.result != item.prediction) gainvalue = 0;
+                  
                   const percentOfSidePool = Math.round(parseFloat(ethers.utils.formatEther(item?.amount)) / parseFloat(ethers.utils.formatEther(sidePoolVolume.amount)) * 1000);
 
                   return (

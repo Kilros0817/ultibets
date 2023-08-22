@@ -377,7 +377,7 @@ const MyPredictionsStats = ({
               color={'#FFFFFF'}
               width={'fit-content'}
             >
-              {`Return: `}
+              {`Gain: `}
               <Flex
                 as={'span'}
                 color={fontColor}
