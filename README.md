@@ -6,8 +6,6 @@
 yarn install
 ```
 
-########
-
 ## Commands
 
 - `yarn dev` - open a dev server on localhost:3000.

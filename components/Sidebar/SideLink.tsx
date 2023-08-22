@@ -159,9 +159,9 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
 
   useEffect(() => {
     if (categoryOfThisItem == Object.keys(sidebarItems).length) {
-      fetchDataFromSubgraph5();
+      fetchDataFromSubgraph5(3000);
     } else {
-      fetchDataFromSubgraph();
+      fetchDataFromSubgraph(3000);
     }
   }, [shouldRender])
 

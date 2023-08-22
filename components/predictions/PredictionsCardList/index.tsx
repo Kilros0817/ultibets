@@ -109,7 +109,7 @@ const PredictionsCardList = ({
 
   useEffect(() => {
     console.log("daily events: ", "before");
-    fetchDataFromSubgraph();
+    fetchDataFromSubgraph(3000);
   }, [shouldRender])
 
   useContractEvent({

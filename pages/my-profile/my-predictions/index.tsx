@@ -84,7 +84,7 @@ const MyPredictions = () => {
 
   useEffect(() => {
     console.log("user bet history: ", "before");
-    fetchDataFromSubgraph2(2000);
+    fetchDataFromSubgraph2(3000);
   }, [shouldRender])
 
   useContractEvent({
@@ -212,7 +212,7 @@ const MyPredictions = () => {
                   
                   let gainvalue = item.event.status == 2 ? parseFloat(ethers.utils.formatEther(item.amount)) : gain;
                   if (item.event.status == 1 && item.event.result != item.prediction) gainvalue = 0;
-                  
+
                   const percentOfSidePool = Math.round(parseFloat(ethers.utils.formatEther(item?.amount)) / parseFloat(ethers.utils.formatEther(sidePoolVolume.amount)) * 1000);
 
                   return (
