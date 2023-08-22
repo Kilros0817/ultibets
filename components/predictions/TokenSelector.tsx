@@ -37,7 +37,7 @@ const TokenSelector = () => {
         justifyContent='center'
         position='relative'
         zIndex='0'
-        width={['240px', '280px']}
+        width={['280px']}
         className='token-selector-component'
         onClick={onOpen}
       >
