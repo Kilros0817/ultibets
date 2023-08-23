@@ -22,7 +22,7 @@ const TierDescription = () => {
                         textTransform={'capitalize'}
                     >
                         Tier {item.level}: {item.cashback}% Cashback in utbets token once reaching 
-                        {item.limit} UTBETS Tokens in Total Prediction volume ({item.reward} UTBETS)
+                        {` ${item.limit}`} UTBETS Tokens in Total Prediction volume ({item.reward} UTBETS)
                     </Flex>
                 ))
             }
