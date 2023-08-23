@@ -257,20 +257,20 @@ export const contractAddressesInDailyBets = {
 // 1 : utbets token betting contract
 export const contractAddressesInSBC = {
 	[fujiChainId]: {
-		[0]: '0x1Aeb40F89507a2d7310d25Aa619f33Cc796E14bd',
-		[1]: '0xD3df23657Aa2EE4313f1f8A090f6B9f7b9C7959f',
+		[0]: '0x32135f124f6F1966910A5268F0749f15527057a1',
+		[1]: '0xB886cb235d240b52cd1B89507dF486e87A9E8768',
 	},
 	[bscTestnetChainId]: {
-		[0]: '0x3F341276EC24a54D27a05E9e1dc5E5d7dF2Dd1e2',
-		[1]: '0xc46f56cB72EB0b8cB06D9F684148edDD5374090b',
+		[0]: '0x14dCf182b847C80A07e9386cc4e7A3689AD1ECEe',
+		[1]: '0x2467767CadbC1c98ad5901Ece4D27600fFC15334',
 	},
 	[mumbaiChainId]: {
-		[0]: '0x35fc163908A663e832f8ADdBe67476f3e7A73833',
-		[1]: '0x00e8B5dBf5D12E6d4eB2E140FD8F6367E14445e0',
+		[0]: '0xD702bde70BAB9515f8fEF1568f15169f91537f64',
+		[1]: '0x26c7F6C54a51B6C2628d8b63860d609348e6B977',
 	},
 	[opGoerliChainId]: {
-		[0]: '0x6aA0bcE05E3B622ECE2B36e61F62a64E08bd9Ea0',
-		[1]: '0x357579EDA16b59D9Ce1eBB4399c6Fe3389947461',
+		[0]: '0x70230D98476e1066fd0913D44AA5e4fDD58dfc52',
+		[1]: '0x3D9A52C04e4D75f3efaB19C9363d2f016CBEC389',
 	},
 	[avalancheChainId]: {
 		[0]: '',
@@ -291,10 +291,10 @@ export const contractAddressesInSBC = {
 }
 
 export const nftClaimerContract = {
-	[fujiChainId]: '0x1761a6038D737485098Ca4294Cf1D0DE9803D66b',
-	[bscTestnetChainId]: '0xB6F8D729640EFD043Ebd163a9C2Cf3826c84F9AA',
-	[opGoerliChainId]: '0x69F9d419df79041C00a8AC17f9FcA6a85784cDbD',
-	[mumbaiChainId]: '0x2D3eF45a3d3A77ABbE46df9a840Ff63d1C6A09ED',
+	[fujiChainId]: '0x648B89422Cf0BB0425dE24848D20A9f4802B9753',
+	[bscTestnetChainId]: '0xfA00D15cC27Db7CD1202FAC9259Ab7968d871421',
+	[opGoerliChainId]: '0xfc305d8C2C71410a8300021060e6Ebb9bfb10dAe',
+	[mumbaiChainId]: '0x6fdcEBEE9c259CcB52267FE3bA558d253C39fa16',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -302,10 +302,10 @@ export const nftClaimerContract = {
 }
 
 export const sbcNFTContract = {
-	[fujiChainId]: '0xD61FEf1344dA7FB53D2E198366793FFa608BDFea',
-	[bscTestnetChainId]: '0x462772445bB08eDAFC6B7433A96Ab9102347cDb0',
-	[opGoerliChainId]: '0x23399aCcf1af900Ec67deB95f53779d9a4284824',
-	[mumbaiChainId]: '0x85eaAD3627d3c7ecD56aF86c5e495D75551Ab108',
+	[fujiChainId]: '0x6479b5c878a686A1E4f8951e86fe905645460c63',
+	[bscTestnetChainId]: '0xf6d82753cc3D40FE3EB8564CC12916f94ADBD4D6',
+	[opGoerliChainId]: '0x83327fc5E45d58795f64F4a22F7923e086a10902',
+	[mumbaiChainId]: '0xA022990fdEa806D2c69e50225Fac5E92782A3257',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
