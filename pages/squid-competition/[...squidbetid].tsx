@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import '@fontsource/nunito'
 import '@fontsource/inter'
-import { useContractEvent, useNetwork, } from 'wagmi';
+import { useAccount, useContractEvent, useNetwork, } from 'wagmi';
 import RegisterComponent from "../../components/squid/detail-pages/register";
 import RoundOne2Fivecomponent from '../../components/squid/detail-pages/round-one2five'
 import FinalVoteComponent from '../../components/squid/detail-pages/final-vote'
@@ -17,7 +17,7 @@ import TokenSelector from '../../components/predictions/TokenSelector'
 import RoundLine from '../../components/squid/detail-pages/RoundLine'
 import { useChainContext } from '../../utils/Context'
 import { chainAttrs, contractAddressesInSBC, delayTimeFromSubgraph, EventStateInSBC, mumbaiChainId, newChainAttrs, polygonChainId, roundProperties, RoundResultInSBC, VotingResultInSBC } from '../../utils/config'
-import { useGetRegisterIDOfBettor, } from '../../utils/interact/sc/squid-competition'
+import { getRegisterIDOfBettor } from '../../utils/interact/sc/squid-competition'
 import { ethers } from 'ethers'
 import { getSBCEvents } from '../../utils/interact/thegraph/getSBCEventData'
 import { nativeTokenBetsAbiInSBC, ultibetsTokenBetsAbiInSBC } from '../../utils/assets'
@@ -28,6 +28,7 @@ const SquidBetPage = () => {
   const [currentSelectedLevel, setCurrentSelectedLevel] = useState(0);
   const { isNativeToken, } = useChainContext();
   const { chain, } = useNetwork();
+  const { address } = useAccount();
   const [currentMainnetOrTestnetAttrs,] = useState(
     process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
   const [chainAttrsIndex, setChainAttrsIndex] = useState(1);
@@ -203,22 +204,19 @@ const SquidBetPage = () => {
     },
   });
 
-  const getRegisterIDOfBettor = useGetRegisterIDOfBettor(
-    eventID ?? 1
-  );
-
   useEffect(() => {
-    if (getRegisterIDOfBettor.isLoading) return;
-    if (getRegisterIDOfBettor.status) {
-      console.log("[...getRegisterIDOfBettor?.result]: ", getRegisterIDOfBettor?.result)
-      // @ts-ignore
-      setRegisterID(getRegisterIDOfBettor?.result ?? 0);
-    }
+      const getRegisterID = async () => {
+        const id = await getRegisterIDOfBettor(eventID, chain?.id ?? 80001, isNativeToken, address ?? "" )
+        setRegisterID(id as number);
+      }
+      if (eventID > 0 && chain?.id && address) {
+        getRegisterID();
+      }
   }, [
     chain?.id,
-    getRegisterIDOfBettor.isLoading,
-    getRegisterIDOfBettor.result,
     isNativeToken,
+    address,
+    eventID
   ])
 
   return (

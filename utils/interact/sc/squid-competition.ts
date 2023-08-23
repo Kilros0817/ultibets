@@ -6,6 +6,7 @@ import {
     useAccount,
     useWaitForTransaction,
 } from 'wagmi';
+import { readContract } from "@wagmi/core";
 import { BigNumber, ethers } from 'ethers';
 import {
     contractAddressesInSBC,
@@ -133,37 +134,20 @@ export const useRegisterOnEvent = (
 //     uint256 _eventID,
 //     address _bettor
 // ) public view returns(uint16)
-export const useGetRegisterIDOfBettor = (
+export const getRegisterIDOfBettor = async (
     eventID: number,
-    bettor?: string,
+    chainId: number,
+    isNativeToken: boolean,
+    bettor: string,
 ) => {
-    const { chain } = useNetwork();
-    const { isNativeToken, } = useChainContext();
-    const { address, } = useAccount();
-    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
-
-    const { data: getRegisterIDOfBettor, error, isLoading } = useContractRead({
+    const registerID = await readContract({
         address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
         abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
         functionName: "registerIDOfBettor",
-        cacheTime: 2_000,
-        args: [bettor ? bettor : address, eventID,],
-        watch: true,
-        chainId: chainId,
-        onSuccess() {
-            console.log("getting register id success")
-        },
-        onError(error: any) {
-            console.log("error occured in getting register id: ", error);
-        }
+        args: [bettor, eventID,],
     });
 
-    return {
-        status: error == undefined ? true : false,
-        result: getRegisterIDOfBettor,
-        isLoading,
-    }
+    return registerID
 }
 
 
@@ -959,8 +943,6 @@ export const useBettorDecisionOnRound = (
 export const useWinnersClaimPrize = (
     eventID: number,
 ) => {
-    console.log("eventID in winner claims prize: ", eventID)
-
     const { chain } = useNetwork();
     const { isNativeToken, } = useChainContext();
     let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
@@ -1008,7 +990,6 @@ export const useGetWinnersNumber = (
     result: number,
 ) => {
     const { chain } = useNetwork();
-    const { address, } = useAccount();
     const { isNativeToken, } = useChainContext();
     let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
@@ -1045,7 +1026,6 @@ export const useRegisterOnWarriorEvent = (
     eventID: number,
     signature: string,
 ) => {
-    console.log("eventID in winner claims prize: ", eventID)
 
     const { chain } = useNetwork();
     const isNativeToken = false;

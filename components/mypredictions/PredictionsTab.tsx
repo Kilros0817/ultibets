@@ -7,6 +7,7 @@ import {
 import { useRouter } from 'next/router'
 import React, { useEffect, useState, useRef } from 'react'
 import { dolllarImage, myNFTsImage, referralImage, starImage, storyTellingImage } from '../../utils/assets'
+import { useChainContext } from '../../utils/Context'
 
 type PredictionsTabProps = {
   width?: string[]
@@ -20,6 +21,10 @@ const PredictionsTab = ({
   const scroll = useRef<any>()
   const [scrollX, setScrollX] = useState<number>(0) // For detecting start scroll postion
   const [scrollEnd, setScrollEnd] = useState<boolean>(false) // For detecting end of scrolling
+
+  const {
+    setCategoryInPM,
+  } = useChainContext();
 
   const slide = (shift: any) => {
     scroll.current.scrollLeft += shift
@@ -220,7 +225,7 @@ const PredictionsTab = ({
           />
           <Text
             color={pathName.includes('/my-nfts') ? '#E18833' : 'white'}
-            onClick={() => router.push(`/my-profile/my-nfts`)}
+            onClick={() => {setCategoryInPM(0); router.push(`/my-profile/my-nfts`)}}
           >
             My NFTs
           </Text>

@@ -138,9 +138,6 @@ const RegisterModalInSBC = ({
     const handleRegister = async () => {
         console.log("category: ", category);
         if (isNativeToken) {
-            console.log("register amount: ", (registerAmount ?? 0));
-            console.log("balance of native token: ", parseFloat(balanceOfNativeTokenInWallet?.formatted ?? '0'))
-
             if ((registerAmount ?? 0) > parseFloat(balanceOfNativeTokenInWallet?.formatted ?? '0')) {
                 onOpenAnnounceModal();
                 return;
