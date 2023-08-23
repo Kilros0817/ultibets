@@ -320,8 +320,7 @@ const RegisterModalInSBC = ({
                                     lineHeight={'18px'}
                                     color={'#E18933'}
                                 >
-                                    As a reward, for any round successfully passed, a Player
-                                    will receive a unique Squid Bet NFT !
+                                    As a reward, for any round successfully passed, every Player will receive a unique Squid Bet NFT !
                                 </Text>
                                 <Text
                                     fontFamily={'Nunito'}
@@ -330,10 +329,7 @@ const RegisterModalInSBC = ({
                                     lineHeight={'18px'}
                                     color={'#E18933'}
                                 >
-                                    As the number of eliminated Players won't be the same
-                                    for any rounds, this will create unique Squid Bet NFT
-                                    Collections with their own scarcity based on the
-                                    remaining Players after each round.
+                                    As the number of eliminated Players won't be the same for any rounds, this will create unique Squid Bet NFT Collections with their own scarcity based on the remaining Players after each round.
                                 </Text>
                                 <Text
                                     fontFamily={'Nunito'}
@@ -342,9 +338,27 @@ const RegisterModalInSBC = ({
                                     lineHeight={'18px'}
                                     color={'#E18933'}
                                 >
-                                    As you progress further down the end of the game, the rarity will
-                                    increase as the bet difficulty will arise after each bet
-                                    and fewer Players will remain after each round!
+                                    As you progress further down the end of the game, the rarity will de facto increase as the bet difficulty will arise after each bet and fewer Players will remain after each round!
+                                </Text>
+                                <Text
+                                    fontFamily={'Nunito'}
+                                    fontWeight={'700'}
+                                    fontSize={'13px'}
+                                    lineHeight={'18px'}
+                                    color={'#E18933'}
+                                >
+                                    Each round Squid Bet NFT has exciting perks included (UTBETS tokens, discount on merch' store, real-life events tickets, VIP events etc...), based on the last paragraph explanation, the more advanced the round, the more exciting the perks included will be!
+                                </Text>
+                                <Text
+                                    fontFamily={'Nunito'}
+                                    fontWeight={'1000'}
+                                    fontSize={'16px'}
+                                    lineHeight={'20px'}
+                                    color={'#E18933'}
+                                    mt={'20px'}
+                                    mb={'20px'}
+                                >
+                                    Are you ready to enter the SBC UltiBettor?
                                 </Text>
                             </Flex>
                             <Flex
