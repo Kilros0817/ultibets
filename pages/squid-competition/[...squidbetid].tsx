@@ -216,7 +216,8 @@ const SquidBetPage = () => {
     chain?.id,
     isNativeToken,
     address,
-    eventID
+    eventID,
+    shouldRender
   ])
 
   return (
