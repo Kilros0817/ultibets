@@ -310,7 +310,7 @@ const RegisterModalInSBC = ({
                                                 fontFamily={'Nunito'}
                                                 marginLeft={'10px'}
                                             >
-                                                * Random Solo Winner (a random player number** among the remaining Players will be picked, thereby designating the Winner of the Squid Bet Competition !
+                                                * Random Solo Winner (a random player number** among the remaining Players will be picked, thereby designating the Winner of the Squid Bet Competition !)
                                             </Text>{' '}
                                         </Text>{' '}
                                         <Text
