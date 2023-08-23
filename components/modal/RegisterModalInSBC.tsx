@@ -314,14 +314,14 @@ const RegisterModalInSBC = ({
                                             </Text>{' '}
                                         </Text>{' '}
                                         <Text
-                                            fontSize={'11px'}
+                                            fontSize={'13px'}
                                             fontFamily={'Nunito'}
                                             mt={'10px'}
                                         >
-                                            To make things even more exciting, in case of lack of consensus with the voting result being equal between both choices, then the Random Solo Winner decision will be selected automatically in order to let the fate decide on the blockchain <Text as={"span"} fontSize={'13px'}>between the final SBC Winner among the finalists.</Text>
+                                            To make things even more exciting, in case of lack of consensus with the voting result being equal between both choices, then the Random Solo Winner decision will be selected automatically in order to let the fate decide on the blockchain <Text as={"span"} fontSize={'14px'}>between the final SBC Winner among the finalists.</Text>
                                         </Text>
                                         <Text
-                                            fontSize={'11px'}
+                                            fontSize={'13px'}
                                             fontFamily={'Nunito'}
                                             mt={'10px'}
                                         >
