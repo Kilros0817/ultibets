@@ -292,18 +292,6 @@ const RegisterModalInSBC = ({
                                         fontSize={'13px'}
                                         lineHeight={'18px'}
                                     >
-                                        IV. If, for any reasons, you can't or don't have
-                                        enough funds to place a bet before the round deadline,
-                                        you will be eliminated.
-                                    </Text>
-                                </Flex>
-                                <Flex>
-                                    <Text
-                                        fontFamily={'Nunito'}
-                                        fontWeight={'700'}
-                                        fontSize={'13px'}
-                                        lineHeight={'18px'}
-                                    >
                                         If there is still more than 1 Player standing, then a random
                                         player number** among the remaining Players will be picked,
                                         thereby designating the Winner of the Squid Bet Competition !
