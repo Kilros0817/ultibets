@@ -15,7 +15,7 @@ const MyPredictionsComponent = () => {
           color={'#FFFFFF'}
           textTransform={'capitalize'}
           cursor={'pointer'}
-          onClick={() => router.push('/squid-competition')}
+          onClick={() => router.push('/sbc')}
           zIndex={1}
         >
           SBC Menu
@@ -38,7 +38,7 @@ const MyPredictionsComponent = () => {
           color={'#FFFFFF'}
           textTransform={'capitalize'}
           cursor={'pointer'}
-          onClick={() => router.push('/my-predictions/squid-competition')}
+          onClick={() => router.push('/my-predictions/sbc')}
         >
           My Predictions
         </Text>

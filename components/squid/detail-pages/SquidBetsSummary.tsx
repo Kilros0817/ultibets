@@ -389,7 +389,7 @@ const SquidBetsSummary = ({
                                     px='25px'
                                     border={'1px solid #FC541C'}
                                     //@ts-ignore
-                                    onClick={() => router.push(`/squid-competition/${eventID}` + roundProperties[slug].accessButtonUrl)}
+                                    onClick={() => router.push(`/sbc/${eventID}` + roundProperties[slug].accessButtonUrl)}
                                     cursor='pointer'
                                     justifyContent={'center'}
                                     background={'unset'}

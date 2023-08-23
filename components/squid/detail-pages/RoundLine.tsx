@@ -40,9 +40,9 @@ const RoundLine = ({
       totalRound < currentSelectedLevel &&
       !router.asPath.includes(sbcAccessLevel2RoundUrls[7])
     ) {
-      router.push(`/squid-competition/${eventID}/${sbcAccessLevel2RoundUrls[7]}`)
+      router.push(`/sbc/${eventID}/${sbcAccessLevel2RoundUrls[7]}`)
     } else if (currentSelectedLevel > accessLevel) {
-      router.push(`/squid-competition/${eventID}/${(sbcAccessLevel2RoundUrls as any)[accessLevel]}`)
+      router.push(`/sbc/${eventID}/${(sbcAccessLevel2RoundUrls as any)[accessLevel]}`)
     }
   }, [
     currentSelectedLevel,
@@ -196,7 +196,7 @@ const RoundLine = ({
                   color={item.id <= currentSelectedLevel ? '#E18933' : 'white'}
                   textTransform={'capitalize'}
                   onClick={() => router.push(
-                    `/squid-competition/${eventID}` + item.href
+                    `/sbc/${eventID}` + item.href
                   )}
                   cursor={'pointer'}
                   borderBottom={'2px solid white'}

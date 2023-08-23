@@ -42,7 +42,7 @@ const SquidCard = ({
   const [deadline, setDeadline] = useState<number>(registerDeadline);
   const [deadlineText, setDeadlineText] = useState<string>('Register Deadline');
   const [buttonText, setButtonText] = useState<string>('Register Now');
-  const [clickUrl, setClickUrl] = useState<string>(`squid-competition/${eventID}/register`);
+  const [clickUrl, setClickUrl] = useState<string>(`sbc/${eventID}/register`);
 
   useEffect(() => {
     console.log("=======:", state)
@@ -52,14 +52,14 @@ const SquidCard = ({
         setDeadline(registerDeadline + secondsInHalfHour); // this should be available 1s before deadline, not 30 mins
         setButtonText('Access Register Page');
         setDeadlineText('Register Deadline');
-        setClickUrl(`squid-competition/${eventID}/` + sbcRoundUrls['register']);
+        setClickUrl(`sbc/${eventID}/` + sbcRoundUrls['register']);
         break;
 
       case EventStateInSBC.Round:
         setDeadline(rounds[currentLevel - 1].startTime);
         setButtonText(`Access Round ${currentLevel}`);
         setDeadlineText(`Round ${currentLevel} Deadline`);
-        setClickUrl(`squid-competition/${eventID}/${(sbcRoundUrls as any)[currentLevel]}`);
+        setClickUrl(`sbc/${eventID}/${(sbcRoundUrls as any)[currentLevel]}`);
         break;
 
       case EventStateInSBC.Vote:
@@ -67,14 +67,14 @@ const SquidCard = ({
         setDeadline(voteStartTime + secondsInHalfHour + secondsIn12Hours);
         setButtonText(`Access Final Vote`);
         setDeadlineText(`Final Vote Deadline`);
-        setClickUrl(`squid-competition/${eventID}/${(sbcRoundUrls as any)['final-vote']}`);
+        setClickUrl(`sbc/${eventID}/${(sbcRoundUrls as any)['final-vote']}`);
         break;
 
       case EventStateInSBC.ClaimPrize:
         setDeadline(0);
         setButtonText(`Access Final Winner`);
         setDeadlineText(``);
-        setClickUrl(`squid-competition/${eventID}/${(sbcRoundUrls as any)['winner-page']}`);
+        setClickUrl(`sbc/${eventID}/${(sbcRoundUrls as any)['winner-page']}`);
         break;
     }
   }, [

@@ -4,24 +4,6 @@ import { ChainContext } from "./Context";
 const ContextProvider = ({ children }) => {
     const [isNativeToken, setIsNativeToken] = useState(true);
     const [prediction, setPrediction] = useState({
-        // sideToPredict: {
-        //     'soccer': 'home',
-        //     'basketball': 'home',
-
-        //     'us-football': 'home',
-        //     'tennis': 'home',
-        //     'combat-sports': 'home',
-
-        //     'motor-sports': 'home',
-        //     'cryptos': 'home',
-        //     'stocks': 'home',
-
-        //     'politics': 'home',
-        //     'movies-tv-Series': 'home',
-        //     'music': 'home',
-
-        //     'squid-competition': 'yes',
-        // }
         sideToPredict: {
             'soccer': 'home',
             'basketball': 'home',
@@ -38,7 +20,7 @@ const ContextProvider = ({ children }) => {
             'movies-tv-Series': 'home',
             'music': 'home',
 
-            'squid-competition': 'yes',
+            'sbc': 'yes',
         }
     });
     const [sbc, setSbc] = useState({

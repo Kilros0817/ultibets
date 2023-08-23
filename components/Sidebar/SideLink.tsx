@@ -233,7 +233,7 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
             setCategoryInPM(categoryOfThisItem);
             setSubCategoryInPM(1);
             if (!isAdminPage) {
-              router.push(categoryOfThisItem < 12 ? '/prediction-markets' : '/squid-competition');
+              router.push(categoryOfThisItem < 12 ? '/prediction-markets' : '/sbc');
             }
           } else if (categoryInPM == 12 && categoryOfThisItem < 12 && !isSubCategoryExist) {
             // is subcategory not exist
@@ -319,7 +319,7 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
                             setCategoryInPM(categoryOfThisItem)
                             setSubCategoryInPM(parseInt(key))
                             if (!isAdminPage) {
-                              router.push(categoryOfThisItem < 12 ? '/prediction-markets' : '/squid-competition');
+                              router.push(categoryOfThisItem < 12 ? '/prediction-markets' : '/sbc');
                             }
                           }}
                           key={key}

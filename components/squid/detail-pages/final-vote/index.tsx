@@ -343,7 +343,7 @@ const FinalVoteComponent = ({
           display='flex'
           justifyContent='center'
           mt='30px'
-          onClick={() => router.push(`/squid-competition/${eventID}/winner-page`)}
+          onClick={() => router.push(`/sbc/${eventID}/winner-page`)}
           cursor='pointer'
           isDisabled={!isAlreadyVoted || winnersNumber == 0 || !(winnerIds.includes(registerID))}
         >

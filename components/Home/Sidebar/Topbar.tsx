@@ -81,7 +81,7 @@ const Sidebar = () => {
     {
       id: '11',
       name: 'Squid Bet Competitions',
-      href: '/squid-competition',
+      href: '/sbc',
       icon: '/images/svgs/sidebar/squid.svg',
     },
   ];

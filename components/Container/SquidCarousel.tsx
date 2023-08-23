@@ -220,7 +220,7 @@ const SquidCarousel = () => {
                     background: '#FC541C',
                   }}
                   onClick={() => {
-                    router.push(`/squid-competition/${item.betId}/register`)
+                    router.push(`/sbc/${item.betId}/register`)
                   }}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}

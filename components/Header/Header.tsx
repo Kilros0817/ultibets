@@ -104,7 +104,7 @@ const Header = () => {
       console.log("is adblock: ", isAdblock);
 
       if (process.env.NEXT_PUBLIC_IS_GEOBLOCK == "true") {
-        if (router.asPath.includes('prediction-markets') || router.asPath.includes('squid-competition')) {
+        if (router.asPath.includes('prediction-markets') || router.asPath.includes('sbc')) {
           // adblock 
           const isAdblock = await detectAnyAdblocker();
           console.log("is adblock: ", isAdblock);

@@ -28,7 +28,6 @@ export type PredictionsSummary3Props = {
 const PredictionsSummary3 = ({
   sidePoolVolumes,
   sideBetAmounts,
-  eventID,
   eventStartTime,
   canBeInvited,
 }: PredictionsSummary3Props) => {

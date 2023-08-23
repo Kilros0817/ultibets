@@ -175,7 +175,7 @@ const SquidBetPage = () => {
     eventName: 'WinnerClaimedPrize',
     listener(eventID: any) {
       setShouldRender(!shouldRender);
-      router.push('/squid-competition');
+      router.push('/sbc');
     },
   });
 
@@ -192,7 +192,7 @@ const SquidBetPage = () => {
     eventName: 'RoundCanceled',
     listener(eventID: any, roundLevel: any) {
       setShouldRender(!shouldRender);
-      router.push('/squid-competition');
+      router.push('/sbc');
     },
   });
 

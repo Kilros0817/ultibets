@@ -137,7 +137,7 @@ export const LinkArry1 = [
 
 	{
 		name: 'Squid Bet Competitions',
-		href: '/squid-competition',
+		href: '/sbc',
 	},
 	{
 		name: 'UtBets Token',
@@ -566,7 +566,7 @@ export const categoryToNumber = {
 	"politics": 9,
 	"movies-tv-Series": 10,
 	"music": 11,
-	"squid-competition": 12,
+	"sbc": 12,
 }
 
 export const sidebarItems = {
@@ -663,7 +663,7 @@ export const sidebarItems = {
 		name: 'Squid Bet Competitions',
 		icon: '/images/svgs/sidebar/squid.svg',
 		eventType: EventType.Double,
-		keyword: 'squid-competition',
+		keyword: 'sbc',
 		isSubCategoryExist: false,
 	},
 }
