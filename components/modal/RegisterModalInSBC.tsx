@@ -292,17 +292,41 @@ const RegisterModalInSBC = ({
                                         fontSize={'13px'}
                                         lineHeight={'18px'}
                                     >
-                                        If there is still more than 1 Player standing, then a random
-                                        player number** among the remaining Players will be picked,
-                                        thereby designating the Winner of the Squid Bet Competition !
+                                        V. If there is still more than 1 Player standing, then a voting period will be added.
                                         <Text
                                             fontSize={'11px'}
                                             fontFamily={'Nunito'}
                                         >
-                                            **The Squid Bet smart contract has Chainlink VRF
-                                            (Verifiable Random Function) implemented to assure a
-                                            fair result.
+                                            Each remaining player will be able to vote between 2 choices:
+                                            <Text
+                                                fontSize={'11px'}
+                                                fontFamily={'Nunito'}
+                                                marginLeft={'10px'}
+                                            >
+                                                * Split Prize Pool Equally (between all remaining Players)
+                                            </Text>{' '}
+                                            <Text
+                                                fontSize={'11px'}
+                                                fontFamily={'Nunito'}
+                                                marginLeft={'10px'}
+                                            >
+                                                * Random Solo Winner (a random player number** among the remaining Players will be picked, thereby designating the Winner of the Squid Bet Competition !
+                                            </Text>{' '}
                                         </Text>{' '}
+                                        <Text
+                                            fontSize={'11px'}
+                                            fontFamily={'Nunito'}
+                                            mt={'10px'}
+                                        >
+                                            To make things even more exciting, in case of lack of consensus with the voting result being equal between both choices, then the Random Solo Winner decision will be selected automatically in order to let the fate decide on the blockchain <Text as={"span"} fontSize={'13px'}>between the final SBC Winner among the finalists.</Text>
+                                        </Text>
+                                        <Text
+                                            fontSize={'11px'}
+                                            fontFamily={'Nunito'}
+                                            mt={'10px'}
+                                        >
+                                            The Squid Bet smart contract has Chainlink VRF (Verifiable Random Function) implemented to assure a fair result.
+                                        </Text>
                                     </Text>
                                 </Flex>
                             </Flex>
@@ -431,7 +455,7 @@ const RegisterModalInSBC = ({
                 announceText={'UTBETS successfully approved'}
                 announceLogo={checkIconInGreenBg}
                 announceModalButtonText={'Close'}
-                announceModalButtonAction={async() => {
+                announceModalButtonAction={async () => {
                     await getApproval();
                     onCloseApproveSuccessAnnounceModal();
                 }}
