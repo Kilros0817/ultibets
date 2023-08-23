@@ -466,14 +466,14 @@ const MyNFTsComponent = ({
             <AnnounceModal
                 isOpenAnnounceModal={isOpenClaimNFTSuccessModal && massClaimSBCNFT.isSuccess}
                 onCloseAnnounceModal={onCloseClaimNFTSuccessModal}
-                announceText={'You claimed successfully your nfts'}
+                announceText={'You successfully claimed your nfts'}
                 announceLogo={checkIconInGreenBg}
                 announceModalButtonText={'Close'}
             />
             <AnnounceModal
                 isOpenAnnounceModal={isOpenClaimPerksSuccessModal && !isProcessing}
                 onCloseAnnounceModal={onCloseClaimPerksSuccessModal}
-                announceText={'You claimed successfully your perks'}
+                announceText={'You successfully claimed your perks'}
                 announceLogo={checkIconInGreenBg}
                 announceModalButtonText={'Close'}
             />
