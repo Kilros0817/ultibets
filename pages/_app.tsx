@@ -180,7 +180,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="og:image:url" content="/images/ultibets-logo.svg" />
         <meta property="og:image:alt" content="Visit UltiBets" />
         <meta property="og:title" content="UltiBets.com" />
-        <meta property="og:description" content="UltiBets is the first Cryptocurrency Multichain Prediction Market & GameFi Platform, operating on 4 Blockchains (Avalanche, BSC, Optimism, and Polygon)." />
+        <meta property="og:description" content="Join UltiBets, the first-ever Cryptocurrency Multichain Prediction Market & GameFi Platform operating on four different blockchains: Avalanche, BSC, Optimism, and Polygon. We offer a truly decentralized and immersive experience for crypto enthusiasts. Join us now and start making winning predictions!" />
       </Head>
       {
         ready ? (
