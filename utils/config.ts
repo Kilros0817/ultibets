@@ -913,10 +913,10 @@ export const utbetsAmountPerPerkLevel = [
 ]
 
 export const subgraphurls = {
-	[fujiChainId]: 'https://api.thegraph.com/subgraphs/name/kilros0817/ultibetsavax',
-	[bscTestnetChainId]: 'https://api.thegraph.com/subgraphs/name/kilros0817/ultibetsbsc-1',
-	[mumbaiChainId]: 'https://api.thegraph.com/subgraphs/name/kilros0817/ultibets',
-	[opGoerliChainId]: 'https://api.thegraph.com/subgraphs/name/kilros0817/ultibetsop',
+	[fujiChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsavalanche',
+	[bscTestnetChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsbsc',
+	[mumbaiChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetspolygon',
+	[opGoerliChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsop',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
