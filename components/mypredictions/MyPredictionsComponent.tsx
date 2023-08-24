@@ -38,9 +38,9 @@ const MyPredictionsComponent = () => {
           color={'#FFFFFF'}
           textTransform={'capitalize'}
           cursor={'pointer'}
-          onClick={() => router.push('/my-predictions/sbc')}
+          onClick={() => router.push('/my-profile/my-nfts')}
         >
-          My Predictions
+          My NFTs
         </Text>
       </Flex>
     </Box>
