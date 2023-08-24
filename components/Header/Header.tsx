@@ -148,6 +148,7 @@ const Header = () => {
     <Flex
       alignItems='center'
       className='chain-logo-menu-wrapper header-chain-icon'
+      zIndex={'100'}
     >
       <Menu
       >
@@ -243,6 +244,7 @@ const Header = () => {
     <Flex
       alignItems={'center'}
       className='profile-wrapper'
+      zIndex={'100'}
     >
       <Menu
       >
