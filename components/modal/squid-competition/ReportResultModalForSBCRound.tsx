@@ -15,9 +15,10 @@ import React, { useState, useEffect, } from 'react';
 import { NftSetStatus, } from '../../../utils/config';
 import { useChainContext } from '../../../utils/Context';
 import { checkIconInGreenBg } from '../../../utils/assets';
-import { useGetWinnersNumber, useReportResultForSBCRound } from '../../../utils/interact/sc/squid-competition';
+import { getWinnersNumber, useReportResultForSBCRound } from '../../../utils/interact/sc/squid-competition';
 import AnnounceModal from '../AnnounceModal';
 import AddNFTForSpecialCase from './AddNFTForSpecialCase';
+import { useNetwork } from 'wagmi';
 
 type ReportResultModalForSBCRoundProps = {
   isOpen: boolean,
@@ -39,6 +40,7 @@ const ReportResultModalForSBCRound = ({
   const { isNativetoken, } = useChainContext();
   const [numberOfWinnersOfThisRound, setNumberOfWinnersOfThisRound] = useState<number>();
   const [nftSetStatus, setNftSetStatus] = useState(NftSetStatus.Original);
+  const { chain } = useNetwork();
   const {
     isOpen: isOpenReportResultSuccessAnnounceModal,
     onOpen: onOpenReportResultSuccessAnnounceModal,
@@ -50,20 +52,17 @@ const ReportResultModalForSBCRound = ({
     onClose: onCloseAddNFTForSpecialCase,
   } = useDisclosure();
 
-  const getWinnersNumber = useGetWinnersNumber(
-    eventID,
-    Number(result),
-  )
-
   useEffect(() => {
-    if (getWinnersNumber.isLoading) return;
-    if (getWinnersNumber.status == true) {
-      setNumberOfWinnersOfThisRound((getWinnersNumber as any)?.result);
-      // setNumberOfWinnersOfThisRound(1);
+    const getNumberOfWinners = async () => {
+      const winnersNumber = await getWinnersNumber(
+        eventID,
+        Number(result),
+        chain?.id ?? 137,
+        isNativetoken)
+      setNumberOfWinnersOfThisRound(winnersNumber as number);
     }
+    getNumberOfWinners()
   }, [
-    getWinnersNumber.isLoading,
-    getWinnersNumber.result,
     isNativetoken,
     result,
   ])
@@ -89,10 +88,6 @@ const ReportResultModalForSBCRound = ({
       }
     }
   }
-
-  useEffect(() => {
-    console.log("result: ", result);
-  }, [result])
 
   return (
     <Flex

@@ -119,12 +119,7 @@ const AdminSBCComponent = () => {
     }, [
         isNativeToken,
         chainId,
-    ])
-
-    useEffect(() => {
-        fetchDataFromSubgraph6();
-    }, [
-        shouldRender,
+        shouldRender
     ])
 
     // for native token betting
@@ -697,6 +692,8 @@ const AdminSBCComponent = () => {
                 isOpen={isOpenAddRoundModal}
                 onClose={onCloseAddRoundModal}
                 eventID={currentEvent?.eventID}
+                result={Number(currentEvent?.rounds[currentEvent?.currentLevel - 1]?.result)}
+                isNativeToken={isNativeToken}
                 roundLevel={currentEvent?.currentLevel + 1}
                 totalPlayers={Number(currentEvent?.totalPlayers)}
                 playersInThisPhase={currentRoundUIProps.playersInThisPhase}

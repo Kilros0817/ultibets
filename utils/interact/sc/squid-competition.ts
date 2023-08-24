@@ -7,7 +7,7 @@ import {
     useWaitForTransaction,
 } from 'wagmi';
 import { readContract, writeContract } from "@wagmi/core";
-import { BigNumber, ethers } from 'ethers';
+import { BigNumber, BigNumberish, ethers } from 'ethers';
 import {
     contractAddressesInSBC,
     mumbaiChainId,
@@ -90,7 +90,7 @@ export const registerOnEvent = async (
     registerAmount: number,
     chainId: number,
     isNativeToken: boolean
-) => { 
+) => {
     try {
         const { hash, wait } = await writeContract({
             mode: "recklesslyUnprepared",
@@ -101,9 +101,9 @@ export const registerOnEvent = async (
             overrides: {
                 value: isNativeToken ? ethers.utils.parseEther((registerAmount ?? '0')?.toString()) : 0,
             },
-          });
-          await wait();
-          return true;
+        });
+        await wait();
+        return true;
     } catch (e) {
         console.log(e, "============error in register=============")
         return false
@@ -965,36 +965,21 @@ export const useWinnersClaimPrize = (
 //     uint256 _eventID,
 //     RoundResult _result
 // ) external view returns (uint16 winnerNumber)
-export const useGetWinnersNumber = (
+
+export const getWinnersNumber = async (
     eventID: number,
     result: number,
+    chainId: number,
+    isNativeToken: boolean
 ) => {
-    const { chain } = useNetwork();
-    const { isNativeToken, } = useChainContext();
-    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
-
-    const { data: getWinnersNumber, error, isLoading } = useContractRead({
+    const registerID = await readContract({
         address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
         abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
         functionName: "getWinnersNumber",
-        cacheTime: 2_000,
-        args: [eventID, result,],
-        watch: true,
-        chainId: chainId,
-        onSuccess() {
-            console.log("getting winners number success")
-        },
-        onError(error: any) {
-            console.log("error occured in getting winners number: ", error);
-        }
+        args: [+eventID, result],
     });
 
-    return {
-        status: error == undefined ? true : false,
-        result: getWinnersNumber,
-        isLoading,
-    }
+    return registerID
 }
 
 ///======================================= This is for warrior event only  (utbets token only)

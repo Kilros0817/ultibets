@@ -64,10 +64,27 @@ const FinalModal = ({
               textAlign={'center'}
             >
               {
-                type == 'sbc' ? 'Your prediction has been successfully placed. Go to My NFTs page to claim your new SBC Round NFT.' : 'bet' ? 'Your prediction has been successfully placed.'
-                  : 'Your vote has been successfully placed'
+                type == 'vote' ? 'Your vote has been successfully placed' : 'Your prediction has been successfully placed.'
               }
             </Text>
+
+            {
+              type == 'sbc' && (
+                <Text
+                  fontFamily={'Nunito'}
+                  fontWeight={'700'}
+                  fontSize={'20px'}
+                  lineHeight={'34px'}
+                  color={'#E18935'}
+                  mt={'10px'}
+                  textTransform={'capitalize'}
+                  textAlign={'center'}
+                >
+                  Go to My NFTs page to claim your new SBC Round NFT.
+                </Text>
+              )
+            }
+
             <Button
               onClick={() => {
                 onCloseThird()

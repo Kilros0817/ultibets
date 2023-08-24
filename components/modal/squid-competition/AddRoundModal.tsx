@@ -35,7 +35,7 @@ import {
   checkIconInGreenBg,
   utbetsLogoInNFT
 } from '../../../utils/assets'
-import { useAddRound } from '../../../utils/interact/sc/squid-competition'
+import { getWinnersNumber, useAddRound } from '../../../utils/interact/sc/squid-competition'
 import AnnounceModal from '../AnnounceModal'
 import { getFormattedDateString } from '../../../utils/formatters'
 import { getNFTTypeString } from '../../../utils/interact/utility'
@@ -46,6 +46,8 @@ type AddRoundModalProps = {
   isOpen: boolean
   onClose: () => void
   eventID: number
+  result: number
+  isNativeToken: boolean
   roundLevel: number
   totalPlayers: number
   playersInThisPhase: number
@@ -55,6 +57,8 @@ const AddRoundModal = ({
   isOpen,
   onClose,
   eventID,
+  result,
+  isNativeToken,
   roundLevel,
   totalPlayers,
   playersInThisPhase,
@@ -67,6 +71,7 @@ const AddRoundModal = ({
   const [nftType, setNftType] = useState<string>('0');
   const [metadataUrl, setMetadataUrl] = useState<string>('');
   const [chainId, setChainId] = useState<number>(polygonChainId);
+  const [numberOfWinnersOfThisRound, setNumberOfWinnersOfThisRound] = useState<number>(0);
   const [currentMainnetOrTestnetAttrs,] = useState(
     process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
   const [chainAttrsIndex, setChainAttrsIndex] = useState(3);
@@ -97,6 +102,18 @@ const AddRoundModal = ({
     setChainAttrsIndex(currentChainAttrsItem[0].index)
     setChainId(chainId);
   }, [chain]);
+
+  useEffect(() => {
+    const getNumberOfWinners = async () => {
+      const winnersNumber = await getWinnersNumber(
+        eventID,
+        result,
+        chain?.id ?? 137,
+        isNativeToken)
+      setNumberOfWinnersOfThisRound(winnersNumber as number);
+    }
+    getNumberOfWinners()
+  }, [eventID])
 
   const handleImageOpen = (e: any) => {
     const render = new FileReader()
@@ -148,7 +165,7 @@ const AddRoundModal = ({
               eventID: ${eventID},
               roundID: ${roundLevel},
               totalPlayers: ${totalPlayers},
-              currentPlayers: ${playersInThisPhase},
+              currentPlayers: ${numberOfWinnersOfThisRound},
             }`,
             opts
           )
@@ -166,7 +183,7 @@ const AddRoundModal = ({
           ctx.fillText('Remaining Players:', 220, 520)
 
           ctx.font = 'bold 14px Nunito'
-          ctx.fillText(`${playersInThisPhase}/${totalPlayers}`, 290, 540)
+          ctx.fillText(`${numberOfWinnersOfThisRound}/${totalPlayers}`, 290, 540)
 
           ctx.font = '14px Nunito'
           ctx.fillText(
