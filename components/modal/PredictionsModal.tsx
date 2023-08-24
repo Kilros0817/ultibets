@@ -445,7 +445,7 @@ const PredictionsModal = ({
           setNewBetAmount(null);
         }}
         onCloseThird={onCloseThird}
-        type={'bet'}
+        type={placeBetInSBC.isSuccess ? 'sbc' : 'bet'}
       />
       <AnnounceModal
         isOpenAnnounceModal={isOpenAnnounceModal}

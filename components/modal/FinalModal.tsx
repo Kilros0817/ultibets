@@ -64,7 +64,7 @@ const FinalModal = ({
               textAlign={'center'}
             >
               {
-                type == 'bet' ? 'Your prediction has been successfully placed'
+                type == 'sbc' ? 'Your prediction has been successfully placed. Go to My NFTs page to claim your new SBC Round NFT.' : 'bet' ? 'Your prediction has been successfully placed.'
                   : 'Your vote has been successfully placed'
               }
             </Text>

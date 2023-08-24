@@ -426,24 +426,6 @@ const SquidBetsSummary = ({
         mt={'30px'}
         mb={'30px'}
       >
-        {
-          (currentSelectedLevel >= 1 && currentSelectedLevel <= 5) && (
-            <Button
-              height={'46px'}
-              width={'240px'}
-              background={'unset'}
-              borderRadius={'34px'}
-              border={'1px solid #FC541C'}
-              _hover={{
-                background: '#FC541C',
-              }}
-              isDisabled={(currentSelectedLevel == 1 ? registerID == 0 : !passedPreviousRound)}
-              onClick={() => router.push('/my-profile/my-nfts')}
-            >
-              Claim Winner Round {currentSelectedLevel} NFT
-            </Button>
-          )
-        }
         <Button
           onClick={onOpenSecond}
           height={'46px'}
@@ -476,25 +458,6 @@ const SquidBetsSummary = ({
         alignItems={['center']}
         gap={'10px'}
       >
-        {
-          (currentSelectedLevel >= 1 && currentSelectedLevel <= 5) && (
-            <Button
-              height={'46px'}
-              width={'240px'}
-              background={'unset'}
-              borderRadius={'34px'}
-              border={'1px solid #FC541C'}
-              _hover={{
-                background: '#FC541C',
-              }}
-              isDisabled={(currentSelectedLevel == 1 ? registerID == 0 : !passedPreviousRound)}
-              onClick={() => router.push('/my-profile/my-nfts')}
-            >
-              Claim Winner Round {currentSelectedLevel} NFT
-            </Button>
-          )
-        }
-
         <Button
           onClick={onOpenSecond}
           height={'46px'}
