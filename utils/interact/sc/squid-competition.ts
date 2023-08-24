@@ -6,7 +6,7 @@ import {
     useAccount,
     useWaitForTransaction,
 } from 'wagmi';
-import { readContract } from "@wagmi/core";
+import { readContract, writeContract } from "@wagmi/core";
 import { BigNumber, ethers } from 'ethers';
 import {
     contractAddressesInSBC,
@@ -83,50 +83,30 @@ export const useEventData = (
     }
 }
 
+
 // function registerOnEvent(uint256 _eventID) external payable
-export const useRegisterOnEvent = (
+export const registerOnEvent = async (
     eventID: number,
     registerAmount: number,
-) => {
-
-    const { chain } = useNetwork();
-    const { isNativeToken, } = useChainContext();
-    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
-
-    const { config, error: prepareError } = usePrepareContractWrite({
-        address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
-        abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
-        functionName: 'registerOnEvent',
-        cacheTime: 2_000,
-        args: isNativeToken ? [eventID] : [eventID,],
-        overrides: {
-            value: isNativeToken ? ethers.utils.parseEther((registerAmount ?? '0')?.toString()) : 0,
-        },
-        onSuccess(data) {
-            console.log('prepare contract write Success', data)
-        },
-        onError(prepareError) {
-            console.log('prepare contract write Error', prepareError)
-        },
-    })
-    const { write: registerOnEventFunction, data } = useContractWrite(config)
-    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
-        hash: data?.hash,
-        cacheTime: 2_000,
-        onSuccess(data) {
-            console.log("wait for transaction success: ", data);
-        },
-        onError(error) {
-            console.log('wait for transaction result error: ', error);
-        },
-    })
-
-    return {
-        status: error == undefined ? true : false,
-        isLoading,
-        registerOnEventFunction,
-        isSuccess,
+    chainId: number,
+    isNativeToken: boolean
+) => { 
+    try {
+        const { hash, wait } = await writeContract({
+            mode: "recklesslyUnprepared",
+            address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
+            abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
+            functionName: 'registerOnEvent',
+            args: isNativeToken ? [eventID] : [eventID,],
+            overrides: {
+                value: isNativeToken ? ethers.utils.parseEther((registerAmount ?? '0')?.toString()) : 0,
+            },
+          });
+          await wait();
+          return true;
+    } catch (e) {
+        console.log(e, "============error in register=============")
+        return false
     }
 }
 

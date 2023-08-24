@@ -16,7 +16,7 @@ import '@fontsource/inter'
 import '@fontsource/nunito'
 import { useAccount, useBalance, useNetwork, } from 'wagmi';
 import { useChainContext } from '../../utils/Context'
-import { useRegisterOnEvent, useRegisterOnWarriorEvent } from '../../utils/interact/sc/squid-competition'
+import { registerOnEvent, useRegisterOnWarriorEvent } from '../../utils/interact/sc/squid-competition'
 import { chainAttrs, chainRPCs, contractAddressesInSBC, EventCategory, mumbaiChainId, polygonChainId, utbetsTokenAddresses } from '../../utils/config'
 import AnnounceModal from './AnnounceModal'
 import { checkIconInGreenBg, exclamationIconInRedBg, UltiBetsTokenAbi } from '../../utils/assets'
@@ -46,10 +46,10 @@ const RegisterModalInSBC = ({
     const { chain, } = useNetwork();
     const [currentMainnetOrTestnetAttrs,] = useState(
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
-    const [chainAttrsIndex, setChainAttrsIndex] = useState(1);
     const { address, } = useAccount();
     const [chainId, setChainId] = useState<number>(polygonChainId);
     const [isApprovedUtbets, setIsApprovedUtbets] = useState<boolean>(false);
+    const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const {
         isOpen: isOpenAnnounceModal,
         onOpen: onOpenAnnounceModal,
@@ -82,7 +82,6 @@ const RegisterModalInSBC = ({
             currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
         }
         setChainId(chainId);
-        setChainAttrsIndex(currentChainAttrsItem[0].index);
 
         const initApproval = async () => {
             await getApproval();
@@ -110,11 +109,6 @@ const RegisterModalInSBC = ({
             console.log('error in approve utbets token: ', err);
         }
     }
-
-    const registerOnEvent = useRegisterOnEvent(
-        eventID ?? 1,
-        registerAmount ?? 0,
-    )
 
     const registerOnWarriorEvent = useRegisterOnWarriorEvent(
         eventID ?? 1,
@@ -170,15 +164,13 @@ const RegisterModalInSBC = ({
                 console.log('error in register warrior bet: ', err);
             }
         } else {
-            console.log("category: register on event");
-            if (registerOnEvent.isLoading) return;
+            setIsRegistering(true);
 
-            try {
-                registerOnEvent.registerOnEventFunction?.();
+            const result =  await registerOnEvent(eventID??0, registerAmount??0, chainId, isNativeToken);
+            if (result)
                 onOpenRegisterEventSuccessAnnounceModal();
-            } catch (err) {
-                console.log('error in register bet: ', err);
-            }
+            
+            setIsRegistering(false);
         }
     }
 
@@ -458,7 +450,7 @@ const RegisterModalInSBC = ({
                 }}
             />
             <AnnounceModal
-                isOpenAnnounceModal={isOpenRegisterEventSuccessAnnounceModal && (registerOnEvent.isSuccess || registerOnWarriorEvent.isSuccess)}
+                isOpenAnnounceModal={isOpenRegisterEventSuccessAnnounceModal}
                 onCloseAnnounceModal={() => {
                     onCloseRegisterEventSuccessAnnounceModal();
                     onClose();
@@ -471,7 +463,7 @@ const RegisterModalInSBC = ({
             <AnnounceModal
                 isOpenAnnounceModal={
                     (isOpenApproveSuccessAnnounceModal && approveUtbets.isLoading) ||
-                    (isOpenRegisterEventSuccessAnnounceModal && (registerOnEvent.isLoading || registerOnWarriorEvent.isLoading))
+                    (isOpenRegisterEventSuccessAnnounceModal && (isRegistering || registerOnWarriorEvent.isLoading))
                 }
                 onCloseAnnounceModal={onCloseApproveSuccessAnnounceModal}
                 announceText={'Your transaction is currently processing on the blockchain'}
