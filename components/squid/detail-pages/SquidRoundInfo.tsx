@@ -29,8 +29,6 @@ const SquidRoundInfo = ({
   const [currentToken, setCurrentToken] = useState(isNativeToken ? currentMainnetOrTestnetAttrs[chainAttrsIndex].nativeToken : "UTBETS");
 
   useEffect(() => {
-    console.log("start time: ", startTime);
-
      const chainId = chain?.id != undefined ? chain.id :
             process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
     let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
@@ -53,13 +51,13 @@ const SquidRoundInfo = ({
         gap={'15px'}
       >
         <Flex
-          gap={['20px', '20px', '20px', '30px']}
+          gap={['5px', '20px', '20px', '30px']}
         >
           <Text
             fontFamily={'Nunito'}
-            fontWeight={'700'}
-            fontSize={'17px'}
-            lineHeight={'23px'}
+            fontWeight={['300', '700']}
+            fontSize={['10px', '17px']}
+            lineHeight={['14px', '23px']}
             color={'white'}
             textTransform={'capitalize'}
           >
@@ -69,9 +67,9 @@ const SquidRoundInfo = ({
 
           <Flex
             fontFamily={'Nunito'}
-            fontWeight={'700'}
-            fontSize={'17px'}
-            lineHeight={'23px'}
+            fontWeight={['300', '700']}
+            fontSize={['10px', '17px']}
+            lineHeight={['14px', '23px']}
             color={'white'}
             textTransform={'capitalize'}
           >
@@ -91,13 +89,13 @@ const SquidRoundInfo = ({
         </Flex>
 
         <Flex
-          gap={['20px', '20px', '20px', '30px']}
+          gap={['5px', '20px', '20px', '30px']}
         >
           <Flex
             fontFamily={'Nunito'}
-            fontWeight={'700'}
-            fontSize={'17px'}
-            lineHeight={'23px'}
+            fontWeight={['300', '700']}
+            fontSize={['10px', '17px']}
+            lineHeight={['14px', '23px']}
             color={'white'}
             textTransform={'capitalize'}
             className='countdown-in-detail-page'
@@ -124,9 +122,9 @@ const SquidRoundInfo = ({
 
           <Text
             fontFamily={'Nunito'}
-            fontWeight={'700'}
-            fontSize={'17px'}
-            lineHeight={'23px'}
+            fontWeight={['300', '700']}
+            fontSize={['10px', '17px']}
+            lineHeight={['14px', '23px']}
             color={startTime > new Date(new Date().getTime() + secondsInHalfHour * 1000) ? '#AEFB2F' : 'red'}
             textTransform={'capitalize'}
           >

@@ -21,39 +21,15 @@ const PredictionsVersusTeam = ({
       direction='column'
     >
       <Flex
-        gap={'5px'}
-        alignItems={['start', 'center', 'center', 'center']}
-        justifyContent={'start'}
-        display={['flex', 'flex', 'none', 'none']}
-        mb='3'
-      >
-        <Image
-          width={'25px'}
-          height={'25px'}
-          src={logo}
-          alt="soccer"
-        />
-        <Text
-          fontFamily={'Nunito'}
-          fontWeight={'700'}
-          fontSize={'17px'}
-          lineHeight={'23px'}
-        >
-          {/* Series A */}
-          {series}
-        </Text>
-      </Flex>
-
-      <Flex
         gap={'30px'}
-        direction={['column-reverse', 'column', 'row', 'row']}
+        direction={'row'}
       >
         <Text
           fontFamily={'Inter'}
           fontStyle={'normal'}
-          fontWeight={'extrabold'}
-          fontSize={'28px'}
-          lineHeight={'34px'}
+          fontWeight={['bold', 'extrabold']}
+          fontSize={['24px', '28px']}
+          lineHeight={['30px', '34px']}
           color={'white'}
           textTransform={'capitalize'}
         >
@@ -62,20 +38,20 @@ const PredictionsVersusTeam = ({
         </Text>
         <Flex
           gap={'5px'}
-          alignItems={['start', 'center', 'center', 'center']}
+          alignItems={['center']}
           justifyContent={'start'}
-          display={['none', 'none', 'flex', 'flex']}
+          display={['flex']}
         >
           <Image
-            width={'25px'}
-            height={'25px'}
+            width={['20px', '25px']}
+            height={['20px', '25px']}
             src={logo}
             alt="soccer"
           />
           <Text
             fontFamily={'Nunito'}
-            fontWeight={'700'}
-            fontSize={'17px'}
+            fontWeight={['500', '700']}
+            fontSize={['14px', '17px']}
             lineHeight={'23px'}
           >
             {/* Series A */}

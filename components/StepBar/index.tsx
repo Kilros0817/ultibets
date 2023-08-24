@@ -40,11 +40,15 @@ const StepBar = ({
               value && (
                 <Text
                   fontFamily={'Nunito'}
-                  fontWeight={'700'}
-                  fontSize={'14px'}
-                  lineHeight={'30px'}
+                  fontWeight={['400', '700']}
+                  fontSize={['10px', '14px']}
+                  lineHeight={['12px', '30px']}
                   color={'white'}
                   textTransform={'capitalize'}
+                  height={['25px', '30px']}
+                  mb={['5px', '0']}
+                  display={'flex'}
+                  alignItems={'flex-start'}
                 >
                   {value} {currentToken}
                 </Text>
@@ -52,19 +56,20 @@ const StepBar = ({
             }
             <Flex
               width='100%'
-              height={'4px'}
+              height={['3px', '4px']}
               backgroundColor={color}
               border={`1px solid ${color}`}
-              mb='5'
+              mb={['5px', '10px']}
             />
             <Text
               fontFamily={'Nunito'}
-              fontWeight={'700'}
-              fontSize={'12px'}
-              lineHeight={'30px'}
+              fontWeight={['400', '700']}
+              fontSize={['10px', '12px']}
+              lineHeight={['12px', '30px']}
               color={'white'}
               textTransform={'capitalize'}
               mr='3'
+              mt={['5px', '0px']}
               position='relative'
             >
               <Image
@@ -79,13 +84,14 @@ const StepBar = ({
             </Text>
             <Text
               fontFamily={'Nunito'}
-              fontWeight={'700'}
-              fontSize={'18px'}
-              lineHeight={'30px'}
+              fontWeight={['600', '700']}
+              fontSize={['13px', '18px']}
+              lineHeight={['16px', '30px']}
               color={color}
               textTransform={'capitalize'}
               textAlign={'right'}
               mr='3'
+              mt={['5px', '0px']}
             >
               {percent}%
             </Text>

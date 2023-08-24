@@ -37,15 +37,15 @@ const TokenSelector = () => {
         justifyContent='center'
         position='relative'
         zIndex='0'
-        width={['280px']}
+        width={['180px', '280px']}
         className='token-selector-component'
         onClick={onOpen}
       >
         <Flex
           backgroundColor={isNativeToken ? 'rgba(255, 114, 10, 0.23)' : 'transparent'}
           borderRadius='50px 0 0 50px'
-          px='34px'
-          py='11px'
+          paddingLeft={['15px', '30px']}
+          py='10px'
           width={'50%'}
           border={isNativeToken ? '1px solid #FC541C' : '1px solid #E18933'}
           borderRight={isNativeToken ? '1px solid #FC541C' : '1px solid transparent'}
@@ -77,8 +77,8 @@ const TokenSelector = () => {
               textTransform={'uppercase'}
               fontFamily='Nunito'
               fontStyle={'normal'}
-              fontWeight='700'
-              fontSize={'15px'}
+              fontWeight={['300', '700']}
+              fontSize={['12px', '15px']}
               lineHeight='20px'
             >
               {currentMainnetOrTestnetAttrs[chainAttrsIndex].nativeToken}
@@ -87,8 +87,8 @@ const TokenSelector = () => {
               textTransform={'capitalize'}
               fontFamily='Inter'
               fontStyle={'normal'}
-              fontWeight='700'
-              fontSize={'8px'}
+              fontWeight={['300', '700']}
+              fontSize={['6px', '8px']}
               lineHeight='10px'
             >
               ({currentMainnetOrTestnetAttrs[chainAttrsIndex].name})
@@ -110,8 +110,8 @@ const TokenSelector = () => {
             backgroundColor: 'transparent'
           }}
           cursor='pointer'
-          px='30px'
-          py='11px'
+          px='10px'
+          py='10px'
           alignItems='start'
         >
           <Flex
@@ -132,8 +132,8 @@ const TokenSelector = () => {
               textTransform={'uppercase'}
               fontFamily='Nunito'
               fontStyle={'normal'}
-              fontWeight='700'
-              fontSize={'15px'}
+              fontWeight={['300', '700']}
+              fontSize={['12px', '15px']}
               lineHeight='20px'
             >
               Utbets
@@ -142,8 +142,8 @@ const TokenSelector = () => {
               textTransform={'capitalize'}
               fontFamily='Inter'
               fontStyle={'normal'}
-              fontWeight='700'
-              fontSize={'8px'}
+              fontWeight={['300', '700']}
+              fontSize={['6px', '8px']}
               lineHeight='10px'
             >
               ({currentMainnetOrTestnetAttrs[chainAttrsIndex].name})

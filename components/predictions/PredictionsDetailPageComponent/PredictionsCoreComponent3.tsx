@@ -137,7 +137,7 @@ const PredictionsCoreComponent3 = ({
 
   const PredictionsStatistics = () => (
     <Flex
-      mt={'30px'}
+      mt={['0px', '30px']}
       justifyContent={'center'}
       alignItems={'baseline'}
       width={'100%'}
@@ -231,7 +231,7 @@ const PredictionsCoreComponent3 = ({
 
         <Flex
           display={['none', 'none', 'none', 'flex']}
-          width='50%'
+          width={['50%']}
           mr='5'
         >
           <PredictionsStatistics />

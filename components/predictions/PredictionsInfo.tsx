@@ -25,7 +25,7 @@ const PredictionsInfo = ({
   return (
     <Flex
       direction='column'
-      mt='70px'
+      mt={['45px', '70px']}
       className='predictions-info'
     >
       <PredictionsVersusTeam

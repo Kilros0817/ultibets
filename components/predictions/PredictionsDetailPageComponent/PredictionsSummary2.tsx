@@ -169,17 +169,16 @@ const PredictionsSummary2 = ({
                 transform: 'scale(1.2)',
               }}
               position={'absolute'}
-              right={['20px', '0px', '20px', '0px']}
-              mt={'33px'}
+              right={['5px', '0px', '20px', '0px']}
+              mt={['19px', '33px']}
               zIndex={100}
-              fontSize={'44px'}
               color={'#FFB11C'}
               onClick={() => slide(50)}
             >
               <Image
-                width={'30px'}
-                height={'30px'}
-                borderRadius={'50%'}
+                width={['20px', '30px']}
+                height={['20px', '30px']}
+                borderRadius={['30%', '50%']}
                 src="/images/svgs/icon/right.svg"
                 alt="right-arrow"
               />
@@ -197,16 +196,16 @@ const PredictionsSummary2 = ({
               id="prevBtn"
               position={'absolute'}
               left={'-12px'}
-              mt={'33px'}
+              mt={['19px', '33px']}
               zIndex={100}
               fontSize={'44px'}
               color={'#FFB11C'}
               onClick={() => slide(-50)}
             >
               <Image
-                width={'30px'}
-                height={'30px'}
-                borderRadius={'50%'}
+                width={['20px', '30px']}
+                height={['20px', '30px']}
+                borderRadius={['30%', '50%']}
                 // animation={animation}
                 src="/images/svgs/icon/left.svg"
                 alt="left-arrow"
@@ -218,9 +217,9 @@ const PredictionsSummary2 = ({
       <Text
         textAlign='left'
         fontFamily={'Nunito'}
-        fontWeight={'700'}
-        fontSize={'20px'}
-        lineHeight={'27px'}
+        fontWeight={['500', '700']}
+        fontSize={['14px', '20px']}
+        lineHeight={['18px', '27px']}
         color={'white'}
         textTransform={'capitalize'}
         pl='16px'
@@ -248,7 +247,7 @@ const PredictionsSummary2 = ({
           width='max-content'
         >
           <Flex
-            mt={'20px'}
+            mt={['10px', '20px']}
             direction={'column'}
           >
             <Flex
@@ -256,19 +255,18 @@ const PredictionsSummary2 = ({
               width='100%'
             />
             <Table
-              mt={'20px'}
-              gap='2'
+              mt={['10px', '20px']}
+              gap={'2'}
             >
-
               <Tbody>
                 {
                   predictionHistory.map((item, index) => (
                     <Tr
                       key={index}
                       fontFamily={'Nunito'}
-                      fontWeight={'700'}
-                      fontSize={'17px'}
-                      lineHeight={'23px'}
+                      fontWeight={['400', '700']}
+                      fontSize={['10px', '17px']}
+                      lineHeight={['14px', '23px']}
                       color={'white'}
                       textTransform={'capitalize'}
                     >
@@ -343,15 +341,15 @@ const PredictionsSummary2 = ({
       >
         <Button
           onClick={onOpenSecond}
-          height={'46px'}
-          width={'155px'}
+          height={['35px', '46px']}
+          width={['120px', '155px']}
           background={'unset'}
           borderRadius={'34px'}
           border={'1px solid #FC541C'}
           _hover={{
             background: '#FC541C',
           }}
-          fontSize={'20px'}
+          fontSize={['15px', '20px']}
         >
           Predict Now
         </Button>

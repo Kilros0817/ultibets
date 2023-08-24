@@ -25,7 +25,7 @@
     "**/*.tsx",
     "pages/utbets-token/index.jsx",
     "pages/utbets-token/Pie.js",
-    "pages/squid-competition/one/winner-page/index.jsx",
+    "pages/sbc/one/winner-page/index.jsx",
     "utils/ContextProvider.js",
     "utils/Context.js",
   ],
