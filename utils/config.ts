@@ -337,7 +337,7 @@ export const ultibetsSignAddresses = {
 export const ultibetsRewardAddresses = {
 	[fujiChainId]: '0x16c1bdA5e400Eb4679ff55A8a86fF4ab8f80574E',
 	[bscTestnetChainId]: '0x1D384dbFC93F7170c312e65aAe0ab8194cDE559a',
-	[opGoerliChainId]: '0x1Dc8382eb78188B26Db57AE2da8AEc4fb29A2FCf',
+	[opGoerliChainId]: '0xdDaFacF50c2C6A0c4b914645715642fc375aeFa7',
 	[mumbaiChainId]: '0x522c1b7Bbe8f48eD80d693D52e1b16edd4BFC243',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
