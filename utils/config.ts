@@ -313,8 +313,8 @@ export const sbcNFTContract = {
 }
 
 export const rndGeneratorContract = {
-	[fujiChainId]: '0xB69382d70B41220C24b92364c36edf886655b7E5',
-	[bscTestnetChainId]: '0x506c517aD25a01C8676C0eB0877821D12fF02c45',
+	[fujiChainId]: '0xe6F42c701d6B2ba62169E25E1233382296523b16',
+	[bscTestnetChainId]: '0x933A68CA54Da87884FE7ccef37D64aF1f54CE937',
 	[opGoerliChainId]: '0xe5fa07268deF20Af6eE3DF501eE2F5A74D110c14',
 	[mumbaiChainId]: '0x6B8ab16dDa3e31218E15fEae87F1648b7dB87aa7',
 	[avalancheChainId]: '',
