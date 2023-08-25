@@ -115,7 +115,7 @@ const AdminSBCComponent = () => {
     }
 
     useEffect(() => {
-        fetchDataFromSubgraph6(200);
+        fetchDataFromSubgraph6(5000);
     }, [
         isNativeToken,
         chainId,
