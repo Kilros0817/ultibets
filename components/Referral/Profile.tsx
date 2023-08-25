@@ -13,11 +13,11 @@ import { getEllipsisTxt } from '../../utils/formatters';
 import { useEffect, useState } from 'react'; 
 import { ethers } from 'ethers';
 import axios from 'axios';
-import { useClaimReferralBettingReward } from '../../utils/interact/sc/ultibetsreward';
 import AnnounceModal from '../modal/AnnounceModal';
 import { checkIconInGreenBg } from '../../utils/assets';
 import { chainRPCs, polygonChainId, mumbaiChainId, } from '../../utils/config';
 import { toast } from 'react-toastify';
+import { claimReferralBettingReward } from '../../utils/interact/sc/ultibetsreward';
 
 type ProfileProps = {
 	totalReferrals: number
@@ -31,7 +31,7 @@ const Profile = ({
 }: ProfileProps) => {
 	const { chain, } = useNetwork();
 	const { address, } = useAccount();
-	const [signature, setSignature] = useState<string>('');
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const {
 		isOpen: isOpenClaimFirstBettingRewardSuccessAnnounceModal,
 		onOpen: onOpenClaimFirstBettingRewardSuccessAnnounceModal,
@@ -48,8 +48,6 @@ const Profile = ({
 			value: (window.location.hostname ?? 'no-host') + "/?r=" + window.btoa(address ?? ''),
 		},
 	];
-
-	console.log("default link id: ", (window.location.hostname ?? 'no-host') + "/?r=" + window.btoa(address ?? ''))
 
 	const referralStatistics = [
 		{
@@ -68,40 +66,6 @@ const Profile = ({
 		console.log("totalReferrals: ", totalReferrals);
 	}, [totalReferrals])
 
-	const getSignature = async () => {
-		try {
-			const data = {
-				chainId: chain?.id ?? 0,
-				rpc: (chainRPCs as any)[chain?.id ?? mumbaiChainId],
-				eventID: ethers.utils.parseEther(referralBettingReward?.toString() ?? '0'), // this is not just eventid, but use here
-				bettor: address,
-			};
-
-			console.log("data: ", data);
-
-			const result = await axios.post(
-				'/api/createSignature',
-				data,
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
-				});
-
-			if ((result as any).data.isSuccess) {
-				console.log("sinature:  ", (result as any).data.signature)
-				setSignature((result as any).data.signature)
-			}
-		} catch (err) {
-			console.log('error in creating signature: ', err);
-		}
-	}
-
-	const claimReferralBettingReward = useClaimReferralBettingReward(
-		referralBettingReward,
-		signature,
-	)
-
 	const handleFirstPredictionReward = async () => {
 		const isMainnet = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? true : false;
 		const referralChainId = isMainnet ? polygonChainId : mumbaiChainId;
@@ -110,16 +74,42 @@ const Profile = ({
 			return;
 		}
 
-		await getSignature();
+		const data = {
+			chainId: chain?.id ?? 0,
+			rpc: (chainRPCs as any)[chain?.id ?? mumbaiChainId],
+			eventID: ethers.utils.parseEther(referralBettingReward?.toString() ?? '0'), // this is not just eventid, but use here
+			bettor: address,
+		};
 
-		if (signature == '') return;
-		if (claimReferralBettingReward.isLoading) return;
-		try {
-			claimReferralBettingReward.claimReferralBettingRewardFunction?.();
-			onOpenClaimFirstBettingRewardSuccessAnnounceModal();
-		} catch (err) {
-			console.log('error in claim reward: ', err);
+		const result = await axios.post(
+			'/api/createSignature',
+			data,
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+
+		if ((result as any).data.isSuccess) {
+			const signature = (result as any).data.signature
+			try {
+				setIsLoading(true);
+				const result = await claimReferralBettingReward (
+					referralBettingReward,
+					signature,
+					chain?.id ?? 0
+				)
+	
+				if (result)
+					onOpenClaimFirstBettingRewardSuccessAnnounceModal();
+	
+				setIsLoading(false);
+			} catch (err) {
+				setIsLoading(false);
+				console.log('error in claim reward: ', err);
+			}
 		}
+		
 	}
 
 	return (
@@ -355,7 +345,7 @@ const Profile = ({
 				</Flex>
 			</Flex>
 			<AnnounceModal
-				isOpenAnnounceModal={isOpenClaimFirstBettingRewardSuccessAnnounceModal && claimReferralBettingReward.isSuccess}
+				isOpenAnnounceModal={isOpenClaimFirstBettingRewardSuccessAnnounceModal}
 				onCloseAnnounceModal={onCloseClaimFirstBettingRewardSuccessAnnounceModal}
 				announceText={'You successfully claimed your first betting reward.'}
 				announceLogo={checkIconInGreenBg}
@@ -363,7 +353,7 @@ const Profile = ({
 			/>
 			<AnnounceModal
 				isOpenAnnounceModal={
-					(isOpenClaimFirstBettingRewardSuccessAnnounceModal && claimReferralBettingReward.isLoading)
+					isLoading
 				}
 				onCloseAnnounceModal={onCloseClaimFirstBettingRewardSuccessAnnounceModal}
 				announceText={'Your transaction is currently processing on the blockchain'}

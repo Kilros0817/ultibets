@@ -28,7 +28,6 @@ const TotalCashbackRevenue = ({
     const { chain, } = useNetwork();
     const [currentMainnetOrTestnetAttrs,] = useState(
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
-    const [chainAttrsIndex, setChainAttrsIndex] = useState(1);
     const {
         isOpen: isOpenClaimRewardSuccessAnnounceModal,
         onOpen: onOpenClaimRewardSuccessAnnounceModal,
@@ -43,46 +42,7 @@ const TotalCashbackRevenue = ({
             const temporaryChainId = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? 137 : 80001
             currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
         }
-        setChainAttrsIndex(currentChainAttrsItem[0].index);
     }, [chain, isNativeToken]);
-
-    const scroll = useRef<any>()
-    const [scrollX, setScrollX] = useState<number>(0) // For detecting start scroll postion
-    const [scrollEnd, setScrollEnd] = useState<boolean>(false) // For detecting end of scrolling
-
-    const slide = (shift: any) => {
-        scroll.current.scrollLeft += shift
-        if (
-            Math.floor(scroll.current.scrollWidth - scroll.current.scrollLeft) <= scroll.current.offsetWidth
-        ) {
-            setScrollEnd(true)
-        } else {
-            setScrollEnd(false)
-        }
-    }
-
-    const scrollCheck = () => {
-        setScrollX(scroll.current.scrollLeft)
-        if (
-            Math.floor(scroll.current.scrollWidth - scroll.current.scrollLeft) <= scroll.current.offsetWidth
-        ) {
-            setScrollEnd(true)
-        } else {
-            setScrollEnd(false)
-        }
-    }
-
-    useEffect(() => {
-        if (
-            scroll.current &&
-            scroll?.current?.scrollWidth === scroll?.current?.offsetWidth
-        ) {
-            setScrollEnd(true)
-        } else {
-            setScrollEnd(false)
-        }
-        return () => { }
-    }, [scroll?.current?.scrollWidth, scroll?.current?.offsetWidth])
 
     const revenueLogo = '/images/svgs/referral/revenue-logo.svg';
 

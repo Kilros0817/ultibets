@@ -739,7 +739,7 @@ const AdminSBCComponent = () => {
                 roundLevel={0} // final winner
                 totalPlayers={currentEvent?.totalPlayers}
                 playersInThisPhase={
-                    currentEvent?.splitVote > currentEvent?.soloVote ? currentEvent?.splitVote : 1
+                    currentEvent?.state == 2 && currentEvent?.splitVote > currentEvent?.soloVote ? numberOfPlayersInFinalVote : 1
                 }
                 nftSetStatus={nftSetStatus}
                 setNftSetStatus={setNftSetStatus}

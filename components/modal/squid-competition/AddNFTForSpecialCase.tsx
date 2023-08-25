@@ -131,7 +131,7 @@ const AddNFTForSpecialCase = ({
               eventID: ${eventID},
               round: ${roundLevel > 0 ? `Round ${roundLevel}` : `Final Winner`},
               totalPlayers: ${totalPlayers},
-              currentPlayers: 1,
+              currentPlayers: ${playersInThisPhase},
             }`,
             //   `{
             //   eventID: ${eventID},
@@ -152,7 +152,7 @@ const AddNFTForSpecialCase = ({
           ctx.fillText('Remaining Players:', 220, 520)
 
           ctx.font = 'bold 14px Nunito'
-          ctx.fillText(`1/${totalPlayers}`, 290, 540)
+          ctx.fillText(`${playersInThisPhase}/${totalPlayers}`, 290, 540)
 
           ctx.font = '14px Nunito'
           ctx.fillText(

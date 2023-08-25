@@ -335,10 +335,10 @@ export const ultibetsSignAddresses = {
 }
 
 export const ultibetsRewardAddresses = {
-	[fujiChainId]: '0x5542837fa833D43D718bA4B64A054bc4E20A1040',
+	[fujiChainId]: '0xCfFDB375B503D8c813e5a1f871e61993949b4055',
 	[bscTestnetChainId]: '0x4B10d972A49FECe1E0ac14F7bD8d54ee32c6aDfD',
 	[opGoerliChainId]: '0xdDaFacF50c2C6A0c4b914645715642fc375aeFa7',
-	[mumbaiChainId]: '0x522c1b7Bbe8f48eD80d693D52e1b16edd4BFC243',
+	[mumbaiChainId]: '0xE26F9FD8924f718c38c6a78B16359A8801576be5',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -384,7 +384,7 @@ export const chainRPCs = {
 	[fujiChainId]: 'https://multi-white-crater.avalanche-testnet.quiknode.pro/b581ac962a5564a662d2aa74bac0d55f2d6bfb38/ext/bc/C/rpc/',
 	[bscTestnetChainId]: 'https://attentive-twilight-frog.bsc-testnet.quiknode.pro/871c975adfdb298087b9b76e732be732fa499731/',
 	[opGoerliChainId]: 'https://lively-serene-snow.optimism-goerli.quiknode.pro/fbfc891a24e2b980e162877223148913550f1c55/',
-	[mumbaiChainId]: 'https://empty-yolo-water.matic-testnet.quiknode.pro/8ff24115b3f512f968a2e9f858043f83cc3f9198/',
+	[mumbaiChainId]: 'https://rpc-mumbai.maticvigil.com/',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
