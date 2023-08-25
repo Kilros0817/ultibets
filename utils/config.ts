@@ -687,7 +687,7 @@ export const profileContext = [
 	{
 		logo: '/images/svgs/my-profile.svg',
 		title: 'My Rewards',
-		href: '/my-profile/my-referrals',
+		href: '/my-profile/my-rewards',
 	},
 	{
 		logo: '/images/pngs/my-nfts/my-nft.svg',
