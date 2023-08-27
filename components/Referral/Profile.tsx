@@ -56,7 +56,7 @@ const Profile = ({
 			borderColor: 'linear-gradient(to bottom, #FF720A, #739AF0)'
 		},
 		{
-			label: 'You recieve:',
+			label: 'You receive:',
 			value: '10%*',
 			borderColor: 'linear-gradient(to bottom, #19A2A5, #739AF0)'
 		},

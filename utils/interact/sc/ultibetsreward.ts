@@ -37,7 +37,7 @@ export const claimReferralBettingReward = async (
         await wait();
         return true;
     } catch (e) {
-        console.log(e, "============error in create signature=============")
+        console.log(e, "============error in claim referral reward=============")
         return false
     }
 }
