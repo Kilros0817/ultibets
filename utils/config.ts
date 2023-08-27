@@ -384,7 +384,7 @@ export const chainRPCs = {
 	[fujiChainId]: 'https://api.avax-test.network/ext/bc/C/rpc',
 	[bscTestnetChainId]: 'https://bsc-testnet.publicnode.com',
 	[opGoerliChainId]: 'https://endpoints.omniatech.io/v1/op/goerli/public',
-	[mumbaiChainId]: 'https://rpc-mumbai.maticvigil.com/',
+	[mumbaiChainId]: 'https://polygon-mumbai.infura.io/v3/4458cf4d1689497b9a38b1d6bbf05e78',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',

@@ -232,6 +232,7 @@ const Profile = ({
 								border={'1px solid white'}
 								p={'20px'}
 								display={index == 1 ? 'flex' : 'none'}
+								key={index}
 							>
 								<Flex
 									key={index}
