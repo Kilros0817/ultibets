@@ -116,13 +116,13 @@ const FinalWinnerComponent = ({
           // equal case
           setFinalDecisionResult('Random Pick Solo Winner');
           setFinalPrizeLabel('Final Winner Prize');
-          setFinalLineLabel('Radonsom Solo Winner');
+          setFinalLineLabel('Random Solo Winner');
           setFinalLineValue('#' + winnerIds[0]);
         } else {
           // solo
           setFinalDecisionResult('Random Pick Solo Winner');
           setFinalPrizeLabel('Final Winner Prize');
-          setFinalLineLabel('Radonsom Solo Winner');
+          setFinalLineLabel('Random Solo Winner');
           setFinalLineValue('#' + winnerIds[0]);
         }
         break;
