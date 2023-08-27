@@ -99,7 +99,7 @@ const optimismGoerli = {
   nativeCurrency: { name: "Goerli Ether", symbol: "ETH", decimals: 18 },
   rpcUrls: {
     default: {
-      http: ["https://endpoints.omniatech.io/v1/op/goerli/public"]
+      http: ["https://opt-goerli.g.alchemy.com/v2/1_o3iQUe8t5zTEGaurkPNsp-9hUu7T09"]
     }
   },
   blockExplorers: {
