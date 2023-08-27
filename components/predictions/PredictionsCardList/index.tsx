@@ -105,6 +105,7 @@ const PredictionsCardList = ({
     isNativeToken,
     categoryInPM,
     chainId,
+    predictionMarketSelectedDate,
   ])
 
   useEffect(() => {
@@ -150,7 +151,6 @@ const PredictionsCardList = ({
     chain?.id,
     // categoryInPM, // when this is changed, should fetch data from subgraph again
     subCategoryInPM,
-    predictionMarketSelectedDate,
     sortByIndex,
   ])
 
@@ -163,7 +163,6 @@ const PredictionsCardList = ({
         .filter((item: any) => item.subcategory == subCategoryInPM);
     }
 
-    console.log("timestamp: predictionMarketFilteredData", predictionMarketFilteredData);
 
     let sortedData = [];
 

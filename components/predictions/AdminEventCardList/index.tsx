@@ -93,6 +93,7 @@ const AdminEventCardList = ({
     isNativeToken,
     categoryInPM,
     chainId,
+    adminSelectedDate
   ])
 
   useEffect(() => {
@@ -130,7 +131,6 @@ const AdminEventCardList = ({
     chain?.id,
     // categoryInPM, // when this is changed, should fetch data from subgraph again
     subCategoryInPM,
-    adminSelectedDate,
   ])
 
   const handleDataForPredictionMarketsForAdminPage = (eventList: any) => {
