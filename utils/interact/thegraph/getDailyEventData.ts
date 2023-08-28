@@ -71,7 +71,6 @@ export const getDailyEventData = async (
         });
         returnedData = res?.data?.data?.dailyEvents;
         if (returnedData?.length > 0) {
-            console.log("returned data: ", returnedData);
             isSuccess = true;
         } else {
             isSuccess = true;

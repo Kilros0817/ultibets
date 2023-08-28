@@ -49,10 +49,8 @@ export const getUserBetDataInPM = async (
         });
 
         returnedData = res?.data?.data?.bettorPredictions;
-        console.log("returned data: ", returnedData);
 
         if (returnedData?.length > 0) {
-            console.log("returned data: ", returnedData);
             isSuccess = true;
         } else {
             isSuccess = true;

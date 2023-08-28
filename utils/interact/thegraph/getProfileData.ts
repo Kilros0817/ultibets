@@ -50,7 +50,6 @@ export const getProfileData = async (
         });
 
         let returnedData = res?.data?.data;
-        console.log("returned data: =====================: profile data", returnedData);
         if (returnedData.length > 0) {
             for (let i = 0; i < returnedData.length; i++) {
                 if (returnedData[i]?.ultiBettors.length > 0) {

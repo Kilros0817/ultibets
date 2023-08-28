@@ -66,7 +66,6 @@ export const getSBCEvents = async (
 
         returnedData = res?.data?.data?.sbcevents;
         if (returnedData?.length > 0) {
-            console.log("returned data: ", returnedData);
             isSuccess = true;
         } else {
             isSuccess = true;

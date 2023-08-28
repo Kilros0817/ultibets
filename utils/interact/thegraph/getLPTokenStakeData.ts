@@ -30,7 +30,6 @@ export const getLPTokenStakeData = async (
         });
 
         let returnedData = res?.data?.data;
-        console.log("returned data: ", returnedData);
 
         if (returnedData.length > 0) {
 

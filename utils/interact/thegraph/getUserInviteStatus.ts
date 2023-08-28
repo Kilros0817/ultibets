@@ -32,7 +32,6 @@ export const getUserInviteStatus = async (
         });
 
         let returnedData = res?.data?.data;
-        console.log("returned data:", returnedData);
         if (returnedData.length > 0) {
             for (let i = 0; i < returnedData.length; i++) {
                 if (returnedData[i]?.bettorPredictions.length > 0) {

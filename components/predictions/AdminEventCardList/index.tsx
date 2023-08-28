@@ -76,7 +76,6 @@ const AdminEventCardList = ({
           chainId,
         );
 
-        console.log("daily events: ", dailyEvents);
         if (dailyEvents?.isSuccess) {
           setEventList(dailyEvents?.returnedData);
           handleDataForPredictionMarketsForAdminPage(dailyEvents?.returnedData);
@@ -87,7 +86,6 @@ const AdminEventCardList = ({
   }
 
   useEffect(() => {
-    console.log("daily events: ", "before");
     fetchDataFromSubgraph(100);
   }, [
     isNativeToken,

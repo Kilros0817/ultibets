@@ -32,7 +32,6 @@ export const getRewardData = async (
         returnedData = res?.data?.data?.ultiBettors;
 
         if (returnedData?.length > 0) {
-            console.log("returned data: aaaaaaaa ", returnedData);
             isSuccess = true;
         } else {
             isSuccess = true;
