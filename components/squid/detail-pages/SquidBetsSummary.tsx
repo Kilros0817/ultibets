@@ -15,7 +15,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useAccount, useNetwork } from 'wagmi'
 import { roundProperties, RoundResultInSBC, secondsInHalfHour } from '../../../utils/config'
 import { useChainContext } from '../../../utils/Context'
-import { useBettorDecisionOnRound, useIsWinner } from '../../../utils/interact/sc/squid-competition'
+import { bettorDecisionOnRound, isWinner } from '../../../utils/interact/sc/squid-competition'
 import PredictionsModal from '../../modal/PredictionsModal'
 
 type SquidBetsSummaryProps = {
@@ -80,21 +80,23 @@ const SquidBetsSummary = ({
     }
   }, [router])
 
-  const bettorDecisionOnRound = useBettorDecisionOnRound(
-    eventID,
-    currentSelectedLevel,
-  );
+  
 
   useEffect(() => {
-    if (bettorDecisionOnRound.isLoading) return;
-    if (bettorDecisionOnRound.status) {
-      setCurrentRoundPlayerResult((bettorDecisionOnRound as any)?.result);
-      console.log("current round bet result: ", bettorDecisionOnRound?.result)
+    const initBettorDecisions = async () => {
+      const res = await bettorDecisionOnRound(
+        eventID,
+        currentSelectedLevel,
+        address,
+        chain?.id ?? 0,
+        isNativeToken
+      );
+      setCurrentRoundPlayerResult(res as any);
     }
+    if (chain?.id && address)  initBettorDecisions()
   }, [
     chain?.id,
-    bettorDecisionOnRound.isLoading,
-    bettorDecisionOnRound.result,
+    address,
     isNativeToken,
   ]);
 
@@ -166,23 +168,30 @@ const SquidBetsSummary = ({
     },
   ];
 
-  const isWinner = useIsWinner(
-    address ?? '0x0',
-    eventID,
-    currentSelectedLevel - 1,
-  );
+
 
   useEffect(() => {
     if (currentSelectedLevel < 2) return;
-    if (isWinner.isLoading) return;
-    if (isWinner.status) {
-      setPassedPreviousRound((isWinner as any)?.result);
-      console.log("passed previous round: ", isWinner?.result);
+
+    const getWinner = async () => {
+      const res = await isWinner(
+        address as any,
+        eventID,
+        currentSelectedLevel - 1,
+        chain?.id??0,
+        isNativeToken
+      );
+
+      setPassedPreviousRound(res as boolean)
     }
+
+    if (chain?.id && address)
+      getWinner();
+    
+    
   }, [
     chain?.id,
-    isWinner.isLoading,
-    isWinner.result,
+    address,
     isNativeToken,
     currentSelectedLevel,
     eventID,

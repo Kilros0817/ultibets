@@ -11,8 +11,8 @@ import PlaceVoteModal from '../../../modal/PlaceVoteModal'
 import Welcome from '../Welcome'
 import { exclamationIconInRedBg, randomSoloWinnerButton, spliqtEquallyButton } from '../../../../utils/assets'
 import { roundProperties, VotingResultInSBC } from '../../../../utils/config'
-import { useEventVote, useGetWinnerIDs, usePlayersVoteState } from '../../../../utils/interact/sc/squid-competition'
-import { useNetwork } from 'wagmi'
+import { eventVote, getWinnerIDs, playersVoteState } from '../../../../utils/interact/sc/squid-competition'
+import { useAccount, useNetwork } from 'wagmi'
 import { useChainContext } from '../../../../utils/Context'
 import { useRouter } from 'next/router'
 import StepBar from '../../../StepBar'
@@ -38,6 +38,7 @@ const FinalVoteComponent = ({
   const router = useRouter();
   const [option, setOption] = useState<VotingResultInSBC>(VotingResultInSBC.Indeterminate);
   const { chain, } = useNetwork();
+  const { address } = useAccount();
   const { isNativeToken } = useChainContext();
   const [isAlreadyVoted, setIsAlreadyVoted] = useState<boolean>(false);
   const [splitPoint, setSplitPoint] = useState<number>(0);
@@ -67,40 +68,47 @@ const FinalVoteComponent = ({
     onOpen();
   }
 
-  const playersVoteState = usePlayersVoteState(
-    eventID
-  );
+
 
   useEffect(() => {
-    if (playersVoteState.isLoading) return;
-    if (playersVoteState.status) {
-      //@ts-ignore
-      setIsAlreadyVoted(playersVoteState.result);
+
+    const getPlayersVoteState = async () => {
+      const res = await playersVoteState(
+        eventID,
+        address,
+        chain?.id ?? 0,
+        isNativeToken
+      );
+      setIsAlreadyVoted(res as boolean);
+    }
+
+    if (chain?.id && address) {
+      getPlayersVoteState()
     }
   }, [
     chain?.id,
-    playersVoteState.isLoading,
-    playersVoteState.result,
+    address,
     isNativeToken,
   ]);
 
-  const eventVote = useEventVote(
-    eventID
-  );
+
 
   useEffect(() => {
-    if (eventVote.isLoading) return;
-    if (eventVote.status) {
-      //@ts-ignore
-      setSplitPoint(eventVote?.result?.splitPoint);
-      //@ts-ignore
-      setSoloPoint(eventVote?.result?.soloPoint);
 
+    const getVote = async () => {
+      const res = await eventVote(
+        eventID,
+        chain?.id ?? 0,
+        isNativeToken
+      );
+      //@ts-ignore
+      setSplitPoint(res.splitPoint);
+      //@ts-ignore
+      setSoloPoint(res.soloPoint);
     }
+    if (chain?.id) getVote()
   }, [
     chain?.id,
-    eventVote.isLoading,
-    eventVote.result,
     isNativeToken,
   ]);
 
@@ -110,19 +118,21 @@ const FinalVoteComponent = ({
     }
   }, [voteResult,])
 
-  const getWinnerIDs = useGetWinnerIDs(
-    eventID
-  );
+  
 
   useEffect(() => {
-    if (getWinnerIDs.isLoading) return;
-    if (getWinnerIDs.status) {
-      setWinnerIds((getWinnerIDs as any).result);
+    const initWinnerIDs = async () => {
+      const res = await getWinnerIDs(
+        eventID,
+        chain?.id ?? 0,
+        isNativeToken
+      );
+      setWinnerIds(res as any);
     }
+
+    if (chain?.id) initWinnerIDs()
   }, [
     chain?.id,
-    getWinnerIDs.isLoading,
-    getWinnerIDs.result,
     isNativeToken,
     winnersNumber,
   ]);

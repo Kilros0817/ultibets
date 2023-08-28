@@ -11,7 +11,7 @@ import React, { useState, useEffect, } from 'react'
 import UtBetsTokenRoutes from "../tokenRoutes";
 import { getEllipsisTxt } from '../../../utils/formatters';
 import { useAccount, useNetwork } from 'wagmi';
-import { useClaimPrize, usePrizeAmount } from '../../../utils/interact/sc/airdrop';
+import { claimPrize, getPrizeAmount } from '../../../utils/interact/sc/airdrop';
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 import AnnounceModal from '../../../components/modal/AnnounceModal';
@@ -21,47 +21,40 @@ const UtbetsAirdrop = () => {
   const { chain, } = useNetwork();
   const { address, } = useAccount();
   const [isEligible, setIsEligible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     isOpen: isOpenSuccessAnnounceModal,
     onOpen: onOpenSuccessAnnounceModal,
     onClose: onCloseSuccessAnnounceModal,
   } = useDisclosure();
 
-  const goBack = () => {
-    console.log("back button clicked");
-  }
-
-  const prizeAmount = usePrizeAmount();
-
   useEffect(() => {
-    if (prizeAmount.isLoading) return;
-    if (prizeAmount.status) {
-      const amount = prizeAmount.result ? prizeAmount.result : 0;
+    const initPrize = async () => {
+      const amount = await getPrizeAmount(chain?.id ?? 0, address);
       setIsEligible(Number(ethers.utils.formatEther(amount as string)) > 0);
     }
+
+    if (chain?.id && address)
+      initPrize()
   }, [
     chain,
     address,
-    prizeAmount.isLoading,
-    prizeAmount.result,
   ])
 
-  const claimPrize = useClaimPrize();
-
-  const handleClaimAirdrop = () => {
+  const handleClaimAirdrop = async () => {
     console.log("is eligible: ", isEligible);
     if (!isEligible) {
       toast.error('You can\'t claim airdrop');
       return;
     }
 
-    if (claimPrize.isLoading) return;
-    try {
-      claimPrize.claimPrizeFunction?.();
+    setIsLoading(true)
+
+    const result = await claimPrize(chain?.id ?? 0);
+    if (result)
       onOpenSuccessAnnounceModal();
-    } catch (err) {
-      console.log('error in claim airdrop: ', err);
-    }
+
+    setIsLoading(false);
   }
 
   return (
@@ -159,7 +152,7 @@ const UtbetsAirdrop = () => {
           </Text>
 
           {
-            isEligible ? (
+            isEligible && (
               <>
                 <Flex
                   direction='column'
@@ -300,29 +293,7 @@ const UtbetsAirdrop = () => {
                   </Button>
                 </Flex>
               </>
-            ) : (
-              <Flex
-                my='60px'
-                justifyContent={'center'}
-              >
-                <Button
-                  border='1px solid #FC541C'
-                  px='41px'
-                  py='10px'
-                  borderRadius='34px'
-                  background='transparent'
-                  _hover={{
-                    backgroundColor: '#FC541C',
-                  }}
-                  _active={{
-                    backgroundColor: '#FC541C',
-                  }}
-                  onClick={() => goBack()}
-                >
-                  Go Back
-                </Button>
-              </Flex>
-            )
+            ) 
           }
         </Flex>
 
@@ -343,19 +314,19 @@ const UtbetsAirdrop = () => {
           zIndex='1'
         />
         <AnnounceModal
-          isOpenAnnounceModal={isOpenSuccessAnnounceModal && claimPrize.isSuccess}
+          isOpenAnnounceModal={isOpenSuccessAnnounceModal}
           onCloseAnnounceModal={onCloseSuccessAnnounceModal}
           announceText={'Your name has been successfully registered'}
           announceLogo={checkIconInGreenBg}
           announceModalButtonText={'Close'}
         />
         <AnnounceModal
-          isOpenAnnounceModal={(isOpenSuccessAnnounceModal && claimPrize.isLoading)}
-          onCloseAnnounceModal={onCloseSuccessAnnounceModal}
+          isOpenAnnounceModal={isLoading}
+          onCloseAnnounceModal={() => setIsLoading(false)}
           announceText={'Your transaction is currently processing on the blockchain'}
           announceGif={true}
           announceModalButtonText={'Close'}
-          announceModalButtonAction={onCloseSuccessAnnounceModal}
+          announceModalButtonAction={() => setIsLoading(false)}
         />
       </Flex>
     </>

@@ -13,10 +13,10 @@ import {
 import React, { useEffect, useState } from 'react'
 import { useAccount, useNetwork, useBalance, useSigner, } from 'wagmi';
 import PredictionsModalBody from './PredictionsModalBody';
-import { chainAttrs, chainRPCs, contractAddressesInDailyBets, contractAddressesInSBC, mumbaiChainId, newChainAttrs, polygonChainId, utbetsTokenAddresses } from '../../utils/config';
+import { chainRPCs, contractAddressesInDailyBets, contractAddressesInSBC, mumbaiChainId, newChainAttrs, polygonChainId, utbetsTokenAddresses } from '../../utils/config';
 import FinalModal from './FinalModal';
-import { usePlaceBetInPM, usePlaceBetUsingPerk, } from '../../utils/interact/sc/prediction-markets';
-import { usePlaceBetInSBC, } from '../../utils/interact/sc/squid-competition';
+import { placeBetInPM, placeBetUsingPerk, } from '../../utils/interact/sc/prediction-markets';
+import { placeBetInSBC } from '../../utils/interact/sc/squid-competition';
 import { useRouter } from 'next/router';
 import { useChainContext } from '../../utils/Context';
 import Account from '../Account';
@@ -24,7 +24,7 @@ import AnnounceModal from './AnnounceModal';
 import { convertBetValue2Number } from '../../utils/interact/utility';
 import axios from 'axios';
 import { PerkInfo } from '../../utils/types';
-import { getAllowance, useApprove } from '../../utils/interact/sc/utbets';
+import { getAllowance, utbetsApprove } from '../../utils/interact/sc/utbets';
 import { checkIconInGreenBg, UltiBetsTokenAbi } from '../../utils/assets';
 import { toast } from 'react-toastify';
 import { BigNumberish, ethers } from 'ethers';
@@ -83,6 +83,9 @@ const PredictionsModal = ({
     perkLevel: 1,
     count: 0,
   })
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const {
     isOpen: isOpenApproveSuccessAnnounceModal,
     onOpen: onOpenApproveSuccessAnnounceModal,
@@ -110,35 +113,15 @@ const PredictionsModal = ({
       await getApproval();
     }
     if (!isNativeToken && chain?.id) {
-        initApproval();
+      initApproval();
     }
   }, [newBetAmount, address])
 
   useEffect(() => {
     let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId; 
+      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
     setChainId(chainId);
   }, [chain])
-
-  const placeBetInPM = usePlaceBetInPM(
-    eventID ?? 1,
-    betValueNumber,
-    newBetAmount ?? 0,
-    isNativeToken ? '' : canBeInvited ? window.atob(referral) : address!,
-    isNativeToken ? '' : signature,
-  )
-
-  const placeBetUsingPerk = usePlaceBetUsingPerk(
-    eventID ?? 1,
-    betValueNumber,
-    perkInfo.perkLevel,
-  )
-
-  const placeBetInSBC = usePlaceBetInSBC(
-    eventID ?? 0,
-    betValueNumber,
-    roundBetAmount ?? 0,
-  )
 
   useEffect(() => {
     const pathName = router.asPath;
@@ -169,7 +152,7 @@ const PredictionsModal = ({
     setBetValueNumber(betValueNumber);
   }, [type, prediction, sbc])
 
-  const { data: balanceOfNativeTokenInWallet, isLoading: fetchingBalanceOfNativeTokenInWallet, isError: isErrorInFetchingBalanceOfNativeTokenInWallet } = useBalance({
+  const { data: balanceOfNativeTokenInWallet } = useBalance({
     address: address,
   })
 
@@ -180,21 +163,24 @@ const PredictionsModal = ({
       toast.error('Please select exact perk');
       return;
     }
-    if (placeBetUsingPerk.isLoading) return;
 
+    setIsLoading(true)
     try {
-      placeBetUsingPerk.placeBetUsingPerkFunction?.();
-      onOpenThird();
+      const result = await placeBetUsingPerk(eventID ?? 1,
+        betValueNumber,
+        perkInfo.perkLevel,
+        chain?.id ?? 0)
+
+      if (result)
+        onOpenThird();
+      setIsLoading(false)
+
     } catch (err) {
+      setIsLoading(false)
+
       console.log('error in place bet: ', err);
     }
   }
-
-  const approveUtbets = useApprove(
-    (utbetsTokenAddresses as any)[chainId],
-    type == 'prediction' ? (contractAddressesInDailyBets as any)[chainId][1] : (contractAddressesInSBC as any)[chainId][1],
-    ((type == 'prediction' ? newBetAmount : roundBetAmount) ?? 0)?.toString(),
-  );
 
   const handleApproveUtbets = async () => {
     if (isNativeToken) return;
@@ -202,13 +188,20 @@ const PredictionsModal = ({
       toast.error('Please input amount at first');
       return;
     }
-    if (approveUtbets.isLoading) return;
 
+    setIsLoading(true)
     try {
-      approveUtbets.approveFunction?.();
-      onOpenApproveSuccessAnnounceModal();
-      await getSignature();
+      const result = await utbetsApprove((utbetsTokenAddresses as any)[chainId],
+        type == 'prediction' ? (contractAddressesInDailyBets as any)[chainId][1] : (contractAddressesInSBC as any)[chainId][1],
+        ((type == 'prediction' ? newBetAmount : roundBetAmount) ?? 0)?.toString())
+
+      if (result) {
+        onOpenApproveSuccessAnnounceModal();
+        await getSignature();
+      }
+      setIsLoading(false)
     } catch (err) {
+      setIsLoading(false)
       console.log('error in approve utbets token: ', err);
     }
   }
@@ -216,7 +209,6 @@ const PredictionsModal = ({
   const handleNonPerkPredictInPM = async () => {
     if (newBetAmount == 0) return;
     if (isPerks == "true") return;
-    if (placeBetInPM.isLoading) return;
 
     if (isNativeToken) {
       if ((newBetAmount ?? 0) > parseFloat(balanceOfNativeTokenInWallet?.formatted ?? '0')) {
@@ -234,10 +226,26 @@ const PredictionsModal = ({
       }
     }
 
+    setIsLoading(true);
     try {
-      placeBetInPM.placeBetFunction?.();
-      onOpenThird();
+      const result = await placeBetInPM(eventID ?? 1,
+        betValueNumber,
+        newBetAmount ?? 0,
+        isNativeToken ? '' : canBeInvited ? window.atob(referral) : address!,
+        isNativeToken ? '' : signature,
+        address,
+        chain?.id ?? 0,
+        isNativeToken
+      )
+
+      if (result) {
+        onOpenThird();
+
+      }
+
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false)
       console.log('error in place bet: ', err);
     }
   }
@@ -274,9 +282,11 @@ const PredictionsModal = ({
     }
   }
 
+
   const handlePredictInSBC = async () => {
 
-    if (placeBetInSBC.isLoading) return;
+    setIsLoading(true);
+
     if (isNativeToken) {
       if ((roundBetAmount ?? 0) > parseFloat(balanceOfNativeTokenInWallet?.formatted ?? '0')) {
         onOpenAnnounceModal();
@@ -295,9 +305,20 @@ const PredictionsModal = ({
     }
 
     try {
-      placeBetInSBC.placeBetFunction?.();
-      onOpenThird();
+      const result = await placeBetInSBC(
+        eventID ?? 0,
+        betValueNumber,
+        roundBetAmount ?? 0,
+        chain?.id ?? 0,
+        isNativeToken
+      );
+      if (result) {
+        onOpenThird();
+      }
+
+      setIsLoading(false)
     } catch (err) {
+      setIsLoading(false);
       console.log('error in place bet: ', err);
     }
   }
@@ -426,7 +447,7 @@ const PredictionsModal = ({
         </ModalContent>
       </Modal>
       <AnnounceModal
-        isOpenAnnounceModal={isOpenApproveSuccessAnnounceModal && approveUtbets.isSuccess}
+        isOpenAnnounceModal={isOpenApproveSuccessAnnounceModal}
         onCloseAnnounceModal={onCloseApproveSuccessAnnounceModal}
         announceText={'UTBETS successfully approved'}
         announceLogo={checkIconInGreenBg}
@@ -437,7 +458,7 @@ const PredictionsModal = ({
         }}
       />
       <FinalModal
-        isOpenThird={isOpenThird && (placeBetInPM.isSuccess || placeBetInSBC.isSuccess || placeBetUsingPerk.isSuccess)}
+        isOpenThird={isOpenThird}
         onCloseSecond={() => {
           onCloseSecond();
           setIsApprovedUtbets(false);
@@ -445,7 +466,7 @@ const PredictionsModal = ({
           setNewBetAmount(null);
         }}
         onCloseThird={onCloseThird}
-        type={placeBetInSBC.isSuccess ? 'sbc' : 'bet'}
+        type={type}
       />
       <AnnounceModal
         isOpenAnnounceModal={isOpenAnnounceModal}
@@ -456,10 +477,9 @@ const PredictionsModal = ({
       />
       <AnnounceModal
         isOpenAnnounceModal={
-          (isOpenApproveSuccessAnnounceModal && approveUtbets.isLoading) ||
-          (isOpenThird && (placeBetInPM.isLoading || placeBetInSBC.isLoading || placeBetUsingPerk.isLoading))
+          isLoading
         }
-        onCloseAnnounceModal={onCloseApproveSuccessAnnounceModal}
+        onCloseAnnounceModal={() => setIsLoading(false)}
         announceText={'Your transaction is currently processing on the blockchain'}
         announceGif={true}
         announceModalButtonText={'Close'}

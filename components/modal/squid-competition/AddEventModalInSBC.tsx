@@ -16,9 +16,9 @@ import React, { useState, useEffect, } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from 'react-toastify';
-import { newChainAttrs, polygonChainId, secondsInHalfHour, } from '../../../utils/config';
+import { secondsInHalfHour, } from '../../../utils/config';
 import { checkIconInGreenBg } from '../../../utils/assets';
-import { useCreateNewEvent } from '../../../utils/interact/sc/squid-competition';
+import { createNewEvent } from '../../../utils/interact/sc/squid-competition';
 import AnnounceModal from '../AnnounceModal';
 import { useChainContext } from '../../../utils/Context';
 import { useNetwork } from 'wagmi';
@@ -47,7 +47,6 @@ const AddEventModalInSBC = ({
   const [roundBetCost, setRoundBetCost] = useState<number | null>(5);
   const [orgFeePercent, setOrgFeePercent] = useState<number | null>(10);
   const [isWarrior, setIsWarrior] = useState<string>('false');
-  const [tokenSymbol, setTokenSymbol] = useState<string>(isNativeToken ? 'MATIC' : 'Utbets');
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [allChainTxAnnounceResult, setAllChainTxAnnounceResult] = useState<any>([]);
   const {
@@ -61,25 +60,7 @@ const AddEventModalInSBC = ({
     onClose: onCloseAllChainTxAnnounceModal,
   } = useDisclosure();
 
-  useEffect(() => {
-    setTokenSymbol(isNativeToken ? (newChainAttrs as any)[chain?.id ?? polygonChainId].nativeToken : 'UTBETS');
-  }, [
-    isNativeToken,
-    chain
-  ])
-
-  const createNewEvent = useCreateNewEvent(
-    description,
-    maxPlayers ?? 0,
-    registrationCost ?? 0,
-    Math.round(selectedDate.getTime() / 1000),
-    totalRound ?? 0,
-    roundBetCost ?? 0,
-    (orgFeePercent ?? 0),
-    isNativeToken,
-    isWarrior == 'true' ? true : false,
-  )
-
+  const tokenSymbol = isNativeToken ? 'MATIC' : 'Utbets';
   const checkIfIsInputValid = () => {
     if (selectedDate.getTime() <= Date.now() + secondsInHalfHour * 1000) {
       toast.warn("Event start time should be at least 30 mins after");
@@ -113,8 +94,6 @@ const AddEventModalInSBC = ({
         chainId: chain?.id ?? 0,
       };
 
-      console.log("data: ", data);
-
       const response = (await axios.post(
         '/api/addEventAllInSBC',
         data,
@@ -124,7 +103,6 @@ const AddEventModalInSBC = ({
           },
         })).data;
 
-      console.log("**********   response: ", response);
       if (response.isSuccess) {
         setAllChainTxAnnounceResult(response.result);
         onOpenAllChainTxAnnounceModal();
@@ -140,19 +118,33 @@ const AddEventModalInSBC = ({
     setIsProcessing(false);
   }
 
-  const handleAddEventInRepeatLevel0 = () => {
+  const handleAddEventInRepeatLevel0 = async () => {
     if (!checkIfIsInputValid()) return;
 
-    if (createNewEvent.isLoading) return;
+    setIsProcessing(true)
     try {
-      createNewEvent.createNewEventFunction?.();
-      onOpenAddEventSuccessAnnounceModal();
-      onClose();
-      setDescription('');
-      setSelectedDate(new Date());
+      const res = await createNewEvent(
+        description,
+        maxPlayers ?? 0,
+        registrationCost ?? 0,
+        Math.round(selectedDate.getTime() / 1000),
+        totalRound ?? 0,
+        roundBetCost ?? 0,
+        (orgFeePercent ?? 0),
+        isWarrior == 'true' ? true : false,
+        chain?.id ?? 0,
+        isNativeToken,
+      )
+      if (res) {
+        onOpenAddEventSuccessAnnounceModal();
+        onClose();
+        setDescription('');
+        setSelectedDate(new Date());
+      }
     } catch (err) {
       console.log('error in add sbc event in current categories: ', err);
     }
+    setIsProcessing(false)
   }
 
   useEffect(() => {
@@ -322,7 +314,70 @@ const AddEventModalInSBC = ({
                 fontFamily={'Nunito'}
               />
             </Flex>
-
+            {repeatLevel == 1 && (
+              <>
+                <Flex
+                  className='sbc-event-registration-cost-wrapper'
+                  direction={'column'}
+                  mt={'32px'}
+                >
+                  <Flex
+                    fontFamily={'Nunito'}
+                    fontWeight={'700'}
+                    fontSize={'22px'}
+                    lineHeight={'30px'}
+                    color={'white'}
+                    textTransform={'capitalize'}
+                  >
+                    Registeration Cost
+                  </Flex>
+                  <Flex
+                    alignItems={'flex-end'}
+                  >
+                    <Input
+                      value={registrationCost == null ? '' : registrationCost}
+                      placeholder={'0'}
+                      type={'number'}
+                      variant="flushed"
+                      borderBottom={'2px solid #739AF0 !important'}
+                      onChange={(e) => setRegistrationCost(e?.target?.value == '' ? null : Number(e?.target?.value))}
+                      fontFamily={'Nunito'}
+                    />
+                    {tokenSymbol}
+                  </Flex>
+                </Flex>
+                <Flex
+                  className='sbc-event-round-bet-cost-wrapper'
+                  direction={'column'}
+                  mt={'32px'}
+                >
+                  <Flex
+                    fontFamily={'Nunito'}
+                    fontWeight={'700'}
+                    fontSize={'22px'}
+                    lineHeight={'30px'}
+                    color={'white'}
+                    textTransform={'capitalize'}
+                  >
+                    Round Bet Cost
+                  </Flex>
+                  <Flex
+                    alignItems={'flex-end'}
+                  >
+                    <Input
+                      value={roundBetCost == null ? '' : roundBetCost}
+                      placeholder={'0'}
+                      type={'number'}
+                      variant="flushed"
+                      borderBottom={'2px solid #739AF0 !important'}
+                      onChange={(e) => setRoundBetCost(e?.target?.value == '' ? null : Number(e?.target?.value))}
+                      fontFamily={'Nunito'}
+                    />
+                    {tokenSymbol}
+                  </Flex>
+                </Flex>
+              </>
+            )}
             <Flex
               className='sbc-event-organization-fee-percent-wrapper'
               direction={'column'}
@@ -403,7 +458,7 @@ const AddEventModalInSBC = ({
         </ModalContent>
       </Modal>
       <AnnounceModal
-        isOpenAnnounceModal={isOpenAddEventSuccessAnnounceModal && createNewEvent.isSuccess}
+        isOpenAnnounceModal={isOpenAddEventSuccessAnnounceModal}
         onCloseAnnounceModal={onCloseAddEventSuccessAnnounceModal}
         announceText={'Event has been successfully added'}
         announceLogo={checkIconInGreenBg}
@@ -416,9 +471,9 @@ const AddEventModalInSBC = ({
       />
       <AnnounceModal
         isOpenAnnounceModal={
-          isProcessing || (isOpenAddEventSuccessAnnounceModal && createNewEvent.isLoading)
+          isProcessing
         }
-        onCloseAnnounceModal={onCloseAddEventSuccessAnnounceModal}
+        onCloseAnnounceModal={() => setIsProcessing(false)}
         announceText={'Your transaction is currently processing on the blockchain'}
         announceGif={true}
         announceModalButtonText={'Close'}

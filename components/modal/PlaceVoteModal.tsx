@@ -12,9 +12,12 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { VotingResultInSBC } from '../../utils/config'
-import { useVote, } from '../../utils/interact/sc/squid-competition'
+import { vote, } from '../../utils/interact/sc/squid-competition'
 import AnnounceModal from './AnnounceModal'
 import FinalModal from './FinalModal'
+import { useNetwork } from 'wagmi'
+import { useChainContext } from '../../utils/Context'
+import { useState } from 'react'
 
 export type PlaceVoteModalProps = {
   isOpen: boolean
@@ -39,20 +42,25 @@ const PlaceVoteModal = ({
     onClose: onCloseFinal,
   } = useDisclosure();
 
-  const vote = useVote(
-    option,
-    eventID
-  )
+  const { chain, } = useNetwork();
+  const { isNativeToken, } = useChainContext();
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleVote = async () => {
-    if (vote.isLoading) return;
-
+    setIsLoading(true)
     try {
-      vote.voteFunction?.();
-      onOpenFinal();
+      const res = await vote(
+        option,
+        eventID,
+        chain?.id ?? 0,
+        isNativeToken
+      )
+      if (res)
+        onOpenFinal();
     } catch (err) {
       console.log('error in place bet: ', err);
     }
+    setIsLoading(false)
   }
 
   return (
@@ -95,7 +103,7 @@ const PlaceVoteModal = ({
                 my='20px'
               >
                 <Button
-                  onClick={() => handleVote()}
+                  onClick={async () => await handleVote()}
                   height={'46px'}
                   width={'155px'}
                   background={'unset'}
@@ -132,14 +140,14 @@ const PlaceVoteModal = ({
         </ModalContent>
       </Modal>
       <FinalModal
-        isOpenThird={isOpenFinal && vote.isSuccess}
+        isOpenThird={isOpenFinal}
         onCloseSecond={onClose}
         onCloseThird={onCloseFinal}
         type='vote'
       />
       <AnnounceModal
         isOpenAnnounceModal={
-          (isOpenFinal && vote.isLoading)
+          isLoading
         }
         onCloseAnnounceModal={onClose}
         announceText={'Your transaction is currently processing on the blockchain'}

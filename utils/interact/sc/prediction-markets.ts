@@ -1,80 +1,48 @@
-import {
-    useAccount,
-    useContractWrite,
-    useNetwork,
-    usePrepareContractWrite,
-    useWaitForTransaction,
-} from 'wagmi';
-import { BigNumber, ethers } from 'ethers';
+import { writeContract } from "@wagmi/core";
+
+import { ethers } from 'ethers';
 import {
     contractAddressesInDailyBets,
-    mumbaiChainId,
-    newChainAttrs,
-    polygonChainId,
 } from '../../config';
-import { useChainContext, } from '../../Context';
 import { nativeTokenDailyBetsAbiInPM, ultibetsTokenDailyBetsAbiInPM } from '../../assets';
 
 // function placePrediction(uint256 _eventID, EventResultInPM _eventValue)
-export const usePlaceBetInPM = (
+export const placeBetInPM = async (
     eventID: number,
     _eventValue: number,
     newBetAmount: number | null,
     referer: string,
     signature: string,
+    address: any,
+    chainId: number,
+    isNativeToken: boolean
 ) => {
-
-    const { chain } = useNetwork();
-    const { isNativeToken, } = useChainContext();
-    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
-    const { address, } = useAccount();
-
-    console.log("referer: ", referer != '' ? referer : address)
-
-    const { config, error: prepareError } = usePrepareContractWrite({
-        address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
-        abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
-        functionName: 'placePrediction',
-        cacheTime: 2_000,
-        args: isNativeToken ? [
-            eventID,
-            _eventValue,
-        ] : [
-            eventID,
-            _eventValue,
-            ethers.utils.parseEther((newBetAmount ?? 0).toString()),
-            referer != '' ? referer : address,
-            signature,
-        ],
-        overrides: {
-            value: isNativeToken ? ethers.utils.parseEther((newBetAmount ?? 0)?.toString()) : 0,
-            gasLimit: ethers.BigNumber.from(1000000),
-        },
-        onSuccess(data) {
-            console.log('prepare contract write Success', data)
-        },
-        onError(prepareError) {
-            console.log('prepare contract write Error', prepareError)
-        },
-    })
-    const { write: placeBetFunction, data } = useContractWrite(config)
-    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
-        hash: data?.hash,
-        cacheTime: 2_000,
-        onSuccess(data) {
-            console.log("wait for transaction success: ", data);
-        },
-        onError(error) {
-            console.log('wait for transaction result error: ', error);
-        },
-    })
-
-    return {
-        status: error == undefined ? true : false,
-        isLoading,
-        placeBetFunction,
-        isSuccess,
+    try {
+        const { wait } = await writeContract({
+            mode: "recklesslyUnprepared",
+            address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
+            abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
+            functionName: 'placePrediction',
+            args: isNativeToken ? [
+                eventID,
+                _eventValue,
+            ] : [
+                eventID,
+                _eventValue,
+                ethers.utils.parseEther((newBetAmount ?? 0).toString()),
+                referer != '' ? referer : address,
+                signature,
+            ],
+            overrides: {
+                value: isNativeToken ? ethers.utils.parseEther((newBetAmount ?? 0)?.toString()) : 0,
+                gasLimit: ethers.BigNumber.from(1000000),
+            },
+        });
+        await wait();
+        return true;
+    } catch (e) {
+        console.log(e, "============error in place sbc=============")
+        return false
     }
 }
 
@@ -82,138 +50,75 @@ export const usePlaceBetInPM = (
 //     uint256 _eventID,
 //     EventResult _eventValue,
 //     uint8 _perkRound
-// ) external {
-export const usePlaceBetUsingPerk = (
+// ) external {}
+export const placeBetUsingPerk = async (
     eventID: number,
     eventValue: number,
     perkRound: number,
+    chainId: number
 ) => {
-    const { chain } = useNetwork();
-    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
-
-    const { config, error: prepareError } = usePrepareContractWrite({
-        address: (contractAddressesInDailyBets as any)[chainId][1],
-        abi: ultibetsTokenDailyBetsAbiInPM,
-        functionName: 'placePredictionUsingPerk',
-        cacheTime: 2_000,
-        args: [
-            eventID,
-            eventValue,
-            perkRound,
-        ],
-        overrides: {
-            gasLimit: BigNumber.from(3000000),
-        },
-        onSuccess(data) {
-            console.log('prepare contract write Success', data)
-        },
-        onError(prepareError) {
-            console.log('prepare contract write Error ============', prepareError)
-        },
-    })
-    const { write: placeBetUsingPerkFunction, data } = useContractWrite(config)
-    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
-        hash: data?.hash,
-        cacheTime: 2_000,
-        onSuccess(data) {
-            console.log("wait for transaction success: ", data);
-        },
-        onError(error) {
-            console.log('wait for transaction result error: ', error);
-        },
-    })
-
-    return {
-        status: error == undefined ? true : false,
-        isLoading,
-        placeBetUsingPerkFunction,
-        isSuccess,
+    try {
+        const { wait } = await writeContract({
+            mode: "recklesslyUnprepared",
+            address: (contractAddressesInDailyBets as any)[chainId][1],
+            abi: ultibetsTokenDailyBetsAbiInPM,
+            functionName: 'placePredictionUsingPerk',
+            args: [
+                eventID,
+                eventValue,
+                perkRound,
+            ],
+        });
+        await wait();
+        return true;
+    } catch (e) {
+        console.log(e, "============error in place perk bet=============")
+        return false
     }
 }
 
 // function withdrawGain(uint256 _eventID, uint8 _betValue)
-export const useWidthdrawGain = (
+export const widthdrawGain = async (
     eventID: number,
     _betValue: number,
+    chainId: number,
+    isNativeToken: boolean
 ) => {
-    const { chain } = useNetwork();
-    const { isNativeToken, } = useChainContext();
-    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
-
-    const { config, error: prepareError } = usePrepareContractWrite({
-        address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
-        abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
-        functionName: 'withdrawGain',
-        cacheTime: 2_000,
-        args: [eventID, _betValue],
-        onSuccess(data) {
-            console.log('prepare contract write Success', data)
-        },
-        onError(prepareError) {
-            console.log('prepare contract write Error', prepareError)
-        },
-    })
-    const { write: withdrawGainFunction, data } = useContractWrite(config)
-    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
-        hash: data?.hash,
-        cacheTime: 2_000,
-        onSuccess(data) {
-            console.log("wait for transaction success: ", data);
-        },
-        onError(error) {
-            console.log('wait for transaction result error: ', error);
-        },
-    })
-
-    return {
-        status: error == undefined ? true : false,
-        isLoading,
-        withdrawGainFunction,
-        isSuccess,
+    try {
+        const { wait } = await writeContract({
+            mode: "recklesslyUnprepared",
+            address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
+            abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
+            functionName: 'withdrawGain',
+            args: [eventID, _betValue]
+        });
+        await wait();
+        return true;
+    } catch (e) {
+        console.log(e, "============error in withdraw gain=============")
+        return false
     }
 }
 
 // function cancelEvent(uint256 _eventID) external onlyAdmin {
-export const useCancelEvent = (
+export const cancelEvent = async (
     eventID: number,
+    chainId: number,
+    isNativeToken: boolean
 ) => {
-    const { chain } = useNetwork();
-    const { isNativeToken, } = useChainContext();
-    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
-
-    const { config, error: prepareError } = usePrepareContractWrite({
-        address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
-        abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
-        functionName: 'cancelEvent',
-        cacheTime: 2_000,
-        args: [eventID],
-        onSuccess(data) {
-            console.log('prepare contract write Success', data)
-        },
-        onError(prepareError) {
-            console.log('prepare contract write Error', prepareError)
-        },
-    })
-    const { write: cancelEventFunction, data } = useContractWrite(config)
-    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
-        hash: data?.hash,
-        cacheTime: 2_000,
-        onSuccess(data) {
-            console.log("wait for transaction success: ", data);
-        },
-        onError(error) {
-            console.log('wait for transaction result error: ', error);
-        },
-    })
-
-    return {
-        status: error == undefined ? true : false,
-        isLoading,
-        cancelEventFunction,
-        isSuccess,
+    try {
+        const { wait } = await writeContract({
+            mode: "recklesslyUnprepared",
+            address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
+            abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
+            functionName: 'cancelEvent',
+            args: [eventID]
+        });
+        await wait();
+        return true;
+    } catch (e) {
+        console.log(e, "============error in cancel event=============")
+        return false
     }
 }
 
@@ -224,139 +129,77 @@ export const useCancelEvent = (
 //     uint256 _eventStartTime,
 //     uint256 _eventDate
 // ) public onlyAdmin {
-export const useAddEvent = (
+
+export const addEvent = async (
     description: string,
     category: number,
     subcategory: number,
     eventStartTime: number,
+    chainId: number,
+    isNativeToken: boolean
 ) => {
-    const { chain } = useNetwork();
-    const { isNativeToken, } = useChainContext();
-    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
-
-    const { config, error: prepareError } = usePrepareContractWrite({
-        address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
-        abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
-        functionName: 'addEvent',
-        // cacheTime: 2_000,
-        args: [
-            description,
-            category,
-            subcategory,
-            eventStartTime,
-        ],
-        onSuccess(data) {
-            console.log('prepare contract write Success', data)
-        },
-        onError(prepareError) {
-            console.log('prepare contract write Error', prepareError)
-        },
-    })
-    const { write: addEventFunction, data } = useContractWrite(config)
-    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
-        hash: data?.hash,
-        // cacheTime: 2_000,
-        onSuccess(data) {
-            console.log("wait for transaction success: ", data);
-        },
-        onError(error) {
-            console.log('wait for transaction result error: ', error);
-        },
-    })
-
-    return {
-        status: error == undefined ? true : false,
-        isLoading,
-        addEventFunction,
-        isSuccess,
+    try {
+        const { wait } = await writeContract({
+            mode: "recklesslyUnprepared",
+            address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
+            abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
+            functionName: 'addEvent',
+            args: [description,
+                category,
+                subcategory,
+                eventStartTime,]
+        });
+        await wait();
+        return true;
+    } catch (e) {
+        console.log(e, "============error in add event=============")
+        return false
     }
 }
-
 
 // function reportResult(uint256 _eventID, EventResultInPM _result)
-export const useReportResult = (
+export const reportResult = async (
     eventID: number,
     _result: number,
+    chainId: number,
+    isNativeToken: boolean
 ) => {
-    const { chain } = useNetwork();
-    const { isNativeToken, } = useChainContext();
-    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
-
-    const { config, error: prepareError } = usePrepareContractWrite({
-        address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
-        abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
-        functionName: 'reportResult',
-        cacheTime: 2_000,
-        args: [eventID, _result,],
-        onSuccess(data) {
-            console.log('prepare contract write Success', data)
-        },
-        onError(prepareError) {
-            console.log('prepare contract write Error', prepareError)
-        },
-    })
-    const { write: reportResultFunction, data } = useContractWrite(config)
-    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
-        hash: data?.hash,
-        cacheTime: 2_000,
-        onSuccess(data) {
-            console.log("wait for transaction success: ", data);
-        },
-        onError(error) {
-            console.log('wait for transaction result error: ', error);
-        },
-    })
-
-    return {
-        status: error == undefined ? true : false,
-        isLoading,
-        reportResultFunction,
-        isSuccess,
+    try {
+        const { wait } = await writeContract({
+            mode: "recklesslyUnprepared",
+            address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
+            abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
+            functionName: 'reportResult',
+            args: [eventID, _result,],
+        });
+        await wait();
+        return true;
+    } catch (e) {
+        console.log(e, "============error in report result=============")
+        return false
     }
 }
-
 
 // function claimBetCancelled(uint256 _eventID, EventResultInPM _EventResultInPM)
-export const useClaimBetCancelled = (
+export const claimBetCancelled = async (
     eventID: number,
     _result: number,
+    chainId: number,
+    isNativeToken: boolean
 ) => {
-    const { chain } = useNetwork();
-    const { isNativeToken, } = useChainContext();
-    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-        process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;
-
-    const { config, error: prepareError } = usePrepareContractWrite({
-        address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
-        abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
-        functionName: 'claimBetCancelled',
-        cacheTime: 2_000,
-        args: [eventID, _result,],
-        onSuccess(data) {
-            console.log('prepare contract write Success', data)
-        },
-        onError(prepareError) {
-            console.log('prepare contract write Error', prepareError)
-        },
-    })
-    const { write: claimBetCancelledFunction, data } = useContractWrite(config)
-    const { isLoading, isSuccess, isError, error, } = useWaitForTransaction({
-        hash: data?.hash,
-        cacheTime: 2_000,
-        onSuccess(data) {
-            console.log("wait for transaction success: ", data);
-        },
-        onError(error) {
-            console.log('wait for transaction result error: ', error);
-        },
-    })
-
-    return {
-        status: error == undefined ? true : false,
-        isLoading,
-        claimBetCancelledFunction,
-        isSuccess,
+    try {
+        const { wait } = await writeContract({
+            mode: "recklesslyUnprepared",
+            address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
+            abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
+            functionName: 'claimBetCancelled',
+            args: [eventID, _result,],
+        });
+        await wait();
+        return true;
+    } catch (e) {
+        console.log(e, "============error in claim bet=============")
+        return false
     }
 }
+

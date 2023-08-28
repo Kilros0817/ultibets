@@ -35,7 +35,7 @@ import {
   checkIconInGreenBg,
   utbetsLogoInNFT
 } from '../../../utils/assets'
-import { getWinnersNumber, useAddRound } from '../../../utils/interact/sc/squid-competition'
+import { addRound, getWinnersNumber } from '../../../utils/interact/sc/squid-competition'
 import AnnounceModal from '../AnnounceModal'
 import { getFormattedDateString } from '../../../utils/formatters'
 import { getNFTTypeString } from '../../../utils/interact/utility'
@@ -75,6 +75,8 @@ const AddRoundModal = ({
   const [currentMainnetOrTestnetAttrs,] = useState(
     process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
   const [chainAttrsIndex, setChainAttrsIndex] = useState(3);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const {
     isOpen: isOpenAddRoundSuccessAnnounceModal,
     onOpen: onOpenAddRoundSuccessAnnounceModal,
@@ -267,13 +269,7 @@ const AddRoundModal = ({
     }
   }
 
-  const addRound = useAddRound(
-    eventID,
-    description,
-    Math.round(selectedDate.getTime() / 1000)
-  )
-
-  const handleAddRound = () => {
+  const handleAddRound = async () => {
     if (selectedDate.getTime() <= Date.now() + secondsInHalfHour * 1000) {
       toast.warn('Event start time should be at least 30 mins after')
       return
@@ -284,13 +280,21 @@ const AddRoundModal = ({
       return
     }
 
-    if (addRound.isLoading) return
+    setIsLoading(true)
     try {
-      addRound.addRoundFunction?.()
-      onOpenAddRoundSuccessAnnounceModal()
+      const res = await addRound(
+        eventID,
+        description,
+        Math.round(selectedDate.getTime() / 1000),
+        chain?.id ?? 0,
+        isNativeToken
+      )
+      if (res)
+        onOpenAddRoundSuccessAnnounceModal()
     } catch (err) {
       console.log('error in add round: ', err)
     }
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -588,7 +592,7 @@ const AddRoundModal = ({
       />
       <AnnounceModal
         isOpenAnnounceModal={
-          isOpenAddRoundSuccessAnnounceModal && addRound.isSuccess
+          isOpenAddRoundSuccessAnnounceModal
         }
         onCloseAnnounceModal={onCloseAddRoundSuccessAnnounceModal}
         announceText={`New Round has been successfully added`}
@@ -605,10 +609,9 @@ const AddRoundModal = ({
       />
       <AnnounceModal
         isOpenAnnounceModal={
-          (isOpenAddRoundSuccessAnnounceModal && addRound.isLoading) ||
-          (isOpenWinnerNFTSetSuccessAnnounceModal && setRoundNFTURI.isLoading)
+          isLoading
         }
-        onCloseAnnounceModal={onCloseAddRoundSuccessAnnounceModal}
+        onCloseAnnounceModal={() => setIsLoading(false)}
         announceText={'Your transaction is currently processing on the blockchain'}
         announceGif={true}
         announceModalButtonText={'Close'}

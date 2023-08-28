@@ -16,10 +16,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import Moment from 'react-moment';
 import { EventType, sidebarItems, subCategoriesInPredictionMarkets } from '../../utils/config';
 import { checkIconInGreenBg } from '../../utils/assets';
-import { useReportResult, } from '../../utils/interact/sc/prediction-markets';
+import { reportResult } from '../../utils/interact/sc/prediction-markets';
 import AnnounceModal from './AnnounceModal';
 import axios from 'axios';
 import { useNetwork } from 'wagmi';
+import { useChainContext } from '../../utils/Context';
 
 type ReportResultModalProps = {
   isOpen: boolean,
@@ -51,6 +52,8 @@ const ReportResultModal = ({
   onOpenAllChainTxAnnounceModal,
 }: ReportResultModalProps) => {
   const { chain, } = useNetwork();
+  const { isNativeToken, } = useChainContext();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [result, setResult] = useState<number>(1);
   const {
     isOpen: isOpenReportResultSuccessAnnounceModal,
@@ -58,21 +61,24 @@ const ReportResultModal = ({
     onClose: onCloseReportResultSuccessAnnounceModal,
   } = useDisclosure();
 
-  const reportResult = useReportResult(
-    eventID,
-    // in sc, result starts from 0 but in frontend, result starts from 1
-    result - 1,
-  )
-
-  const handleReportResultInRepeatLevel0 = () => {
-    if (reportResult.isLoading) return;
+  const handleReportResultInRepeatLevel0 = async () => {
+    setIsLoading(true)
     try {
-      reportResult.reportResultFunction?.();
-      onOpenReportResultSuccessAnnounceModal();
-      onClose();
+      const res = await reportResult(
+        eventID,
+        // in sc, result starts from 0 but in frontend, result starts from 1
+        result - 1,
+        chain?.id??0,
+        isNativeToken
+      )
+      if (res) {
+        onOpenReportResultSuccessAnnounceModal();
+        onClose();
+      }
     } catch (err) {
       console.log('error in reporting result in  daily event in repeat level 0 ', err);
     }
+    setIsLoading(false);
   }
 
   const handleReportResultInRepeatLevel_1_2 = async (repeatLevel: number) => {
@@ -85,8 +91,6 @@ const ReportResultModal = ({
         repeatLevel: repeatLevel,
         chainId: chain?.id ?? 0,
       };
-
-      console.log("data: ", data);
 
       const response = (await axios.post(
         '/api/reportEventResultAllInPM',
@@ -283,15 +287,15 @@ const ReportResultModal = ({
         </ModalContent>
       </Modal>
       <AnnounceModal
-        isOpenAnnounceModal={isOpenReportResultSuccessAnnounceModal && reportResult.isSuccess}
+        isOpenAnnounceModal={isOpenReportResultSuccessAnnounceModal}
         onCloseAnnounceModal={onCloseReportResultSuccessAnnounceModal}
         announceText={'Result has been successfully reported'}
         announceLogo={checkIconInGreenBg}
         announceModalButtonText={'Close'}
       />
       <AnnounceModal
-        isOpenAnnounceModal={(isOpenReportResultSuccessAnnounceModal && reportResult.isLoading)}
-        onCloseAnnounceModal={onCloseReportResultSuccessAnnounceModal}
+        isOpenAnnounceModal={isLoading}
+        onCloseAnnounceModal={() => setIsLoading(false)}
         announceText={'Your transaction is currently processing on the blockchain'}
         announceGif={true}
         announceModalButtonText={'Close'}

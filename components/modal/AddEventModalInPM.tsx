@@ -19,9 +19,10 @@ import { toast } from 'react-toastify';
 import { useNetwork } from 'wagmi';
 import { checkIconInGreenBg } from '../../utils/assets';
 import { secondsInHalfHour, sidebarItems, subCategoriesInPredictionMarkets } from '../../utils/config';
-import { useAddEvent } from '../../utils/interact/sc/prediction-markets';
+import { addEvent } from '../../utils/interact/sc/prediction-markets';
 import AllChainTxAnnounceModal from './AllChainTxAnnounceModal';
 import AnnounceModal from './AnnounceModal';
+import { useChainContext } from '../../utils/Context';
 
 type AddEventModalProps = {
   isOpen: boolean,
@@ -43,6 +44,8 @@ const AddEventModalInPM = ({
   const [filteredCategories, setFilteredCategories] = useState<any[]>();
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [allChainTxAnnounceResult, setAllChainTxAnnounceResult] = useState<any>([]);
+  const { isNativeToken, } = useChainContext();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     isOpen: isOpenAddEventSuccessAnnounceModal,
     onOpen: onOpenAddEventSuccessAnnounceModal,
@@ -121,28 +124,33 @@ const AddEventModalInPM = ({
     setIsProcessing(false);
   }
 
-  const addEvent = useAddEvent(
-    description,
-    category,
-    subcategory > 0 ? subcategory : 1,
-    Math.round(selectedDate.getTime() / 1000),
-  )
 
-  const handleAddEventInRepeatLevel0 = () => {
+
+  const handleAddEventInRepeatLevel0 = async () => {
     if (!checkIfIsInputValid()) return;
 
-    if (addEvent.isLoading) return;
+    setIsLoading(true)
     try {
-      addEvent.addEventFunction?.();
-      onOpenAddEventSuccessAnnounceModal();
-      onClose();
-      setDescription('');
-      setCategory(0);
-      setSubcategory(0);
-      setSelectedDate(new Date());
+      const res = await addEvent(
+        description,
+        category,
+        subcategory > 0 ? subcategory : 1,
+        Math.round(selectedDate.getTime() / 1000),
+        chain?.id ?? 0,
+        isNativeToken
+      )
+      if (res) {
+        onOpenAddEventSuccessAnnounceModal();
+        onClose();
+        setDescription('');
+        setCategory(0);
+        setSubcategory(0);
+        setSelectedDate(new Date());
+      }
     } catch (err) {
       console.log('error in add daily event in repeat level 0 ', err);
     }
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -340,8 +348,8 @@ const AddEventModalInPM = ({
               px={'28px'}
               py={'7px'}
               mt={'67px'}
-              onClick={() => repeatLevel >= 1 ? handleAddEventInRepeatLevel_1_2(repeatLevel) :
-                handleAddEventInRepeatLevel0()
+              onClick={async () => repeatLevel >= 1 ? await handleAddEventInRepeatLevel_1_2(repeatLevel) :
+                await handleAddEventInRepeatLevel0()
               }
               fontFamily={'Nunito'}
               fontSize={'14px'}
@@ -355,7 +363,7 @@ const AddEventModalInPM = ({
         </ModalContent>
       </Modal>
       <AnnounceModal
-        isOpenAnnounceModal={isOpenAddEventSuccessAnnounceModal && addEvent.isSuccess}
+        isOpenAnnounceModal={isOpenAddEventSuccessAnnounceModal}
         onCloseAnnounceModal={onCloseAddEventSuccessAnnounceModal}
         announceText={'Event has been successfully added'}
         announceLogo={checkIconInGreenBg}
@@ -367,7 +375,7 @@ const AddEventModalInPM = ({
         allChainTxAnnounceResult={allChainTxAnnounceResult}
       />
       <AnnounceModal
-        isOpenAnnounceModal={isProcessing || (isOpenAddEventSuccessAnnounceModal && addEvent.isLoading)}
+        isOpenAnnounceModal={isProcessing || isLoading}
         onCloseAnnounceModal={onCloseAddEventSuccessAnnounceModal}
         announceText={'Your transaction is currently processing on the blockchain'}
         announceGif={true}

@@ -15,7 +15,7 @@ import React, { useState, useEffect, } from 'react';
 import { NftSetStatus, } from '../../../utils/config';
 import { useChainContext } from '../../../utils/Context';
 import { checkIconInGreenBg } from '../../../utils/assets';
-import { getWinnersNumber, useReportResultForSBCRound } from '../../../utils/interact/sc/squid-competition';
+import { getWinnersNumber, reportResultForSBCRound } from '../../../utils/interact/sc/squid-competition';
 import AnnounceModal from '../AnnounceModal';
 import AddNFTForSpecialCase from './AddNFTForSpecialCase';
 import { useNetwork } from 'wagmi';
@@ -41,6 +41,7 @@ const ReportResultModalForSBCRound = ({
   const [numberOfWinnersOfThisRound, setNumberOfWinnersOfThisRound] = useState<number>();
   const [nftSetStatus, setNftSetStatus] = useState(NftSetStatus.Original);
   const { chain } = useNetwork();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     isOpen: isOpenReportResultSuccessAnnounceModal,
     onOpen: onOpenReportResultSuccessAnnounceModal,
@@ -67,26 +68,29 @@ const ReportResultModalForSBCRound = ({
     result,
   ])
 
-  const reportResultForSBCRound = useReportResultForSBCRound(
-    eventID,
-    Number(result),
-  )
 
-  const handleReportResultForSBCRound = () => {
-    console.log("number of winners: ", numberOfWinnersOfThisRound);
+  const handleReportResultForSBCRound = async () => {
 
+    setIsLoading(true)
     if ((numberOfWinnersOfThisRound == 1) && (nftSetStatus < NftSetStatus.WinnerNFTSet)) {
       onOpenAddNFTForSpecialCase();
     } else {
-      if (reportResultForSBCRound.isLoading) return;
       try {
-        reportResultForSBCRound.reportResultFunction?.();
-        onOpenReportResultSuccessAnnounceModal();
-        onClose();
+        const res = await reportResultForSBCRound(
+          eventID,
+          Number(result),
+          chain?.id ?? 0,
+          isNativetoken
+        )
+        if (res) {
+          onOpenReportResultSuccessAnnounceModal();
+          onClose();
+        }
       } catch (err) {
         console.log('error in report result: ', err);
       }
     }
+    setIsLoading(false);
   }
 
   return (
@@ -155,7 +159,7 @@ const ReportResultModalForSBCRound = ({
         </ModalContent>
       </Modal>
       <AnnounceModal
-        isOpenAnnounceModal={isOpenReportResultSuccessAnnounceModal && reportResultForSBCRound.isSuccess}
+        isOpenAnnounceModal={isOpenReportResultSuccessAnnounceModal}
         onCloseAnnounceModal={onCloseReportResultSuccessAnnounceModal}
         announceText={'Result has been successfully reported'}
         announceLogo={checkIconInGreenBg}
@@ -173,9 +177,9 @@ const ReportResultModalForSBCRound = ({
       />
       <AnnounceModal
         isOpenAnnounceModal={
-          (isOpenReportResultSuccessAnnounceModal && reportResultForSBCRound.isLoading)
+          isLoading
         }
-        onCloseAnnounceModal={onCloseReportResultSuccessAnnounceModal}
+        onCloseAnnounceModal={() => setIsLoading(false)}
         announceText={'Your transaction is currently processing on the blockchain'}
         announceGif={true}
         announceModalButtonText={'Close'}

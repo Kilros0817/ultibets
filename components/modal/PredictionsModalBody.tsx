@@ -1,10 +1,10 @@
 import { Box, Button, Flex, Input, Radio, RadioGroup, Select, Stack, Text } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
-import { useNetwork, } from 'wagmi';
+import { useAccount, useNetwork, } from 'wagmi';
 import { useChainContext } from '../../utils/Context';
 import { chainAttrs, mumbaiChainId, newChainAttrs, perks, polygonChainId, rounds, utbetsAmountPerPerkLevel } from '../../utils/config';
-import { useGetNumberOfClaimedPerks } from '../../utils/interact/sc/sbcNFT';
+import { getNumberOfClaimedPerks } from '../../utils/interact/sc/sbcNFT';
 import { PerkInfo } from '../../utils/types';
 
 type PredictionsModalBodyProps = {
@@ -45,6 +45,7 @@ const PredictionsModalBody = ({
   } = useChainContext();
   const router = useRouter();
   const { chain, } = useNetwork();
+  const { address } = useAccount();
   const [currentMainnetOrTestnetAttrs,] = useState(
     process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
   const [chainAttrsIndex, setChainAttrsIndex] = useState(1);
@@ -67,8 +68,8 @@ const PredictionsModalBody = ({
   }, [currentPerkLevel])
 
   useEffect(() => {
-        let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;    let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
+    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
+      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId; let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
     if (currentChainAttrsItem.length == 0) {
       const temporaryChainId = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? 137 : 80001
       currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
@@ -88,22 +89,20 @@ const PredictionsModalBody = ({
     }
   }, [router]);
 
-  const getNumberOfClaimedPerks = useGetNumberOfClaimedPerks();
 
   useEffect(() => {
     if (type != 'prediction' || isPerks == 'false') return;
-    if (getNumberOfClaimedPerks.isLoading) return;
-    if (getNumberOfClaimedPerks.status == true) {
-      //@ts-ignore
-      const temp: number[] = getNumberOfClaimedPerks?.result;
+
+    const initNumberOfClaimedPerks = async () => {
+      const res = await getNumberOfClaimedPerks(address, chain?.id ?? 0);
+      const temp: number[] = (res as any);
 
       let perksCounts = temp.slice(1).concat([temp[0]]);
       setPerksCounts(perksCounts);
-      console.log("perks count: ", getNumberOfClaimedPerks?.result);
     }
+
+    if (address && chain?.id) initNumberOfClaimedPerks()
   }, [
-    getNumberOfClaimedPerks.isLoading,
-    getNumberOfClaimedPerks.result,
     isPerks,
   ])
 

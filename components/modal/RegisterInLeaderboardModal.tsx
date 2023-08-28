@@ -13,7 +13,7 @@ import React, { useState, useEffect, } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import { checkIconInGreenBg, crossIconInRedBg } from '../../utils/assets';
 import AnnounceModal from './AnnounceModal';
-import { useIsUsedName, useRegisterOnLeaderboard } from '../../utils/interact/sc/ultiBetsLeaderBoard';
+import { isUsedName, registerOnLeaderboard } from '../../utils/interact/sc/ultiBetsLeaderBoard';
 import { useNetwork } from 'wagmi';
 
 type ReportResultModalProps = {
@@ -28,6 +28,7 @@ const RegisterInLeaderboardModal = ({
   const { chain, } = useNetwork();
   const [name, setName] = useState<string>('');
   const [isAlreadyUsed, setIsAlreadyUsed] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     isOpen: isOpenSuccessAnnounceModal,
     onOpen: onOpenSuccessAnnounceModal,
@@ -39,41 +40,34 @@ const RegisterInLeaderboardModal = ({
     onClose: onCloseDuplicateNameAnnounceModal,
   } = useDisclosure();
 
-  const isUsedName = useIsUsedName(
-    name,
-  );
-
   useEffect(() => {
-    if (isUsedName.isLoading) return;
-    if (isUsedName.status) {
-      console.log("getting isUsedName success : ", (isUsedName as any)?.result)
-      setIsAlreadyUsed((isUsedName as any)?.result);
+    const initUsedName = async () => {
+      const res = await isUsedName(
+        name,
+        chain?.id ?? 0
+      );
+      setIsAlreadyUsed(res as any);
     }
+    if (chain?.id) initUsedName()
   }, [
     chain?.id,
-    isUsedName.isLoading,
-    isUsedName.result,
   ]);
 
-  const registerOnLeaderboard = useRegisterOnLeaderboard(
-    name,
-  )
-
-  const handleRegisterOnLeaderboard = () => {
+  const handleRegisterOnLeaderboard = async () => {
     if (isAlreadyUsed) {
       onOpenDuplicateNameAnnounceModal();
       return;
     }
 
-    if (registerOnLeaderboard.isLoading) return;
-
-    try {
-      registerOnLeaderboard.registerOnLeaderboardFunction?.();
+    const res = await registerOnLeaderboard(
+      name,
+      chain?.id ?? 0
+    )
+    if (res) {
       onOpenSuccessAnnounceModal();
       onClose();
-    } catch (err) {
-      console.log('error in registering name in leaderboard: ', err);
     }
+
   }
 
   return (
@@ -142,15 +136,15 @@ const RegisterInLeaderboardModal = ({
         </ModalContent>
       </Modal>
       <AnnounceModal
-        isOpenAnnounceModal={isOpenSuccessAnnounceModal && registerOnLeaderboard.isSuccess}
+        isOpenAnnounceModal={isOpenSuccessAnnounceModal}
         onCloseAnnounceModal={onCloseSuccessAnnounceModal}
         announceText={'Your name has been successfully registered'}
         announceLogo={checkIconInGreenBg}
         announceModalButtonText={'Close'}
       />
       <AnnounceModal
-        isOpenAnnounceModal={isOpenSuccessAnnounceModal && registerOnLeaderboard.isLoading}
-        onCloseAnnounceModal={onCloseSuccessAnnounceModal}
+        isOpenAnnounceModal={isLoading}
+        onCloseAnnounceModal={() => setIsLoading(true)}
         announceText={'Your transaction is currently processing on the blockchain'}
         announceGif={true}
         announceModalButtonText={'Close'}

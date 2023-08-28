@@ -9,12 +9,13 @@ import {
 } from '../../../utils/config';
 import CountDownRenderer from '../PredictionsCardList/CountDownRenderer'
 import AnnounceModal from '../../modal/AnnounceModal'
-import { useCancelEvent, } from '../../../utils/interact/sc/prediction-markets'
+import { cancelEvent, } from '../../../utils/interact/sc/prediction-markets'
 import ReportResultModal from '../../modal/ReportResultModal'
 import { checkIconInGreenBg, exclamationIconInRedBg } from '../../../utils/assets'
 import AdminHandleEventButton from '../../Admin/AdminHandleEventButton';
 import axios from 'axios';
 import { useNetwork } from 'wagmi';
+import { useChainContext } from '../../../utils/Context';
 
 export type AdminEventCardProps = {
   eventID: number
@@ -46,6 +47,8 @@ const AdminEventCard = ({
   onOpenAllChainTxAnnounceModal,
 }: AdminEventCardProps) => {
   const { chain, } = useNetwork();
+  const { isNativeToken, } = useChainContext();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     isOpen: isOpenConfirmEventCancelAnnounceModal,
     onOpen: onOpenConfirmEventCancelAnnounceModal,
@@ -62,10 +65,6 @@ const AdminEventCard = ({
     onClose: onCloseReportResultAnnounceModal,
   } = useDisclosure();
 
-  const cancelEvent = useCancelEvent(
-    eventID,
-  );
-
   const onClickConfirmCancelButton = () => {
     switch (repeatLevel) {
       case 0:
@@ -80,8 +79,8 @@ const AdminEventCard = ({
   const handleCancelEventInRepeatLevel_1_2 = async (repeatLevel: number) => {
     onCloseConfirmEventCancelAnnounceModal();
 
+    setIsProcessing(true);
     try {
-      setIsProcessing(true);
       const data = {
         eventID: eventID,
         repeatLevel: repeatLevel,
@@ -110,16 +109,22 @@ const AdminEventCard = ({
     setIsProcessing(false);
   }
 
-  const handleCancelEventInRepeatLevel0 = () => {
+  const handleCancelEventInRepeatLevel0 = async () => {
     onCloseConfirmEventCancelAnnounceModal();
 
-    if (cancelEvent.isLoading) return;
+    setIsLoading(true)
     try {
-      cancelEvent.cancelEventFunction?.();
-      onOpenCancelEventSuccessAnnounceModal();
+      const res = await cancelEvent(
+        eventID,
+        chain?.id ?? 0,
+        isNativeToken
+      );
+      if (res)
+        onOpenCancelEventSuccessAnnounceModal();
     } catch (err) {
       console.log('error in cancel event in repeat level 0 ', err);
     }
+    setIsLoading(false)
   }
 
   return (
@@ -317,7 +322,7 @@ const AdminEventCard = ({
         announceModalButtonAction={() => onClickConfirmCancelButton()}
       />
       <AnnounceModal
-        isOpenAnnounceModal={isOpenCancelEventSuccessAnnounceModal && cancelEvent.isSuccess}
+        isOpenAnnounceModal={isOpenCancelEventSuccessAnnounceModal}
         onCloseAnnounceModal={onCloseCancelEventSuccessAnnounceModal}
         announceText={'Event has been successfully cancelled'}
         announceLogo={checkIconInGreenBg}
@@ -338,7 +343,7 @@ const AdminEventCard = ({
         onOpenAllChainTxAnnounceModal={onOpenAllChainTxAnnounceModal}
       />
       <AnnounceModal
-        isOpenAnnounceModal={(isOpenCancelEventSuccessAnnounceModal && cancelEvent.isLoading)}
+        isOpenAnnounceModal={isLoading}
         onCloseAnnounceModal={onCloseCancelEventSuccessAnnounceModal}
         announceText={'Your transaction is currently processing on the blockchain'}
         announceGif={true}

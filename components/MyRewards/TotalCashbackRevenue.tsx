@@ -11,7 +11,7 @@ import { useChainContext } from '../../utils/Context';
 import { chainAttrs, mumbaiChainId, polygonChainId } from '../../utils/config';
 import AnnounceModal from '../modal/AnnounceModal';
 import { checkIconInGreenBg } from '../../utils/assets';
-import { useClaimReward } from '../../utils/interact/sc/ultibetsreward';
+import { claimReward } from '../../utils/interact/sc/ultibetsreward';
 
 type TotalCashbackRevenueProps = {
     currentRewardTierLevel: number
@@ -33,6 +33,8 @@ const TotalCashbackRevenue = ({
         onOpen: onOpenClaimRewardSuccessAnnounceModal,
         onClose: onCloseClaimRewardSuccessAnnounceModal,
     } = useDisclosure();
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const chainId = chain?.id != undefined ? chain.id :
@@ -60,17 +62,12 @@ const TotalCashbackRevenue = ({
         setWidth(window.innerWidth);
     }, []);
 
-    const claimReward = useClaimReward()
 
     const handleClaimableReward = async () => {
         if (claimableRewardAmount == 0) return;
-        if (claimReward.isLoading) return;
-        try {
-            claimReward.claimRewardFunction?.();
+        const res = await claimReward(chain?.id ?? 0)
+        if(res)
             onOpenClaimRewardSuccessAnnounceModal();
-        } catch (err) {
-            console.log('error in claim reward: ', err);
-        }
     }
 
     const TotallyClaimedAmount = () => (
@@ -275,7 +272,7 @@ const TotalCashbackRevenue = ({
                 </Flex>
             </Flex>
             <AnnounceModal
-                isOpenAnnounceModal={isOpenClaimRewardSuccessAnnounceModal && claimReward.isSuccess}
+                isOpenAnnounceModal={isOpenClaimRewardSuccessAnnounceModal}
                 onCloseAnnounceModal={onCloseClaimRewardSuccessAnnounceModal}
                 announceText={'You successfully claimed your reward.'}
                 announceLogo={checkIconInGreenBg}
@@ -283,9 +280,9 @@ const TotalCashbackRevenue = ({
             />
             <AnnounceModal
                 isOpenAnnounceModal={
-                    (isOpenClaimRewardSuccessAnnounceModal && claimReward.isLoading)
+                    isLoading
                 }
-                onCloseAnnounceModal={onCloseClaimRewardSuccessAnnounceModal}
+                onCloseAnnounceModal={() => {setIsLoading(false)}}
                 announceText={'Your transaction is currently processing on the blockchain'}
                 announceGif={true}
                 announceModalButtonText={'Close'}

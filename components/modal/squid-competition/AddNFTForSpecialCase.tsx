@@ -21,7 +21,7 @@ import { checkIconInGreenBg, utbetsLogoInNFT } from '../../../utils/assets'
 import AnnounceModal from '../AnnounceModal'
 import { getFormattedDateString } from '../../../utils/formatters'
 import { getNFTTypeString } from '../../../utils/interact/utility'
-import { useSetRoundNFTURI } from '../../../utils/interact/sc/sbcNFT'
+import { setRoundNFTURI } from '../../../utils/interact/sc/sbcNFT'
 import { useNetwork } from 'wagmi'
 import { useChainContext } from '../../../utils/Context'
 
@@ -48,7 +48,6 @@ const AddNFTForSpecialCase = ({
   setNftSetStatus,
   callback,
 }: AddNFTForSpecialCaseProps) => {
-  const [shouldRender, setShouldRender] = useState(true)
   const [image, setImage] = useState<any>()
   const { isNativeToken } = useChainContext();
   const [nftType, setNftType] = useState<string>('0');
@@ -57,6 +56,7 @@ const AddNFTForSpecialCase = ({
   const [currentMainnetOrTestnetAttrs,] = useState(
     process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
   const [chainAttrsIndex, setChainAttrsIndex] = useState(3);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     isOpen: isOpenUploadToPinataSuccessAnnounceModal,
     onOpen: onOpenUploadToPinataSuccessAnnounceModal,
@@ -69,8 +69,8 @@ const AddNFTForSpecialCase = ({
   } = useDisclosure();
 
   useEffect(() => {
-        let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;    let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
+    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
+      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId; let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
     if (currentChainAttrsItem.length == 0) {
       const temporaryChainId = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? 137 : 80001
       currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
@@ -206,6 +206,7 @@ const AddNFTForSpecialCase = ({
 
   const uploadToPinata = async () => {
     if (nftSetStatus != NftSetStatus.ImageRead) return;
+    setIsLoading(true)
     const result = await axios.post('/api/pinata/uploadNFT', {
       image: image,
       nftType: Number(nftType),
@@ -213,29 +214,27 @@ const AddNFTForSpecialCase = ({
       roundLevel: roundLevel,
     })
 
-    console.log('result: ', result);
     setMetadataUrl(result.data?.hash)
     setNftSetStatus(NftSetStatus.UploadToPinata);
+    setIsLoading(false);
     onOpenUploadToPinataSuccessAnnounceModal();
   }
 
-  const setRoundNFTURI = useSetRoundNFTURI(
-    Number(nftType),
-    eventID,
-    roundLevel,
-    metadataUrl,
-  );
-
   const handleSetRoundNFTURI = async () => {
     if (nftSetStatus != NftSetStatus.UploadToPinata) return;
-    if (setRoundNFTURI.isLoading) return
-    try {
-      setRoundNFTURI.setRoundNFTURIFunction?.()
+    setIsLoading(true)
+    const res = await setRoundNFTURI(
+      Number(nftType),
+      eventID,
+      roundLevel,
+      metadataUrl,
+      chain?.id ?? 0
+    );
+    if (res) {
       onOpenWinnerNFTSetSuccessAnnounceModal();
       onClose();
-    } catch (err) {
-      console.log('error in add event: ', err)
     }
+    setIsLoading(false);
   }
 
   return (
@@ -386,8 +385,15 @@ const AddNFTForSpecialCase = ({
         announceModalButtonText={'Close'}
       />
       <AnnounceModal
+        isOpenAnnounceModal={isLoading}
+        onCloseAnnounceModal={() => setIsLoading(true)}
+        announceText={'Your transaction is currently processing.'}
+        announceGif={true}
+        announceModalButtonText={'Close'}
+      />
+      <AnnounceModal
         isOpenAnnounceModal={
-          isOpenWinnerNFTSetSuccessAnnounceModal && setRoundNFTURI.isSuccess
+          isOpenWinnerNFTSetSuccessAnnounceModal
         }
         onCloseAnnounceModal={onCloseWinnerNFTSetSuccessAnnounceModal}
         announceText={`Winner NFT has been successfully added`}

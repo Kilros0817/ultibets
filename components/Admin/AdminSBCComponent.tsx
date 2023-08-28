@@ -14,14 +14,14 @@ import {
     nativeTokenBetsAbiInSBC,
 } from '../../utils/assets';
 import { getSBCEvents } from '../../utils/interact/thegraph/getSBCEventData';
-import { useGetFinalRoundWinnersByEvent, useGetWinnerIDs, usePickWinner, useResultVote, } from '../../utils/interact/sc/squid-competition';
+import { getFinalRoundWinnersByEvent, getWinnerIDs, pickWinner, resultVote } from '../../utils/interact/sc/squid-competition';
 import AnnounceModal from '../modal/AnnounceModal';
 import AddRoundModal from '../modal/squid-competition/AddRoundModal';
 import AddEventModalInSBC from '../modal/squid-competition/AddEventModalInSBC';
 import ReportResultModalForSBCRound from '../modal/squid-competition/ReportResultModalForSBCRound';
 import CountDownRenderer from '../predictions/PredictionsCardList/CountDownRenderer';
 import SquidCardList from '../squid/main-page/SquidCardList';
-import { useRequestRandomWords } from '../../utils/interact/sc/rnd-generator';
+import { requestRandomWords } from '../../utils/interact/sc/rnd-generator';
 import AddNFTForSpecialCase from '../modal/squid-competition/AddNFTForSpecialCase';
 import TokenSelector from '../predictions/TokenSelector';
 import AdminHandleEventButton from './AdminHandleEventButton';
@@ -220,20 +220,21 @@ const AdminSBCComponent = () => {
         },
     });
 
-    const getFinalRoundWinnersByEvent = useGetFinalRoundWinnersByEvent(
-        Number(currentEvent?.eventID ?? 1)
-    );
+    
 
     useEffect(() => {
-        if (getFinalRoundWinnersByEvent.isLoading) return;
-        if (getFinalRoundWinnersByEvent.status) {
-            setNumberOfPlayersInFinalVote((getFinalRoundWinnersByEvent?.result as any)?.length);
-            console.log("number of players in final vote: ", getFinalRoundWinnersByEvent?.result)
+
+        const initFinalNumberOfWinners = async () => {
+            const res = await getFinalRoundWinnersByEvent(
+                Number(currentEvent?.eventID ?? 1),
+                chain?.id ?? 0,
+                isNativeToken
+            );
+            setNumberOfPlayersInFinalVote((res as any)?.length);
         }
+        if (chain?.id) initFinalNumberOfWinners()
     }, [
         chain?.id,
-        getFinalRoundWinnersByEvent.isLoading,
-        getFinalRoundWinnersByEvent.result,
         isNativeToken,
         shouldRender,
     ]);
@@ -305,49 +306,48 @@ const AdminSBCComponent = () => {
         shouldRender,
     ])
 
-    const resultVote = useResultVote(
-        currentEvent?.eventID ?? 1,
-    )
 
-    const handleResultVote = () => {
-        console.log("current nft set status: ", nftSetStatus);
+
+    const handleResultVote = async () => {
         if ((nftSetStatus < NftSetStatus.WinnerNFTSet)) {
             onOpenAddNFTForSpecialCase();
         } else {
-            if (resultVote.isLoading) return;
-            try {
-                resultVote.resultVoteFunction?.();
+            setIsLoading(true);
+            const res = await resultVote(
+                currentEvent?.eventID ?? 1,
+                chain?.id ?? 0,
+                isNativeToken
+            )
+            if (res) {
                 onOpenResultVoteSuccessModal();
-            } catch (err) {
-                console.log('error in result vote: ', err);
             }
+            setIsLoading(false);
         }
     }
 
-    const requestRandomWords = useRequestRandomWords();
-
-    const pickWinner = usePickWinner(
-        currentEvent?.eventID ?? 1,
-    )
-
-    const handlePickWinner = () => {
-        if (pickWinner.isLoading) return;
-        try {
-            pickWinner.pickWinnerFunction?.();
+    const handlePickWinner = async() => {
+        setIsLoading(true)
+        const res = await pickWinner(
+            currentEvent?.eventID ?? 1,
+            chain?.id ?? 0,
+            isNativeToken
+        )
+        if (res)
             onOpenPickWinnerSuccessModal();
-        } catch (err) {
-            console.log('error in pick winner: ', err);
-        }
+
+        setIsLoading(true)
     }
 
-    const handlerequestRandomWords = () => {
-        if (requestRandomWords.isLoading) return;
+    const handlerequestRandomWords = async () => {
+        setIsLoading(true)
         try {
-            requestRandomWords.requestRandomWordsFunction?.();
-            onOpenRequestRandomWordsSuccessModal();
+            const res = await requestRandomWords(chain?.id??0);
+            if (res)
+                onOpenRequestRandomWordsSuccessModal();
         } catch (err) {
             console.log('error in requesting random words: ', err);
         }
+        setIsLoading(false)
     }
 
     const handleControlButton = async () => {
@@ -374,19 +374,20 @@ const AdminSBCComponent = () => {
         }
     }
 
-    const getWinnerIDs = useGetWinnerIDs(
-        currentEvent?.eventID
-    );
-
     useEffect(() => {
-        if (getWinnerIDs.isLoading) return;
-        if (getWinnerIDs.status) {
-            setWinnerIds((getWinnerIDs as any).result);
-        }
+        const initWinnerIDs = async () => {
+            const res = await getWinnerIDs(
+              currentEvent?.eventID,
+              chain?.id ?? 0,
+              isNativeToken
+            );
+            setWinnerIds(res as any);
+          }
+      
+          if (chain?.id && currentEvent) initWinnerIDs()
+    
     }, [
         chain?.id,
-        getWinnerIDs.isLoading,
-        getWinnerIDs.result,
         isNativeToken,
         shouldRender,
         currentEvent?.winnersNumber,
@@ -707,21 +708,21 @@ const AdminSBCComponent = () => {
                 playersInThisPhase={currentRoundUIProps.playersInThisPhase}
             />
             <AnnounceModal
-                isOpenAnnounceModal={isOpenResultVoteSuccessModal && resultVote.isSuccess}
+                isOpenAnnounceModal={isOpenResultVoteSuccessModal}
                 onCloseAnnounceModal={onCloseResultVoteSuccessModal}
                 announceText={`Result has been successfully voted`}
                 announceLogo={checkIconInGreenBg}
                 announceModalButtonText={'Close'}
             />
             <AnnounceModal
-                isOpenAnnounceModal={isOpenPickWinnerSuccessModal && pickWinner.isSuccess}
+                isOpenAnnounceModal={isOpenPickWinnerSuccessModal}
                 onCloseAnnounceModal={onClosePickWinnerSuccessModal}
                 announceText={`Winner has been successfully picked`}
                 announceLogo={checkIconInGreenBg}
                 announceModalButtonText={'Close'}
             />
             <AnnounceModal
-                isOpenAnnounceModal={isOpenRequestRandomWordsSuccessModal && requestRandomWords.isSuccess}
+                isOpenAnnounceModal={isOpenRequestRandomWordsSuccessModal}
                 onCloseAnnounceModal={onCloseRequestRandomWordsSuccessModal}
                 announceText={`RND has been successfully genereated`}
                 announceLogo={checkIconInGreenBg}
@@ -748,11 +749,9 @@ const AdminSBCComponent = () => {
 
             <AnnounceModal
                 isOpenAnnounceModal={
-                    (isOpenResultVoteSuccessModal && resultVote.isLoading) ||
-                    (isOpenPickWinnerSuccessModal && pickWinner.isLoading) ||
-                    (isOpenRequestRandomWordsSuccessModal && requestRandomWords.isLoading)
+                    isLoading
                 }
-                onCloseAnnounceModal={onCloseResultVoteSuccessModal}
+                onCloseAnnounceModal={() => setIsLoading(false)}
                 announceText={'Your transaction is currently processing on the blockchain'}
                 announceGif={true}
                 announceModalButtonText={'Close'}

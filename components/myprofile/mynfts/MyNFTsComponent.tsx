@@ -7,9 +7,9 @@ import {
 } from '@chakra-ui/react'
 import axios from 'axios';
 import { useEffect, useState, } from 'react'
-import { useAccount, useContractEvent, useNetwork, useSigner } from 'wagmi';
+import { useAccount, useContractEvent, useNetwork, } from 'wagmi';
 import { useChainContext } from '../../../utils/Context';
-import { useMassClaimSBCNFT, } from '../../../utils/interact/sc/sbcNFT';
+import { claimFreeBetPerk, massClaimSBCNFT, } from '../../../utils/interact/sc/sbcNFT';
 import AnnounceModal from '../../modal/AnnounceModal';
 import {
     checkIconInGreenBg,
@@ -25,7 +25,6 @@ import {
     polygonChainId,
     utbetsAmountPerPerkLevel,
 } from '../../../utils/config';
-import { ethers } from 'ethers';
 import { getFormattedDateString } from '../../../utils/formatters';
 // @ts-ignore
 import QRCode from "react-qr-code";
@@ -50,7 +49,6 @@ const MyNFTsComponent = ({
     const [chainId, setChainId] = useState<number>(polygonChainId);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
-    const { data: signer } = useSigner();
     const {
         isOpen: isOpenClaimNFTSuccessModal,
         onOpen: onOpenClaimNFTSuccessModal,
@@ -79,17 +77,15 @@ const MyNFTsComponent = ({
         })
     }, [chain, isNativeToken]);
 
-    const massClaimSBCNFT = useMassClaimSBCNFT();
 
     const handleMassClaimSBCNFT = async () => {
-        if (massClaimSBCNFT.isLoading) return;
+        setIsProcessing(true)
+        const res = await massClaimSBCNFT(chain?.id ?? 0);
 
-        try {
-            massClaimSBCNFT.massClaimSBCNFTFunction?.();
+        if (res)
             onOpenClaimNFTSuccessModal();
-        } catch (err) {
-            console.log('error in mass claim sbc nft: ', err);
-        }
+
+        setIsProcessing(false)
     }
 
     const fetchDataFromSubgraph7 = (delayTime?: number) => {
@@ -102,9 +98,9 @@ const MyNFTsComponent = ({
                     console.log("sbcNfts: ", "sbcNfts?.isSuccess: ", (sbcNfts?.returnedData));
                     handleNFTsFromSubgraph(sbcNfts?.returnedData);
                 }
-                setIsLoading(false);
             })()
         }, delayTime ? delayTime : delayTimeFromSubgraph) // delay from the state change of the thegraph
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -176,25 +172,10 @@ const MyNFTsComponent = ({
         setClaimableNFTs(claimableNFTs);
     }
 
-    const getContract = () => {
-        const contractAddress = (nftClaimerContract as any)[chainId];
-        const contract = new ethers.Contract(contractAddress, nftClaimerAbi, (signer?.provider as any)?.getSigner());
-
-        return contract;
-    }
-
     const handleClaimPerks = async (tokenId: any) => {
-        try {
-            const contract = getContract();
-            let tx = await contract.claimFreeBetPerk(tokenId);
-            setIsProcessing(true);
-            await tx.wait();
-            onOpenClaimPerksSuccessModal();
-
-        } catch (e) {
-            console.log("nft claim error: ", e);
-        }
-
+        setIsProcessing(true);
+        let res = await claimFreeBetPerk(chain?.id?? 0, tokenId);
+        if (res) onOpenClaimPerksSuccessModal();
         setIsProcessing(false);
     }
 
@@ -464,7 +445,7 @@ const MyNFTsComponent = ({
                 }
             </Grid>
             <AnnounceModal
-                isOpenAnnounceModal={isOpenClaimNFTSuccessModal && massClaimSBCNFT.isSuccess}
+                isOpenAnnounceModal={isOpenClaimNFTSuccessModal}
                 onCloseAnnounceModal={onCloseClaimNFTSuccessModal}
                 announceText={'You successfully claimed your nfts'}
                 announceLogo={checkIconInGreenBg}
@@ -479,9 +460,9 @@ const MyNFTsComponent = ({
             />
             <AnnounceModal
                 isOpenAnnounceModal={
-                    (isOpenClaimNFTSuccessModal && massClaimSBCNFT.isLoading) || isProcessing
+                    isLoading || isProcessing
                 }
-                onCloseAnnounceModal={onCloseClaimNFTSuccessModal}
+                onCloseAnnounceModal={() => {setIsLoading(false); setIsProcessing(false)}}
                 announceText={'Your transaction is currently processing on the blockchain'}
                 announceGif={true}
                 announceModalButtonText={'Close'}

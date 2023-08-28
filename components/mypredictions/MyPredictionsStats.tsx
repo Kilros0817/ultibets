@@ -11,8 +11,10 @@ import {
   noLogo,
   yesLogo,
 } from '../../utils/assets';
-import { useClaimBetCancelled, useWidthdrawGain, } from '../../utils/interact/sc/prediction-markets';
+import { claimBetCancelled, widthdrawGain, } from '../../utils/interact/sc/prediction-markets';
 import AnnounceModal from '../modal/AnnounceModal';
+import { useNetwork } from 'wagmi';
+import { useChainContext } from '../../utils/Context';
 
 export type MyPredictionsStatsProps = {
   eventID: number,
@@ -45,6 +47,10 @@ const MyPredictionsStats = ({
   result,
   currentToken,
 }: MyPredictionsStatsProps) => {
+  const { chain, } = useNetwork();
+  const { isNativeToken, } = useChainContext();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const winColor = '#19A2A5';
   const lostColor = '#FC541C';
   const pendingColor = '#E18933';
@@ -64,16 +70,6 @@ const MyPredictionsStats = ({
     onOpen: onOpenReimbursePredictionSuccessAnnounceModal,
     onClose: onCloseReimbursePredictionSuccessAnnounceModal,
   } = useDisclosure();
-
-  const withdrawGain = useWidthdrawGain(
-    eventID,
-    result,
-  )
-
-  const claimBetCancelled = useClaimBetCancelled(
-    eventID,
-    prediction,
-  )
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -116,25 +112,37 @@ const MyPredictionsStats = ({
     }
   }, [status, prediction, result])
 
-  const handleClaimOrReimburse = () => {
+  const handleClaimOrReimburse = async () => {
+    setIsLoading(true)
     if (prediction == result) {
-      if (withdrawGain.isLoading) return;
       try {
-        withdrawGain.withdrawGainFunction?.();
-        onOpenGainSuccessAnnounceModal();
+        const res = await widthdrawGain(
+          eventID,
+          result,
+          chain?.id ?? 0,
+          isNativeToken
+        )
+        if (res)
+          onOpenGainSuccessAnnounceModal();
       } catch (err) {
         console.log('error in claim gain: ', err);
       }
     } else if (status == EventStatusInPM.Cancel) {
       // reimburse 
-      if (claimBetCancelled.isLoading) return;
       try {
-        claimBetCancelled.claimBetCancelledFunction?.();
-        onOpenReimbursePredictionSuccessAnnounceModal();
+        const res = await claimBetCancelled(
+          eventID,
+          prediction,
+          chain?.id ?? 0,
+          isNativeToken
+        )
+        if (res)
+          onOpenReimbursePredictionSuccessAnnounceModal();
       } catch (err) {
         console.log('error in reimburse prediction: ', err);
       }
     }
+    setIsLoading(false)
   }
 
   const PredictionChoice = () => (
@@ -414,7 +422,7 @@ const MyPredictionsStats = ({
             </Button>
           </Flex>
           <AnnounceModal
-            isOpenAnnounceModal={isOpenGainSuccessAnnounceModal && withdrawGain.isSuccess}
+            isOpenAnnounceModal={isOpenGainSuccessAnnounceModal}
             onCloseAnnounceModal={onCloseGainSuccessAnnounceModal}
             announceText={'Congratulations on your winning prediction UltiBettor!'}
             announceCongrets={true}
@@ -422,17 +430,14 @@ const MyPredictionsStats = ({
             announceModalButtonText={'Close'}
           />
           <AnnounceModal
-            isOpenAnnounceModal={isOpenReimbursePredictionSuccessAnnounceModal && claimBetCancelled.isSuccess}
+            isOpenAnnounceModal={isOpenReimbursePredictionSuccessAnnounceModal}
             onCloseAnnounceModal={onCloseReimbursePredictionSuccessAnnounceModal}
             announceText={'Your prediction has been successfully reimbursed'}
             announceLogo={checkIconInGreenBg}
             announceModalButtonText={'Close'}
           />
           <AnnounceModal
-            isOpenAnnounceModal={
-              (isOpenGainSuccessAnnounceModal && withdrawGain.isLoading) ||
-              (isOpenReimbursePredictionSuccessAnnounceModal && claimBetCancelled.isLoading)
-            }
+            isOpenAnnounceModal={isLoading}
             onCloseAnnounceModal={onCloseGainSuccessAnnounceModal}
             announceText={'Your transaction is currently processing on the blockchain'}
             announceGif={true}

@@ -11,7 +11,7 @@ import { useNetwork } from 'wagmi'
 import { VotingResultInSBC } from '../../../../utils/config'
 import { useChainContext } from '../../../../utils/Context'
 import { checkIconInGreenBg } from '../../../../utils/assets'
-import { useEventVote, useGetWinnerIDs, useWinnersClaimPrize } from '../../../../utils/interact/sc/squid-competition'
+import { eventVote, getWinnerIDs, winnersClaimPrize } from '../../../../utils/interact/sc/squid-competition'
 import AnnounceModal from '../../../modal/AnnounceModal'
 
 export type FinalWinnerComponentProps = {
@@ -43,62 +43,62 @@ const FinalWinnerComponent = ({
   const [finalPrizeLabel, setFinalPrizeLabel] = useState<string>('');
   const [finalLineLabel, setFinalLineLabel] = useState<string>('');
   const [finalLineValue, setFinalLineValue] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     isOpen: isOpenWinnersClaimPrizeSuccessModal,
     onOpen: onOpenWinnersClaimPrizeSuccessModal,
     onClose: onCloseWinnersClaimPrizeSuccessModal,
   } = useDisclosure();
 
-
-  const eventVote = useEventVote(
-    eventID
-  );
-
   useEffect(() => {
-    if (voteResult == VotingResultInSBC.Indeterminate) return;
-    if (eventVote.isLoading) return;
-    if (eventVote.status) {
-      setSplitPoint((eventVote?.result as any)?.splitPoint);
-      setSoloPoint((eventVote?.result as any)?.soloPoint);
+    const getVote = async () => {
+      const res = await eventVote(
+        eventID,
+        chain?.id ?? 0,
+        isNativeToken
+      );
+      //@ts-ignore
+      setSplitPoint(res.splitPoint);
+      //@ts-ignore
+      setSoloPoint(res.soloPoint);
     }
+    if (chain?.id) getVote()
   }, [
     chain?.id,
-    eventVote.isLoading,
-    eventVote.result,
     isNativeToken,
     voteResult,
   ]);
 
-  const getWinnerIDs = useGetWinnerIDs(
-    eventID
-  );
-
   useEffect(() => {
-    if (getWinnerIDs.isLoading) return;
-    if (getWinnerIDs.status) {
-      setWinnerIds((getWinnerIDs as any).result);
-      console.log("winner ids: ", getWinnerIDs.result);
+    const initWinnerIDs = async () => {
+      const res = await getWinnerIDs(
+        eventID,
+        chain?.id ?? 0,
+        isNativeToken
+      );
+      setWinnerIds(res as any);
     }
+
+    if (chain?.id) initWinnerIDs()
   }, [
     chain?.id,
-    getWinnerIDs.isLoading,
-    getWinnerIDs.result,
     isNativeToken,
     voteResult,
   ]);
 
-  const winnersClaimPrize = useWinnersClaimPrize(
-    eventID ?? 1,
-  )
+  
 
-  const handlewinnersClaimPrize = () => {
-    if (winnersClaimPrize.isLoading) return;
-    try {
-      winnersClaimPrize.winnersClaimPrizeFunction?.();
+  const handlewinnersClaimPrize = async () => {
+    setIsLoading(true)
+    const res = await winnersClaimPrize(
+      eventID ?? 1,
+      chain?.id ?? 0,
+      isNativeToken
+    )
+    if (res)
       onOpenWinnersClaimPrizeSuccessModal();
-    } catch (err) {
-      console.log('error in pick winner: ', err);
-    }
+
+    setIsLoading(false)
   }
 
 
@@ -239,7 +239,7 @@ const FinalWinnerComponent = ({
               </Button>
             </Flex>
             <AnnounceModal
-              isOpenAnnounceModal={isOpenWinnersClaimPrizeSuccessModal && winnersClaimPrize.isSuccess}
+              isOpenAnnounceModal={isOpenWinnersClaimPrizeSuccessModal}
               onCloseAnnounceModal={onCloseWinnersClaimPrizeSuccessModal}
               announceText={`Winner has been successfully claimed prize`}
               announceLogo={checkIconInGreenBg}
@@ -248,9 +248,9 @@ const FinalWinnerComponent = ({
             />
             <AnnounceModal
               isOpenAnnounceModal={
-                (isOpenWinnersClaimPrizeSuccessModal && winnersClaimPrize.isLoading)
+                isLoading
               }
-              onCloseAnnounceModal={onCloseWinnersClaimPrizeSuccessModal}
+              onCloseAnnounceModal={() => setIsLoading(false)}
               announceText={'Your transaction is currently processing on the blockchain'}
               announceGif={true}
               announceModalButtonText={'Close'}
