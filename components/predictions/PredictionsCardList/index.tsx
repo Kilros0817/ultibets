@@ -77,8 +77,6 @@ const PredictionsCardList = ({
       (async () => {
         const t = predictionMarketSelectedDate
         const dayTimestamps = getDateAndTimeIntervalsAccordingToUserTimeZone(t);
-        console.log("timestamp: predictionMarketFilteredData", eventList);
-        console.log("timestamp: predictionMarketFilteredData", dayTimestamps);
 
         const dailyEvents = await getDailyEventData(
           isNativeToken,

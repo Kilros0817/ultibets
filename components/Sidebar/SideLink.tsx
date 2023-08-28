@@ -105,7 +105,6 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
       (async () => {
         const t = new Date();
         const dayTimestamps = getDateAndTimeIntervalsAccordingToUserTimeZone(t);
-        console.log("timestamp: predictionMarketFilteredData", dayTimestamps);
 
         const dailyEvents = await getDailyEventData(
           isNativeToken,
