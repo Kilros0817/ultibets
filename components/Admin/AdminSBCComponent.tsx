@@ -46,6 +46,7 @@ const AdminSBCComponent = () => {
     const [nftSetStatus, setNftSetStatus] = useState(NftSetStatus.Original);
     const [chainId, setChainId] = useState<number>(chain?.id ?? polygonChainId);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isRefresh, setIsRefresh] = useState<boolean>(false);
     const [currentToken, setCurrentToken] = useState(isNativeToken ? (newChainAttrs as any)[chainId].nativeToken : "UTBETS");
     const [repeatLevel, setRepeatLevel] = useState<number>(2);
     const {
@@ -98,7 +99,7 @@ const AdminSBCComponent = () => {
 
     const fetchDataFromSubgraph6 = (delayTime?: number) => {
         if (chainId == undefined) return;
-        setIsLoading(true);
+        setIsRefresh(true);
         setTimeout(() => {
             (async () => {
                 const sbeEvents = await getSBCEvents(isNativeToken, chainId);
@@ -108,17 +109,22 @@ const AdminSBCComponent = () => {
                         setCurrentEvent(sbeEvents?.eventData[0]);
                     }
                 }
-                setIsLoading(false);
             })()
         }, delayTime ? delayTime : delayTimeFromSubgraph) // delay from the state change of the thegraph
+        setIsRefresh(false);
     }
 
     useEffect(() => {
-        fetchDataFromSubgraph6(5000);
+        fetchDataFromSubgraph6(200);
     }, [
         isNativeToken,
         chainId,
-        shouldRender
+    ])
+
+    useEffect(() => {
+        fetchDataFromSubgraph6(10000);
+    }, [
+        shouldRender,
     ])
 
     // for native token betting
@@ -219,10 +225,7 @@ const AdminSBCComponent = () => {
         },
     });
 
-    
-
     useEffect(() => {
-
         const initFinalNumberOfWinners = async () => {
             const res = await getFinalRoundWinnersByEvent(
                 Number(currentEvent?.eventID ?? 1),
@@ -304,8 +307,6 @@ const AdminSBCComponent = () => {
         isGeneratedRND,
         shouldRender,
     ])
-
-
 
     const handleResultVote = async () => {
         if ((nftSetStatus < NftSetStatus.WinnerNFTSet)) {

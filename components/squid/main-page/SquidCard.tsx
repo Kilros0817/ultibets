@@ -45,7 +45,6 @@ const SquidCard = ({
   const [clickUrl, setClickUrl] = useState<string>(`sbc/${eventID}/register`);
 
   useEffect(() => {
-    console.log("=======:", state)
     switch (state) {
       case EventStateInSBC.Register:
         // register page

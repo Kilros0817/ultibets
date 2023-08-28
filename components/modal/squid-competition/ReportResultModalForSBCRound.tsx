@@ -37,7 +37,7 @@ const ReportResultModalForSBCRound = ({
   playersInThisPhase,
 }: ReportResultModalForSBCRoundProps) => {
   const [result, setResult] = useState<string>('1');
-  const { isNativetoken, } = useChainContext();
+  const { isNativeToken, } = useChainContext();
   const [numberOfWinnersOfThisRound, setNumberOfWinnersOfThisRound] = useState<number>();
   const [nftSetStatus, setNftSetStatus] = useState(NftSetStatus.Original);
   const { chain } = useNetwork();
@@ -59,15 +59,15 @@ const ReportResultModalForSBCRound = ({
         eventID,
         Number(result),
         chain?.id ?? 137,
-        isNativetoken)
+        isNativeToken)
       setNumberOfWinnersOfThisRound(winnersNumber as number);
     }
-    getNumberOfWinners()
+    if (result && eventID)
+      getNumberOfWinners()
   }, [
-    isNativetoken,
+    isNativeToken,
     result,
   ])
-
 
   const handleReportResultForSBCRound = async () => {
 
@@ -80,7 +80,7 @@ const ReportResultModalForSBCRound = ({
           eventID,
           Number(result),
           chain?.id ?? 0,
-          isNativetoken
+          isNativeToken
         )
         if (res) {
           onOpenReportResultSuccessAnnounceModal();

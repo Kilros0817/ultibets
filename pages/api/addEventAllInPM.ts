@@ -57,7 +57,6 @@ export const addEventAllInPM = async (req: any, res: any) => {
 
     let currentChainParams = (chainParams as any)[process?.env?.MAINNET_OR_TESTNET!];
     const data = req.body
-    console.log("data: ", data);
 
     if (data.repeatLevel == 1) {
         //single chain 
@@ -90,7 +89,6 @@ export const addEventAllInPM = async (req: any, res: any) => {
             const key = contractItem.isNative ? `${chainParam.chainId}a` : `${chainParam.chainId}b`;
             try {
                 let contractAddress = contractItem?.address;
-                console.log("contract address: ", contractAddress);
 
                 const contract = new ethers.Contract(contractAddress, contractItem?.abi, provider.getSigner(wallet.address));
 
@@ -108,17 +106,13 @@ export const addEventAllInPM = async (req: any, res: any) => {
                     [`${key}`]: true,
                 })
             } catch (error) {
-                console.log("error: ", error);
                 error = error;
-
                 receipt.push({
                     [`${key}`]: false,
                 })
             }
         }, Promise.resolve())
     }))
-
-    console.log("===========================: receipt: ", receipt);
 
     if (error) {
         res.status(500).json({

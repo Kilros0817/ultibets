@@ -95,7 +95,6 @@ const AdminEventCardList = ({
   ])
 
   useEffect(() => {
-    console.log("daily events: ", "before");
     fetchDataFromSubgraph(3000);
   }, [shouldRender])
 

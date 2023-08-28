@@ -290,6 +290,7 @@ export const reportResultForSBCRound = async (
     chainId: number,
     isNativeToken: boolean
 ) => {
+    console.log(isNativeToken, "=========isNativeToken====")
     try {
         const { wait } = await writeContract({
             mode: "recklesslyUnprepared",

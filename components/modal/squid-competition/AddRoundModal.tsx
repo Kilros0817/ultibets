@@ -114,8 +114,9 @@ const AddRoundModal = ({
         isNativeToken)
       setNumberOfWinnersOfThisRound(winnersNumber as number);
     }
-    getNumberOfWinners()
-  }, [eventID])
+    if (eventID && result)
+      getNumberOfWinners()
+  }, [eventID, result])
 
   const handleImageOpen = (e: any) => {
     const render = new FileReader()
@@ -238,6 +239,7 @@ const AddRoundModal = ({
 
   const uploadToPinata = async () => {
     if (nftSetStatus != NftSetStatus.ImageRead) return;
+    setIsLoading(true)
     const result = await axios.post('/api/pinata/uploadNFT', {
       image: image,
       nftType: Number(nftType),
@@ -245,13 +247,11 @@ const AddRoundModal = ({
       roundLevel: roundLevel,
     })
 
-    console.log('result: ', result);
     setMetadataUrl(result.data?.hash)
     setNftSetStatus(NftSetStatus.UploadToPinata);
     onOpenUploadToPinataSuccessAnnounceModal();
+    setIsLoading(false)
   }
-
-
 
   const handleSetRoundNFTURI = async () => {
     if (nftSetStatus != NftSetStatus.UploadToPinata) return;
