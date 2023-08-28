@@ -458,7 +458,7 @@ const AdminSBCComponent = () => {
             }
 
             {
-                isLoading && (
+                isRefresh && (
                     <Flex
                         className="loading-container"
                         justifyContent={'center'}
@@ -478,7 +478,7 @@ const AdminSBCComponent = () => {
             }
 
             {
-                !isLoading && (eventList?.length >= 1) && (
+                !isRefresh && (eventList?.length >= 1) && (
                     <Flex
                         className='round-status'
                         justifyContent={'center'}
