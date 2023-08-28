@@ -78,7 +78,7 @@ const avalancheFuji = {
     symbol: 'AVAX',
   },
   rpcUrls: {
-    default: { http: ['https://rpc.ankr.com/avalanche_fuji'] },
+    default: { http: ['https://api.avax-test.network/ext/bc/C/rpc'] },
   },
   blockExplorers: {
     etherscan: { name: 'SnowTrace', url: 'https://testnet.snowtrace.io/' },

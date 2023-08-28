@@ -5,6 +5,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
+import Confetti from 'react-confetti'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useNetwork } from 'wagmi'
@@ -50,6 +51,8 @@ const FinalWinnerComponent = ({
     onClose: onCloseWinnersClaimPrizeSuccessModal,
   } = useDisclosure();
 
+  const { innerWidth: width } = window;
+
   useEffect(() => {
     const getVote = async () => {
       const res = await eventVote(
@@ -86,7 +89,7 @@ const FinalWinnerComponent = ({
     voteResult,
   ]);
 
-  
+
 
   const handlewinnersClaimPrize = async () => {
     setIsLoading(true)
@@ -220,24 +223,22 @@ const FinalWinnerComponent = ({
               >
                 Claim Winner Prize
               </Button>
-              <Button
-                px='30px'
-                py='15px'
-                mb='20px'
-                height={'41px'}
-                width={'fit-content'}
-                background={'unset'}
-                borderRadius={'34px'}
-                border={'1px solid #FC541C'}
-                _hover={{
-                  background: '#FC541C',
-                }}
-                onClick={() => router.push('/my-profile/my-nfts')}
-                isDisabled={!winnerIds.includes(registerID)}
-              >
-                Claim Winner NFT
-              </Button>
             </Flex>
+            {
+              winnerIds.includes(registerID) && (
+                <Flex
+                >
+                  <Confetti
+                    confettiSource={{ x: width + 100, y: 700, w: 10, h: 10 }}
+                    initialVelocityX={-25}
+                    initialVelocityY={15}
+                    gravity={0.1}
+                    numberOfPieces={1000}
+                    opacity={0.4}
+                  />
+                </Flex>
+              )
+            }
             <AnnounceModal
               isOpenAnnounceModal={isOpenWinnersClaimPrizeSuccessModal}
               onCloseAnnounceModal={onCloseWinnersClaimPrizeSuccessModal}
