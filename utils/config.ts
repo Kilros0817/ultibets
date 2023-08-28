@@ -913,7 +913,7 @@ export const utbetsAmountPerPerkLevel = [
 ]
 
 export const subgraphurls = {
-	[fujiChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsavalanche',
+	[fujiChainId]: 'https://rpc.ankr.com/avalanche_fuji',
 	[bscTestnetChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsbsc',
 	[mumbaiChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetspolygon',
 	[opGoerliChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsop',
