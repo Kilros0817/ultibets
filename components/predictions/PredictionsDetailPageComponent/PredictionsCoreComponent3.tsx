@@ -47,8 +47,6 @@ const PredictionsCoreComponent3 = ({
     if (slug[2]) {
       setCurrentSports(slug[2]);
       setChoice(prediction.sideToPredict[currentSports]);
-      console.log("current sports: ", slug[2]);
-      console.log("current choice: ", prediction.sideToPredict[currentSports])
     }
   }, [router, prediction])
 

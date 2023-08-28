@@ -103,7 +103,8 @@ const PredictionsModal = ({
     const betAmount = type == 'prediction' ? newBetAmount : roundBetAmount
     if (amount >= (betAmount ?? 0)) {
       setIsApprovedUtbets(true)
-      await getSignature();
+      if (betAmount as number > 0)
+        await getSignature();
     }
     else setIsApprovedUtbets(false);
   }
@@ -240,7 +241,6 @@ const PredictionsModal = ({
 
       if (result) {
         onOpenThird();
-
       }
 
       setIsLoading(false);
@@ -260,8 +260,6 @@ const PredictionsModal = ({
         bettor: (canBeInvited && referral != '') ? window.atob(referral) : address,
       };
 
-      console.log("data: ", data);
-
       const result = await axios.post(
         '/api/createSignature',
         data,
@@ -271,10 +269,8 @@ const PredictionsModal = ({
           },
         }
       );
-      console.log("signature creation result: ", result);
 
       if ((result as any).data.isSuccess) {
-        console.log("sinature:  ", (result as any).data.signature)
         setSignature((result as any).data.signature)
       }
     } catch (err) {

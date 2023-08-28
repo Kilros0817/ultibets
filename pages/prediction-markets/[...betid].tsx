@@ -78,7 +78,6 @@ const PredictionPage = ({
     if (slug && slug.length >= 4) {
       //@ts-ignore
       if (slug[2] == sidebarItems[categoryInPM].keyword && parseInt(slug[3]) >= 1) {
-        console.log(" alternative event id: ", parseInt(slug[3]))
         setAlternativeEventID(parseInt(slug[3]));
       }
     }
@@ -111,20 +110,16 @@ const PredictionPage = ({
           isNativeToken,
           chainId,
         );
-        console.log("daily event detail: ", dailyEvent);
         if (dailyEvent?.isSuccess) {
           setEventDetailData((dailyEvent?.returnedData)[0]);
-          console.log("===========:  ", (dailyEvent?.returnedData)[0])
 
           let sidePoolVolumes = ["0", "0", "0"];
           let sidePools = (dailyEvent?.returnedData)[0]?.sidePools;
-          console.log("daily event detail: ", sidePools);
 
           for (let i = 0; i < sidePools?.length; i++) {
             let sideValue = sidePools[i].sideValue;
             sidePoolVolumes[sideValue] = sidePools[i].amount;
           }
-          console.log("daily event detail: ", sidePoolVolumes);
 
           setSidePoolVolumes(sidePoolVolumes);
 
@@ -171,7 +166,6 @@ const PredictionPage = ({
         const canBeInvited = await getUserInviteStatus(
           (address ?? '0x').toLowerCase(),
         );
-        console.log("result ***************:   :  ", canBeInvited);
         setCanBeInvited(canBeInvited.returnedData);
         setIsLoading(false);
       })()
@@ -181,7 +175,6 @@ const PredictionPage = ({
   useEffect(() => {
     const slug = checkPath();
     if (slug && slug.length >= 4) {
-      console.log("daily event detail: ", "before");
       fetchDataFromSubgraph3(200);
     }
   }, [
@@ -192,7 +185,6 @@ const PredictionPage = ({
   useEffect(() => {
     const slug = checkPath();
     if (slug && slug.length >= 4) {
-      console.log("daily event detail: ", "before");
       fetchDataFromSubgraph1(200);
       fetchDataFromSubgraph2(200);
     }

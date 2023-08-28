@@ -162,10 +162,6 @@ const PredictionsSummary3 = ({
     return () => { }
   }, [scroll?.current?.scrollWidth, scroll?.current?.offsetWidth])
 
-  useEffect(() => {
-    console.log("event start time: ===", eventStartTime);
-  }, [])
-
   return (
     <Flex
       direction='column'

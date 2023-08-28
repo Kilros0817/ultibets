@@ -86,7 +86,6 @@ const Header = () => {
 
   const getData = async () => {
     const res = await axios.get('https://json.geoiplookup.io/')
-    console.log(res?.data);
     return {
       ip: res?.data?.ip,
       country_name: res?.data?.country_name,
@@ -101,16 +100,13 @@ const Header = () => {
       if (!isAdblock) {
         isAdblock = await detectAnyAdblocker();
       }
-      console.log("is adblock: ", isAdblock);
 
       if (process.env.NEXT_PUBLIC_IS_GEOBLOCK == "true") {
         if (router.asPath.includes('prediction-markets') || router.asPath.includes('sbc')) {
           // adblock 
           const isAdblock = await detectAnyAdblocker();
-          console.log("is adblock: ", isAdblock);
           if (isAdblock) {
             // an adblocker is detected 
-            console.log("any adblocker adblock detected");
             onOpenAdBlockDetectModal();
             router.push('/');
             return;

@@ -58,11 +58,7 @@ export default async function getDataFromSubgraph(req: any, res: any) {
                     query: query,
                 });
 
-                console.log("result ***************: ", result?.data);
-
                 data.push(result?.data?.data);
-                console.log("result ***************: ", data);
-
             } catch (error) {
                 error = error;
                 isSuccess = false;
@@ -113,8 +109,6 @@ export default async function getDataFromSubgraph(req: any, res: any) {
                         ...(result?.data?.data),
                     }
                 });
-                console.log("result ***************: ", data);
-
             } catch (error) {
                 error = error;
                 isSuccess = false;
