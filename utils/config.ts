@@ -383,7 +383,7 @@ export const airdropContractAddresses = {
 export const chainRPCs = {
 	[fujiChainId]: 'https://rpc.ankr.com/avalanche_fuji',
 	[bscTestnetChainId]: 'https://bsc-testnet.publicnode.com',
-	[opGoerliChainId]: 'https://opt-goerli.g.alchemy.com/v2/1_o3iQUe8t5zTEGaurkPNsp-9hUu7T09',
+	[opGoerliChainId]: 'https://practical-spring-wildflower.optimism-goerli.discover.quiknode.pro/34350debdfa0380c2cd5f04b7c05335f21d934c2/',
 	[mumbaiChainId]: 'https://polygon-mumbai.infura.io/v3/4458cf4d1689497b9a38b1d6bbf05e78',
 	[avalancheChainId]: '',
 	[bscChainId]: '',

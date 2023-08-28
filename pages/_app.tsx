@@ -99,7 +99,7 @@ const optimismGoerli = {
   nativeCurrency: { name: "Goerli Ether", symbol: "ETH", decimals: 18 },
   rpcUrls: {
     default: {
-      http: ["https://opt-goerli.g.alchemy.com/v2/1_o3iQUe8t5zTEGaurkPNsp-9hUu7T09"]
+      http: ["https://practical-spring-wildflower.optimism-goerli.discover.quiknode.pro/34350debdfa0380c2cd5f04b7c05335f21d934c2/"]
     }
   },
   blockExplorers: {
