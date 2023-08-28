@@ -86,7 +86,6 @@ const PredictionsCardList = ({
           EventStatusInPM.Open,
           chainId,
         );
-        console.log("daily events: ", dailyEvents);
         if (dailyEvents?.isSuccess) {
           setEventList(dailyEvents?.returnedData);
           handleDataForPredictionMarkets(dailyEvents?.returnedData);
@@ -97,7 +96,6 @@ const PredictionsCardList = ({
   }
 
   useEffect(() => {
-    console.log("daily events: ", "before");
     fetchDataFromSubgraph(100);
   }, [
     isNativeToken,
@@ -107,7 +105,6 @@ const PredictionsCardList = ({
   ])
 
   useEffect(() => {
-    console.log("daily events: ", "before");
     fetchDataFromSubgraph(3000);
   }, [shouldRender])
 

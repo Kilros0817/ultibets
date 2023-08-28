@@ -134,7 +134,6 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
     setTimeout(() => {
       (async () => {
         const sbeEvents = await getSBCEvents(isNativeToken, chainId);
-        console.log("sbcEvents: ", sbeEvents);
         if (sbeEvents?.isSuccess) {
           const sbcLiveEventCount = sbeEvents?.eventData.length;
 

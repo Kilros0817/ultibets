@@ -102,7 +102,6 @@ const AdminSBCComponent = () => {
         setTimeout(() => {
             (async () => {
                 const sbeEvents = await getSBCEvents(isNativeToken, chainId);
-                console.log("sbcEvents: ", sbeEvents);
                 if (sbeEvents?.isSuccess) {
                     setEventList(sbeEvents?.eventData);
                     if (sbeEvents?.eventData?.length >= 1) {
@@ -355,12 +354,9 @@ const AdminSBCComponent = () => {
             // should add round 1
             onOpenAddRoundModal();
         } else if (currentEvent?.state == EventStateInSBC.Round) {
-            console.log("sbcEvents: button clicked");
             if (currentEvent?.rounds[currentEvent?.currentLevel - 1].result == RoundResultInSBC.Indeterminate) {
-                console.log("sbcEvents: report result clicked");
                 onOpenReportResultModal();
             } else {
-                console.log("sbcEvents: add round clicked");
                 onOpenAddRoundModal();
             }
         } else if (currentEvent?.state == EventStateInSBC.Vote) {

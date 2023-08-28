@@ -45,7 +45,6 @@ const SquidCardList = () => {
     setTimeout(() => {
       (async () => {
         const sbeEvents = await getSBCEvents(isNativeToken, chainId);
-        console.log("sbcEvents: ", sbeEvents);
         if (sbeEvents?.isSuccess) {
           setEventList(sbeEvents?.eventData);
         }

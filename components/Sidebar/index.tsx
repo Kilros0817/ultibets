@@ -11,7 +11,6 @@ const Sidebar = () => {
 
   useEffect(() => {
     const currentRoute = router.pathname
-    console.log("current route: ", currentRoute);
     switch (currentRoute) {
       default:
         setMarginTop('30px');
