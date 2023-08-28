@@ -39,7 +39,7 @@ import { addRound, getWinnersNumber } from '../../../utils/interact/sc/squid-com
 import AnnounceModal from '../AnnounceModal'
 import { getFormattedDateString } from '../../../utils/formatters'
 import { getNFTTypeString } from '../../../utils/interact/utility'
-import { useSetRoundNFTURI } from '../../../utils/interact/sc/sbcNFT'
+import { setRoundNFTURI } from '../../../utils/interact/sc/sbcNFT'
 import { useNetwork } from 'wagmi'
 
 type AddRoundModalProps = {
@@ -95,8 +95,8 @@ const AddRoundModal = ({
   const [nftSetStatus, setNftSetStatus] = useState(NftSetStatus.Original);
 
   useEffect(() => {
-        let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;    let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
+    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
+      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId; let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
     if (currentChainAttrsItem.length == 0) {
       const temporaryChainId = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? 137 : 80001
       currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
@@ -251,22 +251,23 @@ const AddRoundModal = ({
     onOpenUploadToPinataSuccessAnnounceModal();
   }
 
-  const setRoundNFTURI = useSetRoundNFTURI(
-    Number(nftType),
-    eventID,
-    roundLevel,
-    metadataUrl,
-  );
+
 
   const handleSetRoundNFTURI = async () => {
     if (nftSetStatus != NftSetStatus.UploadToPinata) return;
-    if (setRoundNFTURI.isLoading) return
-    try {
-      setRoundNFTURI.setRoundNFTURIFunction?.()
+    setIsLoading(true)
+    const res = await setRoundNFTURI(
+      Number(nftType),
+      eventID,
+      roundLevel,
+      metadataUrl,
+      chain?.id ?? 0
+    );
+
+    if (res)
       onOpenWinnerNFTSetSuccessAnnounceModal();
-    } catch (err) {
-      console.log('error in add event: ', err)
-    }
+    
+    setIsLoading(false)
   }
 
   const handleAddRound = async () => {
@@ -561,7 +562,7 @@ const AddRoundModal = ({
                 cursor={'pointer'}
                 width={'fit-content'}
                 background={'transparent'}
-                // isDisabled={nftSetStatus < NftSetStatus.WinnerNFTSet}
+              // isDisabled={nftSetStatus < NftSetStatus.WinnerNFTSet}
               >
                 Add Round {roundLevel}
               </Button>
@@ -579,7 +580,7 @@ const AddRoundModal = ({
       />
       <AnnounceModal
         isOpenAnnounceModal={
-          isOpenWinnerNFTSetSuccessAnnounceModal && setRoundNFTURI.isSuccess
+          isOpenWinnerNFTSetSuccessAnnounceModal
         }
         onCloseAnnounceModal={onCloseWinnerNFTSetSuccessAnnounceModal}
         announceText={`Winner NFT has been successfully added`}
