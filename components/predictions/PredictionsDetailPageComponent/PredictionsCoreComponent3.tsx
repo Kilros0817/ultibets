@@ -124,7 +124,6 @@ const PredictionsCoreComponent3 = ({
 
   const hanldeChoice = (choice: string) => {
     setChoice(choice);
-    console.log("prediction: ", prediction.sideToPredict);
     setPrediction({
       sideToPredict: {
         ...prediction.sideToPredict,
