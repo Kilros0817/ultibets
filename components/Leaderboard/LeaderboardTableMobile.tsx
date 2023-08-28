@@ -473,14 +473,14 @@ const LeaderboardTableMobile = ({
                                         color={item.dailyPnl > 0 ? '#19A2A5' : '#BD3B32'}
                                         display={currentPnlIndex == 0 ? 'table-cell' : 'none'}
                                     >
-                                        {item.dailyPnl}$
+                                        {item.dailyPnl}
                                     </Td>
                                     <Td
                                         borderColor='transparent'
                                         color={item.weeklyPnl > 0 ? '#19A2A5' : '#BD3B32'}
                                         display={currentPnlIndex == 1 ? 'table-cell' : 'none'}
                                     >
-                                        {item.weeklyPnl}$
+                                        {item.weeklyPnl}
                                     </Td>
 
                                     <Td
@@ -488,7 +488,7 @@ const LeaderboardTableMobile = ({
                                         color={item.monthlyPnl > 0 ? '#19A2A5' : '#BD3B32'}
                                         display={currentPnlIndex == 2 ? 'table-cell' : 'none'}
                                     >
-                                        {item.monthlyPnl}$
+                                        {item.monthlyPnl}
                                     </Td>
 
                                     <Td
@@ -496,7 +496,7 @@ const LeaderboardTableMobile = ({
                                         color={item.allTimePnl > 0 ? '#19A2A5' : '#BD3B32'}
                                         display={currentPnlIndex == 3 ? 'table-cell' : 'none'}
                                     >
-                                        {item.allTimePnl}$
+                                        {item.allTimePnl}
                                     </Td>
 
                                     <Td
