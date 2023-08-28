@@ -381,7 +381,7 @@ export const airdropContractAddresses = {
 }
 
 export const chainRPCs = {
-	[fujiChainId]: 'https://api.avax-test.network/ext/bc/C/rpc',
+	[fujiChainId]: 'https://rpc.ankr.com/avalanche_fuji',
 	[bscTestnetChainId]: 'https://bsc-testnet.publicnode.com',
 	[opGoerliChainId]: 'https://opt-goerli.g.alchemy.com/v2/1_o3iQUe8t5zTEGaurkPNsp-9hUu7T09',
 	[mumbaiChainId]: 'https://polygon-mumbai.infura.io/v3/4458cf4d1689497b9a38b1d6bbf05e78',
@@ -913,7 +913,7 @@ export const utbetsAmountPerPerkLevel = [
 ]
 
 export const subgraphurls = {
-	[fujiChainId]: 'https://rpc.ankr.com/avalanche_fuji',
+	[fujiChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsavalanche',
 	[bscTestnetChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsbsc',
 	[mumbaiChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetspolygon',
 	[opGoerliChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsop',
