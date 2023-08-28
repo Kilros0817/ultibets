@@ -6,7 +6,7 @@ import {
   Image,
 } from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react'
-import { useNetwork } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import HomeCarousel from '../../components/Container/Carousel'
 import Sidebar from '../../components/Sidebar'
 import { chainAttrs, mumbaiChainId, newChainAttrs, polygonChainId, sortByItems } from '../../utils/config'
@@ -30,6 +30,7 @@ const Admin = () => {
     categoryInPM,
   } = useChainContext();
   const { chain, } = useNetwork();
+  const { address } = useAccount();
   const [currentMainnetOrTestnetAttrs,] = useState(
     process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
   const [repeatLevel, setRepeatLevel] = useState<number>(2);
@@ -49,16 +50,12 @@ const Admin = () => {
     }
   }, [chain, isNativeToken]);
 
-  (window as any).ethereum?.on('networkChanged', async () => {
-    location.reload();
-  })
-
-  (window as any).ethereum?.on('accountsChanged', async (accounts: any) => {
-    if (accounts[0] !== process.env.ADMIN_WALLET_PUBLIC_KEY?.toLowerCase()) {
+  useEffect(() => {
+    if (address?.toLowerCase() != process.env.NEXT_PUBLIC_ADMIN_WALLET_PUBLIC_KEY?.toLowerCase()) {
       toast.error('You are not an admin');
-      router.push('/');
+      router.push('/home');
     }
-  })
+  }, [address]);
 
   const CalendarLabel = () => (
     <>
