@@ -548,7 +548,7 @@ const LeaderboardTable = ({
                                                     color={item.dailyPnl > 0 ? '#19A2A5' : '#BD3B32'}
 
                                                 >
-                                                    {item.dailyPnl}$
+                                                    {item.dailyPnl}
                                                 </Td>
                                                 <Td
                                                     ml={'110px'}
@@ -556,7 +556,7 @@ const LeaderboardTable = ({
                                                     color={item.weeklyPnl > 0 ? '#19A2A5' : '#BD3B32'}
 
                                                 >
-                                                    {item.weeklyPnl}$
+                                                    {item.weeklyPnl}
                                                 </Td>
 
                                                 <Td
@@ -565,7 +565,7 @@ const LeaderboardTable = ({
                                                     color={item.monthlyPnl > 0 ? '#19A2A5' : '#BD3B32'}
 
                                                 >
-                                                    {item.monthlyPnl}$
+                                                    {item.monthlyPnl}
                                                 </Td>
 
                                                 <Td
@@ -574,7 +574,7 @@ const LeaderboardTable = ({
                                                     color={item.allTimePnl > 0 ? '#19A2A5' : '#BD3B32'}
 
                                                 >
-                                                    {item.allTimePnl}$
+                                                    {item.allTimePnl}
                                                 </Td>
 
                                                 <Td
