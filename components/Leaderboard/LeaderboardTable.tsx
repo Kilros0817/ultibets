@@ -189,7 +189,7 @@ const LeaderboardTable = ({
     useContractEvent({
         ...contract,
         eventName: 'NewLeader',
-        listener(leader: any, name: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });

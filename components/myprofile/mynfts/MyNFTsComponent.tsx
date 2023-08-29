@@ -120,7 +120,7 @@ const MyNFTsComponent = ({
     useContractEvent({
         ...contract,
         eventName: 'ClaimNFT',
-        listener(tokenId: any) {
+        listener() {
             console.log("ClaimNFT listened");
             setShouldRender(!shouldRender);
         },
@@ -129,7 +129,7 @@ const MyNFTsComponent = ({
     useContractEvent({
         ...contract,
         eventName: 'ClaimFreeBetPerk',
-        listener(tokenId: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -195,6 +195,7 @@ const MyNFTsComponent = ({
                         background={'unset'}
                         borderRadius={'34px'}
                         border={'1px solid #FC541C'}
+                        color={'white'}
                         _hover={{
                             background: '#FC541C',
                         }}
@@ -426,6 +427,7 @@ const MyNFTsComponent = ({
                                                 _hover={{
                                                     backgroundColor: '#E18833',
                                                 }}
+                                                color={'white'}
                                                 background={'transparent'}
                                                 onClick={() => {
                                                     console.log("token id: ", item.tokenId);

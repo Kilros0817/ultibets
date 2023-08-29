@@ -1,4 +1,4 @@
-import { readContract, writeContract } from "@wagmi/core";
+import { readContract, waitForTransaction, writeContract } from "@wagmi/core";
 import {
     nftClaimerContract,
     NFTType,
@@ -10,15 +10,18 @@ export const massClaimSBCNFT = async (
     chainId: number
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (nftClaimerContract as any)[chainId],
             abi: nftClaimerAbi,
             functionName: 'massClaimSBCNFT',
             args: [],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in claim nfts=============")
         return false
@@ -31,15 +34,19 @@ export const claimFreeBetPerk = async (
     chainId: number
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
+            
             address: (nftClaimerContract as any)[chainId],
             abi: nftClaimerAbi,
             functionName: 'claimFreeBetPerk',
             args: [tokenId],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in claim free perk=============")
         return false
@@ -60,8 +67,7 @@ export const setRoundNFTURI = async (
     chainId: number
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (nftClaimerContract as any)[chainId],
             abi: nftClaimerAbi,
             functionName: 'setRoundNFTURI',
@@ -72,8 +78,12 @@ export const setRoundNFTURI = async (
                 uri,
             ],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in set round NFT URI=============")
         return false

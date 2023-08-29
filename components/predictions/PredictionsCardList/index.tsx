@@ -111,7 +111,7 @@ const PredictionsCardList = ({
   useContractEvent({
     ...contract,
     eventName: 'NewEvent',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -119,7 +119,7 @@ const PredictionsCardList = ({
   useContractEvent({
     ...contract,
     eventName: 'CancelEvent',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -127,7 +127,7 @@ const PredictionsCardList = ({
   useContractEvent({
     ...contract,
     eventName: 'ReportResult',
-    listener(eventID: any, result: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -135,7 +135,7 @@ const PredictionsCardList = ({
   useContractEvent({
     ...contract,
     eventName: 'PlacePrediction',
-    listener(bettor: any, eventID: any, decision: any, amount: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });

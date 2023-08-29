@@ -139,8 +139,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'Register',
-        listener(address: any, eventID: any) {
-            console.log("register event listened");
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -148,7 +147,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'RoundAdded',
-        listener(eventID: any, roundLevel: any, playersNumber: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -156,7 +155,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'RoundFinished',
-        listener(eventID: any, roundLevel: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -164,7 +163,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'PredictionPlaced',
-        listener(bettor: any, eventID: any, roundLevel: any, result: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -172,7 +171,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'VoteEvent',
-        listener(voter: any, eventID: any, voteResult: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -180,7 +179,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'ReportVoteResult',
-        listener(eventID: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -188,7 +187,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'PickEventWinner',
-        listener(eventID: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -204,7 +203,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'RoundUpdated',
-        listener(eventID: any, roundLevel: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -212,7 +211,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'RoundCanceled',
-        listener(eventID: any, roundLevel: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -220,7 +219,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'RefundCanceledRound',
-        listener(bettor: any, eventID: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });
@@ -437,6 +436,7 @@ const AdminSBCComponent = () => {
                             lineHeight={'20px'}
                             border={'1px solid #FC541C'}
                             textTransform={'capitalize'}
+                            color={'white'}
                             minWidth={'160px'}
                             width={'fit-content'}
                             justifyContent={'center'}

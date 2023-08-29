@@ -1,4 +1,4 @@
-import { readContract, writeContract } from "@wagmi/core";
+import { readContract, writeContract, waitForTransaction } from "@wagmi/core";
 import {
     ultiBetsLeaderBoardAddresses,
 } from '../../config';
@@ -25,15 +25,18 @@ export const registerOnLeaderboard = async (
     chainId: number
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (ultiBetsLeaderBoardAddresses as any)[chainId],
             abi: UltiBetsLeaderBoardAbi,
             functionName: 'registerOnLeaderboard',
             args: [name],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({hash});
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in register leaderboard=============")
         return false

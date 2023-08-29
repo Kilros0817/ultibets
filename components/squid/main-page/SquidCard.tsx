@@ -242,6 +242,7 @@ const SquidCard = ({
                 background={'unset'}
                 borderRadius={'34px'}
                 fontSize={'15px'}
+                color={'white'}
                 fontFamily={'Nunito'}
                 lineHeight={'20px'}
                 border={'1px solid #FC541C'}

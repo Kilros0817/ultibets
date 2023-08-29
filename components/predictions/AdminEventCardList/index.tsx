@@ -1,6 +1,6 @@
 import { Flex, Grid, useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useContractEvent, useNetwork, useSigner } from 'wagmi';
+import { useContractEvent, useNetwork } from 'wagmi';
 import { useChainContext } from '../../../utils/Context';
 import {
   bscChainId,
@@ -101,7 +101,7 @@ const AdminEventCardList = ({
   useContractEvent({
     ...contract,
     eventName: 'NewEvent',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -109,7 +109,7 @@ const AdminEventCardList = ({
   useContractEvent({
     ...contract,
     eventName: 'CancelEvent',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -117,7 +117,7 @@ const AdminEventCardList = ({
   useContractEvent({
     ...contract,
     eventName: 'ReportResult',
-    listener(eventID: any, result: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });

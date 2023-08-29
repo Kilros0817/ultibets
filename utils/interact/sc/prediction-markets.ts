@@ -1,6 +1,5 @@
-import { writeContract } from "@wagmi/core";
-
-import { ethers } from 'ethers';
+import { waitForTransaction, writeContract } from "@wagmi/core";
+import {parseEther} from "viem";
 import {
     contractAddressesInDailyBets,
 } from '../../config';
@@ -18,8 +17,7 @@ export const placeBetInPM = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
             functionName: 'placePrediction',
@@ -29,17 +27,18 @@ export const placeBetInPM = async (
             ] : [
                 eventID,
                 _eventValue,
-                ethers.utils.parseEther((newBetAmount ?? 0).toString()),
+                parseEther((newBetAmount ?? 0).toString()),
                 referer != '' ? referer : address,
                 signature,
             ],
-            overrides: {
-                value: isNativeToken ? ethers.utils.parseEther((newBetAmount ?? 0)?.toString()) : 0,
-                gasLimit: ethers.BigNumber.from(1000000),
-            },
+            value: isNativeToken ? parseEther((newBetAmount ?? 0)?.toString()) : undefined,
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in place sbc=============")
         return false
@@ -58,8 +57,7 @@ export const placeBetUsingPerk = async (
     chainId: number
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInDailyBets as any)[chainId][1],
             abi: ultibetsTokenDailyBetsAbiInPM,
             functionName: 'placePredictionUsingPerk',
@@ -69,8 +67,12 @@ export const placeBetUsingPerk = async (
                 perkRound,
             ],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in place perk bet=============")
         return false
@@ -85,15 +87,18 @@ export const widthdrawGain = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
             functionName: 'withdrawGain',
             args: [eventID, _betValue]
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in withdraw gain=============")
         return false
@@ -107,15 +112,18 @@ export const cancelEvent = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
             functionName: 'cancelEvent',
             args: [eventID]
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in cancel event=============")
         return false
@@ -139,8 +147,7 @@ export const addEvent = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
             functionName: 'addEvent',
@@ -149,8 +156,12 @@ export const addEvent = async (
                 subcategory,
                 eventStartTime,]
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in add event=============")
         return false
@@ -165,15 +176,18 @@ export const reportResult = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
             functionName: 'reportResult',
             args: [eventID, _result,],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in report result=============")
         return false
@@ -188,15 +202,18 @@ export const claimBetCancelled = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInDailyBets as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenDailyBetsAbiInPM : ultibetsTokenDailyBetsAbiInPM,
             functionName: 'claimBetCancelled',
             args: [eventID, _result,],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in claim bet=============")
         return false

@@ -90,7 +90,7 @@ const MyPredictions = () => {
   useContractEvent({
     ...contract,
     eventName: 'PlacePrediction',
-    listener(bettor: any, eventID: any, decision: any, amount: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -98,7 +98,7 @@ const MyPredictions = () => {
   useContractEvent({
     ...contract,
     eventName: 'CancelEvent',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -106,7 +106,7 @@ const MyPredictions = () => {
   useContractEvent({
     ...contract,
     eventName: 'ReportResult',
-    listener(eventID: any, result: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -114,7 +114,7 @@ const MyPredictions = () => {
   useContractEvent({
     ...contract,
     eventName: 'ClaimPrize',
-    listener(bettor: any, eventID: any, result: any, amount: any) {
+    listener(bettor: any) {
       if (bettor?.toLowerCase() == address?.toLowerCase()) {
         setShouldRender(!shouldRender);
       }

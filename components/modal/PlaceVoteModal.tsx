@@ -112,6 +112,7 @@ const PlaceVoteModal = ({
                   _hover={{
                     background: '#FC541C',
                   }}
+                  color={'white'}
                   fontSize={'20px'}
                 >
                   Okay
@@ -129,6 +130,7 @@ const PlaceVoteModal = ({
                   _hover={{
                     background: '#FC541C',
                   }}
+                  color={'white'}
                   fontSize={'20px'}
                 >
                   Cancel

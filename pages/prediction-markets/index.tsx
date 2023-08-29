@@ -85,6 +85,7 @@ const PredictionMarkets = () => {
               flex='none'
               flexGrow={'0'}
               mr='14px'
+              color={'white'}
             >
               Sort By
             </Text>
@@ -107,6 +108,7 @@ const PredictionMarkets = () => {
           {
             sortByItems.map((item, index) => (
               <MenuItem
+                backgroundColor={'#1F1F1F'}
                 _hover={{
                   backgroundColor: '#E18833',
                 }}

@@ -322,6 +322,7 @@ const FinalVoteComponent = ({
           fontSize={'15px'}
           textAlign='center'
           alignItems={'center'}
+          color={'white'}
           display='flex'
           justifyContent='center'
           mt={['0', '30px']}
@@ -347,6 +348,7 @@ const FinalVoteComponent = ({
           _hover={{
             background: '#FC541C',
           }}
+          color={'white'}
           fontSize={'15px'}
           textAlign='center'
           alignItems={'center'}

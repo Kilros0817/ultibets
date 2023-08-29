@@ -218,6 +218,7 @@ const FinalWinnerComponent = ({
                 _hover={{
                   background: '#FC541C',
                 }}
+                color={'white'}
                 onClick={handlewinnersClaimPrize}
                 isDisabled={!winnerIds.includes(registerID)}
               >

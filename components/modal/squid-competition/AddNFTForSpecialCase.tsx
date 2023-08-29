@@ -345,6 +345,7 @@ const AddNFTForSpecialCase = ({
                 mt={'30px'}
                 onClick={() => uploadToPinata()}
                 fontFamily={'Nunito'}
+                color={'white'}
                 fontSize={'14px'}
                 lineHeight={'19px'}
                 cursor={'pointer'}
@@ -364,6 +365,7 @@ const AddNFTForSpecialCase = ({
                 onClick={() => handleSetRoundNFTURI()}
                 fontFamily={'Nunito'}
                 fontSize={'14px'}
+                color={'white'}
                 lineHeight={'19px'}
                 cursor={'pointer'}
                 width={'fit-content'}

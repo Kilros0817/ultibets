@@ -27,7 +27,7 @@ import CartItem from '../../../components/MerchStore/CartItem';
 import {MdWarning} from 'react-icons/md';
 import {v4 as uuidv4} from 'uuid';
 import {database} from '../../../utils/firebase';
-import {useAccount, useNetwork, useSigner} from 'wagmi';
+import {useAccount, useNetwork} from 'wagmi';
 import {switchNetwork} from '@wagmi/core'
 import {ethers} from 'ethers';
 import {toast} from 'react-toastify';
@@ -43,8 +43,6 @@ import SubHeader from '../../../components/MerchStore/SubHeader';
 const Checkout: NextPage = () => {
     const {address} = useAccount();
     const {chain} = useNetwork();
-    const {data: signer} = useSigner();
-
 
     const {
         register,
@@ -153,8 +151,8 @@ const Checkout: NextPage = () => {
     }
 
     useEffect(() => {
-        setIsCorrectChain(chain?. id == polygonChainId)
-    }, [signer])
+        setIsCorrectChain(chain?.id == polygonChainId)
+    }, [chain])
 
     return (
         <Box bg={'#1F1F1F'}
@@ -694,7 +692,7 @@ const Checkout: NextPage = () => {
                                     </ul>
                                 </Text>
                                 {
-                                !isCorrectChain && signer && (
+                                !isCorrectChain && address && (
                                     <Button backgroundColor={'#1F1F1F'}
                                         border='1px solid #FC541C'
                                         _hover={
@@ -706,7 +704,7 @@ const Checkout: NextPage = () => {
                                         onClick={
                                             async () => await switchNetwork({chainId: polygonChainId})
                                     }>
-                                        <Text>Change to Polygon</Text>
+                                        <Text color={'white'}>Change to Polygon</Text>
                                     </Button>
                                 )
                             } </Flex>
@@ -722,14 +720,14 @@ const Checkout: NextPage = () => {
                                     }
                                     onClick={onClose}>
                                     {' '}
-                                    <Text fontSize={
+                                    <Text color={'white'} fontSize={
                                         ['12px', '12px', '12px', '15px']
                                     }>
                                         Cancel
                                     </Text>
                                 </Button>
                                 {
-                                  signer && isCorrectChain && (
+                                  address && isCorrectChain && (
                                       <Button loadingText={'Transaction in progress...'}
                                           isLoading={isLoading}
                                           onClick={
@@ -744,7 +742,7 @@ const Checkout: NextPage = () => {
                                           _selected={
                                               {backgroundColor: '#FC541C'}
                                       }>
-                                          <Text fontSize={
+                                          <Text color={'white'} fontSize={
                                               ['12px', '12px', '12px', '15px']
                                           }>
                                               I Understand, Confirm Order{' '} </Text>
@@ -752,7 +750,7 @@ const Checkout: NextPage = () => {
                                   )
                                 }
                                 {
-                                  !signer && (
+                                  !address && (
                                     <Account/>
                                   )
                                 }
@@ -824,7 +822,7 @@ const Checkout: NextPage = () => {
                                         }
                                 }>
                                     <Text>
-                                        <Text fontWeight={'extrabold'}
+                                        <Text color={'white'} fontWeight={'extrabold'}
                                             fontSize={'20px'}>
                                             Continue Shopping
                                         </Text>

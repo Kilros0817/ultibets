@@ -230,6 +230,7 @@ const Disclaimer = () => {
                 _hover={{
                   background: '#FC541C',
                 }}
+                color={'white'}
                 onClick={() => {
                   window.history.go(-1);
                   handleCheckbox()

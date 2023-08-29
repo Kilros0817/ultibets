@@ -565,7 +565,7 @@ const DetailedTee = ({
                 onClick={onClose}
               >
                 {' '}
-                <Text fontSize={['10px', '10px', '12px', '14px']}>
+                <Text color={'white'} fontSize={['10px', '10px', '12px', '14px']}>
                   Countinue Shopping
                 </Text>
               </Button>
@@ -584,7 +584,7 @@ const DetailedTee = ({
                   backgroundColor: '#FC541C',
                 }}
               >
-                <Text fontSize={['10px', '10px', '12px', '14px']}>
+                <Text color={'white'} fontSize={['10px', '10px', '12px', '14px']}>
                   Proceed to Checkout{' '}
                 </Text>
               </Button>

@@ -287,6 +287,7 @@ const UtbetsAirdrop = () => {
                     _active={{
                       backgroundColor: '#FC541C',
                     }}
+                    color={'white'}
                     onClick={() => handleClaimAirdrop()}
                   >
                     Claim $UTBETS

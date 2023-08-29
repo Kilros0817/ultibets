@@ -69,7 +69,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'EventCreated',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -77,7 +77,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'Register',
-    listener(address: any, eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -85,7 +85,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'RoundAdded',
-    listener(eventID: any, roundLevel: any, playersNumber: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -93,7 +93,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'RoundFinished',
-    listener(eventID: any, roundLevel: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -101,7 +101,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'PredictionPlaced',
-    listener(bettor: any, eventID: any, roundLevel: any, result: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -109,7 +109,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'VoteEvent',
-    listener(voter: any, eventID: any, voteResult: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -117,7 +117,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'ReportVoteResult',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -125,7 +125,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'PickEventWinner',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -133,7 +133,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'WinnerClaimedPrize',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -141,7 +141,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'RoundUpdated',
-    listener(eventID: any, roundLevel: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -149,7 +149,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'RoundCanceled',
-    listener(eventID: any, roundLevel: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -157,7 +157,7 @@ const SquidCardList = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'RefundCanceledRound',
-    listener(bettor: any, eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });

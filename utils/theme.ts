@@ -15,6 +15,11 @@ const theme = extendTheme({
     }),
   },
   components: {
+    Button: {
+      baseStyle: {
+        color: 'white',
+      },
+    },
     Modal: {
       baseStyle: () => ({
         dialog: {

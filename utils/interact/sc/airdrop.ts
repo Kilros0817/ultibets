@@ -1,5 +1,5 @@
 
-import { readContract, writeContract } from "@wagmi/core";
+import { readContract, waitForTransaction, writeContract } from "@wagmi/core";
 import {
     airdropContractAddresses,
 } from '../../config';
@@ -10,15 +10,18 @@ export const claimPrize = async (
     chainId: number,
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (airdropContractAddresses as any)[chainId],
             abi: utbetsAirdropAbi,
             functionName: 'claimPrize',
             args: [],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in claim prize=============")
         return false

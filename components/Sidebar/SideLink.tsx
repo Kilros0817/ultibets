@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   Image,
@@ -306,6 +305,7 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
                       .sort(([key1, value1], [key2, value2]) => value1.subMenuIndex - value2.subMenuIndex)
                       .map(([key, value]) => (
                         <MenuItem
+                          backgroundColor={'#1F1F1F'}
                           _hover={{
                             backgroundColor: '#E18833',
                           }}

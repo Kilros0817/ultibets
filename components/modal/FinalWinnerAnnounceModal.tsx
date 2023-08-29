@@ -87,6 +87,7 @@ const FinalWinnerAnnounceModal = ({
               _hover={{
                 background: '#FC541C',
               }}
+              color={'white'}
               fontSize={'20px'}
             >
               Okay

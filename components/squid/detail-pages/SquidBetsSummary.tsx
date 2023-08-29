@@ -400,6 +400,7 @@ const SquidBetsSummary = ({
                                     //@ts-ignore
                                     onClick={() => router.push(`/sbc/${eventID}` + roundProperties[slug].accessButtonUrl)}
                                     cursor='pointer'
+                                    color={'white'}
                                     justifyContent={'center'}
                                     background={'unset'}
                                     _hover={{
@@ -445,6 +446,7 @@ const SquidBetsSummary = ({
           _hover={{
             background: '#FC541C',
           }}
+          color={'white'}
           fontSize={'20px'}
           isDisabled={
             (currentSelectedLevel == 1 ? registerID == 0 : !passedPreviousRound)
@@ -477,6 +479,7 @@ const SquidBetsSummary = ({
           _hover={{
             background: '#FC541C',
           }}
+          color={'white'}
           fontSize={'20px'}
           mt={['20px', '0']}
           isDisabled={

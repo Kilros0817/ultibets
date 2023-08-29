@@ -219,6 +219,7 @@ const PredictionCard = ({
                 fontFamily={'Nunito'}
                 lineHeight={'20px'}
                 border={'1px solid #FC541C'}
+                color={'white'}
                 textTransform={'capitalize'}
                 _hover={{
                   background: '#FC541C',

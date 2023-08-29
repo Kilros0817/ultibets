@@ -1,4 +1,4 @@
-import { readContract, writeContract } from "@wagmi/core";
+import { readContract, waitForTransaction, writeContract } from "@wagmi/core";
 import { ethers } from 'ethers';
 
 // function approve(address spender, uint256 amount) public virtual override returns (bool) {
@@ -8,8 +8,7 @@ export const utbetsApprove = async (
     amount: string
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: tokenAddress,
             abi: [{
                 "inputs": [
@@ -40,8 +39,11 @@ export const utbetsApprove = async (
                 spender,
                 ethers.utils.parseEther(amount),],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({hash});
+        if (data.status == "success")
+            return true;
+        else
+            return false;
     } catch (e) {
         console.log(e, "============error in approve=============")
         return false

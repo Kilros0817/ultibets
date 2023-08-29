@@ -101,6 +101,7 @@ const FinalModal = ({
               _hover={{
                 background: '#FC541C',
               }}
+              color={'white'}
               fontSize={'20px'}
             >
               Okay

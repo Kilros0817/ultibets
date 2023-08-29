@@ -398,6 +398,7 @@ const RegisterModalInSBC = ({
                                             _hover={{
                                                 background: '#FC541C',
                                             }}
+                                            color={'white'}
                                             fontFamily={'Nunito'}
                                             isDisabled={isApprovedUtbets}
                                         >
@@ -417,6 +418,7 @@ const RegisterModalInSBC = ({
                                             _hover={{
                                                 background: '#FC541C',
                                             }}
+                                            color={'white'}
                                             onClick={() => handleRegister()}
                                             fontFamily={'Nunito'}
                                             isDisabled={isNativeToken ? false : !isApprovedUtbets}

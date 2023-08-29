@@ -1,10 +1,11 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
-import { configureChains, createClient, WagmiConfig, Chain } from 'wagmi';
-import { polygon } from "wagmi/chains";
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import { polygonMumbai, optimismGoerli, avalancheFuji, bscTestnet } from "@wagmi/core/chains";
+import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from 'wagmi/providers/public';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -20,114 +21,11 @@ import store from '../store';
 import Layout from '../layouts/layout'
 import theme from '../utils/theme'
 
-const polygonMumbai = {
-  id: 80_001,
-  name: 'Mumbai Chain',
-  network: 'mumbai',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'Mumbai Chain',
-    symbol: 'MATIC',
-  },
-  rpcUrls: {
-    default: { http: ['https://polygon-mumbai.infura.io/v3/4458cf4d1689497b9a38b1d6bbf05e78'] },
-  },
-  blockExplorers: {
-    etherscan: { name: 'PolygonScan', url: 'https://mumbai.polygonscan.com/' },
-    default: { name: 'PolygonScan', url: 'https://mumbai.polygonscan.com/' },
-  },
-  contracts: {
-    multicall3: {
-      address: '0xca11bde05977b3631167028862be2a173976ca11',
-      blockCreated: 25_444_704,
-    },
-  },
-} as Chain;
 
-const bscTestnet = {
-  id: 97,
-  name: 'BNB Chain',
-  network: 'bscTestnet',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'BNB Chain',
-    symbol: 'BNB',
-  },
-  rpcUrls: {
-    default: { http: ['https://bsc-testnet.publicnode.com'] },
-  },
-  blockExplorers: {
-    etherscan: { name: 'BSCScan', url: 'https://testnet.bscscan.com/' },
-    default: { name: 'BSCScan', url: 'https://testnet.bscscan.com/' },
-  },
-  contracts: {
-    multicall3: {
-      address: '0xca11bde05977b3631167028862be2a173976ca11',
-      blockCreated: 17_419_571,
-    },
-  },
-} as Chain;
-
-const avalancheFuji = {
-  id: 43_113,
-  name: 'Avalanche Chain',
-  network: 'avalancheFuji',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'Avalanche Chain',
-    symbol: 'AVAX',
-  },
-  rpcUrls: {
-    default: { http: ['https://api.avax-test.network/ext/bc/C/rpc'] },
-  },
-  blockExplorers: {
-    etherscan: { name: 'SnowTrace', url: 'https://testnet.snowtrace.io/' },
-    default: { name: 'SnowTrace', url: 'https://testnet.snowtrace.io/' },
-  },
-  contracts: {
-    multicall3: {
-      address: '0xca11bde05977b3631167028862be2a173976ca11',
-      blockCreated: 7_096_959,
-    },
-  },
-} as Chain;
-
-const optimismGoerli = {
-  id: 420,
-  name: "Optimism Goerli",
-  network: "optimism-goerli",
-  nativeCurrency: { name: "Goerli Ether", symbol: "ETH", decimals: 18 },
-  rpcUrls: {
-    default: {
-      http: ["https://practical-spring-wildflower.optimism-goerli.discover.quiknode.pro/34350debdfa0380c2cd5f04b7c05335f21d934c2/"]
-    }
-  },
-  blockExplorers: {
-    etherscan: {
-      name: "Etherscan",
-      url: "https://goerli-optimism.etherscan.io"
-    },
-    default: {
-      name: "Etherscan",
-      url: "https://goerli-optimism.etherscan.io"
-    }
-  },
-  contracts: {
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 13_234_104
-    }
-  },
-  testnet: true
-} as Chain;
-
-
-
-const { chains, provider, webSocketProvider } = configureChains(
+const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
     ...(process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? [
     ] : [
-      polygon,
       avalancheFuji,
       bscTestnet,
       polygonMumbai,
@@ -135,20 +33,28 @@ const { chains, provider, webSocketProvider } = configureChains(
     ])
   ],
   [
+    alchemyProvider({apiKey: "SQOWu4glSvD5HKThQY-wpMV2nOHD5B3X"}),
     publicProvider(),
   ]
 );
 
-const { connectors } = getDefaultWallets({
-  appName: 'RainbowKit demo',
+const projectId = "149f84ff95a763d7bccbb4f6cd3cf883";
+
+const { wallets } = getDefaultWallets({
+  appName: "Ultibets",
+  projectId: projectId,
   chains,
 });
 
-const wagmiClient = createClient({
+const connectors = connectorsForWallets([
+  ...wallets,
+])
+
+const config = createConfig({
   autoConnect: true,
   connectors,
-  provider,
-  webSocketProvider,
+  publicClient,
+  webSocketPublicClient,
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -185,7 +91,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       {
         ready ? (
           <Provider store={store}>
-              <WagmiConfig client={wagmiClient}>
+              <WagmiConfig config={config}>
                 <RainbowKitProvider chains={chains}>
                   <ChakraProvider theme={theme}>
                     <Layout>

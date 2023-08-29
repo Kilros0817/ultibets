@@ -13,15 +13,15 @@ import {
     useDisclosure,
 } from '@chakra-ui/react';
 import React, { useEffect, useState, useRef, } from 'react'
-import { useAccount, useNetwork, useSigner, } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { useChainContext } from '../../utils/Context';
 import { chainAttrs, chainRPCs, mumbaiChainId, polygonChainId, ultibetsRewardAddresses } from '../../utils/config';
 import axios from 'axios';
 import AnnounceModal from '../modal/AnnounceModal';
 import { checkIconInGreenBg, ultibetsRewardAbi } from '../../utils/assets';
 import { ethers } from 'ethers';
-import { getContract } from '../../utils/interact/utility';
 import { toast } from 'react-toastify';
+import { claimReferralReward } from '../../utils/interact/sc/ultibetsreward';
 
 type TotalReferralsRevenueProps = {
     totalReferrals: number
@@ -39,10 +39,8 @@ const TotalReferralsRevenue = ({
     const { isNativeToken, } = useChainContext();
     const { chain, } = useNetwork();
     const { address, } = useAccount();
-    const { data: signer } = useSigner();
     const [currentMainnetOrTestnetAttrs,] = useState(
         process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? chainAttrs.mainnet : chainAttrs.testnet);
-    const [chainId, setChainId] = useState<number>(polygonChainId);
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
     const {
         isOpen: isOpenClaimRewardSuccessAnnounceModal,
@@ -58,7 +56,6 @@ const TotalReferralsRevenue = ({
             const temporaryChainId = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? 137 : 80001
             currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
         }
-        setChainId(chainId);
     }, [chain, isNativeToken]);
 
     const scroll = useRef<any>()
@@ -143,14 +140,11 @@ const TotalReferralsRevenue = ({
             const signature = await getSignature();
 
             if (signature != '') {
-                const contract = getContract((ultibetsRewardAddresses as any)[chainId], ultibetsRewardAbi, (signer?.provider as any)?.getSigner());
-                let tx = await contract.claimReferralReward(
-                    ethers.utils.parseEther(claimableReward?.toString() ?? '0'),
-                    signature,
-                );
-                setIsProcessing(true);
-                await tx.wait();
-                onOpenClaimRewardSuccessAnnounceModal();
+                const res = await claimReferralReward(claimableReward, signature, chain?.id ?? 0);
+                if (res) {
+                    setIsProcessing(true);
+                    onOpenClaimRewardSuccessAnnounceModal();
+                }
             }
 
         } catch (e) {
@@ -407,6 +401,7 @@ const TotalReferralsRevenue = ({
                                             lineHeight={'19px'}
                                             textTransform={'capitalize'}
                                             borderRadius='29px'
+                                            color={'white'}
                                             width={'fit-content'}
                                             isDisabled={claimableReward == 0}
                                             onClick={handleClaimableReward}

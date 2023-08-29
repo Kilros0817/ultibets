@@ -579,6 +579,7 @@ const NewProposalModal = ({
               onClick={() => handleSubmitProposal()}
               fontFamily={'Nunito'}
               fontSize={'14px'}
+              color={'white'}
               lineHeight={'19px'}
               cursor={'pointer'}
               width={'fit-content'}

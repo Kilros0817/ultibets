@@ -1,9 +1,10 @@
-import { writeContract } from "@wagmi/core";
+import { waitForTransaction, writeContract } from "@wagmi/core";
 import {
     ultibetsRewardAddresses,
 } from '../../config';
 import { ultibetsRewardAbi } from '../../assets';
 import { ethers } from 'ethers';
+import { parseEther } from "viem";
 
 // function claimReferralBettingReward(
 //     uint256 _amount,
@@ -15,8 +16,7 @@ export const claimReferralBettingReward = async (
     chainId: number,
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (ultibetsRewardAddresses as any)[chainId],
             abi: ultibetsRewardAbi,
             functionName: 'claimReferralBettingReward',
@@ -25,8 +25,12 @@ export const claimReferralBettingReward = async (
                 signature,
             ],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({hash});
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in claim referral betting reward=============")
         return false
@@ -38,15 +42,46 @@ export const claimReward = async (
     chainId: number,
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (ultibetsRewardAddresses as any)[chainId],
             abi: ultibetsRewardAbi,
             functionName: 'claimReward',
             args: [],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({hash});
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
+    } catch (e) {
+        console.log(e, "============error in claim reward=============")
+        return false
+    }
+}
+
+// function claimReferralReward(
+//     uint256 _amount,
+//     bytes memory _signature
+// ) external
+export const claimReferralReward = async (
+    amount: number,
+    signature: string,
+    chainId: number,
+) => {
+    try {
+        const { hash } = await writeContract({
+            address: (ultibetsRewardAddresses as any)[chainId],
+            abi: ultibetsRewardAbi,
+            functionName: 'claimReferralReward',
+            args: [parseEther((amount ?? '0')?.toString()), signature],
+        });
+        const data = await waitForTransaction({hash});
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in claim reward=============")
         return false

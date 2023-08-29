@@ -79,6 +79,7 @@ const AdBlockDetectModal = ({
               height={'46px'}
               width={'155px'}
               background={'unset'}
+              color={'white'}
               borderRadius={'34px'}
               border={'1px solid #FC541C'}
               _hover={{

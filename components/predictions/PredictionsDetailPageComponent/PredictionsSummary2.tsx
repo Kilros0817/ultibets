@@ -322,6 +322,7 @@ const PredictionsSummary2 = ({
               _hover={{
                 background: '#FC541C',
               }}
+              color={'white'}
               fontSize={'20px'}
               isDisabled={eventStartTime - secondsInHalfHour < Date.now() / 1000}
             >
@@ -349,6 +350,7 @@ const PredictionsSummary2 = ({
           _hover={{
             background: '#FC541C',
           }}
+          color={'white'}
           fontSize={['15px', '20px']}
         >
           Predict Now

@@ -333,6 +333,7 @@ const Profile = ({
 									_hover={{
 										background: '#FC541C',
 									}}
+									color={'white'}
 									fontSize={'14px'}
 									lineHeight={'19px'}
 									textTransform={'capitalize'}

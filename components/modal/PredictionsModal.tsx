@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { useAccount, useNetwork, useBalance, useSigner, } from 'wagmi';
+import { useAccount, useNetwork, useBalance } from 'wagmi';
 import PredictionsModalBody from './PredictionsModalBody';
 import { chainRPCs, contractAddressesInDailyBets, contractAddressesInSBC, mumbaiChainId, newChainAttrs, polygonChainId, utbetsTokenAddresses } from '../../utils/config';
 import FinalModal from './FinalModal';
@@ -24,7 +24,7 @@ import AnnounceModal from './AnnounceModal';
 import { convertBetValue2Number } from '../../utils/interact/utility';
 import axios from 'axios';
 import { PerkInfo } from '../../utils/types';
-import { getAllowance, utbetsApprove } from '../../utils/interact/sc/utbets';
+import { getAllowance, getUTBETSBalance, utbetsApprove } from '../../utils/interact/sc/utbets';
 import { checkIconInGreenBg, UltiBetsTokenAbi } from '../../utils/assets';
 import { toast } from 'react-toastify';
 import { BigNumberish, ethers } from 'ethers';
@@ -64,7 +64,6 @@ const PredictionsModal = ({
   const router = useRouter();
   const [eventID, setEventID] = useState<number>();
   const { chain, } = useNetwork();
-  const { data: signer } = useSigner();
   const {
     isNativeToken,
     prediction,
@@ -218,10 +217,10 @@ const PredictionsModal = ({
       }
     } else {
       const tokenAddress = (utbetsTokenAddresses as any)[chainId];
-      const contract = new ethers.Contract(tokenAddress, UltiBetsTokenAbi, (signer?.provider as any)?.getSigner());
-      const balanceOfUtbets = await contract.balanceOf(address);
+       
+      const balanceOfUtbets = await getUTBETSBalance(tokenAddress, address);
 
-      if ((newBetAmount ?? 0) > parseFloat(ethers.utils.formatEther(balanceOfUtbets))) {
+      if ((newBetAmount ?? 0) > parseFloat(ethers.utils.formatEther(balanceOfUtbets as any))) {
         onOpenAnnounceModal();
         return;
       }
@@ -405,6 +404,7 @@ const PredictionsModal = ({
                     _hover={{
                       background: '#FC541C',
                     }}
+                    color={'white'}
                     fontSize={'20px'}
                     py='0'
                     isDisabled={isApprovedUtbets}
@@ -426,6 +426,7 @@ const PredictionsModal = ({
                       background: '#FC541C',
                     }}
                     fontSize={'20px'}
+                    color={'white'}
                     py='0'
                     isDisabled={(isNativeToken || isPerks != 'false') ? false : !isApprovedUtbets}
                   >

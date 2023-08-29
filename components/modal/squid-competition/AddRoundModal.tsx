@@ -521,6 +521,7 @@ const AddRoundModal = ({
                 onClick={() => uploadToPinata()}
                 fontFamily={'Nunito'}
                 fontSize={'14px'}
+                color={'white'}
                 lineHeight={'19px'}
                 cursor={'pointer'}
                 width={'fit-content'}
@@ -540,6 +541,7 @@ const AddRoundModal = ({
                 onClick={() => handleSetRoundNFTURI()}
                 fontFamily={'Nunito'}
                 fontSize={'14px'}
+                color={'white'}
                 lineHeight={'19px'}
                 cursor={'pointer'}
                 width={'fit-content'}
@@ -558,6 +560,7 @@ const AddRoundModal = ({
                 onClick={() => handleAddRound()}
                 fontFamily={'Nunito'}
                 fontSize={'14px'}
+                color={'white'}
                 lineHeight={'19px'}
                 cursor={'pointer'}
                 width={'fit-content'}

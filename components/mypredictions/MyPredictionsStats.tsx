@@ -411,6 +411,7 @@ const MyPredictionsStats = ({
                 background: '#FC541C',
               }}
               fontSize={'20px'}
+              color={'white'}
               justifyContent={'center'}
               alignItems={'center'}
               isDisabled={(prediction != result && // not won

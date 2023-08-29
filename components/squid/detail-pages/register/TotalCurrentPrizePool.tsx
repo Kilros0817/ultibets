@@ -227,6 +227,7 @@ const TotalCurrentPrizePool = ({
                         _hover={{
                             background: '#FC541C',
                         }}
+                        color={'white'}
                         onClick={handleRegister}
                         fontFamily={'Nunito'}
                         // should add constraint if current user is not in the 500 winners list, it should be disabled
@@ -254,6 +255,7 @@ const TotalCurrentPrizePool = ({
                         _hover={{
                             background: '#FC541C',
                         }}
+                        color={'white'}
                         fontFamily={'Nunito'}
                     >
                         View

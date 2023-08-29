@@ -1,4 +1,4 @@
-import { writeContract } from "@wagmi/core";
+import { writeContract, waitForTransaction } from "@wagmi/core";
 import {
     rndGeneratorContract,
 } from '../../config';
@@ -12,15 +12,18 @@ export const requestRandomWords = async (
     chainId: number,
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (rndGeneratorContract as any)[chainId],
             abi: rndGeneratorAbi,
             functionName: 'requestRandomWords',
             args: [],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in generate random number=============")
         return false

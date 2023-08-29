@@ -1,4 +1,4 @@
-import { readContract, writeContract } from "@wagmi/core";
+import { readContract, waitForTransaction, writeContract } from "@wagmi/core";
 import { polygonUSDCAddress } from "../../config";
 
 
@@ -32,8 +32,8 @@ export const getUSDCBalance = async (account: any) => {
 };
 
 export const transferUSDC = async (account: any, amount: any) => {
-    const { hash, wait } = await writeContract({
-        mode: "recklesslyUnprepared",
+    const { hash } = await writeContract({
+        
         address: polygonUSDCAddress,
         abi: [{
             "inputs": [
@@ -63,6 +63,11 @@ export const transferUSDC = async (account: any, amount: any) => {
         args: [account, amount],
     });
 
-    await wait();
+    const data = await waitForTransaction({hash});
+    if (data.status == "success") {
+        return true
+    } else {
+        return false
+    }
 
 };

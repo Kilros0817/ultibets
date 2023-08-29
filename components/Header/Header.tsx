@@ -185,6 +185,7 @@ const Header = () => {
           {
             currentMainnetOrTestnetAttrs.map((item, index) => (
               <MenuItem
+                backgroundColor={'#1F1F1F'}
                 _hover={{
                   backgroundColor: '#E18833;',
                 }}
@@ -263,7 +264,7 @@ const Header = () => {
             alignSelf='center'
             alignItems='center'
           >
-            <CgProfile />
+            <CgProfile color='white'/>
           </Flex>
         </MenuButton>
         <MenuList
@@ -275,6 +276,7 @@ const Header = () => {
           {
             profileContext.map((item, index) => (
               <MenuItem
+                backgroundColor={'#1F1F1F'}
                 _hover={{
                   backgroundColor: '#E18833;',
                 }}

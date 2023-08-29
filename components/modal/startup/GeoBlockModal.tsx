@@ -114,6 +114,7 @@ const GeoBlockModal = ({
               mb={'30px'}
               height={'46px'}
               width={'155px'}
+              color={'white'}
               background={'unset'}
               borderRadius={'34px'}
               border={'1px solid #FC541C'}

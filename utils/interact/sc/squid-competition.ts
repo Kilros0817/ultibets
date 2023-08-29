@@ -1,5 +1,5 @@
-import { readContract, writeContract } from "@wagmi/core";
-import { BigNumber, ethers } from 'ethers';
+import { readContract, waitForTransaction, writeContract } from "@wagmi/core";
+import {parseEther} from "viem";
 import {
     contractAddressesInSBC,
 } from '../../config';
@@ -13,18 +13,19 @@ export const registerOnEvent = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
             functionName: 'registerOnEvent',
             args: isNativeToken ? [eventID] : [eventID,],
-            overrides: {
-                value: isNativeToken ? ethers.utils.parseEther((registerAmount ?? '0')?.toString()) : 0,
-            },
+            value: isNativeToken ? parseEther((registerAmount ?? '0')?.toString()) : undefined,
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in register=============")
         return false
@@ -60,19 +61,19 @@ export const placeBetInSBC = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
             functionName: 'placePrediction',
             args: isNativeToken ? [eventID, result] : [eventID, result,],
-            overrides: {
-                value: isNativeToken ? ethers.utils.parseEther((roundBetAmount ?? '0')?.toString()) : 0,
-                gasLimit: BigNumber.from(3000000),
-            },
+            value: isNativeToken ? parseEther((roundBetAmount ?? '0')?.toString()) : undefined,
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in register=============")
         return false
@@ -87,15 +88,18 @@ export const vote = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
             functionName: 'vote',
             args: [option, eventID],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in vote=============")
         return false
@@ -216,32 +220,36 @@ export const createNewEvent = async (
     isNativeToken: boolean,
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
+            
             address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
             functionName: 'createNewEvent',
             args: isNativeToken ? [
                 description,
                 maxPlayers,
-                ethers.utils.parseEther(registrationCost.toString()),
+                parseEther(registrationCost.toString()),
                 registerDeadline,
                 totalRound,
-                ethers.utils.parseEther(roundBetCost.toString()),
+                parseEther(roundBetCost.toString()),
                 orgFeePercent,
             ] : [
                 description,
                 maxPlayers,
-                ethers.utils.parseEther(registrationCost.toString()),
+                parseEther(registrationCost.toString()),
                 registerDeadline,
                 totalRound,
-                ethers.utils.parseEther(roundBetCost.toString()),
+                parseEther(roundBetCost.toString()),
                 orgFeePercent,
                 isWarrior,
             ],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in event create=============")
         return false
@@ -261,8 +269,7 @@ export const addRound = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
             functionName: 'addRound',
@@ -272,8 +279,12 @@ export const addRound = async (
                 startTime,
             ],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in add round=============")
         return false
@@ -291,8 +302,7 @@ export const reportResultForSBCRound = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
             functionName: 'reportResult',
@@ -301,8 +311,12 @@ export const reportResultForSBCRound = async (
                 result,
             ],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in report result=============")
         return false
@@ -316,8 +330,7 @@ export const resultVote = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
             functionName: 'resultVote',
@@ -325,8 +338,12 @@ export const resultVote = async (
                 eventID,
             ],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in vote result=============")
         return false
@@ -340,8 +357,7 @@ export const pickWinner = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
             functionName: 'pickWinner',
@@ -349,8 +365,12 @@ export const pickWinner = async (
                 eventID,
             ],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in pick winner=============")
         return false
@@ -382,8 +402,7 @@ export const winnersClaimPrize = async (
     isNativeToken: boolean
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInSBC as any)[chainId][isNativeToken ? 0 : 1],
             abi: isNativeToken ? nativeTokenBetsAbiInSBC : ultibetsTokenBetsAbiInSBC,
             functionName: 'winnersClaimPrize',
@@ -391,8 +410,12 @@ export const winnersClaimPrize = async (
                 eventID,
             ],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in claim prize=============")
         return false
@@ -432,15 +455,18 @@ export const registerOnWarriorEvent = async (
     chainId: number
 ) => {
     try {
-        const { wait } = await writeContract({
-            mode: "recklesslyUnprepared",
+        const { hash } = await writeContract({
             address: (contractAddressesInSBC as any)[chainId][1],
             abi: ultibetsTokenBetsAbiInSBC,
             functionName: 'registerOnWarriorEvent',
             args: [eventID, signature,],
         });
-        await wait();
-        return true;
+        const data = await waitForTransaction({ hash });
+        if (data.status == "success") {
+            return true
+        } else {
+            return false
+        }
     } catch (e) {
         console.log(e, "============error in register warrior=============")
         return false

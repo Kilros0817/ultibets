@@ -44,14 +44,11 @@ export default async function getDataFromSubgraph(req: any, res: any) {
         let data: any[] = [];
         let error;
 
-        console.log("=====;  ", chainIds.filter(item => (subgraphurls as any)[item] != ''))
-
         await chainIds.filter(item => (subgraphurls as any)[item] != '').reduce(async (promise, chainId, _1) => {
             await promise;
 
             //@ts-ignore
             let subgraphUrl = (subgraphurls as any)[chainId];
-            console.log("subgraphurl: ", subgraphUrl);
 
             try {
                 const result = await axios.post(subgraphUrl, {
@@ -91,13 +88,10 @@ export default async function getDataFromSubgraph(req: any, res: any) {
         let data: any[] = [];
         let error;
 
-        console.log("=====;  ", chainIds.filter(item => (subgraphurls as any)[item] != ''))
-
         await chainIds.filter(item => (subgraphurls as any)[item] != '').reduce(async (promise, chainId, _1) => {
             await promise;
 
             let subgraphUrl = (subgraphurls as any)[chainId];
-            console.log("subgraphurl: ", subgraphUrl);
 
             try {
                 const result = await axios.post(subgraphUrl, {

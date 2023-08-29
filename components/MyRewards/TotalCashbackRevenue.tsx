@@ -5,7 +5,7 @@ import {
     Box,
     useDisclosure,
 } from '@chakra-ui/react';
-import React, { useEffect, useState, useRef, } from 'react'
+import React, { useEffect, useState, } from 'react'
 import { useNetwork, } from 'wagmi';
 import { useChainContext } from '../../utils/Context';
 import { chainAttrs, mumbaiChainId, polygonChainId } from '../../utils/config';
@@ -243,7 +243,6 @@ const TotalCashbackRevenue = ({
                             <Flex
                                 borderColor='transparent'
                                 width={'136px'}
-
                                 height={'41px'}
                             >
                                 <Flex
@@ -252,6 +251,7 @@ const TotalCashbackRevenue = ({
                                     textTransform={'capitalize'}
                                     fontWeight='700'
                                     fontSize={'14px'}
+                                    textColor={'white'}
                                     lineHeight={'19px'}
                                     px='22px'
                                     py={'11px'}
