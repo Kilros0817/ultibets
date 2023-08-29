@@ -61,14 +61,8 @@ const Header = () => {
     onOpen: onOpenAdBlockDetectModal,
     onClose: onCloseAdBlockDetectModal,
   } = useDisclosure();
-  const {
-    isOpen: isOpenChainSwitchModal,
-    onOpen: onOpenChainSwitchModal,
-    onClose: onCloseChainSwitchModal,
-  } = useDisclosure();
   const [ip, setIp] = useState('');
   const [country, setCountry] = useState('');
-  const [chainIndex, setChainIndex] = useState<number>(4);
 
   const handleToggle = () => (isOpen ? onClose() : onOpen())
   const [width, setWidth] = useState(0);
@@ -194,8 +188,7 @@ const Header = () => {
                 }}
                 onClick={() => {
                   if (currentMainnetOrTestnetAttrs[index].chainId != chain?.id) {
-                    setChainIndex(index);
-                    onOpenChainSwitchModal();
+                    switchNetwork?.(currentMainnetOrTestnetAttrs[index].chainId);
                   }
                 }}
                 key={index}
@@ -223,17 +216,6 @@ const Header = () => {
           }
         </MenuList>
       </Menu>
-      <AnnounceModal
-        isOpenAnnounceModal={isOpenChainSwitchModal}
-        onCloseAnnounceModal={() => onCloseChainSwitchModal()}
-        announceText={`Are you going to switch chain to ${currentMainnetOrTestnetAttrs[chainIndex]?.name} ?`}
-        announceLogo={exclamationIconInRedBg}
-        announceModalButtonText={'Switch Chain'}
-        announceModalButtonAction={() => {
-          switchNetwork?.(currentMainnetOrTestnetAttrs[chainIndex].chainId);
-          onCloseChainSwitchModal();
-        }}
-      />
     </Flex >
   )
 
