@@ -60,15 +60,13 @@ const Referral = () => {
     }
 
     useEffect(() => {
-        console.log("profile data: ", "before");
         fetchDataFromSubgraph(100);
     }, [
         address,
     ])
 
     useEffect(() => {
-        console.log("profile data: ", "before");
-        fetchDataFromSubgraph();
+        fetchDataFromSubgraph(6000);
     }, [shouldRender])
 
     useContractEvent({
