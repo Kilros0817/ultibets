@@ -71,6 +71,7 @@ const AdminHandleEventButton = ({
             lineHeight='25px'
             textTransform={'capitalize'}
             flex='none'
+            color={'white'}
             flexGrow={'0'}
           >
             {buttonLabel}
@@ -111,6 +112,7 @@ const AdminHandleEventButton = ({
                 lineHeight='25px'
                 textTransform={'capitalize'}
                 flex='none'
+                color={'white'}
                 flexGrow={'0'}
                 mr='14px'
               >
