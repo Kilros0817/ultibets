@@ -195,7 +195,7 @@ const AdminSBCComponent = () => {
     useContractEvent({
         ...sbcContract,
         eventName: 'WinnerClaimedPrize',
-        listener(eventID: any) {
+        listener() {
             setShouldRender(!shouldRender);
         },
     });

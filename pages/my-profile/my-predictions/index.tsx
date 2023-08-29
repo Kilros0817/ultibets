@@ -114,8 +114,9 @@ const MyPredictions = () => {
   useContractEvent({
     ...contract,
     eventName: 'ClaimPrize',
-    listener(bettor: any) {
-      if (bettor?.toLowerCase() == address?.toLowerCase()) {
+    listener(logs) {
+      //@ts-ignore
+      if (logs[0].args.bettor?.toLowerCase() == address?.toLowerCase()) {
         setShouldRender(!shouldRender);
       }
     },
@@ -124,8 +125,9 @@ const MyPredictions = () => {
   useContractEvent({
     ...contract,
     eventName: 'ClaimCancelBet',
-    listener(bettor: any, eventID: any, predict: any) {
-      if ((bettor as string)?.toLowerCase() == address?.toLowerCase()) {
+    listener(logs) {
+      //@ts-ignore
+      if (logs[0].args.bettor?.toLowerCase() == address?.toLowerCase()) {
         setShouldRender(!shouldRender);
       }
     },

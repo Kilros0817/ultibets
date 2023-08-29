@@ -4,18 +4,18 @@ import {
   Image,
   Text,
   Button,
-  Switch,
   useDisclosure
 } from '@chakra-ui/react'
 import React, { useState, useEffect, } from 'react'
 import UtBetsTokenRoutes from "../tokenRoutes";
 import { getEllipsisTxt } from '../../../utils/formatters';
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount, useContractEvent, useNetwork } from 'wagmi';
 import { claimPrize, getPrizeAmount } from '../../../utils/interact/sc/airdrop';
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 import AnnounceModal from '../../../components/modal/AnnounceModal';
-import { checkIconInGreenBg } from '../../../utils/assets';
+import { checkIconInGreenBg, utbetsAirdropAbi } from '../../../utils/assets';
+import { airdropContractAddresses } from '../../../utils/config';
 
 const UtbetsAirdrop = () => {
   const { chain, } = useNetwork();
@@ -28,12 +28,24 @@ const UtbetsAirdrop = () => {
     onClose: onCloseSuccessAnnounceModal,
   } = useDisclosure();
 
-  useEffect(() => {
-    const initPrize = async () => {
-      const amount = await getPrizeAmount(chain?.id ?? 0, address);
-      setIsEligible(Number(ethers.utils.formatEther(amount as string)) > 0);
-    }
+  useContractEvent({
+    address: (airdropContractAddresses as any)[chain?.id ?? 0],
+    abi: utbetsAirdropAbi,
+    eventName: 'Airdrop',
+    listener(logs) {
+      //@ts-ignore
+      if (logs[0].args.receiver.toLowerCase() == address?.toLowerCase()) {
+        initPrize();
+      }
+    },
+  });
 
+  const initPrize = async () => {
+    const amount = await getPrizeAmount(chain?.id ?? 0, address);
+    setIsEligible(Number(ethers.utils.formatEther(amount as string)) > 0);
+  }
+
+  useEffect(() => {
     if (chain?.id && address)
       initPrize()
   }, [

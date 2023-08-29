@@ -78,8 +78,9 @@ const MyRewards = () => {
     useContractEvent({
         ...contract,
         eventName: 'ReleaseReward',
-        listener(bettor: any, amount: any) {
-            if (address == bettor) {
+        listener(logs) {
+            //@ts-ignore
+            if (address == logs[0].args.bettor) {
                 setShouldRender(!shouldRender);
             }
         },

@@ -16,7 +16,7 @@ import MyPredictionsComponent from '../../components/mypredictions/MyPredictions
 import TokenSelector from '../../components/predictions/TokenSelector'
 import RoundLine from '../../components/squid/detail-pages/RoundLine'
 import { useChainContext } from '../../utils/Context'
-import { chainAttrs, contractAddressesInSBC, delayTimeFromSubgraph, EventStateInSBC, mumbaiChainId, newChainAttrs, polygonChainId, roundProperties, RoundResultInSBC, VotingResultInSBC } from '../../utils/config'
+import { chainAttrs, contractAddressesInSBC, delayTimeFromSubgraph, EventStateInSBC, mumbaiChainId, newChainAttrs, polygonChainId, roundProperties } from '../../utils/config'
 import { getRegisterIDOfBettor } from '../../utils/interact/sc/squid-competition'
 import { ethers } from 'ethers'
 import { getSBCEvents } from '../../utils/interact/thegraph/getSBCEventData'
@@ -108,7 +108,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'EventCreated',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -116,8 +116,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'Register',
-    listener(address: any, eventID: any) {
-      console.log("register event listened");
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -125,7 +124,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'RoundAdded',
-    listener(eventID: any, roundLevel: any, playersNumber: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -133,7 +132,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'RoundFinished',
-    listener(eventID: any, roundLevel: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -141,7 +140,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'PredictionPlaced',
-    listener(bettor: any, eventID: any, roundLevel: any, result: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -149,7 +148,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'VoteEvent',
-    listener(voter: any, eventID: any, voteResult: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -157,7 +156,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'ReportVoteResult',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -165,7 +164,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'PickEventWinner',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -173,7 +172,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'WinnerClaimedPrize',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
       router.push('/sbc');
     },
@@ -182,7 +181,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'RoundUpdated',
-    listener(eventID: any, roundLevel: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -190,7 +189,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'RoundCanceled',
-    listener(eventID: any, roundLevel: any) {
+    listener() {
       setShouldRender(!shouldRender);
       router.push('/sbc');
     },
@@ -199,7 +198,7 @@ const SquidBetPage = () => {
   useContractEvent({
     ...sbcContract,
     eventName: 'RefundCanceledRound',
-    listener(bettor: any, eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });

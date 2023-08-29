@@ -165,8 +165,9 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
   useContractEvent({
     ...contract,
     eventName: 'NewEvent',
-    listener(eventID: any, category: any) {
-      if (categoryOfThisItem == category) {
+    listener(logs) {
+      //@ts-ignore
+      if (logs[0].args.category == categoryOfThisItem) {
         setShouldRender(!shouldRender);
       }
     },
@@ -175,8 +176,9 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
   useContractEvent({
     ...contract,
     eventName: 'CancelEvent',
-    listener(eventID: any, category: any) {
-      if (categoryOfThisItem == category) {
+    listener(logs) {
+      //@ts-ignore
+      if (logs[0].args.category == categoryOfThisItem) {
         setShouldRender(!shouldRender);
       }
     },
@@ -185,7 +187,7 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
   useContractEvent({
     ...contract,
     eventName: 'ReportResult',
-    listener(eventID: any, result: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -193,7 +195,7 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
   useContractEvent({
     ...sbcContract,
     eventName: 'EventCreated',
-    listener(eventID: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -201,7 +203,7 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
   useContractEvent({
     ...sbcContract,
     eventName: 'RoundFinished',
-    listener(eventID: any, roundLevel: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });
@@ -209,7 +211,7 @@ const SideLink = ({ categoryOfThisItem, name, icon, isSubCategoryExist, }: SideL
   useContractEvent({
     ...sbcContract,
     eventName: 'WinnerClaimedPrize',
-    listener(eventID: any, state: any, claimedNumber: any) {
+    listener() {
       setShouldRender(!shouldRender);
     },
   });

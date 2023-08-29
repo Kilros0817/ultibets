@@ -74,8 +74,9 @@ const Referral = () => {
     useContractEvent({
         ...contract,
         eventName: 'ClaimReferralReward',
-        listener(referrer: any, amount: any) {
-            if (address == referrer) {
+        listener(logs) {
+            //@ts-ignore
+            if (address == logs[0].args.referrer) {
                 setShouldRender(!shouldRender);
             }
         },
@@ -84,8 +85,9 @@ const Referral = () => {
     useContractEvent({
         ...contract,
         eventName: 'ClaimReferralBettingReward',
-        listener(referrer: any, amount: any) {
-            if (address == referrer) {
+        listener(logs) {
+            //@ts-ignore
+            if (address == logs[0].args.referrer) {
                 setShouldRender(!shouldRender);
             }
         },

@@ -81,7 +81,6 @@ const Tees = ({ id, name, price, image }: TeesProps) => {
             height={'30px'}
             border={'1px solid #FC541C'}
             borderRadius={'3xl'}
-            color={'white'}
             backgroundColor={'#1F1F1F'}
             _hover={{
               backgroundColor: '#FC541C',
@@ -90,7 +89,7 @@ const Tees = ({ id, name, price, image }: TeesProps) => {
               backgroundColor: '#FC541C',
             }}
           >
-            <Text fontSize={'12px'} fontWeight={'800px'}>
+            <Text color={'white'} fontSize={'12px'} fontWeight={'800px'}>
               Buy
             </Text>
           </Button>
