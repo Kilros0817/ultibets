@@ -87,6 +87,7 @@ const AdminHandleEventButton = ({
         {
           ['Multichain', 'Singlechain', 'Individual'].map((item, index) => (
             <MenuItem
+              backgroundColor={'#1F1F1F'}
               _hover={{
                 backgroundColor: '#E18833;',
               }}
