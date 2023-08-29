@@ -51,7 +51,7 @@ const Profile = ({
 
 	const referralStatistics = [
 		{
-			label: 'referals:',
+			label: 'referrals:',
 			value: totalReferrals,
 			borderColor: 'linear-gradient(to bottom, #FF720A, #739AF0)'
 		},
@@ -61,10 +61,6 @@ const Profile = ({
 			borderColor: 'linear-gradient(to bottom, #19A2A5, #739AF0)'
 		},
 	]
-
-	useEffect(() => {
-		console.log("totalReferrals: ", totalReferrals);
-	}, [totalReferrals])
 
 	const handleFirstPredictionReward = async () => {
 		const isMainnet = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? true : false;

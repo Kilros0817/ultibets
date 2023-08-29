@@ -47,11 +47,9 @@ const Referral = () => {
         setTimeout(() => {
             (async () => {
                 const profileData = await getProfileData(address?.toLowerCase() ?? '0x0');
-                console.log("profileData: ", profileData);
                 if (profileData?.isSuccess) {
                     let profileInfo = profileData?.returnedData;
 
-                    console.log("profileInfo: ", profileInfo);
                     setProfile(profileInfo);
                 }
                 setIsLoading(false);
