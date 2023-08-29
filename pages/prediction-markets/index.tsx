@@ -19,6 +19,7 @@ import TokenSelector from '../../components/predictions/TokenSelector'
 import { chainAttrs, mumbaiChainId, newChainAttrs, polygonChainId, sortByItems } from '../../utils/config'
 import { useChainContext } from '../../utils/Context'
 import CalendarLabel from '../../components/predictions/CalendarLabel'
+import { useRouter } from 'next/router';
 
 const PredictionMarkets = () => {
   const { isNativeToken, } = useChainContext();
@@ -39,6 +40,19 @@ const PredictionMarkets = () => {
       currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
     }
   }, [chain, isNativeToken]);
+
+  const router = useRouter();
+  const { setReferral, } = useChainContext();
+
+  useEffect(() => {
+    const asPath = router.asPath;
+
+    const pieces = asPath.split('?r=');
+    if (pieces.length == 2) {
+      const referral = pieces[1];
+      setReferral(referral);
+    }
+  }, [router])
 
   const SortByDropDownMenu = () => (
     <Flex

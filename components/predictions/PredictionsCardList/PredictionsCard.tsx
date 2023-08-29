@@ -230,7 +230,7 @@ const PredictionCard = ({
                   setCategoryInPM(category);
                   setSubCategoryInPM(subcategory);
                   //@ts-ignore
-                  router.push(`${router.asPath}/${sidebarItems[category].keyword}/${eventID}`)
+                  router.push(`prediction-markets/${sidebarItems[category].keyword}/${eventID}`)
                 }}
                 isDisabled={bettingDeadline - secondsInHalfHour < Date.now() / 1000}
               >
