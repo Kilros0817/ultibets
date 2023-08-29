@@ -45,7 +45,7 @@ const Profile = ({
 		},
 		{
 			label: ' My Referral URL to share:',
-			value: (window.location.hostname ?? 'no-host') + ":3000/prediction-markets?r=" + window.btoa(address ?? ''),
+			value: (window.location.hostname ?? 'no-host') + "/prediction-markets?r=" + window.btoa(address ?? ''),
 		},
 	];
 
