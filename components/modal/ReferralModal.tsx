@@ -154,7 +154,7 @@ const ReferralModal = ({
                 }}
               ></Flex>
             </a>
-            <a href={"https://twitter.com/ultibets"} target="_new">
+            <a href={"http://instagram.com/ultibetsofficial"} target="_new">
               {' '}
               <Flex
                 width={'50px'}
@@ -178,6 +178,21 @@ const ReferralModal = ({
                 backgroundRepeat={'no-repeat'}
                 backgroundPosition={'center'}
                 backgroundImage={`url(/images/svgs/slider/telegram-logo.svg)`}
+                cursor={'pointer'}
+                _hover={{
+                  transform: 'scale(1.1)',
+                }}
+              ></Flex>
+            </a>
+            <a href={"http://discord.gg/EsWqNmTcdr"} target="_new">
+              {' '}
+              <Flex
+                width={'50px'}
+                height={'50px'}
+                backgroundSize={'contain'}
+                backgroundRepeat={'no-repeat'}
+                backgroundPosition={'center'}
+                backgroundImage={`url(/images/svgs/slider/discord-logo.svg)`}
                 cursor={'pointer'}
                 _hover={{
                   transform: 'scale(1.1)',
