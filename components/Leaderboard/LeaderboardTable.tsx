@@ -139,25 +139,17 @@ const LeaderboardTable = ({
     });
 
     const handleChartRoiPoints = (chartRoiInitialData: RoiLogsType[]) => {
-        let points = Array(30).fill({value: 0});
+        let points = Array().fill({value: 0});
 
-        for (let i = 30; i >= 1; i--) {
             const roiDataInIthDay = chartRoiInitialData.filter((item: any) =>
-                (Number(item?.timestamp) >= Math.round(Date.now() / 1000) - secondsInDay * i) &&
-                (Number(item?.timestamp) < Math.round(Date.now() / 1000) - secondsInDay * (i - 1))
-            )
-
-            if (roiDataInIthDay.length > 0) {
-                const roiDatumInIth = roiDataInIthDay[roiDataInIthDay.length - 1];
-                const totalPaid = parseFloat(formatEther(BigInt(roiDatumInIth.totalPaidAmount)));
-                const totalBetted = parseFloat(formatEther(BigInt(roiDatumInIth.totalBetAmount)));
+                (Number(item?.timestamp) >= Math.round(Date.now() / 1000) - secondsInDay * 30))
+            
+            roiDataInIthDay.map((item) => {
+                const totalPaid = parseFloat(formatEther(BigInt(item.totalPaidAmount)));
+                const totalBetted = parseFloat(formatEther(BigInt(item.totalBetAmount)));
                 const pnl = totalPaid - totalBetted;
-                const roi = Math.round(pnl / totalBetted * 100);
-                points[30 - i] = { value: roi};
-            } else if (i < 30) {
-                points[30 - i] = points[30 - i - 1]
-            }
-        }
+                points.push({value: Math.round(pnl / totalBetted * 100)})
+            })
 
         return points as Point[];
     }

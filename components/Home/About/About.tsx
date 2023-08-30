@@ -209,7 +209,7 @@ const About = () => {
                   as={"span"}
                   color={"#E18935"}
                 >
-                  &nbsp;The more you bet, the more you gain from the other side
+                  &nbsp;The more you predict, the more you gain from the other side
                   if your win.
                 </Text>
                 <Text
@@ -424,7 +424,7 @@ const About = () => {
               >
                 {" "}
                 <Text as={"span"} color={"#E18935"}>
-                  The more you bet, the more you gain from the other side if
+                  The more you predict, the more you gain from the other side if
                   your win.&nbsp;
                 </Text>
               </Text>

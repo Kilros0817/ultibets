@@ -44,13 +44,6 @@ const Profile = ({
 		onClose: onCloseReferralModal,
 	} = useDisclosure();
 
-	const profileInfo = [
-		{
-			label: ' My Referral URL to share:',
-			value: (window.location.hostname ?? 'no-host') + "/prediction-markets?r=" + window.btoa(address ?? ''),
-		},
-	];
-
 	const referralStatistics = [
 		{
 			label: 'referrals:',
