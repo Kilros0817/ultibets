@@ -20,7 +20,7 @@ const ReferralModal = ({
   isOpen,
   onClose,
 }: ReferralModalProps) => {
-	const { address, } = useAccount();
+  const { address, } = useAccount();
   const referralURL = (window.location.hostname ?? 'no-host') + "/prediction-markets?r=" + window.btoa(address ?? '')
   return (
     <Modal
@@ -96,13 +96,16 @@ const ReferralModal = ({
             >
               <Flex
                 alignItems={'center'}
-								cursor={'pointer'}
-        
-								onClick={() => {navigator.clipboard.writeText(referralURL)}}
+                cursor={'pointer'}
+
+                onClick={() => { navigator.clipboard.writeText(referralURL) }}
               >
                 <Image
                   src='/images/svgs/referral/copy.svg'
                   mr='13px'
+                  _hover={{
+                    transform: 'scale(1.1)',
+                  }}
                 />
               </Flex>
               {getEllipsisTxt(referralURL, 10)}
@@ -131,26 +134,51 @@ const ReferralModal = ({
             mt='19px'
             mb='77px'
           >
-            <Image
-              src='/images/svgs/referral/twitter-logo.svg'
-              mr='12.2px'
-              width={'35px'}
-              height='29px'
-            />
-
-            <Image
-              src='/images/svgs/referral/instagram-logo.svg'
-              mr='12.2px'
-              width={'33px'}
-              height='33px'
-            />
-
-            <Image
-              src='/images/svgs/referral/facebook-logo.svg'
-              mr='12.2px'
-              width={'34px'}
-              height='34px'
-            />
+            <a href={"https://twitter.com/ultibets"} target="_new">
+              {' '}
+              <Flex
+                width={'50px'}
+                height={'50px'}
+                backgroundSize={'contain'}
+                backgroundRepeat={'no-repeat'}
+                backgroundPosition={'center'}
+                backgroundImage={`url(/images/svgs/slider/twitter-logo.svg)`}
+                cursor={'pointer'}
+                _hover={{
+                  transform: 'scale(1.1)',
+                }}
+              ></Flex>
+            </a>
+            <a href={"https://twitter.com/ultibets"} target="_new">
+              {' '}
+              <Flex
+                width={'50px'}
+                height={'50px'}
+                backgroundSize={'contain'}
+                backgroundRepeat={'no-repeat'}
+                backgroundPosition={'center'}
+                backgroundImage={`url(/images/svgs/slider/ig-logo.svg)`}
+                cursor={'pointer'}
+                _hover={{
+                  transform: 'scale(1.1)',
+                }}
+              ></Flex>
+            </a>
+            <a href={"https://twitter.com/ultibets"} target="_new">
+              {' '}
+              <Flex
+                width={'50px'}
+                height={'50px'}
+                backgroundSize={'contain'}
+                backgroundRepeat={'no-repeat'}
+                backgroundPosition={'center'}
+                backgroundImage={`url(/images/svgs/slider/telegram-logo.svg)`}
+                cursor={'pointer'}
+                _hover={{
+                  transform: 'scale(1.1)',
+                }}
+              ></Flex>
+            </a>
           </Flex>
         </ModalBody>
       </ModalContent>
