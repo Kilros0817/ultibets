@@ -5,8 +5,12 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalOverlay,
   Text,
 } from '@chakra-ui/react'
+import { useAccount } from 'wagmi';
+import copy from 'copy-text-to-clipboard';
+import { getEllipsisTxt } from '../../utils/formatters';
 
 export type ReferralModalProps = {
   isOpen: boolean,
@@ -17,12 +21,19 @@ const ReferralModal = ({
   isOpen,
   onClose,
 }: ReferralModalProps) => {
+	const { address, } = useAccount();
+
+  const referralURL = (window.location.hostname ?? 'no-host') + "/prediction-markets?r=" + window.btoa(address ?? '')
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
     >
+      <ModalOverlay
+        bg='blackAlpha.10'
+        backdropFilter='blur(10px) hue-rotate(10deg)'
+      />
       <ModalContent
         width={'497px'}
         height='520px'
@@ -80,7 +91,7 @@ const ReferralModal = ({
               lineHeight={'30px'}
               textTransform={'capitalize'}
               mt='26px'
-              py='16px'
+              py='12px'
               px='43px'
               border={'1px solid #E04D1C'}
               borderRadius='43px'
@@ -88,15 +99,15 @@ const ReferralModal = ({
             >
               <Flex
                 alignItems={'center'}
+								cursor={'pointer'}
+								onClick={() => {copy(referralURL)}}
               >
                 <Image
                   src='/images/svgs/referral/copy.svg'
-                  mr='12.2px'
-                  width={'12.63px'}
-                  height='15px'
+                  mr='13px'
                 />
               </Flex>
-              url.com/referal-link
+              {getEllipsisTxt(referralURL, 10)}
             </Flex>
           </Flex>
 

@@ -8,9 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { CgProfile, } from 'react-icons/cg'
 import { useAccount, useNetwork } from 'wagmi';
-import copy from 'copy-text-to-clipboard';
-import { getEllipsisTxt } from '../../utils/formatters';
-import { useEffect, useState } from 'react'; 
+import { useState } from 'react';
 import { parseEther } from 'viem';
 import axios from 'axios';
 import AnnounceModal from '../modal/AnnounceModal';
@@ -18,6 +16,7 @@ import { checkIconInGreenBg } from '../../utils/assets';
 import { chainRPCs, polygonChainId, mumbaiChainId, } from '../../utils/config';
 import { toast } from 'react-toastify';
 import { claimReferralBettingReward } from '../../utils/interact/sc/ultibetsreward';
+import ReferralModal from '../modal/ReferralModal';
 
 type ProfileProps = {
 	totalReferrals: number
@@ -32,17 +31,20 @@ const Profile = ({
 	const { chain, } = useNetwork();
 	const { address, } = useAccount();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	
 	const {
 		isOpen: isOpenClaimFirstBettingRewardSuccessAnnounceModal,
 		onOpen: onOpenClaimFirstBettingRewardSuccessAnnounceModal,
 		onClose: onCloseClaimFirstBettingRewardSuccessAnnounceModal,
 	} = useDisclosure();
 
+	const {
+		isOpen: isOpenReferralModal,
+		onOpen: onOpenReferralModal,
+		onClose: onCloseReferralModal,
+	} = useDisclosure();
+
 	const profileInfo = [
-		{
-			label: 'My Referral Code :',
-			value: window.btoa(address ?? ''),
-		},
 		{
 			label: ' My Referral URL to share:',
 			value: (window.location.hostname ?? 'no-host') + "/prediction-markets?r=" + window.btoa(address ?? ''),
@@ -90,22 +92,22 @@ const Profile = ({
 			const signature = (result as any).data.signature
 			try {
 				setIsLoading(true);
-				const result = await claimReferralBettingReward (
+				const result = await claimReferralBettingReward(
 					referralBettingReward,
 					signature,
 					chain?.id ?? 0
 				)
-	
+
 				if (result)
 					onOpenClaimFirstBettingRewardSuccessAnnounceModal();
-	
+
 				setIsLoading(false);
 			} catch (err) {
 				setIsLoading(false);
 				console.log('error in claim reward: ', err);
 			}
 		}
-		
+
 	}
 
 	return (
@@ -137,57 +139,24 @@ const Profile = ({
 
 			<Flex
 				mt='33px'
-				direction={['column', 'column', 'column', 'column', 'row']}
 			>
-				<Flex
-					direction={['column', 'column', 'row']}
-					mr='23px'
-					gap={['15px', '15px', 'unset']}
+				<Button
+					onClick={onOpenReferralModal}
+					height={'50px'}
+					px={'30px'}
+					background={'unset'}
+					borderRadius={'15px'}
+					border={'1px solid #FC541C'}
+					_hover={{
+						background: '#FC541C',
+					}}
+					color={'white'}
+					fontSize={'14px'}
+					lineHeight={'19px'}
+					textTransform={'capitalize'}
 				>
-					{
-						profileInfo.map((item, index) => (
-							<Flex
-								direction={'column'}
-								mr={['20px', '20px', '50px']}
-								key={index}
-							>
-								<Text
-									fontFamily={'Nunito'}
-									fontWeight='700'
-									fontSize={'12px'}
-									lineHeight='16px'
-									textTransform={'capitalize'}
-									mb='12px'
-								>
-									{item.label}
-								</Text>
-								<Flex>
-									<Text
-										fontFamily={'Nunito'}
-										fontWeight='700'
-										fontSize={'22px'}
-										lineHeight='30px'
-										textTransform={'capitalize'}
-									>
-										{getEllipsisTxt(item.value, 3)}
-									</Text>
-									<Flex
-										alignItems={'center'}
-										display={['flex']}
-										ml='16px'
-										onClick={() => copy(item.value)}
-										cursor={'pointer'}
-									>
-										<Image
-											src='/images/svgs/referral/copy.svg'
-										/>
-									</Flex>
-								</Flex>
-							</Flex>
-						))
-					}
-
-				</Flex>
+					Share Referral Code
+				</Button>
 			</Flex>
 
 			<Flex
@@ -214,10 +183,10 @@ const Profile = ({
 											fontSize={'15px'}
 										>
 											*(first prediction made on UltiBets, no matter which chain you've used)
-                                        </Flex>
-                                    </Flex>
-                                }
-                                bg={'#1F1F1F'}
+										</Flex>
+									</Flex>
+								}
+								bg={'#1F1F1F'}
 								placement={'top'}
 								borderRadius={'20px'}
 								textTransform={'capitalize'}
@@ -353,10 +322,14 @@ const Profile = ({
 				isOpenAnnounceModal={
 					isLoading
 				}
-				onCloseAnnounceModal={onCloseClaimFirstBettingRewardSuccessAnnounceModal}
+				onCloseAnnounceModal={() => setIsLoading(false)}
 				announceText={'Your transaction is currently processing on the blockchain'}
 				announceGif={true}
 				announceModalButtonText={'Close'}
+			/>
+			<ReferralModal
+				isOpen={isOpenReferralModal}
+				onClose={onCloseReferralModal}
 			/>
 		</Flex >
 	)
