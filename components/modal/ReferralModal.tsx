@@ -25,6 +25,7 @@ const ReferralModal = ({
   const textURI = encodeURIComponent(`Predict and earn with UltiBets! Use my referral code and receive a bonus of 10% in UTBETS Tokens after placing your first prediction of minimum 100 UTBETS on UltiBets! Let's predict, win, and earn together! `)
   const urlURI = encodeURIComponent(referralURL);
   const tweetIntent = `https://twitter.com/intent/tweet?text=${textURI}&url=${urlURI}`;
+  const telegramShare = `https://t.me/share/url?text=${textURI}&url=${urlURI}`;
   return (
     <Modal
       isOpen={isOpen}
@@ -167,7 +168,7 @@ const ReferralModal = ({
                 }}
               ></Flex>
             </a>
-            <a href={"https://twitter.com/ultibets"} target="_new">
+            <a href={telegramShare} target="_new">
               {' '}
               <Flex
                 width={'50px'}
