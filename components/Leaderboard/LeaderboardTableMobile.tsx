@@ -252,7 +252,7 @@ const LeaderboardTableMobile = ({
                                                 justifyContent='center'
                                                 className='roi-selection-dropdown'
                                             >
-                                                <IoMdArrowDropdown />
+                                                <IoMdArrowDropdown color='white'/>
                                             </Flex>
                                         </Flex>
                                         <Text
@@ -353,7 +353,7 @@ const LeaderboardTableMobile = ({
                                                 justifyContent='center'
                                                 className='roi-selection-dropdown'
                                             >
-                                                <IoMdArrowDropdown />
+                                                <IoMdArrowDropdown color='white'/>
                                             </Flex>
                                         </Flex>
                                         <Text
