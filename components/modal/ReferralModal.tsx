@@ -22,6 +22,9 @@ const ReferralModal = ({
 }: ReferralModalProps) => {
   const { address, } = useAccount();
   const referralURL = (window.location.hostname ?? 'no-host') + "/prediction-markets?r=" + window.btoa(address ?? '')
+  const textURI = encodeURIComponent(`Predict and earn with UltiBets! Use my referral code and receive a bonus of 10% in UTBETS Tokens after placing your first prediction of minimum 100 UTBETS on UltiBets! Let's predict, win, and earn together! `)
+  const urlURI = encodeURIComponent(referralURL);
+  const tweetIntent = `https://twitter.com/intent/tweet?text=${textURI}&url=${urlURI}`;
   return (
     <Modal
       isOpen={isOpen}
@@ -134,7 +137,7 @@ const ReferralModal = ({
             mt='19px'
             mb='77px'
           >
-            <a href={"https://twitter.com/ultibets"} target="_new">
+            <a href={tweetIntent} target="_new">
               {' '}
               <Flex
                 width={'50px'}
