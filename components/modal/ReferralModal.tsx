@@ -9,7 +9,6 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useAccount } from 'wagmi';
-import copy from 'copy-text-to-clipboard';
 import { getEllipsisTxt } from '../../utils/formatters';
 
 export type ReferralModalProps = {
@@ -22,9 +21,7 @@ const ReferralModal = ({
   onClose,
 }: ReferralModalProps) => {
 	const { address, } = useAccount();
-
   const referralURL = (window.location.hostname ?? 'no-host') + "/prediction-markets?r=" + window.btoa(address ?? '')
-
   return (
     <Modal
       isOpen={isOpen}
@@ -100,7 +97,8 @@ const ReferralModal = ({
               <Flex
                 alignItems={'center'}
 								cursor={'pointer'}
-								onClick={() => {copy(referralURL)}}
+        
+								onClick={() => {navigator.clipboard.writeText(referralURL)}}
               >
                 <Image
                   src='/images/svgs/referral/copy.svg'
