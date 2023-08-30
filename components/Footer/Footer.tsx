@@ -79,12 +79,12 @@ const Footer = () => {
             </Grid>
             <Stack
               direction={'row'}
-              gap={['10px', '40px', '20px']}
+              gap={['10px', '20px', '40px', '20px']}
             >
               <a href="https://medium.com/@ultibets" target="_new">
                 <Image
                   src={'/images/svgs/medium-logo.svg'}
-                  alt="Twitter"
+                  alt="Medium"
                   height={27}
                   width={27}
                 />
@@ -92,7 +92,7 @@ const Footer = () => {
               <a href="http://t.me/ultibets" target="_new">
                 <Image
                   src={'/images/svgs/telegram-logo.svg'}
-                  alt="Twitter"
+                  alt="Telegram"
                   height={27}
                   width={27}
                 />
@@ -100,7 +100,7 @@ const Footer = () => {
               <a href="http://discord.gg/EsWqNmTcdr" target="_new">
                 <Image
                   src={'/images/svgs/discord-logo.svg'}
-                  alt="Twitter"
+                  alt="Discord"
                   height={27}
                   width={27}
                 />
@@ -125,6 +125,32 @@ const Footer = () => {
                   alt="Instagram"
                   height={17}
                   width={27}
+                />
+              </a>
+              <a href="https://ultibets.gitbook.io/product-docs/" target="_new"
+                style={{
+                  alignItems: 'center',
+                  display: 'flex'
+                }}
+              >
+                <Image
+                  src={'/images/svgs/gitbook.png'}
+                  alt="Gitbook"
+                  height={'20px'}
+                  width={'20px'}
+                />
+              </a>
+              <a href="https://www.twitch.tv/ultibets/" target="_new"
+                style={{
+                  alignItems: 'center',
+                  display: 'flex'
+                }}
+              >
+                <Image
+                  src={'/images/svgs/twitch.png'}
+                  alt="Twitch"
+                  height={'16px'}
+                  width={'16px'}
                 />
               </a>
             </Stack>

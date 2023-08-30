@@ -35,7 +35,7 @@ const UtBetsTokenRoutes = () => {
 		},
 		{
 			index: 2,
-			subTabName: '$UTBETS Pairs LP',
+			subTabName: '$UTBETS LP Pairs',
 			subTabUrl: `${uniswapAddLP}${token}`,
 			external: true
 		},
@@ -230,7 +230,7 @@ const UtBetsTokenRoutes = () => {
 						href={`${uniswapAddLP}${token}`}
 						target="_new"
 					>
-					    $UTBETS Pairs LP{' '}
+					    $UTBETS LP Pairs{' '}
 					</a>
 				</Text>
 				<Text
