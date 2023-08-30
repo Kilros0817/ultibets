@@ -1,5 +1,5 @@
 import { readContract, waitForTransaction, writeContract } from "@wagmi/core";
-import { ethers } from 'ethers';
+import { parseEther } from "viem";
 
 // function approve(address spender, uint256 amount) public virtual override returns (bool) {
 export const utbetsApprove = async (
@@ -37,7 +37,7 @@ export const utbetsApprove = async (
             functionName: 'approve',
             args: [//@ts-ignore
                 spender,
-                ethers.utils.parseEther(amount),],
+                parseEther(amount),],
         });
         const data = await waitForTransaction({hash});
         if (data.status == "success")

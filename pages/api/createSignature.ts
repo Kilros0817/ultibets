@@ -1,4 +1,4 @@
-const ethers = require("ethers");
+import {ethers} from 'ethers'
 import { ultibetsSignAbi } from "../../utils/assets";
 import { ultibetsSignAddresses } from "../../utils/config";
 

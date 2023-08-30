@@ -17,12 +17,12 @@ import '@fontsource/nunito'
 import { useAccount, useBalance, useNetwork, } from 'wagmi';
 import { useChainContext } from '../../utils/Context'
 import { registerOnEvent, registerOnWarriorEvent } from '../../utils/interact/sc/squid-competition'
-import { chainAttrs, chainRPCs, contractAddressesInSBC, EventCategory, mumbaiChainId, polygonChainId, utbetsTokenAddresses } from '../../utils/config'
+import { chainAttrs, contractAddressesInSBC, EventCategory, mumbaiChainId, polygonChainId, utbetsTokenAddresses } from '../../utils/config'
 import AnnounceModal from './AnnounceModal'
 import { checkIconInGreenBg, exclamationIconInRedBg, UltiBetsTokenAbi } from '../../utils/assets'
 import Account from '../Account'
-import { getAllowance, utbetsApprove } from '../../utils/interact/sc/utbets';
-import { BigNumberish, ethers } from 'ethers';
+import { getAllowance, getUTBETSBalance, utbetsApprove } from '../../utils/interact/sc/utbets';
+import { formatEther } from 'viem';
 
 export type RegisterModalInSBCProps = {
     isOpen: boolean
@@ -49,7 +49,6 @@ const RegisterModalInSBC = ({
     const { address, } = useAccount();
     const [chainId, setChainId] = useState<number>(polygonChainId);
     const [isApprovedUtbets, setIsApprovedUtbets] = useState<boolean>(false);
-    const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const {
@@ -70,7 +69,7 @@ const RegisterModalInSBC = ({
 
     const getApproval = async () => {
         const allowance = await getAllowance((utbetsTokenAddresses as any)[Number(chain?.id)], address, (contractAddressesInSBC as any)[Number(chain?.id)][1]);
-        const amount = Number(ethers.utils.formatEther(allowance as BigNumberish));
+        const amount = Number(formatEther(allowance as bigint));
         if (amount >= (registerAmount ?? 0)) setIsApprovedUtbets(true)
         else setIsApprovedUtbets(false)
     }
@@ -115,8 +114,6 @@ const RegisterModalInSBC = ({
         setIsLoading(false)
     }
 
-    
-
     useEffect(() => {
         console.log("signature: ", signature);
     }, [signature])
@@ -133,10 +130,9 @@ const RegisterModalInSBC = ({
             }
         } else {
             const tokenAddress = (utbetsTokenAddresses as any)[chainId];
-            const contract = new ethers.Contract(tokenAddress, UltiBetsTokenAbi, new ethers.providers.StaticJsonRpcProvider((chainRPCs as any)[chainId]));
-            const balanceOfUtbets = await contract.balanceOf(address);
-            const numberOfBalanceOfUtbetsToken = Number(ethers.utils.formatEther(balanceOfUtbets));
-            console.log("balance of utbets token: ", Number(ethers.utils.formatEther(balanceOfUtbets)));
+            const balanceOfUtbets = await getUTBETSBalance(tokenAddress, address);
+            const numberOfBalanceOfUtbetsToken = Number(formatEther(balanceOfUtbets as bigint));
+            console.log("balance of utbets token: ", Number(formatEther(balanceOfUtbets as bigint)));
 
             if ((registerAmount ?? 0) > numberOfBalanceOfUtbetsToken) {
                 onOpenAnnounceModal();

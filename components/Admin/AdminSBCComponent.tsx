@@ -2,7 +2,7 @@ import {
     Button,
     Flex, useDisclosure,
 } from '@chakra-ui/react';
-import { ethers } from 'ethers';
+import { formatEther } from 'viem';
 import { useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
 import { useContractEvent, useNetwork, } from 'wagmi';
@@ -532,7 +532,7 @@ const AdminSBCComponent = () => {
                             fontFamily={'Nunito'}
                             fontSize={'20px'}
                         >
-                            Register Amount: {ethers.utils.formatEther(currentEvent?.registerAmount)} {currentToken}
+                            Register Amount: {formatEther(currentEvent?.registerAmount)} {currentToken}
                         </Flex>
 
                         <Flex
@@ -541,7 +541,7 @@ const AdminSBCComponent = () => {
                             fontFamily={'Nunito'}
                             fontSize={'20px'}
                         >
-                            Round Bet Amount: {ethers.utils.formatEther(currentEvent?.roundBetAmount)} {currentToken}
+                            Round Bet Amount: {formatEther(currentEvent?.roundBetAmount)} {currentToken}
                         </Flex>
 
                         <Flex
@@ -550,7 +550,7 @@ const AdminSBCComponent = () => {
                             fontFamily={'Nunito'}
                             fontSize={'20px'}
                         >
-                            Total Prize Amount: {ethers.utils.formatEther(currentEvent?.totalAmount)} {currentToken}
+                            Total Prize Amount: {formatEther(currentEvent?.totalAmount)} {currentToken}
                         </Flex>
 
                         <Flex

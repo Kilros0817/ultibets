@@ -6,7 +6,6 @@ import React, { useEffect, useState } from 'react'
 import '@fontsource/nunito'
 import '@fontsource/inter'
 import { useNetwork, useAccount, useContractEvent, } from 'wagmi';
-import { ethers, } from 'ethers';
 import PredictionsTab from '../../components/mypredictions/PredictionsTab'
 import PredictionsInfo from '../../components/predictions/PredictionsInfo'
 import Sidebar from '../../components/Sidebar'
@@ -35,6 +34,7 @@ import { getDailyEventDetailData } from '../../utils/interact/thegraph/getDailyE
 import { EventDetailDataType } from '../../utils/types'
 import { getUserBetDataInPM } from '../../utils/interact/thegraph/getUserBetDataInPM'
 import { getUserInviteStatus } from '../../utils/interact/thegraph/getUserInviteStatus'
+import { formatEther } from 'viem'
 
 type PredictionPageProps = {
 }
@@ -270,7 +270,7 @@ const PredictionPage = ({
                     mt='42px'
                   >
                     <SquidRoundInfo
-                      volume={Number(ethers.utils.formatEther(eventDetailData.bettingVolume))}
+                      volume={Number(formatEther(BigInt(eventDetailData.bettingVolume)))}
                       startTime={new Date(Number(eventDetailData.startTime) * 1000)}
                     />
                   </Flex>

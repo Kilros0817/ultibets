@@ -15,7 +15,7 @@ import { useNetwork, } from 'wagmi';
 import PredictionsModal from '../../modal/PredictionsModal';
 import { useChainContext } from '../../../utils/Context';
 import { chainAttrs, mumbaiChainId, polygonChainId, secondsInHalfHour } from '../../../utils/config';
-import { ethers } from 'ethers';
+import { formatEther } from 'viem';
 
 export type PredictionsSummary2Props = {
   sidePoolVolumes: string[]
@@ -51,17 +51,15 @@ const PredictionsSummary2 = ({
   }, [chain, isNativeToken]);
 
   useEffect(() => {
-    const yesSidePool = ethers.utils.formatEther(sidePoolVolumes[0]);
-    const noSidePool = ethers.utils.formatEther(sidePoolVolumes[1]);
-    console.log("yes side pool: ", yesSidePool);
-    console.log("no side pool: ", noSidePool);
+    const yesSidePool = formatEther(BigInt(sidePoolVolumes[0]));
+    const noSidePool = formatEther(BigInt(sidePoolVolumes[1]));
     setSidePools([
       parseFloat(yesSidePool),
       parseFloat(noSidePool),
     ]);
 
-    const yesSideBet = ethers.utils.formatEther(sideBetAmounts[0]);
-    const noSideBet = ethers.utils.formatEther(sideBetAmounts[1]);
+    const yesSideBet = formatEther(BigInt(sideBetAmounts[0]));
+    const noSideBet = formatEther(BigInt(sideBetAmounts[1]));
     setSideBets([
       parseFloat(yesSideBet),
       parseFloat(noSideBet),

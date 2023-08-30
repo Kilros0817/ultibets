@@ -16,20 +16,16 @@ import {
     Button,
 } from '@chakra-ui/react'
 import { useEffect, useState, useRef } from 'react'
-import { Line } from 'react-chartjs-2'
+import { LineChart, Line } from "recharts";
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { LeaderboardTableRowType } from '../../utils/types'
 
 type LeaderboardTableMobileProps = {
     leaderboardData: LeaderboardTableRowType[]
-    chartOptions: any
-    chartLabels: any
 }
 
 const LeaderboardTableMobile = ({
     leaderboardData,
-    chartOptions,
-    chartLabels,
 }: LeaderboardTableMobileProps) => {
     const [currentRoiIndex, setCurrentRoiIndex] = useState(0);
     const [currentPnlIndex, setCurrentPnlIndex] = useState(0);
@@ -246,6 +242,7 @@ const LeaderboardTableMobile = ({
                                                 alignItems='center'
                                                 display='flex'
                                                 justifyContent='center'
+                                                color={'white'}
                                                 mr='3px'
                                             >
                                                 {timeTypes[currentRoiIndex].menuLabel}
@@ -260,6 +257,7 @@ const LeaderboardTableMobile = ({
                                         </Flex>
                                         <Text
                                             ml='2px'
+                                            color={'white'}
                                         >
                                             ROI %
                                         </Text>
@@ -274,6 +272,7 @@ const LeaderboardTableMobile = ({
                                         {
                                             timeTypes.map((item, index) => (
                                                 <MenuItem
+                                                    backgroundColor={'rgba(0, 0, 0, 0.35)'}
                                                     _hover={{
                                                         backgroundColor: '#E18833',
                                                     }}
@@ -345,6 +344,7 @@ const LeaderboardTableMobile = ({
                                                 display='flex'
                                                 justifyContent='center'
                                                 mr='3px'
+                                                color={'white'}
                                             >
                                                 {timeTypes[currentPnlIndex].menuLabel}
                                             </Flex>
@@ -358,6 +358,7 @@ const LeaderboardTableMobile = ({
                                         </Flex>
                                         <Text
                                             ml='2px'
+                                            color={'white'}
                                         >
                                             PNL (Utbets)
                                         </Text>
@@ -371,6 +372,7 @@ const LeaderboardTableMobile = ({
                                         {
                                             timeTypes.map((item, index) => (
                                                 <MenuItem
+                                                    backgroundColor={'rgba(0, 0, 0, 0.35)'}
                                                     _hover={{
                                                         backgroundColor: '#E18833',
                                                     }}
@@ -503,16 +505,20 @@ const LeaderboardTableMobile = ({
                                         borderColor='transparent'
                                         className='chart-wrapper'
                                     >
-                                        <Line options={chartOptions} data={{
-                                            labels: chartLabels,
-                                            datasets: [
-                                                {
-                                                    data: item.allTimeChart,
-                                                    borderColor: item.weeklyPnl > 0 ? '#19A2A5' : '#BD3B32',
-                                                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                                                },
-                                            ],
-                                        }} />
+                                        <LineChart width={100} height={50} data={item.allTimeChart}>
+                                            <Line
+                                                type="monotone"
+                                                dot={false}
+                                                dataKey="value"
+                                                stroke={item.allTimePnl > 0 ? '#19A2A5' : '#BD3B32'}
+                                                strokeWidth={3}
+                                                fill="none"
+                                                isAnimationActive={true}
+                                                animationDuration={0}
+                                                unit="M"
+                                                strokeLinecap="round"
+                                            />
+                                        </LineChart>
                                     </Td>
                                 </Tr>
                             ))

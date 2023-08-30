@@ -1,4 +1,5 @@
-const ethers = require("ethers");
+import {ethers} from 'ethers'
+import { parseEther } from 'viem';
 import {
     nativeTokenBetsAbiInSBC,
     ultibetsTokenBetsAbiInSBC
@@ -93,20 +94,20 @@ export const addEventInPM = async (req: any, res: any) => {
                     unsignedTx = await contract.populateTransaction.createNewEvent(
                         data.description,
                         data.maxPlayers,
-                        ethers.utils.parseEther(`${(newChainAttrs as any)[chainParam.chainId].entryFee}`),
+                        parseEther(`${(newChainAttrs as any)[chainParam.chainId].entryFee}`),
                         data.registerDeadline,
                         data.totalRound,
-                        ethers.utils.parseEther(`${(newChainAttrs as any)[chainParam.chainId].roundFee}`),
+                        parseEther(`${(newChainAttrs as any)[chainParam.chainId].roundFee}`),
                         data.orgFeePercent,
                     );
                 } else {
                     unsignedTx = await contract.populateTransaction.createNewEvent(
                         data.description,
                         data.maxPlayers,
-                        ethers.utils.parseEther("100"),
+                        parseEther("100"),
                         data.registerDeadline,
                         data.totalRound,
-                        ethers.utils.parseEther("50"),
+                        parseEther("50"),
                         data.orgFeePercent,
                         data.isWarrior,
                     );

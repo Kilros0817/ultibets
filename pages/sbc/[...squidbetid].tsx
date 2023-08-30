@@ -18,9 +18,9 @@ import RoundLine from '../../components/squid/detail-pages/RoundLine'
 import { useChainContext } from '../../utils/Context'
 import { chainAttrs, contractAddressesInSBC, delayTimeFromSubgraph, EventStateInSBC, mumbaiChainId, newChainAttrs, polygonChainId, roundProperties } from '../../utils/config'
 import { getRegisterIDOfBettor } from '../../utils/interact/sc/squid-competition'
-import { ethers } from 'ethers'
 import { getSBCEvents } from '../../utils/interact/thegraph/getSBCEventData'
 import { nativeTokenBetsAbiInSBC, ultibetsTokenBetsAbiInSBC } from '../../utils/assets'
+import { formatEther } from 'viem'
 
 const SquidBetPage = () => {
   const router = useRouter();
@@ -296,11 +296,11 @@ const SquidBetPage = () => {
             !isLoading && currentSelectedLevel == 0 &&
             <RegisterComponent
               eventID={eventID}
-              totalAmount={parseFloat(ethers.utils.formatEther(currentEvent?.totalAmount ?? 0))}
+              totalAmount={parseFloat(formatEther(currentEvent?.totalAmount ?? 0))}
               maxPlayers={Number(currentEvent?.maxPlayers)}
               totalPlayers={Number(currentEvent?.totalPlayers)}
-              registerAmount={parseFloat(ethers.utils.formatEther(currentEvent?.registerAmount ?? 0))}
-              roundBetAmount={parseFloat(ethers.utils.formatEther(currentEvent?.roundBetAmount ?? 0))}
+              registerAmount={parseFloat(formatEther(currentEvent?.registerAmount ?? 0))}
+              roundBetAmount={parseFloat(formatEther(currentEvent?.roundBetAmount ?? 0))}
               orgFeePercent={currentEvent?.orgFeePercent}
               registerID={Number(registerID ?? 0)}
               currentToken={currentToken}
@@ -320,14 +320,14 @@ const SquidBetPage = () => {
               currentLevel={currentEvent?.currentLevel}
               currentPlayers={currentEvent?.rounds[currentSelectedLevel - 1]?.playersOnRound}
               totalPlayers={currentEvent?.totalPlayers}
-              roundBetAmount={parseFloat(ethers.utils.formatEther(currentEvent?.roundBetAmount ?? 0))}
+              roundBetAmount={parseFloat(formatEther(currentEvent?.roundBetAmount ?? 0))}
               registerID={Number(registerID ?? 0)}
-              yesPoolAmount={parseFloat(ethers.utils.formatEther(currentEvent?.rounds[currentSelectedLevel - 1]?.yesPoolAmount ?? 0))}
-              noPoolAmount={parseFloat(ethers.utils.formatEther(currentEvent?.rounds[currentSelectedLevel - 1]?.noPoolAmount ?? 0))}
+              yesPoolAmount={parseFloat(formatEther(currentEvent?.rounds[currentSelectedLevel - 1]?.yesPoolAmount ?? 0))}
+              noPoolAmount={parseFloat(formatEther(currentEvent?.rounds[currentSelectedLevel - 1]?.noPoolAmount ?? 0))}
               state={currentEvent?.rounds[currentSelectedLevel - 1]?.state}
               startTime={Number(currentEvent?.rounds[currentSelectedLevel - 1]?.startTime)}
               roundResult={currentEvent?.rounds[currentSelectedLevel - 1]?.result}
-              totalAmount={parseFloat(ethers.utils.formatEther(currentEvent?.rounds[currentSelectedLevel - 1]?.currentTotalPoolAmount ?? 0))}
+              totalAmount={parseFloat(formatEther(currentEvent?.rounds[currentSelectedLevel - 1]?.currentTotalPoolAmount ?? 0))}
               accessLevel={
                 currentEvent?.state == EventStateInSBC.ClaimPrize ? 7 :
                   (((currentEvent?.state == EventStateInSBC.PickWinner) || (currentEvent?.state == EventStateInSBC.Vote)) ? 6 :
@@ -339,7 +339,7 @@ const SquidBetPage = () => {
             !isLoading && currentSelectedLevel == 6 &&
             <FinalVoteComponent
               eventID={eventID}
-              totalAmount={parseFloat(ethers.utils.formatEther(currentEvent?.totalAmount ?? 0))}
+              totalAmount={parseFloat(formatEther(currentEvent?.totalAmount ?? 0))}
               currentToken={currentToken}
               voteResult={currentEvent?.votingResult ?? 0}
               winnersNumber={currentEvent?.winnersNumber}
@@ -351,7 +351,7 @@ const SquidBetPage = () => {
             !isLoading && currentSelectedLevel == 7 &&
             <WinnerComponent
               eventID={eventID}
-              totalAmount={parseFloat(ethers.utils.formatEther(currentEvent?.totalAmount ?? 0))}
+              totalAmount={parseFloat(formatEther(currentEvent?.totalAmount ?? 0))}
               currentToken={currentToken}
               voteResult={currentEvent?.votingResult}
               registerID={registerID ?? 0}

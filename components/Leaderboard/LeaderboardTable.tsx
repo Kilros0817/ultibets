@@ -9,20 +9,11 @@ import {
     Thead,
     Th,
 } from '@chakra-ui/react'
-import { ethers } from 'ethers'
+import { formatEther } from 'viem'
 import { useEffect, useState, useRef } from 'react'
 import { useContractEvent, useNetwork } from 'wagmi'
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { LineChart, Line } from "recharts";
+
 import {
     chainAttrs,
     delayTimeFromSubgraph,
@@ -38,56 +29,12 @@ import {
     LeaderboardInitialDataPredictionsType,
     LeaderboardInitialDataType,
     LeaderboardTableRowType,
+    Point,
     RoiLogsType
 } from '../../utils/types'
 import LeaderboardTableMobile from './LeaderboardTableMobile'
 import { UltiBetsLeaderBoardAbi, } from '../../utils/assets';
-import { useChainContext } from '../../utils/Context';
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
-
-const options = {
-    responsive: true,
-    plugins: {
-        legend: {
-            display: false
-        },
-    },
-    scales: {
-        // to remove the labels
-        x: {
-            ticks: {
-                display: false,
-            },
-
-            // to remove the x-axis grid
-            grid: {
-                drawBorder: false,
-                display: false,
-            },
-        },
-        // to remove the y-axis labels
-        y: {
-            ticks: {
-                display: false,
-                beginAtZero: true,
-            },
-            // to remove the y-axis grid
-            grid: {
-                drawBorder: false,
-                display: false,
-            },
-        },
-    },
-};
 
 const labels = Array(30).fill('');
 
@@ -166,7 +113,6 @@ const LeaderboardTable = ({
         setTimeout(() => {
             (async () => {
                 const leaderboardInitialData = await getLeaderboardData(chainId);
-                console.log("leaderboard data: ", leaderboardInitialData);
                 if (leaderboardInitialData?.isSuccess) {
                     await handleLeaderboardInitialData(leaderboardInitialData?.returnedData);
                 }
@@ -175,15 +121,13 @@ const LeaderboardTable = ({
     }
 
     useEffect(() => {
-        console.log("leaderboard initial data: ", "before");
         fetchDataFromSubgraph1(100);
     }, [
         chainId,
     ])
 
     useEffect(() => {
-        console.log("leaderboard initial data: ", "before");
-        fetchDataFromSubgraph1();
+        fetchDataFromSubgraph1(5000);
     }, [shouldRender])
 
     useContractEvent({
@@ -195,7 +139,7 @@ const LeaderboardTable = ({
     });
 
     const handleChartRoiPoints = (chartRoiInitialData: RoiLogsType[]) => {
-        let points = Array(30).fill(0);
+        let points = Array(30).fill({value: 0});
 
         for (let i = 30; i >= 1; i--) {
             const roiDataInIthDay = chartRoiInitialData.filter((item: any) =>
@@ -205,18 +149,31 @@ const LeaderboardTable = ({
 
             if (roiDataInIthDay.length > 0) {
                 const roiDatumInIth = roiDataInIthDay[roiDataInIthDay.length - 1];
-                const totalPaid = parseFloat(ethers.utils.formatEther(roiDatumInIth.totalPaidAmount));
-                const totalBetted = parseFloat(ethers.utils.formatEther(roiDatumInIth.totalBetAmount));
+                const totalPaid = parseFloat(formatEther(BigInt(roiDatumInIth.totalPaidAmount)));
+                const totalBetted = parseFloat(formatEther(BigInt(roiDatumInIth.totalBetAmount)));
                 const pnl = totalPaid - totalBetted;
                 const roi = Math.round(pnl / totalBetted * 100);
-                points[30 - i] = roi;
+                points[30 - i] = { value: roi};
             } else if (i < 30) {
                 points[30 - i] = points[30 - i - 1]
             }
         }
 
-        return points;
+        return points as Point[];
     }
+
+    const modifyScale = (history: number[]) => {
+        const avg =
+          history.reduce((sum, curr) => {
+            return sum + curr;
+          }, 0) / history.length;
+        let newData = history.map(function (value) {
+          return  value - avg + 0.001;
+        });
+        newData[newData.length - 1] += 0.00001;
+        return newData;
+      };
+
 
     const handleLeaderboardInitialData = async (leaderboardInitialData: LeaderboardInitialDataType[]) => {
         const leaderboardData = await Promise.all(leaderboardInitialData.map((item: LeaderboardInitialDataType, index: number) => {
@@ -231,7 +188,7 @@ const LeaderboardTable = ({
                 weeklyPnl: 0,
                 monthlyPnl: 0,
                 allTimePnl: 0,
-                allTimeChart: [0],
+                allTimeChart: [],
             };
 
             const periodItems = [
@@ -264,11 +221,11 @@ const LeaderboardTable = ({
                 const totalPredictionAmount = predictionsInPeriod.reduce(
                     (
                         sum: number, prediction: LeaderboardInitialDataPredictionsType) =>
-                        sum + parseFloat(ethers.utils.formatEther(prediction.amount)), 0)
+                        sum + parseFloat(formatEther(BigInt(prediction.amount))), 0)
 
                 const totalPaidAmount = predictionsInPeriod.reduce(
                     (sum: number, prediction: LeaderboardInitialDataPredictionsType) =>
-                        sum + parseFloat(ethers.utils.formatEther(prediction.paidAmount)), 0)
+                        sum + parseFloat(formatEther(BigInt(prediction.paidAmount))), 0)
 
                 let roi = 0;
                 let pnl = 0;
@@ -281,8 +238,8 @@ const LeaderboardTable = ({
                 (data as any)[periodItem.pnl] = pnl == 0 ? 0 : parseFloat(pnl.toFixed(1));
             })
 
-            let totalBettingAmount = parseFloat(ethers.utils.formatEther(item.totalBettingAmount));
-            let allTimePnl = parseFloat(ethers.utils.formatEther(item.totalPrize)) - totalBettingAmount;
+            let totalBettingAmount = parseFloat(formatEther(BigInt(item.totalBettingAmount)));
+            let allTimePnl = parseFloat(formatEther(BigInt(item.totalPrize))) - totalBettingAmount;
             let allTimeRoi = 0;
             if (totalBettingAmount > 0) {
                 allTimeRoi = Math.round(allTimePnl / totalBettingAmount * 100);
@@ -294,7 +251,8 @@ const LeaderboardTable = ({
             return data;
         }))
 
-        console.log("leaderboard data: %%%", leaderboardData);
+        leaderboardData.sort((a, b) => b.allTimePnl - a.allTimePnl);
+
         setLeaderboardData(leaderboardData);
         setLeaderboardFullData(leaderboardData);
         setIsLoading(false);
@@ -580,20 +538,21 @@ const LeaderboardTable = ({
                                                 <Td
                                                     ml={'80px'}
                                                     borderColor='transparent'
-                                                    className='chart-wrapper'
                                                 >
-                                                    <Line options={options} data={{
-                                                        labels,
-                                                        datasets: [
-                                                            {
-                                                                data: item.allTimeChart,
-                                                                borderColor: item.weeklyPnl > 0 ? '#19A2A5' : '#BD3B32',
-                                                                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                                                                pointRadius: 0.5,
-                                                                pointHoverRadius: 1,
-                                                            },
-                                                        ],
-                                                    }} />
+                                                    <LineChart width={100} height={50} data={item.allTimeChart}>
+                                                        <Line
+                                                            type="monotone"
+                                                            dot={false}
+                                                            dataKey="value"
+                                                            stroke={item.allTimePnl > 0 ? '#19A2A5' : '#BD3B32'}
+                                                            strokeWidth={3}
+                                                            fill="none"
+                                                            isAnimationActive={true}
+                                                            animationDuration={0}
+                                                            unit="M"
+                                                            strokeLinecap="round"
+                                                        />
+                                                    </LineChart>
                                                 </Td>
                                             </Tr>
                                         ))
@@ -614,8 +573,6 @@ const LeaderboardTable = ({
                 >
                     <LeaderboardTableMobile
                         leaderboardData={leaderboardData}
-                        chartOptions={options}
-                        chartLabels={labels}
                     />
                 </Flex>)
             }

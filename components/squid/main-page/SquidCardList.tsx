@@ -4,9 +4,9 @@ import { useContractEvent, useNetwork, } from 'wagmi';
 import SquidCard from './SquidCard'
 import { useChainContext } from '../../../utils/Context';
 import { chainAttrs, contractAddressesInSBC, delayTimeFromSubgraph, EventStateInSBC, mumbaiChainId, newChainAttrs, polygonChainId } from '../../../utils/config';
-import { ethers } from 'ethers';
 import { getSBCEvents } from '../../../utils/interact/thegraph/getSBCEventData';
 import { nativeTokenBetsAbiInSBC, ultibetsTokenBetsAbiInSBC } from '../../../utils/assets';
+import { formatEther } from 'viem';
 
 const SquidCardList = () => {
   const { isNativeToken } = useChainContext();
@@ -204,7 +204,7 @@ const SquidCardList = () => {
                   description={item.description}
                   registerDeadline={Number(item.registerDeadline)}
                   currentLevel={Number(item.currentLevel)}
-                  totalAmount={parseFloat(ethers.utils.formatEther(item.totalAmount))}
+                  totalAmount={parseFloat(formatEther(item.totalAmount))}
                   state={Number(item.state)}
                   currentToken={isNativeToken ? currentMainnetOrTestnetAttrs[chainAttrsIndex].nativeToken : "UTBETS"}
                   rounds={item.rounds}

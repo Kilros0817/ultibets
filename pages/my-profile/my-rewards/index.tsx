@@ -17,7 +17,7 @@ import TotalCashbackRevenue from '../../../components/MyRewards/TotalCashbackRev
 import TierLevelLine from '../../../components/MyRewards/TierLevelLine'
 import { ultibetsRewardAbi } from '../../../utils/assets';
 import { getRewardData } from '../../../utils/interact/thegraph/getRewardData';
-import { ethers } from 'ethers';
+import { formatEther } from 'viem';
 
 const MyRewards = () => {
     const { isNativeToken, } = useChainContext();
@@ -185,7 +185,7 @@ const MyRewards = () => {
                                     justify={['center', 'center', 'start']}
                                 >
                                     <TotalVolume
-                                        totalBettingAmount={parseFloat(ethers.utils.formatEther(rewardData?.totalBettingAmount ?? '0'))}
+                                        totalBettingAmount={parseFloat(formatEther(rewardData?.totalBettingAmount ?? '0'))}
                                     />
                                 </Flex>
 
@@ -210,8 +210,8 @@ const MyRewards = () => {
                             >
                                 <TotalCashbackRevenue
                                     currentRewardTierLevel={rewardData?.currentRewardTier ?? 0}
-                                    claimableRewardAmount={parseFloat(ethers.utils.formatEther(rewardData?.claimableRewardAmount ?? '0'))}
-                                    claimedRewardAmount={parseFloat(ethers.utils.formatEther(rewardData?.claimedRewardAmount ?? '0'))}
+                                    claimableRewardAmount={parseFloat(formatEther(rewardData?.claimableRewardAmount ?? '0'))}
+                                    claimedRewardAmount={parseFloat(formatEther(rewardData?.claimedRewardAmount ?? '0'))}
                                 />
                             </Flex>
                         </>

@@ -15,7 +15,7 @@ import { useNetwork, } from 'wagmi';
 import PredictionsModal from '../../modal/PredictionsModal';
 import { useChainContext } from '../../../utils/Context';
 import { chainAttrs, mumbaiChainId, newChainAttrs, polygonChainId, secondsInHalfHour } from '../../../utils/config';
-import { ethers } from 'ethers';
+import { formatEther } from 'viem';
 
 export type PredictionsSummary3Props = {
   sidePoolVolumes: string[]
@@ -52,18 +52,18 @@ const PredictionsSummary3 = ({
   }, [chain, isNativeToken]);
 
   useEffect(() => {
-    const homeSidePool = ethers.utils.formatEther(sidePoolVolumes[0]);
-    const drawSidePool = ethers.utils.formatEther(sidePoolVolumes[1]);
-    const awaySidePool = ethers.utils.formatEther(sidePoolVolumes[2]);
+    const homeSidePool = formatEther(BigInt(sidePoolVolumes[0]));
+    const drawSidePool = formatEther(BigInt(sidePoolVolumes[1]));
+    const awaySidePool = formatEther(BigInt(sidePoolVolumes[2]));
     setSidePools([
       parseFloat(homeSidePool),
       parseFloat(drawSidePool),
       parseFloat(awaySidePool),
     ]);
 
-    const homeSideBet = ethers.utils.formatEther(sideBetAmounts[0]);
-    const drawSideBet = ethers.utils.formatEther(sideBetAmounts[1]);
-    const awaySideBet = ethers.utils.formatEther(sideBetAmounts[2]);
+    const homeSideBet = formatEther(BigInt(sideBetAmounts[0]));
+    const drawSideBet = formatEther(BigInt(sideBetAmounts[1]));
+    const awaySideBet = formatEther(BigInt(sideBetAmounts[2]));
     setSideBets([
       parseFloat(homeSideBet),
       parseFloat(drawSideBet),

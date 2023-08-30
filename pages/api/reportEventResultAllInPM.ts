@@ -1,4 +1,4 @@
-const ethers = require("ethers");
+import {ethers} from 'ethers'
 import {
     nativeTokenDailyBetsAbiInPM,
     ultibetsTokenDailyBetsAbiInPM
@@ -88,7 +88,6 @@ export const reportEventResultAllInPM = async (req: any, res: any) => {
             const key = contractItem.isNative ? `${chainParam.chainId}a` : `${chainParam.chainId}b`;
             try {
                 let contractAddress = contractItem?.address;
-                console.log("contract address: ", contractAddress);
 
                 const contract = new ethers.Contract(contractAddress, contractItem?.abi, provider.getSigner(wallet.address));
 
@@ -113,8 +112,6 @@ export const reportEventResultAllInPM = async (req: any, res: any) => {
             }
         }, Promise.resolve())
     }))
-
-    console.log("===========================: receipt: ", receipt);
 
     if (error) {
         res.status(500).json({

@@ -2,9 +2,9 @@ import {
   Flex,
   Image,
 } from '@chakra-ui/react'
-import { ethers } from 'ethers'
+import { formatEther } from 'viem'
 import { useRouter } from 'next/router'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNetwork } from 'wagmi'
 import { chainAttrs, mumbaiChainId, polygonChainId } from '../../../utils/config'
 import { useChainContext } from '../../../utils/Context'
@@ -51,9 +51,9 @@ const PredictionsCoreComponent3 = ({
   }, [router, prediction])
 
   useEffect(() => {
-    const homeSidePool = ethers.utils.formatEther(sidePoolVolumes[0]);
-    const drawSidePool = ethers.utils.formatEther(sidePoolVolumes[1]);
-    const awaySidePool = ethers.utils.formatEther(sidePoolVolumes[2]);
+    const homeSidePool = formatEther(BigInt(sidePoolVolumes[0]));
+    const drawSidePool = formatEther(BigInt(sidePoolVolumes[1]));
+    const awaySidePool = formatEther(BigInt(sidePoolVolumes[2]));
     setSidePools([
       parseFloat(homeSidePool),
       parseFloat(drawSidePool),

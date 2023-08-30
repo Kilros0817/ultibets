@@ -1,6 +1,7 @@
 import { Box, Flex, Grid, } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useAccount, useContractEvent, useNetwork, } from 'wagmi';
+import { formatEther } from 'viem';
 import PredictionsTab from '../../../components/mypredictions/PredictionsTab'
 import MyPredictionsStats from '../../../components/mypredictions/MyPredictionsStats'
 import Sidebar from '../../../components/Sidebar'
@@ -12,7 +13,6 @@ import { getDateAndTimeIntervalsAccordingToUserTimeZone } from '../../../utils/i
 import { MyPredictionsStatsType } from '../../../utils/types';
 import { getUserBetDataInPM } from '../../../utils/interact/thegraph/getUserBetDataInPM';
 import { nativeTokenDailyBetsAbiInPM, ultibetsTokenDailyBetsAbiInPM } from '../../../utils/assets';
-import { ethers } from 'ethers';
 
 const MyPredictions = () => {
   const { address, } = useAccount();
@@ -204,18 +204,18 @@ const MyPredictions = () => {
                 mypredictionsData?.map((item, index) => {
                   const sidePools = item.event.sidePools;
                   let volumes = sidePools?.map(item => item.amount);
-                  const totalVolume = volumes.reduce((sum, item1) => sum + parseFloat(ethers.utils.formatEther(item1)), 0);
+                  const totalVolume = volumes.reduce((sum, item1) => sum + parseFloat(formatEther(BigInt(item1))), 0);
                   const sidePoolVolume = (sidePools?.filter((item1) => item1.sideValue == item.prediction))[0];
-                  const sidePoolVolumeValue = parseFloat(ethers.utils.formatEther(sidePoolVolume.amount));
+                  const sidePoolVolumeValue = parseFloat(formatEther(BigInt(sidePoolVolume.amount)));
                   const odds = Math.round(sidePoolVolumeValue / totalVolume * 1000);
                   console.log("odds: ", odds);
 
-                  const gain = sidePoolVolumeValue > 0 ? Math.round(totalVolume * parseFloat(ethers.utils.formatEther(item.amount)) / sidePoolVolumeValue * 98 / 100 * 1000) / 1000 : 0;
+                  const gain = sidePoolVolumeValue > 0 ? Math.round(totalVolume * parseFloat(formatEther(BigInt(item.amount))) / sidePoolVolumeValue * 98 / 100 * 1000) / 1000 : 0;
                   
-                  let gainvalue = item.event.status == 2 ? parseFloat(ethers.utils.formatEther(item.amount)) : gain;
+                  let gainvalue = item.event.status == 2 ? parseFloat(formatEther(BigInt(item.amount))) : gain;
                   if (item.event.status == 1 && item.event.result != item.prediction) gainvalue = 0;
 
-                  const percentOfSidePool = Math.round(parseFloat(ethers.utils.formatEther(item?.amount)) / parseFloat(ethers.utils.formatEther(sidePoolVolume.amount)) * 1000);
+                  const percentOfSidePool = Math.round(parseFloat(formatEther(BigInt(item?.amount))) / parseFloat(formatEther(BigInt(sidePoolVolume.amount))) * 1000);
 
                   return (
                     <Flex
@@ -232,8 +232,8 @@ const MyPredictions = () => {
                         description={item?.event?.description}
                         betType={item?.event?.betType}
                         betTime={Number(item.betTime)}
-                        betAmount={parseFloat(ethers.utils.formatEther(item.amount))}
-                        paidAmount={parseFloat(ethers.utils.formatEther(item.paidAmount))}
+                        betAmount={parseFloat(formatEther(BigInt(item.amount)))}
+                        paidAmount={parseFloat(formatEther(BigInt(item.paidAmount)))}
                         odds={odds / 10} // returns 0 - 1000 from sc
                         percentOfSidePool={percentOfSidePool / 10} // returns 0 - 1000 from sc
                         gain={gainvalue}

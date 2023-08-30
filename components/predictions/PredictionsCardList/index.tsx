@@ -1,14 +1,13 @@
 import { Flex, Grid } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useContractEvent, useNetwork } from 'wagmi';
-import { ethers, } from 'ethers';
+import { formatEther } from 'viem';
 import PredictionCard from './PredictionsCard';
 import { useChainContext } from '../../../utils/Context';
 import {
   chainAttrs,
   contractAddressesInDailyBets,
   delayTimeFromSubgraph,
-  EventResultInPM,
   EventStatusInPM,
   mumbaiChainId,
   newChainAttrs,
@@ -164,13 +163,13 @@ const PredictionsCardList = ({
     if (predictionMarketFilteredData?.length > 0) {
       switch (sortByIndex) {
         case 0:
-          sortedData = [...predictionMarketFilteredData].sort((a: any, b: any) => parseFloat(ethers.utils.formatEther(b.bettingVolume))
-            - parseFloat(ethers.utils.formatEther(a.bettingVolume)))
+          sortedData = [...predictionMarketFilteredData].sort((a: any, b: any) => parseFloat(formatEther(b.bettingVolume))
+            - parseFloat(formatEther(a.bettingVolume)))
           break;
 
         case 1:
-          sortedData = [...predictionMarketFilteredData].sort((a: any, b: any) => parseFloat(ethers.utils.formatEther(a.bettingVolume))
-            - parseFloat(ethers.utils.formatEther(b.bettingVolume)))
+          sortedData = [...predictionMarketFilteredData].sort((a: any, b: any) => parseFloat(formatEther(a.bettingVolume))
+            - parseFloat(formatEther(b.bettingVolume)))
           break;
 
         case 2:
@@ -243,7 +242,7 @@ const PredictionsCardList = ({
                     subcategory={item.subcategory}
                     startTime={Number(item.startTime)}
                     bettingDeadline={Number(item.startTime)}
-                    bettingVolume={parseFloat(ethers.utils.formatEther(item.bettingVolume))}
+                    bettingVolume={parseFloat(formatEther(item.bettingVolume))}
                     currentToken={currentToken}
                   />
                 </Flex>

@@ -47,6 +47,10 @@ export type PerkInfo = {
     count: number
 }
 
+export type Point = {
+    value: number
+}
+
 export type LeaderboardTableRowType = {
     id: number
     username: string
@@ -58,7 +62,7 @@ export type LeaderboardTableRowType = {
     weeklyPnl: number
     monthlyPnl: number
     allTimePnl: number
-    allTimeChart: number[]
+    allTimeChart: Point[]
 }
 
 export type LeaderboardInitialDataPredictionsType = {

@@ -3,7 +3,6 @@ import {
     ultibetsRewardAddresses,
 } from '../../config';
 import { ultibetsRewardAbi } from '../../assets';
-import { ethers } from 'ethers';
 import { parseEther } from "viem";
 
 // function claimReferralBettingReward(
@@ -21,7 +20,7 @@ export const claimReferralBettingReward = async (
             abi: ultibetsRewardAbi,
             functionName: 'claimReferralBettingReward',
             args: [
-                ethers.utils.parseEther(amount?.toString() ?? '0'),
+                parseEther(amount?.toString() ?? '0'),
                 signature,
             ],
         });

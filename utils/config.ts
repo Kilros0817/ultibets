@@ -382,7 +382,7 @@ export const airdropContractAddresses = {
 
 export const chainRPCs = {
 	[fujiChainId]: 'https://rpc.ankr.com/avalanche_fuji',
-	[bscTestnetChainId]: 'https://bsc-testnet.publicnode.com',
+	[bscTestnetChainId]: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
 	[opGoerliChainId]: 'https://side-wispy-dinghy.optimism-goerli.discover.quiknode.pro/72305688905d897d5a9a51b6f4b8c2fc31bf0dd2/',
 	[mumbaiChainId]: 'https://polygon-mumbai.infura.io/v3/4458cf4d1689497b9a38b1d6bbf05e78',
 	[avalancheChainId]: '',

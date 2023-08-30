@@ -29,16 +29,16 @@ import {v4 as uuidv4} from 'uuid';
 import {database} from '../../../utils/firebase';
 import {useAccount, useNetwork} from 'wagmi';
 import {switchNetwork} from '@wagmi/core'
-import {ethers} from 'ethers';
 import {toast} from 'react-toastify';
 import {removeAllItemsFromCart} from '../../../store/cart-slice';
 import {countries} from '../../../constant/countries';
 import {continents} from '../../../constant/continents';
 import {shippingCost} from '../../../constant/continents';
 import {getUSDCBalance, transferUSDC} from '../../../utils/interact/sc/usdc';
-import {bscTestnetChainId, polygonChainId} from '../../../utils/config';
+import {polygonChainId} from '../../../utils/config';
 import Account from '../../../components/Account';
 import SubHeader from '../../../components/MerchStore/SubHeader';
+import { formatUnits, parseUnits } from 'viem';
 
 const Checkout: NextPage = () => {
     const {address} = useAccount();
@@ -84,8 +84,8 @@ const Checkout: NextPage = () => {
 
         try {
             const balance = await getUSDCBalance(address);
-            const formattedBalance = ethers.utils.formatUnits(balance as any, 6);
-            const amount = ethers.utils.parseUnits(String(finalAmount), 6);
+            const formattedBalance = formatUnits(balance as any, 6);
+            const amount = parseUnits(String(finalAmount), 6);
 
             if (totalAmount > + formattedBalance) {
                 toast.error(`Insufficient balance to send ${finalAmount} USDC , You have ${formattedBalance} USDC. Please add more funds to your wallet.`, {

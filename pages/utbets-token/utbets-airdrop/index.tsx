@@ -7,11 +7,11 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 import React, { useState, useEffect, } from 'react'
+import { formatEther } from 'viem';
 import UtBetsTokenRoutes from "../tokenRoutes";
 import { getEllipsisTxt } from '../../../utils/formatters';
 import { useAccount, useContractEvent, useNetwork } from 'wagmi';
 import { claimPrize, getPrizeAmount } from '../../../utils/interact/sc/airdrop';
-import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 import AnnounceModal from '../../../components/modal/AnnounceModal';
 import { checkIconInGreenBg, utbetsAirdropAbi } from '../../../utils/assets';
@@ -42,7 +42,7 @@ const UtbetsAirdrop = () => {
 
   const initPrize = async () => {
     const amount = await getPrizeAmount(chain?.id ?? 0, address);
-    setIsEligible(Number(ethers.utils.formatEther(amount as string)) > 0);
+    setIsEligible(Number(formatEther(amount as bigint)) > 0);
   }
 
   useEffect(() => {

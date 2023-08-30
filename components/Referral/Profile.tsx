@@ -11,7 +11,7 @@ import { useAccount, useNetwork } from 'wagmi';
 import copy from 'copy-text-to-clipboard';
 import { getEllipsisTxt } from '../../utils/formatters';
 import { useEffect, useState } from 'react'; 
-import { ethers } from 'ethers';
+import { parseEther } from 'viem';
 import axios from 'axios';
 import AnnounceModal from '../modal/AnnounceModal';
 import { checkIconInGreenBg } from '../../utils/assets';
@@ -73,7 +73,7 @@ const Profile = ({
 		const data = {
 			chainId: chain?.id ?? 0,
 			rpc: (chainRPCs as any)[chain?.id ?? mumbaiChainId],
-			eventID: ethers.utils.parseEther(referralBettingReward?.toString() ?? '0'), // this is not just eventid, but use here
+			eventID: parseEther(referralBettingReward?.toString() ?? '0'), // this is not just eventid, but use here
 			bettor: address,
 		};
 

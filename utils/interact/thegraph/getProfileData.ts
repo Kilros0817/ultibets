@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ethers } from "ethers";
+import { formatEther } from "viem";
 
 export const getProfileData = async (
     address: string,
@@ -55,13 +55,13 @@ export const getProfileData = async (
                 if (returnedData[i]?.ultiBettors.length > 0) {
                     totalReferrals += Number(returnedData[i]?.ultiBettors[0]?.totalRefereeNumber);
                     validReferrals += Number(returnedData[i]?.ultiBettors[0]?.validRefereeNumber);
-                    totalClaimedAmount += parseFloat(ethers.utils.formatEther(returnedData[i]?.ultiBettors[0]?.claimedReferralRewardAmount ?? '0'));
-                    claimableReward += parseFloat(ethers.utils.formatEther(returnedData[i]?.ultiBettors[0]?.totalReferralRewardAmount ?? '0')) -
-                        parseFloat(ethers.utils.formatEther(returnedData[i]?.ultiBettors[0]?.claimedReferralRewardAmount ?? '0'))
+                    totalClaimedAmount += parseFloat(formatEther(returnedData[i]?.ultiBettors[0]?.claimedReferralRewardAmount ?? '0'));
+                    claimableReward += parseFloat(formatEther(returnedData[i]?.ultiBettors[0]?.totalReferralRewardAmount ?? '0')) -
+                        parseFloat(formatEther(returnedData[i]?.ultiBettors[0]?.claimedReferralRewardAmount ?? '0'))
                     isReferred = isReferred || (returnedData[i]?.ultiBettors[0]?.isReferred == true ? true : false)
                     isClaimedReferralBettingReward =
                         isClaimedReferralBettingReward || (returnedData[i]?.ultiBettors[0]?.isClaimedReferralBettingReward == true ? true : false)
-                    referralBettingReward += parseFloat(ethers.utils.formatEther(returnedData[i]?.ultiBettors[0]?.referralBettingReward ?? '0'));
+                    referralBettingReward += parseFloat(formatEther(returnedData[i]?.ultiBettors[0]?.referralBettingReward ?? '0'));
                     isSuccess = true;
                 }
             }

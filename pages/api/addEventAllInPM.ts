@@ -1,4 +1,4 @@
-const ethers = require("ethers");
+import {ethers} from 'ethers'
 import {
     nativeTokenDailyBetsAbiInPM,
     ultibetsTokenDailyBetsAbiInPM
@@ -98,8 +98,11 @@ export const addEventAllInPM = async (req: any, res: any) => {
                     data.subcategory,
                     data.eventStartTime,
                 );
+
                 const tx = await wallet.sendTransaction(unsignedTx);
+
                 await tx.wait();
+
                 await delay(5000);
 
                 receipt.push({

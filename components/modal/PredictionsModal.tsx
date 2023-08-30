@@ -25,9 +25,9 @@ import { convertBetValue2Number } from '../../utils/interact/utility';
 import axios from 'axios';
 import { PerkInfo } from '../../utils/types';
 import { getAllowance, getUTBETSBalance, utbetsApprove } from '../../utils/interact/sc/utbets';
-import { checkIconInGreenBg, UltiBetsTokenAbi } from '../../utils/assets';
+import { checkIconInGreenBg } from '../../utils/assets';
 import { toast } from 'react-toastify';
-import { BigNumberish, ethers } from 'ethers';
+import { formatEther } from 'viem';
 const crossIconInRedBg = "/images/svgs/modal/cross-icon-in-red-bg.svg";
 
 export type PredictionsModalProps = {
@@ -98,7 +98,7 @@ const PredictionsModal = ({
 
   const getApproval = async () => {
     const allowance = await getAllowance((utbetsTokenAddresses as any)[Number(chain?.id)], address, type == 'prediction' ? (contractAddressesInDailyBets as any)[Number(chain?.id)][1] : (contractAddressesInSBC as any)[Number(chain?.id)][1]);
-    const amount = Number(ethers.utils.formatEther(allowance as BigNumberish));
+    const amount = Number(formatEther(allowance as bigint));
     const betAmount = type == 'prediction' ? newBetAmount : roundBetAmount
     if (amount >= (betAmount ?? 0)) {
       setIsApprovedUtbets(true)
@@ -222,7 +222,7 @@ const PredictionsModal = ({
        
       const balanceOfUtbets = await getUTBETSBalance(tokenAddress, address);
 
-      if ((newBetAmount ?? 0) > parseFloat(ethers.utils.formatEther(balanceOfUtbets as any))) {
+      if ((newBetAmount ?? 0) > parseFloat(formatEther(balanceOfUtbets as any))) {
         onOpenAnnounceModal();
         return;
       }
@@ -291,9 +291,8 @@ const PredictionsModal = ({
       }
     } else {
       const tokenAddress = (utbetsTokenAddresses as any)[chainId];
-      const contract = new ethers.Contract(tokenAddress, UltiBetsTokenAbi, new ethers.providers.StaticJsonRpcProvider((chainRPCs as any)[chainId]));
-      const balanceOfUtbets = await contract.balanceOf(address);
-      const numberOfBalanceOfUtbetsToken = Number(ethers.utils.formatEther(balanceOfUtbets));
+      const balanceOfUtbets = await getUTBETSBalance(tokenAddress, address);
+      const numberOfBalanceOfUtbetsToken = Number(formatEther(balanceOfUtbets as bigint));
 
       if ((roundBetAmount ?? 0) > numberOfBalanceOfUtbetsToken) {
         onOpenAnnounceModal();

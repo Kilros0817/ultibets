@@ -618,11 +618,6 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   height: 667px;
 }
 
-.chart-wrapper canvas {
-  height: 23px !important;
-  width: 100% !important;
-}
-
 .chain-logo-menu-wrapper.stake-lp-page>div {
   left: 33px !important;
 }
