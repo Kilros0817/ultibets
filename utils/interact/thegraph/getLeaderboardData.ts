@@ -16,7 +16,7 @@ export const getLeaderboardData = async (
                 paidAmount
                 prediction
             }
-            roiLogs {
+            roiLogs(orderBy: timestamp) {
                 timestamp
                 totalBetAmount
                 totalPaidAmount
