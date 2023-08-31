@@ -164,8 +164,8 @@ const PredictionsCoreComponent2 = ({
             <Image
               src= { currentSports == 'tennis' ? "/images/pngs/bets/home.svg" : "/images/svgs/bets/yes.svg"}
               alt="yes"
-              width={choice == 'home' || 'yes' ? '148px' : '120px'}
-              height={choice == 'home' || 'yes' ? '148px' : '120px'}
+              width={choice == 'home' || 'yes' ? '160px' : '120px'}
+              height={choice == 'home' || 'yes' ? '160px' : '120px'}
               _hover={{
                 transform: 'scale(1.1)',
               }}
@@ -180,8 +180,8 @@ const PredictionsCoreComponent2 = ({
             <Image
               src= { currentSports == 'tennis' ? "/images/pngs/bets/away.svg" : "/images/svgs/bets/no.svg"}
               alt="no"
-              width={choice == 'away' || 'no' ? '140px' : '120px'}
-              height={choice == 'away' || 'no' ? '140px' : '120px'}
+              width={choice == 'away' || 'no' ? '160px' : '120px'}
+              height={choice == 'away' || 'no' ? '160px' : '120px'}
               _hover={{
                 transform: 'scale(1.1)',
               }}

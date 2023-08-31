@@ -1,28 +1,32 @@
 import axios from "axios";
+import { secondsInMonth } from "../../config";
 
 export const getLeaderboardData = async (
     chainId?: number,
 ) => {
+    const time = Math.round(Date.now() / 1000) - secondsInMonth
     let query = `{
-        ultiBettors(where: {onLeaderBoard: true}) {
-            id
-            nameOnLeaderBoard
-            onLeaderBoard
-            totalBettingAmount
-            totalPrize
-            predictions {
-                betTime
-                amount
-                paidAmount
-                prediction
+        ultiBettors {
+          id
+          nameOnLeaderBoard
+          onLeaderBoard
+          totalPrize
+          predictions(where: {betTime_gte: "${time}", event_: {status_not: 0}}) {
+            betTime
+            amount
+            paidAmount
+            prediction
+            event {
+              startTime
             }
-            roiLogs(orderBy: timestamp) {
-                timestamp
-                totalBetAmount
-                totalPaidAmount
-            }
+          }
+          roiLogs(where: {timestamp_gte: "${time}"}, first: 1) {
+            totalBetAmount
+            totalPaidAmount
+            timestamp
+          }
         }
-    }`;
+      }`;
 
     const params = {
         query: query,

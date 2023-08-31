@@ -73,7 +73,6 @@ const MyPredictions = () => {
   }
 
   useEffect(() => {
-    console.log("user bet history: ", "before");
     fetchDataFromSubgraph2(200);
   }, [
     isNativeToken,
@@ -83,7 +82,6 @@ const MyPredictions = () => {
   ])
 
   useEffect(() => {
-    console.log("user bet history: ", "before");
     fetchDataFromSubgraph2(3000);
   }, [shouldRender])
 

@@ -114,6 +114,7 @@ const LeaderboardTable = ({
             (async () => {
                 const leaderboardInitialData = await getLeaderboardData(chainId);
                 if (leaderboardInitialData?.isSuccess) {
+                    console.log(leaderboardInitialData?.returnedData, "===============leaderboard data===============")
                     await handleLeaderboardInitialData(leaderboardInitialData?.returnedData);
                 }
             })()
@@ -138,18 +139,26 @@ const LeaderboardTable = ({
         },
     });
 
-    const handleChartRoiPoints = (chartRoiInitialData: RoiLogsType[]) => {
+    const handleChartRoiPoints = (chartRoiInitialData: RoiLogsType, predictionData: LeaderboardInitialDataPredictionsType[]) => {
+        const initTotal = parseFloat(formatEther(BigInt(chartRoiInitialData.totalBetAmount)));
+        const initPaid = parseFloat(formatEther(BigInt(chartRoiInitialData.totalPaidAmount)));
         let points = Array().fill({value: 0});
-
-            const roiDataInIthDay = chartRoiInitialData.filter((item: any) =>
-                (Number(item?.timestamp) >= Math.round(Date.now() / 1000) - secondsInDay * 30))
-            
-            roiDataInIthDay.map((item) => {
-                const totalPaid = parseFloat(formatEther(BigInt(item.totalPaidAmount)));
-                const totalBetted = parseFloat(formatEther(BigInt(item.totalBetAmount)));
-                const pnl = totalPaid - totalBetted;
-                points.push({value: Math.round(pnl / totalBetted * 100)})
-            })
+        const initROI = initTotal > 0 ? Math.round((initPaid - initTotal) / initTotal * 100) : 0;
+        points.push({value: initROI});
+        let totalAmount = initTotal;
+        let totalPaid = initPaid;
+        // @ts-ignore
+        predictionData.sort((a, b) => a.event.startTime - b.event.startTime);
+        predictionData.map((item, index) => {
+            if (index > 0) {
+                const betAmount = parseFloat(formatEther(BigInt(item.amount)));
+                const paidAmount = parseFloat(formatEther(BigInt(item.paidAmount)));
+                totalAmount += betAmount;
+                totalPaid += paidAmount;
+                const pnl = totalPaid - totalAmount;
+                points.push({value: Math.round(pnl / totalAmount * 100)})
+            }
+        })
 
         return points as Point[];
     }
@@ -200,10 +209,17 @@ const LeaderboardTable = ({
                 }
             ]
 
-            const pointsInMonth = handleChartRoiPoints(item.roiLogs);
+            let totalBettingAmount = 0;
+            if (Number(item.roiLogs[0].timestamp) <= Math.round(Date.now() / 1000) - secondsInWeek) {
+                totalBettingAmount = parseFloat(formatEther(BigInt(item.roiLogs[0].totalBetAmount)));
+            }
+
+            const predictions = item?.predictions;
+
+            // @ts-ignore
+            predictions.sort((a, b) => a.event.startTime - b.event.startTime);
 
             periodItems.map((periodItem) => {
-                const predictions = item?.predictions;
                 const predictionsInPeriod = predictions?.filter(
                     (item: LeaderboardInitialDataPredictionsType) =>
                         Number(item.betTime) > Math.round(Date.now() / 1000) - periodItem.timePeriod
@@ -220,6 +236,9 @@ const LeaderboardTable = ({
 
                 let roi = 0;
                 let pnl = 0;
+                if (periodItem.roi == "monthlyRoi") {
+                    totalBettingAmount += totalPredictionAmount;
+                } 
                 if (totalPredictionAmount > 0) {
                     pnl = totalPaidAmount - totalPredictionAmount;
                     roi = Math.round(pnl / totalPredictionAmount * 100);
@@ -229,14 +248,18 @@ const LeaderboardTable = ({
                 (data as any)[periodItem.pnl] = pnl == 0 ? 0 : parseFloat(pnl.toFixed(1));
             })
 
-            let totalBettingAmount = parseFloat(formatEther(BigInt(item.totalBettingAmount)));
             let allTimePnl = parseFloat(formatEther(BigInt(item.totalPrize))) - totalBettingAmount;
             let allTimeRoi = 0;
+
             if (totalBettingAmount > 0) {
                 allTimeRoi = Math.round(allTimePnl / totalBettingAmount * 100);
             }
             data['allTimePnl'] = allTimePnl == 0 ? 0 : parseFloat(allTimePnl.toFixed(1));
             data['allTimeRoi'] = allTimeRoi == 0 ? 0 : parseFloat(allTimeRoi.toFixed(1));
+
+
+            const pointsInMonth = handleChartRoiPoints(item.roiLogs[0], item?.predictions);
+
             data['allTimeChart'] = pointsInMonth;
 
             return data;
@@ -530,7 +553,7 @@ const LeaderboardTable = ({
                                                     ml={'80px'}
                                                     borderColor='transparent'
                                                 >
-                                                    <LineChart width={100} height={50} data={item.allTimeChart}>
+                                                    <LineChart width={80} height={50} data={item.allTimeChart}>
                                                         <Line
                                                             type="monotone"
                                                             dot={false}
@@ -542,6 +565,7 @@ const LeaderboardTable = ({
                                                             animationDuration={0}
                                                             unit="M"
                                                             strokeLinecap="round"
+                                                            label="value"
                                                         />
                                                     </LineChart>
                                                 </Td>
