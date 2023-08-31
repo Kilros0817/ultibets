@@ -52,7 +52,6 @@ export type Point = {
 }
 
 export type LeaderboardTableRowType = {
-    id: number
     username: string
     dailyRoi: number
     weeklyRoi: number

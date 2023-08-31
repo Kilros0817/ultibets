@@ -431,7 +431,7 @@ const LeaderboardTableMobile = ({
                                         className='first-row'
                                         borderColor='transparent'
                                     >
-                                        {item.id}
+                                        {index + 1}
                                     </Td>
                                     <Td
                                         borderColor='transparent'

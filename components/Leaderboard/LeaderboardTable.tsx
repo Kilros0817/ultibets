@@ -170,7 +170,6 @@ const LeaderboardTable = ({
     const handleLeaderboardInitialData = async (leaderboardInitialData: LeaderboardInitialDataType[]) => {
         const leaderboardData = await Promise.all(leaderboardInitialData.map((item: LeaderboardInitialDataType, index: number) => {
             let data: LeaderboardTableRowType = {
-                id: index + 1,
                 username: item.nameOnLeaderBoard,
                 dailyRoi: 0,
                 weeklyRoi: 0,
@@ -450,7 +449,7 @@ const LeaderboardTable = ({
                                                     className='first-row'
                                                     borderColor='transparent'
                                                 >
-                                                    {item.id}
+                                                    {index + 1}
                                                 </Td>
                                                 <Td
                                                     borderColor='transparent'
