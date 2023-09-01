@@ -38,8 +38,6 @@ import GeoBlockModal from '../modal/startup/GeoBlockModal';
 import { detectAnyAdblocker, } from "just-detect-adblock";
 import AdBlockDetectModal from '../modal/startup/AdBlockDetectModal';
 import { ChainAttrItemType } from '../../utils/types';
-import AnnounceModal from '../modal/AnnounceModal';
-import { exclamationIconInRedBg } from '../../utils/assets';
 import ExLink from './ExLink';
 import Head from 'next/head';
 
@@ -183,7 +181,7 @@ const Header = () => {
         <MenuList
           backgroundColor={'#1F1F1F'}
           minWidth='min-content'
-          width='170px'
+          width='195px'
           zIndex={'3'}
         >
           {
@@ -218,6 +216,38 @@ const Header = () => {
                 />
                 <Text
                   textTransform='capitalize'
+                >
+                  {item.name}
+                </Text>
+              </MenuItem>
+            ))
+          }
+          {
+            chainAttrs.soonnet.map((item, index) => (
+              <MenuItem
+                backgroundColor={'#1F1F1F'}
+                _hover={{
+                  backgroundColor: '#E18833;',
+                }}
+
+                key={index}
+                fontFamily='Nunito'
+                fontStyle='normal'
+                fontWeight='700'
+                fontSize='16px'
+                lineHeight='16px'
+                paddingLeft='15px'
+              >
+                <Image
+                  width={'26px'}
+                  height={'26px'}
+                  src={item.logo}
+                  alt={item.alt}
+                  mr='4'
+                />
+                <Text
+                  textTransform='capitalize'
+                  color={'gray'}
                 >
                   {item.name}
                 </Text>

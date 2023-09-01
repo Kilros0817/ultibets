@@ -99,22 +99,106 @@ const FAQS = () => {
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
                 >
-                  UltiBets is the first Cryptocurrency Multichain Betting
-                  Platform, operating on 4 Blockchains:
+                  UltiBets is aiming to become the leader and a pioneer into the blockchain industry by being the First Multichain Prediction Markets and GameFi Crypto Platform.<br /><br />
+                  By bringing various and exciting features with intuitive ease-of-use for UltiBettors (the members of the UltiBets Community) no matter which blockchain they prefer to use, we are offering the ultimate prediction experience on blockchain, join us and try it now!<br /><br />
+                  We offer the following features on our platform:
                 </Text>
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
                 >
+                  Core Features:
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '0px',
+                      width: '100%',
+                    }}
+                  >
+                    <li> - Prediction Markets in 11 Categories</li>
+                    <li> - Weekly tournament of Squid Bet Competitions (SBC)</li>
+                  </ul>
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                  color={'#BDBDBD'}
+                >
+                  Social Features:
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '0px',
+                      width: '100%',
+                    }}
+                  >
+                    <li> - UTBETS Leaderboard</li>
+                    <li> - Referral System</li>
+                    <li> - Reward System</li>
+                  </ul>
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                  color={'#BDBDBD'}
+                >
+                  UTBETS Features:
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '0px',
+                      width: '100%',
+                    }}
+                  >
+                    <li> - Governance (UTBETS holders)</li>
+                    <li> - Buy UTBETS Token</li>
+                    <li> - UTBETS LP Pairs</li>
+                    <li> - Bridge UTBETS Token</li>
+                  </ul>
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                  color={'#BDBDBD'}
+                >
+                  UltiBets Metaverse
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                  color={'#BDBDBD'}
+                >
+                  UltiBets Merch' Store
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                  color={'#BDBDBD'}
+                  mt={'10px'}
+                >
+                  As a Multichain platform, UltiBets will be launched on the following 4 EVM-compatible blockchains :
                   <ul
                     style={{
                       listStyleType: 'none',
@@ -124,8 +208,8 @@ const FAQS = () => {
                   >
                     <li> - Avalanche</li>
                     <li> - Binance Smart Chain</li>
-                    <li> - Polygon</li>
                     <li> - Optimism</li>
+                    <li> - Polygon</li>
                   </ul>
                 </Text>
                 <Text
@@ -133,19 +217,16 @@ const FAQS = () => {
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
                 >
-                  UltiBets offers Binary Bets (Yes / No, Team A / Team B) over 11
-                  Categories:
+                  5 Choice of Cryptocurrencies to use on the platform:
                 </Text>
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
                 >
@@ -156,17 +237,11 @@ const FAQS = () => {
                       width: '100%',
                     }}
                   >
-                    <li> - Soccer</li>
-                    <li> - Basketball</li>
-                    <li> - Us FootBall</li>
-                    <li> - Tennis</li>
-                    <li> - Combat Sports</li>
-                    <li>- Motorsports</li>
-                    <li>- Crypto</li>
-                    <li>- Politics</li>
-                    <li>- Stocks</li>
-                    <li>- Movies & TV Shows</li>
-                    <li>- Music</li>
+                    <li> - AVAX</li>
+                    <li> - BNB</li>
+                    <li> - ETH (Optimism)</li>
+                    <li> - MATIC</li>
+                    <li> - UTBETS</li>
                   </ul>
                 </Text>
                 <Text
@@ -174,12 +249,14 @@ const FAQS = () => {
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
+                  mt={'10px'}
                 >
-                  We also added an amazing touch of GameFi with a weekly
-                  tournament called Squid Bet Competition
+                  UTBETS is the only official UltiBets Token, being the cornerstone of our Ecosystem, available on each of the 4 chains we will be launched on listed above.<br /><br />
+                  You can learn more about the UTBETS Tokenomics here and find the addresses of the contracts deployed for each chain inside the UTBETS Token Page.<br /><br />
+                  To start learning about using the UltiBets platform, you can follow our various Tutorials, they will guide you step-by-step to use every feature available on the website.<br /><br />
+                  For more experienced users or developers, you can check our Github as well as our documentation about our front-end forking process and the addresses to all our smart contracts.
                 </Text>
               </Flex>
             )
@@ -213,46 +290,105 @@ const FAQS = () => {
               color={'white'}
               mt={activeTwo ? '15px' : '0px'}
             >
-              What is Squid Bet Competition (SBC)?{' '}
+              How do you place a bet on UltiBets?{' '}
             </Text>
-            {activeTwo ? (
-              <CloseIcon cursor={'pointer'} fontSize={'15px'} />
-            ) : (
-              <AddIcon cursor={'pointer'} fontSize={'15px'} />
-            )}
+            {
+              activeTwo ? (
+                <CloseIcon cursor={'pointer'} fontSize={'15px'} />
+              ) : (
+                <AddIcon cursor={'pointer'} fontSize={'15px'} />
+              )
+            }
           </Flex>
           {
             activeTwo && (
-              <Flex direction={'column'} gap={'10px'} mb={'20px'}>
+              <Flex m={'10px'} direction={'column'} gap={'10px'} mb={'20px'}>
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
                 >
-                  SBC is a weekly win it all tournament with 500 participants over
-                  5 rounds (1 round per day) where the losing side is eliminated
-                  after each round (Binary Bets will also be used for SBC).
+                  Prediction markets offer an exciting way to engage with real-world events and make predictions on their outcomes. This guide will walk you through the key steps of placing predictions, checking your predictions, claiming gains for winning predictions, leaderboard registration, and using the referral system.<br /><br /><br />
                 </Text>
                 <Text
-                  mt={'20px'}
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
+                  lineHeight={'25px'}
+                >
+                  How to Place Predictions
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
                 >
-                  After the last round, if one player is remaining, he/she will
-                  win the entire prize pool. If more than one player is still
-                  alive, an on-chain vote will take place to either split equally
-                  the prize pool between the remaining participants or let the
-                  fate decide and use the Chainlink VRF feature to generate a true
-                  random number to pick only one winner among the last players!
+                  To place predictions on UltiBets, follow these steps:
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '0px',
+                      width: '100%',
+                    }}
+                  >
+                    <li> 1. Log in to UltiBets.com with your wallet.</li>
+                    <li> 2. Visit the "Prediction Markets" section at  https://ultibets.com/prediction-markets and browse any available predictions across our 11 categories, and select one that interests you. You can also move forward in time to find a future prediction using the Calendar. </li>
+                    <li> 3. Read the market details and available predictions choices. </li>
+                    <li> 4. Pick a side and allocate the desired amount of tokens to the prediction. </li>
+                    <li> 5. Confirm your prediction on your wallet, once confirmed, this it it!</li>
+                  </ul>
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                  mt={'20px'}
+                >
+                  Congratulations UltiBettor, you've just placed your first prediction on UltiBets!
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                  mt={'25px'}
+                >
+                  Checking Predictions and Claiming Gains
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                  color={'#BDBDBD'}
+                >
+                  Before, during and after the event concludes, you can check the status of your predictions:
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '0px',
+                      width: '100%',
+                    }}
+                  >
+                    <li> 1. Visit the "My Predictions" section on your account.</li>
+                    <li> 2. Find the corresponding prediction and view the outcome. </li>
+                    <li> 3. If your prediction is correct, you can claim your gains directly from this section by clicking the "Claim Gain" Button</li>
+                  </ul>
+                </Text>
+                <Text mt={`20px`}>
+                  {' '}
+                  Congratulations! You just place your first bet on UltiBets!
                 </Text>
               </Flex>
             )
@@ -286,144 +422,154 @@ const FAQS = () => {
               color={'white'}
               mt={activeThree ? '15px' : '0px'}
             >
-              How do you place a bet on UltiBets?{' '}
+              What is Squid Bet Competition (SBC)?{' '}
             </Text>
-            {
-              activeThree ? (
-                <CloseIcon cursor={'pointer'} fontSize={'15px'} />
-              ) : (
-                <AddIcon cursor={'pointer'} fontSize={'15px'} />
-              )
-            }
+            {activeThree ? (
+              <CloseIcon cursor={'pointer'} fontSize={'15px'} />
+            ) : (
+              <AddIcon cursor={'pointer'} fontSize={'15px'} />
+            )}
           </Flex>
           {
             activeThree && (
-              <Flex m={'25px'} direction={'column'} gap={'10px'} mb={'20px'}>
+              <Flex direction={'column'} gap={'10px'} mb={'20px'}>
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
                 >
-                  {`
-                A) First you must own a cryptocurrency wallet to connect and
-                place your bets onto the UltiBets platform (Metamask is the best
-                option)`}
+                  Our GameFi feature, Squid Bet Competitions (SBC) offers a unique way to showcase your predictions skills during this weekly tournament. <br /><br />
+                  This tutorial will walk you through the steps of participating in SBC, from registration to final voting, and how to claim SBC NFTs along with their associated perks.
+                </Text>
+                <Text
+                  mt={'20px'}
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                >
+                  Participating in the SBC involves several stages:
                 </Text>
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
                 >
-                  {`
-                B) First you must own a cryptocurrency wallet to connect and
-                place your bets onto the UltiBets platform (Metamask is the best
-                option)`}
+                  <Text color={'white'}>
+                    SBC Registration:
+                  </Text>
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '0px',
+                      width: '100%',
+                    }}
+                  >
+                    <li> 1. Log in to your UltiBets account with your wallet and navigate to the SBC section at https://ultibets.com/sbc</li>
+                    <li> 2. Access to the current opened SBC by clicking the "Access Register Page" button. Both the Entry fee (to register) and Round Fees (to participate into the rounds, to increase the total prize pool) are explicitly stated on this page. </li>
+                    <li> 3. Register by simply clicking "Register Now" on the SBC registration page, this will launch a transaction into your wallet, confirm it, and wait from the blockchain confirmation. </li>
+                    <li> 4. That's it! Congratulations! You are officially registered for a weekly SBC. </li>
+                  </ul>
                 </Text>
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
+                  mt={'30px'}
                 >
-                  {`
-                 C) Configure your wallet to be connected onto one of the 4
-                 blockchains mentioned above (Avalanche / Binance Chain / Optimism
-                 / Polygon).`}
+                  <Text color={'white'}>
+                    SBC Rounds Participation:
+                  </Text>
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '0px',
+                      width: '100%',
+                    }}
+                  >
+                    <li> 1. Access to the current opened SBC by clicking the "Access Round (1 to 5)" button.</li>
+                    <li> 2. Place your round prediction by selecting your side, then simply click the "Predict Now" button on the round page, this will launch a transaction into your wallet, confirm it, and wait from the blockchain confirmation. </li>
+                    <li> 3. That's it! Congratulations! You have officially participated into a SBC Round!  </li>
+                    <li> 4. At the end of the real-world event, the final result is announced, and the losing side is eliminated while the winning side is moving onto the next round. </li>
+                  </ul>
                 </Text>
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
+                  mt={'5px'}
                 >
-                  {`
-             D) Purchase any native chain token (AVAX / BNB / FTM / MATIC) or
-             UltiBets only official Token UTBETS.`}
+                  Like on the Prediction Markets feature, you have a deadline to place your prediction for the round, not doing so will eliminate you immediately from the SBC.
                 </Text>
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
+                  mt={'30px'}
                 >
-                  {`
-              E) Click on the "Bets" tab menu or any icon on the left sidebar
-              to select you desired category and event/match by clicking on
-              "Bet Now".`}
+                  <Text color={'white'}>
+                    SBC Final Voting System:
+                  </Text>
+                  <Text mt={'5px'}>
+                    At the end of the 5th and final round, if more than one UltiBettor is remaining, a voting with take place between these finalists.<br /><br />
+                    2 voting choices are available (you can pick only one): <br />
+                    - Spilt Equally the Prize Pool<br />
+                    - Random Solo Winner* of the Prize Pool<br /><br />
+                    Based on these 2 choices, the 3 following scenarios can appear:<br />
+                  </Text>
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '0px',
+                      width: '100%',
+                    }}
+                  >
+                    <li> 1. Split Equally wins: meaning the prize pool will be equally split between each remaining player.</li>
+                    <li> 2. Random Solo Winner wins: meaning the prize pool will be attributed randomly to a unique winner among the finalists. </li>
+                    <li> 3. Equality (Lack of consensus): if this happens, the Random Solo Winner choice will be picked by default to let the fate decide a unique winner among the finalists. </li>
+                  </ul>
                 </Text>
-
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
-                  color={'#BDBDBD'}
+                  mt={'20px'}
                 >
-                  {`
-             F) Pick a side (Yes / No, Team A / Team B) by clicking on the
-             corresponding button, then click on the "Bet Now" button, a
-             popup will appear.`}
+                  Winner(s) can then claim his/her/their prize pool on the last section of each SBC ('SBC  Winner Page')
                 </Text>
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
+                  mt={'10px'}
                 >
-                  {`
-            G) Select the betting currency desired (native chain token
-              you're connected on or UTBETS Tokens for the chain you're
-              connected on) and enter a betting amount then click on the
-              "Place Bet" button, a Metamask popup will appear, simply confirm
-              the transaction. `}
-                </Text>
-
-                <Text
-                  width={['300px', '300px', '500px', '500px']}
-                  fontFamily={'Nunito'}
-                  fontStyle={'normal'}
-                  fontWeight={'500'}
-                  fontSize={'18px'}
-                  lineHeight={'25px'}
-                  color={'#BDBDBD'}
-                >
-                  {`
-               H) Once the transaction is confirmed, the popup will update
-               accordingly once done.
-             `}
-                </Text>
-
-                <Text mt={`20px`}>
-                  {' '}
-                  Congratulations! You just place your first bet on UltiBets!
+                  *UltiBets is using the Chainlink VRF feature inside the SBC contracts on the 4 chains we are deployed on, in order to generate true randomness on the blockchain.
                 </Text>
               </Flex>
             )
           }
         </Flex>
-
         <Flex
           width={['370px', '350px', '650px', '650px']}
           height={activeFour ? 'auto' : '50px'}
@@ -469,39 +615,143 @@ const FAQS = () => {
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
                 >
-                  {`A) Go over`}
-                  <Text as={'span'} color={'#FFD700'}>
-                    {' '}
-                    <a
-                      href="https://app.sushi.com/swap"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      https://app.sushi.com/swap
-                    </a>
-                  </Text>
-                  {`
-                 and swap any compatible token (AVAX / BNB / FTM / MATIC / USDC /
-                USDT / DAI) for UTBETS Tokens.
-              `}
+                  The UTBETS token is the cornerstone of UltiBets ecosystem. This tutorial will help you navigate the process of buying UTBETS tokens and providing liquidity to the UTBETS token on Uniswap.
                 </Text>
                 <Text
                   width={['300px', '300px', '500px', '500px']}
                   fontFamily={'Nunito'}
                   fontStyle={'normal'}
                   fontWeight={'500'}
-                  fontSize={'18px'}
                   lineHeight={'25px'}
                   color={'#BDBDBD'}
                 >
-                  {`  B) Visit the UtBets section of the website, on this page you
-                will find 3 submenus: Token Information | Buy $UTBETS | Bridge
-                $UTBETS, simply click on the "Buy $UTBETS" submenu and swap any
-                compatible token (same list) for UTBETS Tokens.`}
+                  <Text color={'white'}>
+                    How to Buy UTBETS on Uniswap:
+                  </Text>
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '0px',
+                      width: '100%',
+                    }}
+                  >
+                    <li> 1. Visit the Uniswap platform at
+                      <Text as={'span'} color={'#FFD700'}>
+                        {' '}
+                        <a
+                          href="https://app.sushi.com/swap"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          https://app.sushi.com/swap
+                        </a>
+                      </Text>
+                      {' '}and connect your compatible wallet.</li>
+                    <li> 2. Select Tokens: Choose the token pair (e.g., ETH-UTBETS) to trade. Set Amount: Enter the amount of ETH you wish to trade for UTBETS. </li>
+                    <li> 3. Swap Tokens: Confirm the transaction and approve the swap. </li>
+                    <li> 4. That's it! Congratulations! You have officially bought UTBETS Tokens. </li>
+                  </ul>
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                  color={'#BDBDBD'}
+                >
+                  <Text color={'white'}>
+                    How to Provide Liquidity to UTBETS Token on Uniswap:
+                  </Text>
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '0px',
+                      width: '100%',
+                    }}
+                  >
+                    <li> 1. Visit the Uniswap platform at:
+                      <ul
+                        style={{
+                          listStyleType: 'none',
+                          paddingLeft: '10px',
+                          width: '100%',
+                        }}
+                      >
+                        <li>- UTBETS-AVAX LP: <br />
+                          <Text as={'span'} color={'#FFD700'}>
+                            {' '}
+                            <a
+                              href="https://app.uniswap.org/#/add/ETH/0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              https://app.uniswap.org/#/add/ETH/0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE
+                            </a>
+                          </Text>
+                        </li>
+                        <li>- UTBETS-BNB LP:  <br />
+                          <Text as={'span'} color={'#FFD700'}>
+                            {' '}
+                            <a
+                              href="https://app.uniswap.org/#/add/ETH/0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              https://app.uniswap.org/#/add/ETH/0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE
+                            </a>
+                          </Text>
+                        </li>
+                        <li>- UTBETS-ETH LP: <br />
+                          <Text as={'span'} color={'#FFD700'}>
+                            {' '}
+                            <a
+                              href="https://app.uniswap.org/#/add/ETH/0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              https://app.uniswap.org/#/add/ETH/0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE
+                            </a>
+                          </Text>
+                        </li>
+                        <li>- UTBETS-MATIC LP: <br />
+                          <Text as={'span'} color={'#FFD700'}>
+                            {' '}
+                            <a
+                              href="https://app.uniswap.org/#/add/ETH/0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              https://app.uniswap.org/#/add/ETH/0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE
+                            </a>
+                          </Text>
+                        </li>
+                        <li><br />and establish a connection with your wallet.</li>
+                      </ul>
+                    </li>
+                    <li> 2. Unlike Uniswap V2, Uniswap V3 allows you to provide liquidity by directly creating a liquidity pool with the UTBETS token and another compatible token. </li>
+                    <li> 3. Choose the UTBETS token and the other token you wish to pair it with (AVAX/BNB/ETH/MATC). </li>
+                    <li> 4. Define a concentration range, which narrows down the price range where your liquidity will be concentrated. This innovative approach offers more control over your exposure to price fluctuations. </li>
+                    <li> 5. Specify the amounts of both tokens you want to add to the pool within the defined price range. </li>
+                    <li> 6. Double-check all the details of your LP pair creation, including the concentration range and token allocations. </li>
+                    <li> 7. Approve the transaction, and in return, you'll receive liquidity provider (LP) tokens. These tokens represent your ownership in the pool and the fees you'll earn from trading activity. </li>
+                    <li> 8. That's it! Congratulations! You have officially bought UTBETS Tokens. </li>
+                  </ul>
+                </Text>
+                <Text
+                  width={['300px', '300px', '500px', '500px']}
+                  fontFamily={'Nunito'}
+                  fontStyle={'normal'}
+                  fontWeight={'500'}
+                  lineHeight={'25px'}
+                  color={'#BDBDBD'}
+                  mt={'20px'}
+                >
+                  By using Uniswap V3's LP pair system for UTBETS Tokens, you can seamlessly provide liquidity and participate in the platform's dynamic trading environment. <br /><br />
+                  Keep in mind that while liquidity provision can be rewarding, it also comes with inherent risks that you should consider.
                 </Text>
               </Flex>
             )
@@ -553,15 +803,48 @@ const FAQS = () => {
                 fontFamily={'Nunito'}
                 fontStyle={'normal'}
                 fontWeight={'500'}
-                fontSize={'18px'}
                 lineHeight={'25px'}
                 color={'#BDBDBD'}
               >
-                {`  Visit the UtBets section of the website, on this page you will
-              find 3 submenus: Token Information | Buy $UTBETS | Bridge $UTBETS,
-              simply click on the "Bridge $UTBETS" submenu and bridge your
-              UTBETS Tokens between the four compatible blockchain (Avalanche /
-              Binance Chain / Optimism / Polygon).`}
+                <Text color={'white'} mb={'15px'}>
+                  How to Bridge Your UTBETS Tokens using Bungee:
+                </Text>
+                <ul
+                  style={{
+                    listStyleType: 'none',
+                    paddingLeft: '0px',
+                    width: '100%',
+                  }}
+                >
+                  <li>1. Visit the Bungee network's interface at
+                    <Text as={'span'} color={'#FFD700'}>
+                      {' '}
+                      <a
+                        href="https://www.bungee.exchange/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        https://www.bungee.exchange/
+                      </a>
+                    </Text>
+                    {' '}and connect your wallet that holds UTBETS tokens. </li>
+                  <li>2. Initiate the UTBETS token bridging process, specifying the source and destination networks between:
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      paddingLeft: '10px',
+                      width: '100%',
+                    }}
+                  >
+                    <li>- Avalanche</li>
+                    <li>- BSC</li>
+                    <li>- Optimism</li>
+                    <li>- Polygon</li>
+                  </ul>
+                  </li>
+                  <li>3. Complete the transaction and wait for the bridging process to complete.</li>
+                  <li>4. That's it! Congratulations! You have officially bridge your UTBETS Tokens.</li>
+                </ul>
               </Text>
             )}
         </Flex>

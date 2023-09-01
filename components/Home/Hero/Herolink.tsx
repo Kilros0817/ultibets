@@ -5,21 +5,36 @@ const Herolink = () => {
   const heroLink = [
     {
       id: '1',
+      name: 'Arbitrum',
+      logo: '/images/svgs/bg/arbitrum.svg',
+    },
+    {
+      id: '2',
       name: 'Avax',
       logo: '/images/svgs/bg/avax.svg',
     },
     {
-      id: '2',
+      id: '3',
+      name: 'Base',
+      logo: '/images/svgs/bg/base.svg',
+    },
+    {
+      id: '4',
       name: 'Binance Smart Chain',
       logo: '/images/svgs/bg/bnb.svg',
     },
     {
-      id: '3',
+      id: '5',
+      name: 'Ethereum',
+      logo: '/images/svgs/bg/ethereum.svg',
+    },
+    {
+      id: '6',
       name: 'Optimism',
       logo: '/images/pngs/chain-logo/optimism.svg',
     },
     {
-      id: '4',
+      id: '7',
       name: 'Polygon',
       logo: '/images/svgs/bg/polygon.svg',
     },
