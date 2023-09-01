@@ -38,7 +38,7 @@ const Hero = () => {
             color={'#FFFFFF'}
             width={['300px', '340px', '450px', '600px', '760px']}
           >
-            The first crypto multichain prediction market
+            The First Crypto Multichain Prediction Markets and GameFi Platform
           </Heading>
           <Flex
             mx={['2px', '2px', '0px', '0px']}
