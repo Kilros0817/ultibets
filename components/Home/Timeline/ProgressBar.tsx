@@ -72,7 +72,7 @@ const ProgressBar = () => {
         '11 Prediction Categories',
       item3: 'Weekly GameFi Tournament with Squid Bet Competition (SBC) and their NFTs',
       item4: 'UTBETS Token Social Trio Feature: Leaderboard / My Referral / My Rewards',
-      item5: "Merch' Store with both physical and digital items: T-shirts (Men and Women)/Hoodies/Hats (Caps)/Mug) and digital items: UTBETS Starter Packs/UTBETS Pro Packs",
+      item5: "Merch' Store with both physical and digital items",
       item6: 'Governance / Swap, Bridge of UTBETS Tokens and add liquidity to UTBETS Pairs',
       item7: 'AVAX/BNB/ETH/MATIC/UTBETS, 5 Currencies choices on UltiBets',
     },
@@ -416,7 +416,7 @@ const ProgressBar = () => {
             width={'0px'}
             border={'1px solid #FFB11C'}
           ></Flex>
-          <Flex gap={'500px'} direction={'column'} position={'relative'}>
+          <Flex gap={'436px'} direction={'column'} position={'relative'}>
             {[...Array(8)].map((dot, index) => (
               <Flex
                 key={index}

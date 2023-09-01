@@ -92,7 +92,7 @@ const About = () => {
                   &nbsp;Predictions,
                   <Text as={"span"} color={"#E18935"}>
                     {/* &nsbp;  */}
-                    &nbsp;Yes/No Binary
+                    &nbsp;Yes / No Binary
                   </Text>
                   &nbsp; Predictions and
                   <Text as={"span"} color={"#E18935"}>
@@ -319,7 +319,7 @@ const About = () => {
                 &nbsp;Predictions,
                 <Text as={"span"} color={"#E18935"}>
                   {/* &nsbp;  */}
-                  &nbsp;Yes/No Binary
+                  &nbsp;Yes / No Binary
                 </Text>
                 &nbsp; Predictions and
                 <Text as={"span"} color={"#E18935"}>
