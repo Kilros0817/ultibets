@@ -642,11 +642,11 @@ const FAQS = () => {
                       <Text as={'span'} color={'#FFD700'}>
                         {' '}
                         <a
-                          href="https://app.sushi.com/swap"
+                          href="https://app.uniswap.org/#/swap"
                           target="_blank"
                           rel="noreferrer"
                         >
-                          https://app.sushi.com/swap
+                          https://app.uniswap.org/#/swap
                         </a>
                       </Text>
                       {' '}and connect your compatible wallet.</li>
