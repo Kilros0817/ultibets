@@ -57,6 +57,78 @@ const ProgressBar = () => {
       item4: 'Organic marketing campaign design',
     },
     {
+      title: 'Q2 2022 - Q3 2023',
+      subtitle: 'Building Phase',
+      item1: 'Full Smart contracts written',
+      item2: "Websites built (Landing Page / Main App / Merch' Store)",
+      item3: 'Multichain environment built and setup',
+    },
+    {
+      title: 'Q4 2023',
+      subtitle: 'Protocol Launch',
+      item1:
+        'Avalanche / Binance Smart Chain / Optimism / Polygon ',
+      item2:
+        '11 Prediction Categories',
+      item3: 'Weekly GameFi Tournament with Squid Bet Competition (SBC)',
+      item4: 'AVAX/BNB/ETH/MATIC/UTBETS, 5 Currencies choices on UltiBets',
+    },
+    {
+      title: 'Q1-Q2 2024',
+      subtitle: 'Metaverse Building Stage',
+      item1:
+        'Cross Chain Metaverse & Prediction Integration + SBC with UTBETS Tokens As The Only Prediction Currency',
+      item2:
+        'Full UltiBets Protocol Integration inside the Metaverse To Offer One Unique Location To Join For The UltiBettors Community Scattered Around The 6 Chains',
+      item3: 'Second Fundraising IDO And Team Hiring Process',
+    },
+  ];
+
+  const contentItemsBottom = [
+    {
+      title: 'Jan-Feb 2022',
+      subtitle: 'Alpha & Beta-Test Phase',
+      item1: '8000+ Unique Visitors',
+      item2: "12+ Countries",
+      item3: '190 000+ Testnet FTM Predict On The Protocol Over 745 Prediction Contracts',
+    },
+    {
+      title: 'Q3 2023',
+      subtitle: 'Audits',
+      item1: 'Audits Passed Successfully With GuardianAudits',
+      item2: 'Last Testing Sessions With The Full UltiBets Website + Contracts',
+      item3: 'Marketing Campaign For Mainnet Launch',
+    },
+    {
+      title: 'Q1 2024',
+      subtitle: 'Protocol Improvements',
+      item1:
+        'Arbitrum / Base Integration',
+      item2:
+        'Side Predictions Integration (Over/Under, Scorers, Points/Goals Per Qt/Half)',
+      item3: 'Chainlink Price Feeds Integration',
+    },
+    {
+      title: 'Q2-Q3 2024',
+      subtitle: 'Metaverse Launch',
+      item1:
+        'Squid Bets Competitions Arena & Prediction Building For Daily Predictions',
+      item2:
+        'Digital Store With Pass & NFTs',
+      item3: 'Native Chain "Meet And Chill" Areas With Exciting Animations & Marketing Operations (Optimism Area In Red, BSC Area In Yellow Etc)',
+    },
+  ];
+
+  const mobileContentItemsTop = [
+    {
+      title: 'Q4 2021 - Q1 2022',
+      subtitle: 'Ultibets Proof Of Concept',
+      item1: 'Protocol design',
+      item2: 'Smart contract design',
+      item3: 'UI/UX design',
+      item4: 'Organic marketing campaign design',
+    },
+    {
       title: 'Jan-Feb 2022',
       subtitle: 'Alpha & Beta-Test Phase',
       item1: '8000+ Unique Visitors',
@@ -88,15 +160,6 @@ const ProgressBar = () => {
       item4: 'AVAX/BNB/ETH/MATIC/UTBETS, 5 Currencies choices on UltiBets',
     },
     {
-      title: 'Q1-Q2 2024',
-      subtitle: 'Metaverse Building Stage',
-      item1:
-        'Cross Chain Metaverse & Prediction Integration + SBC with UTBETS Tokens As The Only Prediction Currency',
-      item2:
-        'Full UltiBets Protocol Integration inside the Metaverse To Offer One Unique Location To Join For The UltiBettors Community Scattered Around The 6 Chains',
-      item3: 'Second Fundraising IDO And Team Hiring Process',
-    },
-    {
       title: 'Q1 2024',
       subtitle: 'Protocol Improvements',
       item1:
@@ -106,6 +169,15 @@ const ProgressBar = () => {
       item3: 'Chainlink Price Feeds Integration',
     },
     {
+      title: 'Q1-Q2 2024',
+      subtitle: 'Metaverse Building Stage',
+      item1:
+        'Cross Chain Metaverse & Prediction Integration + SBC with UTBETS Tokens As The Only Prediction Currency',
+      item2:
+        'Full UltiBets Protocol Integration inside the Metaverse To Offer One Unique Location To Join For The UltiBettors Community Scattered Around The 6 Chains',
+      item3: 'Second Fundraising IDO And Team Hiring Process',
+    },
+    {
       title: 'Q2-Q3 2024',
       subtitle: 'Metaverse Launch',
       item1:
@@ -113,106 +185,6 @@ const ProgressBar = () => {
       item2:
         'Digital Store With Pass & NFTs',
       item3: 'Native Chain "Meet And Chill" Areas With Exciting Animations & Marketing Operations (Optimism Area In Red, BSC Area In Yellow Etc)',
-    },
-  ];
-
-  const contentItemsBottom = [
-    {
-      title: 'Jan-Feb 2022',
-      subtitle: 'Alpha & Beta-Test Phase',
-      item1: '8000+ unique visitors',
-      item2: '12+ countries',
-      item3:
-        '190 000+ Testnet FTM predict on the protocol over 745 prediction contracts',
-    },
-    {
-      title: 'Q2-Q3 2022',
-      subtitle: 'Audits',
-      item1: 'Audits passed successfully with GuardianAudits',
-      item2: 'Last testing sessions with the full UltiBets website + contracts',
-      item3: 'Marketing Campaign for Mainnet Launch',
-    },
-    {
-      title: 'Q1 2023',
-      subtitle: 'Protocol Improvements',
-      item1: 'Arbitrum / Harmony Integration',
-      item2:
-        'Side Predictions Integration (over/under, scorers, points/goals per qt/half)',
-      item3: 'USDC/UTBETS (for each chain) Prediction Currencies Integration',
-      item4: 'Chainlink Price Feeds Integration',
-    },
-    {
-      title: 'Q2-Q3 2023',
-      subtitle: 'Metaverse Launch',
-      item1: 'Squid Bets Competitions Arena & Predicting Shops for Daily Predictions',
-      item2: 'Digital Store with Pass & NFTs',
-      item3: `Native chain "Meet and Chill" areas with exciting animations & marketing operations (Fantom area in blue, BSC area in yellow etc)`,
-    },
-  ];
-
-  const mobileContentItemsTop = [
-    {
-      title: 'Q4 2021',
-      subtitle: 'Ultibets Proof Of Concept',
-      item1: 'Protocol design',
-      item2: 'Smart contract design',
-      item3: 'UI/UX design',
-      item4: 'Organic marketing campaign design',
-    },
-    {
-      title: 'Jan-Feb 2022',
-      subtitle: 'Alpha & Beta-Test Phase',
-      item1: '8000+ unique visitors',
-      item2: '12+ countries',
-      item3:
-        '190 000+ Testnet FTM predict on the protocol over 745 prediction contracts',
-    },
-    {
-      title: 'Q2-Q3 2022',
-      subtitle: 'Building Phase',
-      item1: 'Full Smart contracts written',
-      item2: "Websites built (Landing Page / Main App / Merch' Store)",
-      item3: 'Multichain environment built and setup',
-    },
-    {
-      title: 'Q2-Q3 2022',
-      subtitle: 'Audits',
-      item1: 'Audits passed successfully with GuardianAudits',
-      item2: 'Last testing sessions with the full UltiBets website + contracts',
-      item3: 'Marketing Campaign for Mainnet Launch',
-    },
-    {
-      title: 'Q4 2022',
-      subtitle: 'Protocol Launch',
-      item1: 'Avalanche / Binance Smart Chain / Fantom / Polygon Integration',
-      item2: '11 prediction Categories',
-      item3: 'AVAX/BNB/FTM/MATIC Prediction Currencies Available',
-      item4: 'Weekly Squid Predicting Competitions',
-    },
-    {
-      title: 'Q1 2023',
-      subtitle: 'Protocol Improvements',
-      item1: 'Arbitrum / Harmony Integration',
-      item2:
-        'Side Predictions Integration (over/under, scorers, points/goals per qt/half)',
-      item3: 'USDC/UTBETS (for each chain) Prediction Currencies Integration',
-      item4: 'Chainlink Price Feeds Integration',
-    },
-    {
-      title: 'Q1-Q2 2023',
-      subtitle: 'Metaverse Building',
-      item1:
-        'Cross chain metaverse & predicting integration with UTBETS tokens as the only prediction currency',
-      item2:
-        'Full UltiBets protocol integration to offer one unique location to join for the UltiBettors community scattered around the 6 chains',
-      item3: 'Second fundraising IDO and team hiring process',
-    },
-    {
-      title: 'Q2-Q3 2023',
-      subtitle: 'Metaverse Launch',
-      item1: 'Squid Bets Competitions Arena & Predicting Shops for Daily Predictions',
-      item2: 'Digital Store with Pass & NFTs',
-      item3: `Native chain "Meet and Chill" areas with exciting animations & marketing operations (Fantom area in blue, BSC area in yellow etc)`,
     },
   ];
   useEffect(() => {
@@ -407,7 +379,6 @@ const ProgressBar = () => {
                     item1={item.item1}
                     item2={item.item2}
                     item3={item?.item3}
-                    item4={item?.item4}
                   />
                 ))}
               </Flex>
