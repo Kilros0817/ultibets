@@ -99,6 +99,7 @@ const TokenSelector = () => {
           backgroundColor={!isNativeToken ? 'rgba(255, 114, 10, 0.23)' : 'transparent'}
           borderRadius='0 50px  50px 0'
           width={'50%'}
+          paddingLeft={['15px', '30px']}
           border={!isNativeToken ? '1px solid #FC541C' : '1px solid #E18933'}
           borderLeft={!isNativeToken ? '1px solid #FC541C' : '1px solid transparent'}
           _hover={{

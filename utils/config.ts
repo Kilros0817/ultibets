@@ -158,6 +158,16 @@ export const LinkArry2 = [
 	},
 ]
 
+export const AppTitle = {
+	"home": "Home",
+	"prediction-markets": "Prediction Markets",
+	"sbc": "SBC",
+	"utbets-token": "'UtBets Token",
+	"merch-store": "Merch Store",
+	"faq": "FAQ",
+	"my-profile": "My Profile",
+}
+
 export const sortByItems = [
 	'Volume: High to Low',
 	'Volume: Low to High',
@@ -540,7 +550,7 @@ export const subCategoriesInPredictionMarkets = {
 
 export enum EventType {
 	Double = 0,
-	Triple,
+	Triple = 1,
 }
 
 export type SidebarItemProps = {

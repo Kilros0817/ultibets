@@ -18,6 +18,7 @@ import { useChainContext } from '../../utils/Context';
 
 export type MyPredictionsStatsProps = {
   eventID: number,
+  category: number,
   description: string,
   betType: EventType,
   betTime: number,
@@ -34,6 +35,7 @@ export type MyPredictionsStatsProps = {
 
 const MyPredictionsStats = ({
   eventID,
+  category,
   description,
   betType,
   betTime,
@@ -102,8 +104,9 @@ const MyPredictionsStats = ({
 
   useEffect(() => {
     if (betType == EventType.Double) {
-      if (prediction == 0) setImage(yesLogo);
+      if (prediction == 0) setImage(category == 4 ? homeLogo : yesLogo);
       if (prediction == 1) setImage(noLogo);
+      if (prediction == 2) setImage(awayLogo);
     }
     if (betType == EventType.Triple) {
       if (prediction == EventResultInPM.Home) setImage(homeLogo);

@@ -8,6 +8,7 @@ export const getUserBetDataInPM = async (
 ) => {
     let query = `{
           bettorPredictions(
+            orderBy: betTime, orderDirection: desc,
             where: {
                 bettor: "${bettor}",
                 event_: {
@@ -20,6 +21,7 @@ export const getUserBetDataInPM = async (
             prediction
             event {
                 eventID
+                category
                 description
                 result
                 tokenType

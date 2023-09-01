@@ -21,6 +21,7 @@ import { HiOutlineSearch } from 'react-icons/hi'
 import LeaderboardTable from '../../../components/Leaderboard/LeaderboardTable'
 import TokenSelector from '../../../components/predictions/TokenSelector'
 import RegisterInLeaderboardModal from '../../../components/modal/RegisterInLeaderboardModal';
+import Head from 'next/head';
 
 const Leaderboard = () => {
   const starImage = "/images/pngs/prediction-markets/star.svg";
@@ -35,8 +36,8 @@ const Leaderboard = () => {
     onClose: onCloseRegisterInLeaderboardModal,
   } = useDisclosure();
   useEffect(() => {
-        let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;    let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
+    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
+      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId; let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
     if (currentChainAttrsItem.length == 0) {
       const temporaryChainId = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? 137 : 80001
       currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
@@ -50,137 +51,138 @@ const Leaderboard = () => {
   }, [name])
 
   return (
-    <Flex
-      className='leaderboard-page-wrapper'
-      width={'100%'}
-    >
+    <>
       <Flex
-        width='90px'
-        justifyContent='center'
-        display={['none', 'none', 'flex']}
+        className='leaderboard-page-wrapper'
+        width={'100%'}
       >
-        <Sidebar />
-      </Flex>
-
-      <Box
-        my='30px'
-        px='30px'
-        width={['100%', '100%', 'calc(100% - 90px)', 'calc(100% - 90px)', 'calc(100% - 90px)']}
-        mr={['unset', 'unset', 'unset', 'unset']}
-        className='my-leaderboard-wrapper'
-        zIndex={0}
-      >
-
-        <PredictionsTab />
-
         <Flex
-          mt={['41px']}
-          justifyContent={['center', 'center', 'start']}
+          width='90px'
+          justifyContent='center'
+          display={['none', 'none', 'flex']}
         >
-          <TokenSelector />
+          <Sidebar />
         </Flex>
 
-        <Flex
-          direction={['column', 'column', 'row']}
-          justifyContent={['center', 'center', 'space-between']}
-          mt='41px'
+        <Box
+          my='30px'
+          px='30px'
+          width={['100%', '100%', 'calc(100% - 90px)', 'calc(100% - 90px)', 'calc(100% - 90px)']}
+          mr={['unset', 'unset', 'unset', 'unset']}
+          className='my-leaderboard-wrapper'
+          zIndex={0}
         >
+
+          <PredictionsTab />
+
           <Flex
-            alignItems={'center'}
-            justifyContent='center'
+            mt={['41px']}
+            justifyContent={['center', 'center', 'start']}
           >
-            <Image
-              src={starImage}
-              width='14.21px'
-              height={'13.54px'}
-            />
-            <Text
-              ml='18px'
-              fontFamily={'Nunito'}
-              fontWeight={'700'}
-              fontSize={'20px'}
-              lineHeight={'27px'}
-              textTransform={'capitalize'}
-            >
-              Leaderboard
-            </Text>
+            <TokenSelector />
           </Flex>
 
           <Flex
-            justifyContent={['center', 'center', 'unset']}
-            mt={['29px', '29px', 'unset']}
+            direction={['column', 'column', 'row']}
+            justifyContent={['center', 'center', 'space-between']}
+            mt='41px'
           >
             <Flex
-              border={'1px solid #FC541C'}
-              borderRadius='29px'
-              py='11px'
-              pl='17px'
-              pr='36px'
-              width={'fit-content'}
+              alignItems={'center'}
               justifyContent='center'
-              onClick={onOpenRegisterInLeaderboardModal}
             >
-              <Flex
+              <Image
+                src={starImage}
+                width='14.21px'
+                height={'13.54px'}
+              />
+              <Text
                 ml='18px'
                 fontFamily={'Nunito'}
                 fontWeight={'700'}
-                fontSize={'14px'}
-                lineHeight={'19px'}
+                fontSize={'20px'}
+                lineHeight={'27px'}
                 textTransform={'capitalize'}
-                cursor={'pointer'}
               >
-                Register
+                Leaderboard
+              </Text>
+            </Flex>
+
+            <Flex
+              justifyContent={['center', 'center', 'unset']}
+              mt={['29px', '29px', 'unset']}
+            >
+              <Flex
+                border={'1px solid #FC541C'}
+                borderRadius='29px'
+                py='11px'
+                pl='17px'
+                pr='36px'
+                width={'fit-content'}
+                justifyContent='center'
+                onClick={onOpenRegisterInLeaderboardModal}
+              >
+                <Flex
+                  ml='18px'
+                  fontFamily={'Nunito'}
+                  fontWeight={'700'}
+                  fontSize={'14px'}
+                  lineHeight={'19px'}
+                  textTransform={'capitalize'}
+                  cursor={'pointer'}
+                >
+                  Register
+                </Flex>
+              </Flex>
+            </Flex>
+
+            <Flex
+              justifyContent={['center', 'center', 'unset']}
+              mt={['29px', '29px', 'unset']}
+            >
+              <Flex
+                border={'1px solid #FC541C'}
+                borderRadius='29px'
+                py='11px'
+                pl='14px'
+                pr='20px'
+                width={'fit-content'}
+                justifyContent='center'
+              >
+                <HiOutlineSearch />
+
+                <Input
+                  ml='18px'
+                  fontFamily={'Nunito'}
+                  fontWeight={'700'}
+                  fontSize={'15px'}
+                  lineHeight={'19px'}
+                  height={'19px'}
+                  width={'107px'}
+                  placeholder={'Search by name'}
+                  padding={'0 0 0 5px'}
+                  margin={'0'}
+                  border={'none'}
+                  _focusVisible={{
+                    border: 'none'
+                  }}
+                  value={name}
+                  onChange={(e) => setName(e?.target?.value)}
+                />
               </Flex>
             </Flex>
           </Flex>
 
-          <Flex
-            justifyContent={['center', 'center', 'unset']}
-            mt={['29px', '29px', 'unset']}
-          >
-            <Flex
-              border={'1px solid #FC541C'}
-              borderRadius='29px'
-              py='11px'
-              pl='14px'
-              pr='20px'
-              width={'fit-content'}
-              justifyContent='center'
-            >
-              <HiOutlineSearch />
-
-              <Input
-                ml='18px'
-                fontFamily={'Nunito'}
-                fontWeight={'700'}
-                fontSize={'15px'}
-                lineHeight={'19px'}
-                height={'19px'}
-                width={'107px'}
-                placeholder={'Search by name'}
-                padding={'0 0 0 5px'}
-                margin={'0'}
-                border={'none'}
-                _focusVisible={{
-                  border: 'none'
-                }}
-                value={name}
-                onChange={(e) => setName(e?.target?.value)}
-              />
-            </Flex>
-          </Flex>
-        </Flex>
-
-        <LeaderboardTable
-          selectedName={name}
-        />
-        <RegisterInLeaderboardModal
-          isOpen={isOpenRegisterInLeaderboardModal}
-          onClose={onCloseRegisterInLeaderboardModal}
-        />
-      </Box>
-    </Flex >
-
+          <LeaderboardTable
+            selectedName={name}
+          />
+          <RegisterInLeaderboardModal
+            isOpen={isOpenRegisterInLeaderboardModal}
+            onClose={onCloseRegisterInLeaderboardModal}
+          />
+        </Box>
+      </Flex >
+    </>
   )
 }
 

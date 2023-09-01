@@ -46,9 +46,9 @@ const PredictionsCoreComponent3 = ({
     const slug = pathName.split('/');
     if (slug[2]) {
       setCurrentSports(slug[2]);
-      setChoice(prediction.sideToPredict[currentSports]);
+      setChoice('');
     }
-  }, [router, prediction])
+  }, [router])
 
   useEffect(() => {
     const homeSidePool = formatEther(BigInt(sidePoolVolumes[0]));
@@ -122,14 +122,17 @@ const PredictionsCoreComponent3 = ({
     return poolInfo;
   }, [sidePools])
 
-  const hanldeChoice = (choice: string) => {
-    setChoice(choice);
+  useEffect(() => {
     setPrediction({
       sideToPredict: {
         ...prediction.sideToPredict,
         [currentSports]: choice,
       },
     });
+  }, [choice])
+
+  const hanldeChoice = (choice: string) => {
+    setChoice(choice);
   }
 
   const PredictionsStatistics = () => (

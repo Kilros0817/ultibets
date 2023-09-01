@@ -42,7 +42,7 @@ const PredictionMarkets = () => {
   }, [chain, isNativeToken]);
 
   const router = useRouter();
-  const { setReferral, } = useChainContext();
+  const { setReferral } = useChainContext();
 
   useEffect(() => {
     const asPath = router.asPath;

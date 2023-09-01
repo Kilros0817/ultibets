@@ -20,6 +20,7 @@ import { useNetwork, useSwitchNetwork, } from 'wagmi';
 import NavLink from './Navlink'
 import Account from '../Account'
 import {
+  AppTitle,
   LinkArry1,
   LinkArry2,
   bannedCountries,
@@ -40,6 +41,7 @@ import { ChainAttrItemType } from '../../utils/types';
 import AnnounceModal from '../modal/AnnounceModal';
 import { exclamationIconInRedBg } from '../../utils/assets';
 import ExLink from './ExLink';
+import Head from 'next/head';
 
 const Header = () => {
   const router = useRouter();
@@ -66,6 +68,7 @@ const Header = () => {
 
   const handleToggle = () => (isOpen ? onClose() : onOpen())
   const [width, setWidth] = useState(0);
+  const [title, setTitle] = useState('Home');
   const limitSizeBetweenDesktopandMobile = 1170;
   const desktopDisplay = ['none', 'none', 'none', width <= limitSizeBetweenDesktopandMobile ? 'none' : 'flex'];
   const mobileDisplay = ['flex', 'flex', 'flex', width <= limitSizeBetweenDesktopandMobile ? 'flex' : 'none'];
@@ -122,6 +125,13 @@ const Header = () => {
         } else if (router.asPath == '/') {
           router.push('/home');
         }
+      }
+
+      const pathName = router.asPath;
+      const slug = pathName.split('/')
+      if (slug.length >= 2) {
+        //@ts-ignore
+        setTitle(AppTitle[slug[1]])
       }
 
       setTimeout(() => {
@@ -246,7 +256,7 @@ const Header = () => {
             alignSelf='center'
             alignItems='center'
           >
-            <CgProfile color='white'/>
+            <CgProfile color='white' />
           </Flex>
         </MenuButton>
         <MenuList
@@ -296,188 +306,195 @@ const Header = () => {
   )
 
   return (
-    <Flex
-      direction='column'
-    >
+    <>
+      <Head>
+        <link rel="shortcut icon" href="/logo-final.svg" />
+        <title>UltiBets | {title}</title>
+      </Head>
       <Flex
-        bg="#1F1F1F"
-        py='3'
-        justifyContent='space-between'
-        px={['15px', '15px', '15px', '15px', '30px']}
+        direction='column'
       >
-        {/* logo icon */}
         <Flex
-          justifyContent={'center'}
-          alignItems="center"
-          zIndex='999'
-          className='logo-icon-wrapper'
-          mr='20px'
+          bg="#1F1F1F"
+          py='3'
+          justifyContent='space-between'
+          px={['15px', '15px', '15px', '15px', '30px']}
         >
-          <NextLink href="/" passHref>
-            <Link
-              href="/"
-              width={['60px', '60px', '60px', width <= limitSizeBetweenDesktopandMobile ? '60px' : '150px', '150px']}
-            >
-              {' '}
-              <Image
-                src="/images/ultibets-logo.svg"
-                alt="logo"
-                width='60px'
-                height='60px'
-              />
-            </Link>
-          </NextLink>
-        </Flex>
-
-        {/* navbar links(shows in desktop size) */}
-        <Flex
-          display={desktopDisplay}
-          gap={['unset', 'unset', 'none', '15px', width < 1330 ? '20px' : '40px']}
-          alignItems={['unset', 'unset', 'center', 'center']}
-          py='2'
-          px='2'
-        >
-          {
-            LinkArry1.map((item, index) => (
-              <NavLink
-                key={index}
-                name={item.name}
-                href={item.href}
-              />
-            ))
-          }
-          <ExLink 
-            name="Governance"
-            href={snapshotURL}
-          />
-          {
-            LinkArry2.map((item, index) => (
-              <NavLink
-                key={index}
-                name={item.name}
-                href={item.href}
-              />
-            ))
-          }
-
-        </Flex>
-
-        <Flex
-          display={desktopDisplay}
-          ml='15px'
-        >
-          <ProfileIcon />
-          <ChainIcon />
-
-          {/* account info (only shows in desktop size) */}
+          {/* logo icon */}
           <Flex
-            alignItems='center'
-          >
-            <Account />
-          </Flex>
-        </Flex>
-
-        <Flex
-          display={mobileDisplay}
-          ml='20px'
-        >
-          <ProfileIcon />
-
-          <ChainIcon />
-          <Flex
-            alignItems='center'
-            mr={'20px'}
-          >
-            <Account />
-          </Flex>
-          {/* hamburger icon(only shows in the mobile size) */}
-          <Flex
+            justifyContent={'center'}
             alignItems="center"
+            zIndex='999'
+            className='logo-icon-wrapper'
+            mr='20px'
+          >
+            <NextLink href="/" passHref>
+              <Link
+                href="/"
+                width={['60px', '60px', '60px', width <= limitSizeBetweenDesktopandMobile ? '60px' : '150px', '150px']}
+              >
+                {' '}
+                <Image
+                  src="/images/ultibets-logo.svg"
+                  alt="logo"
+                  width='60px'
+                  height='60px'
+                />
+              </Link>
+            </NextLink>
+          </Flex>
+
+          {/* navbar links(shows in desktop size) */}
+          <Flex
+            display={desktopDisplay}
+            gap={['unset', 'unset', 'none', '15px', width < 1330 ? '20px' : '40px']}
+            alignItems={['unset', 'unset', 'center', 'center']}
+            py='2'
+            px='2'
           >
             {
-              isOpen ? (
-                <CloseIcon
-                  color={'white'}
-                  fontSize="28px"
-                  onClick={handleToggle}
+              LinkArry1.map((item, index) => (
+                <NavLink
+                  key={index}
+                  name={item.name}
+                  href={item.href}
                 />
-              ) : (
-                <HamburgerIcon
-                  color={'white'}
-                  fontSize="30px"
-                  onClick={handleToggle}
+              ))
+            }
+            <ExLink
+              name="Governance"
+              href={snapshotURL}
+            />
+            {
+              LinkArry2.map((item, index) => (
+                <NavLink
+                  key={index}
+                  name={item.name}
+                  href={item.href}
                 />
-              )
+              ))
+            }
+
+          </Flex>
+
+          <Flex
+            display={desktopDisplay}
+            ml='15px'
+          >
+            <ProfileIcon />
+            <ChainIcon />
+
+            {/* account info (only shows in desktop size) */}
+            <Flex
+              alignItems='center'
+            >
+              <Account />
+            </Flex>
+          </Flex>
+
+          <Flex
+            display={mobileDisplay}
+            ml='20px'
+          >
+            <ProfileIcon />
+
+            <ChainIcon />
+            <Flex
+              alignItems='center'
+              mr={'20px'}
+            >
+              <Account />
+            </Flex>
+            {/* hamburger icon(only shows in the mobile size) */}
+            <Flex
+              alignItems="center"
+            >
+              {
+                isOpen ? (
+                  <CloseIcon
+                    color={'white'}
+                    fontSize="28px"
+                    onClick={handleToggle}
+                  />
+                ) : (
+                  <HamburgerIcon
+                    color={'white'}
+                    fontSize="30px"
+                    onClick={handleToggle}
+                  />
+                )
+              }
+            </Flex>
+          </Flex>
+        </Flex>
+
+        {/* mobile navbar */}
+        <Flex
+          display={[
+            isOpen ? 'flex' : 'none',
+            isOpen ? 'flex' : 'none',
+            isOpen ? 'flex' : 'none',
+            isOpen && width <= limitSizeBetweenDesktopandMobile ? 'flex' : 'none',
+            'none'
+          ]}
+          gap={'10px'}
+        >
+          <Flex
+            direction={'column'}
+            mx={'30px'}
+            my={'15px'}
+            gap='10px'
+            zIndex={'2'}
+          >
+            {
+              LinkArry1.map((item, index) => (
+                <NavLink
+                  key={index}
+                  href={item.href}
+                  name={item.name}
+                  onClose={onClose}
+                />
+              ))
+            }
+            <ExLink
+              name="Governance"
+              href={snapshotURL}
+              onClose={onClose}
+            />
+            {
+              LinkArry2.map((item, index) => (
+                <NavLink
+                  key={index}
+                  href={item.href}
+                  name={item.name}
+                  onClose={onClose}
+                />
+              ))
             }
           </Flex>
         </Flex>
-      </Flex>
 
-      {/* mobile navbar */}
-      <Flex
-        display={[
-          isOpen ? 'flex' : 'none',
-          isOpen ? 'flex' : 'none',
-          isOpen ? 'flex' : 'none',
-          isOpen && width <= limitSizeBetweenDesktopandMobile ? 'flex' : 'none',
-          'none'
-        ]}
-        gap={'10px'}
-      >
-        <Flex
-          direction={'column'}
-          mx={'30px'}
-          my={'15px'}
-          gap='10px'
-          zIndex={'2'}
-        >
-          {
-            LinkArry1.map((item, index) => (
-              <NavLink
-                key={index}
-                href={item.href}
-                name={item.name}
-                onClose={onClose}
-              />
-            ))
-          }
-          <ExLink 
-            name="Governance"
-            href={snapshotURL}
-            onClose={onClose}
-          />
-          {
-            LinkArry2.map((item, index) => (
-              <NavLink
-                key={index}
-                href={item.href}
-                name={item.name}
-                onClose={onClose}
-              />
-            ))
-          }
-        </Flex>
-      </Flex>
+        <Image
+          src='/images/pngs/left-top-orange-gradient.svg'
+          alt='left-top-orange-gradient'
+          position='absolute'
+          top='0'
+          left='0'
+          zIndex='0'
+        />
+        <GeoBlockModal
+          isOpenGeoBlockModal={isOpenGeoBlockModal}
+          onCloseGeoBlockModal={onCloseGeoBlockModal}
+          ip={ip}
+          country={country}
+        />
+        <AdBlockDetectModal
+          isOpenAdBlockDetectModal={isOpenAdBlockDetectModal}
+          onCloseAdBlockDetectModal={onCloseAdBlockDetectModal}
+        />
+      </Flex >
+    </>
 
-      <Image
-        src='/images/pngs/left-top-orange-gradient.svg'
-        alt='left-top-orange-gradient'
-        position='absolute'
-        top='0'
-        left='0'
-        zIndex='0'
-      />
-      <GeoBlockModal
-        isOpenGeoBlockModal={isOpenGeoBlockModal}
-        onCloseGeoBlockModal={onCloseGeoBlockModal}
-        ip={ip}
-        country={country}
-      />
-      <AdBlockDetectModal
-        isOpenAdBlockDetectModal={isOpenAdBlockDetectModal}
-        onCloseAdBlockDetectModal={onCloseAdBlockDetectModal}
-      />
-    </Flex >
   )
 }
 

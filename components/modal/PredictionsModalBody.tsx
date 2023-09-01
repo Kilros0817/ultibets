@@ -64,10 +64,6 @@ const PredictionsModalBody = ({
   const [currentPerkLevel, setCurrentPerkLevel] = useState<number>();
 
   useEffect(() => {
-    console.log("perk level: ", currentPerkLevel);
-  }, [currentPerkLevel])
-
-  useEffect(() => {
     let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
       process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId; let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
     if (currentChainAttrsItem.length == 0) {

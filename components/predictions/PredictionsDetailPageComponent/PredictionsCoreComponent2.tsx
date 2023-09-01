@@ -46,9 +46,9 @@ const PredictionsCoreComponent2 = ({
     const slug = pathName.split('/');
     if (slug[2]) {
       setCurrentSports(slug[2]);
-      setChoice(slug[2] == 'tennis' ? 'home' : prediction.sideToPredict[currentSports]);
+      setChoice(slug[2] == 'tennis' ? 'home' : "yes");
     }
-  }, [router, prediction])
+  }, [router])
 
   useEffect(() => {
     const yesSidePool = formatEther(BigInt(sidePoolVolumes[0]));
@@ -59,14 +59,17 @@ const PredictionsCoreComponent2 = ({
     ]);
   }, [sidePoolVolumes])
 
-  const hanldeChoice = (choice: string) => {
-    setChoice(choice);
+  useEffect(() => {
     setPrediction({
       sideToPredict: {
         ...prediction.sideToPredict,
         [currentSports]: choice,
       },
     });
+  }, [choice])
+
+  const hanldeChoice = (choice: string) => {
+    setChoice(choice);
   }
 
   const bettingPoolTypes = useMemo(() => {
@@ -164,8 +167,8 @@ const PredictionsCoreComponent2 = ({
             <Image
               src= { currentSports == 'tennis' ? "/images/pngs/bets/home.svg" : "/images/svgs/bets/yes.svg"}
               alt="yes"
-              width={choice == 'home' || 'yes' ? '160px' : '120px'}
-              height={choice == 'home' || 'yes' ? '160px' : '120px'}
+              width={(choice == 'home' || choice == 'yes') ? '150px' : '120px'}
+              height={(choice == 'home' || choice == 'yes') ? '150px' : '120px'}
               _hover={{
                 transform: 'scale(1.1)',
               }}
@@ -180,8 +183,8 @@ const PredictionsCoreComponent2 = ({
             <Image
               src= { currentSports == 'tennis' ? "/images/pngs/bets/away.svg" : "/images/svgs/bets/no.svg"}
               alt="no"
-              width={choice == 'away' || 'no' ? '160px' : '120px'}
-              height={choice == 'away' || 'no' ? '160px' : '120px'}
+              width={(choice == 'away' || choice == 'no') ? '140px' : '120px'}
+              height={(choice == 'away' || choice == 'no') ? '140px' : '120px'}
               _hover={{
                 transform: 'scale(1.1)',
               }}
@@ -191,7 +194,6 @@ const PredictionsCoreComponent2 = ({
 
         <Flex
           display={['none', 'none', 'none', 'flex', 'flex']}
-          // width={['none', 'none', 'none', '100%', '100%']}
           mr='5'
           width={'600px'}
           className='bets-statistics-wrapper'

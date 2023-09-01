@@ -29,19 +29,11 @@ export const getDateAndTimeIntervalsAccordingToUserTimeZone = (date: Date) => {
         // utc - zones: america
         const formattedStartDateString = getFormattedDateString(date, "-"); // returns "2023-02-23"
         const utcStartDate = new Date(formattedStartDateString).getTime() + timezoneOffset * 60 * 1000;
-        const startDateString = getFormattedDateString(new Date(utcStartDate), ""); // returns "20230223"
         const startTimestamp = new Date(utcStartDate).getTime() / 1000;
 
         const milliSecondsInEndTime = new Date(utcStartDate).getTime() + 24 * 3600 * 1000;
-        const endDateString = getFormattedDateString(new Date(milliSecondsInEndTime), "");
         const endTimeStamp = milliSecondsInEndTime / 1000;
 
-        // return [
-        //     startDateString,
-        //     startTimestamp,
-        //     endDateString,
-        //     endTimeStamp,
-        // ];
         return {
             startTimestamp,
             endTimeStamp,
@@ -57,12 +49,6 @@ export const getDateAndTimeIntervalsAccordingToUserTimeZone = (date: Date) => {
         const endDateString = getFormattedDateString(new Date(milliSecondsInEndTime - 1), "");
         const endTimeStamp = milliSecondsInEndTime / 1000;
 
-        // return [
-        //     startDateString,
-        //     startTimestamp,
-        //     endDateString,
-        //     endTimeStamp,
-        // ];
         return {
             startTimestamp,
             endTimeStamp,

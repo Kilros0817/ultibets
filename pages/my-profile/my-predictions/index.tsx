@@ -64,7 +64,6 @@ const MyPredictions = () => {
           let predictions = bettorPredictions.returnedData?.
             filter((item: any) => (item.betTime >= dayTimestamps.startTimestamp) && (item.betTime < dayTimestamps.endTimeStamp));
 
-          console.log("user bet history: ", predictions);
           setMypredictionsData(predictions);
         }
         setIsLoading(false);
@@ -227,6 +226,7 @@ const MyPredictions = () => {
                     >
                       <MyPredictionsStats
                         eventID={Number(item?.event?.eventID)}
+                        category={Number(item?.event?.category)}
                         description={item?.event?.description}
                         betType={item?.event?.betType}
                         betTime={Number(item.betTime)}

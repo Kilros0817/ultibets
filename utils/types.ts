@@ -26,6 +26,7 @@ type SidePoolsType = {
 
 type EventResultType = {
     eventID: string
+    category: number
     result: EventResultInPM
     tokenType: number // 0: native, 1: utbets
     description: string

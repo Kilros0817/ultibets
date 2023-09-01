@@ -4,6 +4,7 @@ import {
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect, } from 'react';
+import { useChainContext } from '../../utils/Context';
 
 type NavlinkProps = {
   href: string
@@ -16,6 +17,11 @@ export default function NavLink({ name, href, onClose, footer }: NavlinkProps) {
   const router = useRouter()
   const currentRoute = router.pathname
   const [width, setWidth] = useState(0);
+  const { setCategoryInPM, setSubCategoryInPM } = useChainContext();
+  const initPM = () => {
+    setCategoryInPM(0)
+    setSubCategoryInPM(0)
+  }
   useEffect(() => {
     setWidth(window.innerWidth);
   }, [])
@@ -31,7 +37,7 @@ export default function NavLink({ name, href, onClose, footer }: NavlinkProps) {
         _hover={{
           color: '#E18833',
         }}
-        onClick={onClose}
+        onClick={initPM}
         fontSize={footer ? '14px' : width < 1400 ? '14px' : '16px'}
         fontFamily={'Nunito'}
         fontWeight={'bold'}

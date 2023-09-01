@@ -9,10 +9,10 @@ const ContextProvider = ({ children }) => {
             'basketball': 'home',
 
             'us-football': 'home',
-            'tennis': 'yes',
+            'tennis': 'home',
             'combat-sports': 'home',
 
-            'motor-sports': 'home',
+            'motor-sports': 'yes',
             'cryptos': 'yes',
             'stocks': 'yes',
 
