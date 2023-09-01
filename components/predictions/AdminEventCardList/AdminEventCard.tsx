@@ -148,7 +148,6 @@ const AdminEventCard = ({
         justifyContent={'left'}
         alignItems={'center'}
         position={'relative'}
-        zIndex={1}
       >
         <Flex
           direction={'column'}
