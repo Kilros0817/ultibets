@@ -12,7 +12,7 @@ type Props = {
   item6?: string;
   item7?: string;
 };
-const Content = ({ title, subtitle, item1, item2, item3, item4, item5, item6, item7 }: Props) => {
+const Content = ({ title, subtitle, item1, item2, item3, item4, item5, item6 }: Props) => {
   return (
     <Flex
       zIndex={10}
@@ -134,21 +134,6 @@ const Content = ({ title, subtitle, item1, item2, item3, item4, item5, item6, it
               >
                 {' '}
                 {item6 && item6}
-              </Text>
-            </li>
-          )}
-          {item7 && (
-            <li>
-              <Text
-                fontStyle={'normal'}
-                fontWeight={700}
-                fontSize={'16px'}
-                lineHeight={'22px'}
-                textTransform={'capitalize'}
-                color={'#FFFFFF'}
-              >
-                {' '}
-                {item7 && item7}
               </Text>
             </li>
           )}
