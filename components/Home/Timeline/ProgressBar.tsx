@@ -67,14 +67,13 @@ const ProgressBar = () => {
       title: 'Q4 2023',
       subtitle: 'Platform and Token Mainnet Launch',
       item1:
-        'Avalanche / Binance Smart Chain / Optimism / Polygon ',
+        '4 Chains Environment',
       item2:
-        '11 Prediction Categories',
-      item3: 'Weekly GameFi Tournament with Squid Bet Competition (SBC) and their NFTs',
-      item4: 'UTBETS Token Social Trio Feature: Leaderboard / My Referral / My Rewards',
-      item5: "Merch' Store with both physical and digital items",
-      item6: 'Governance / Swap, Bridge of UTBETS Tokens and add liquidity to UTBETS Pairs',
-      item7: 'AVAX/BNB/ETH/MATIC/UTBETS, 5 Currencies choices on UltiBets',
+        '11 Prediction Categories & weekly SBC',
+      item3: 'UTBETS Token Social Feature: Leaderboard / My Referral / My Rewards',
+      item4: "Merch' Store with physical and digital items",
+      item5: "Governance / Swap / LP's / Bridge",
+      item6: 'AVAX/BNB/ETH/MATIC/UTBETS, 5 Currencies on UltiBets',
     },
     {
       title: 'Q1-Q2 2024',
@@ -160,14 +159,13 @@ const ProgressBar = () => {
       title: 'Q4 2023',
       subtitle: 'Platform and Token Mainnet Launch',
       item1:
-        'Avalanche / Binance Smart Chain / Optimism / Polygon ',
+        '4 Chains Environment',
       item2:
-        '11 Prediction Categories',
-      item3: 'Weekly GameFi Tournament with Squid Bet Competition (SBC) and their NFTs',
-      item4: 'UTBETS Token Social Trio Feature: Leaderboard / My Referral / My Rewards',
-      item5: "Merch' Store with both real life merch' items: T-shirts (Men and Women)/Hoodies/Hats (Caps)/Mug) and digital items: UTBETS Starter Packs/UTBETS Pro Packs",
-      item6: 'Governance / Swap, Bridge of UTBETS Tokens and add liquidity to UTBETS Pairs',
-      item7: 'AVAX/BNB/ETH/MATIC/UTBETS, 5 Currencies choices on UltiBets',
+        '11 Prediction Categories & weekly SBC',
+      item3: 'UTBETS Token Social Feature: Leaderboard / My Referral / My Rewards',
+      item4: "Merch' Store with physical and digital items",
+      item5: "Governance / Swap / LP's / Bridge",
+      item6: 'AVAX/BNB/ETH/MATIC/UTBETS, 5 Currencies on UltiBets',
     },
     {
       title: 'Q4 2023-Q1 2024',
@@ -357,7 +355,6 @@ const ProgressBar = () => {
                   item4={item.item4}
                   item5={item.item5}
                   item6={item.item6}
-                  item7={item.item7}
                 />
               ))}
             </Flex>
@@ -461,7 +458,6 @@ const ProgressBar = () => {
                 item4={item?.item4}
                 item5={item?.item5}
                 item6={item?.item6}
-                item7={item?.item7}
               />
             ))}
           </Flex>
