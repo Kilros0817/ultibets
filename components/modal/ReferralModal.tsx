@@ -22,7 +22,7 @@ const ReferralModal = ({
 }: ReferralModalProps) => {
   const { address, } = useAccount();
   const referralURL = (window.location.hostname ?? 'no-host') + "/prediction-markets?r=" + window.btoa(address ?? '')
-  const textURI = encodeURIComponent(`Predict and earn with UltiBets! \n\nUse my referral code and receive a bonus of 10% in UTBETS Tokens after placing your first prediction of minimum 100 UTBETS on UltiBets! \n\n Let's predict, win, and earn together!\n\n `)
+  const textURI = encodeURIComponent(`Predict and earn with UltiBets! \n\nUse my referral code and receive a bonus of 10% in UTBETS Tokens after placing your first prediction of minimum 100 UTBETS on UltiBets! \n\nLet's predict, win, and earn together!\n\n`)
   const urlURI = encodeURIComponent(referralURL);
   const tweetIntent = `https://twitter.com/intent/tweet?text=${textURI}&url=${urlURI}`;
   const telegramShare = `https://t.me/share/url?text=${textURI}&url=${urlURI}`;
