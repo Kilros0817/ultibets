@@ -8,8 +8,11 @@ type Props = {
   item2: string;
   item3?: string;
   item4?: string;
+  item5?: string;
+  item6?: string;
+  item7?: string;
 };
-const Content = ({ title, subtitle, item1, item2, item3, item4 }: Props) => {
+const Content = ({ title, subtitle, item1, item2, item3, item4, item5, item6, item7 }: Props) => {
   return (
     <Flex
       zIndex={10}
@@ -101,6 +104,51 @@ const Content = ({ title, subtitle, item1, item2, item3, item4 }: Props) => {
               >
                 {' '}
                 {item4 && item4}
+              </Text>
+            </li>
+          )}
+          {item5 && (
+            <li>
+              <Text
+                fontStyle={'normal'}
+                fontWeight={700}
+                fontSize={'16px'}
+                lineHeight={'22px'}
+                textTransform={'capitalize'}
+                color={'#FFFFFF'}
+              >
+                {' '}
+                {item5 && item5}
+              </Text>
+            </li>
+          )}
+          {item6 && (
+            <li>
+              <Text
+                fontStyle={'normal'}
+                fontWeight={700}
+                fontSize={'16px'}
+                lineHeight={'22px'}
+                textTransform={'capitalize'}
+                color={'#FFFFFF'}
+              >
+                {' '}
+                {item6 && item6}
+              </Text>
+            </li>
+          )}
+          {item7 && (
+            <li>
+              <Text
+                fontStyle={'normal'}
+                fontWeight={700}
+                fontSize={'16px'}
+                lineHeight={'22px'}
+                textTransform={'capitalize'}
+                color={'#FFFFFF'}
+              >
+                {' '}
+                {item7 && item7}
               </Text>
             </li>
           )}

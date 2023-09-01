@@ -140,7 +140,6 @@ const AdminEventCard = ({
       _hover={{
         boxShadow: '0px 0px 10px rgba(255, 145, 0, 0.25)',
       }}
-      cursor={'pointer'}
       p={['13px 14px 21px 14px']}
       className='admin-event-card'
       border={bettingDeadline - secondsInHalfHour < Date.now() / 1000 ? '1px solid #FF4D00' : '1px solid #91DC5A'}
@@ -265,7 +264,6 @@ const AdminEventCard = ({
           position={'absolute'}
           right={0}
           top={'5px'}
-          zIndex={1}
           gap={'2px'}
         >
           <Flex

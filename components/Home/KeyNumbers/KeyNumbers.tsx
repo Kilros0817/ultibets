@@ -131,7 +131,7 @@ const KeyNumbers = () => {
               textTransform={'capitalize'}
               color={'#E18935'}
             >
-              6
+              7
             </Text>
             <Text
               fontSize={'22px'}
@@ -168,7 +168,7 @@ const KeyNumbers = () => {
               height={'90px'}
               alignItems={'start'}
             >
-              prediction categories including squid bet competitions{' '}
+              prediction markets categories{' '}
             </Text>
           </Flex>
         </Flex>
