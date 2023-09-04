@@ -37,7 +37,7 @@ const Mug = () => {
                 key={tee.id}
                 id={tee.id}
                 name={tee.name}
-                price={tee.price}
+                price={tee.price as number}
                 image={tee.image}
               />
             );
