@@ -3,7 +3,7 @@ export const sizeData: Array<string> = ['S', 'M', 'L', 'XL', 'XXL'];
 export type TEESDATA = {
   id: string;
   name: string;
-  price: number;
+  price?: number;
   image: string;
   description?: string;
   code?: string;
@@ -52,12 +52,43 @@ export type TEESDATA = {
 // Capacity: 350 ml
 // Washing Temperature: Dish-Washer Compatible
 
+export const PacksData: Array<TEESDATA> = [
+  {
+    id: '1',
+    name: '1000 UTBETS',
+    weight: 1000,
+    image: '/images/svgs/merch/utbets-pack.svg',
+    description: 'UTBETS Packs 1',
+  },
+  {
+    id: '2',
+    name: '2500(+300 Bonus) UTBETS',
+    weight: 2500,
+    image: '/images/svgs/merch/utbets-pack.svg',
+    description: 'UTBETS Packs 1',
+  },
+  {
+    id: '3',
+    name: '6000(+1500 Bonus) UTBETS',
+    weight: 6000,
+    image: '/images/svgs/merch/utbets-pack.svg',
+    description: 'UTBETS Packs 1',
+  },
+  {
+    id: '4',
+    name: '10000(+3500 Bonus) UTBETS',
+    weight: 10000,
+    image: '/images/svgs/merch/utbets-pack.svg',
+    description: 'UTBETS Packs 1',
+  },
+]
+
 export const TeesData: Array<TEESDATA> = [
   {
     id: '1',
     name: 'Ultibets Men T-Shirt',
     price: 29.99,
-    image: '/images/svgs/man-tee-one.svg',
+    image: '/images/svgs/merch/man-tee-one.svg',
     description: 'Ultibets Logo Men T-Shirt',
     code: 'men-tshirt',
     material: ' 100% Cotton',
@@ -71,7 +102,7 @@ export const TeesData: Array<TEESDATA> = [
     id: '2',
     name: 'Ultibets Men T-Shirt',
     price: 29.99,
-    image: '/images/svgs/man-tee-two.svg',
+    image: '/images/svgs/merch/man-tee-two.svg',
     description: 'Ultibets Logo Men T-Shirt',
     code: 'men-tshirt',
     material: ' 100% Cotton',
@@ -85,7 +116,7 @@ export const TeesData: Array<TEESDATA> = [
     id: '3',
     name: 'Ultibets Men T-Shirt',
     price: 29.99,
-    image: '/images/svgs/man-tee-three.svg',
+    image: '/images/svgs/merch/man-tee-three.svg',
     description: 'Ultibets Logo Men T-Shirt',
     code: 'men-tshirt',
     material: ' 100% Cotton',
@@ -99,7 +130,7 @@ export const TeesData: Array<TEESDATA> = [
     id: '4',
     name: 'Ultibets Women T-Shirt ',
     price: 29.99,
-    image: '/images/svgs/woman-tee-one.svg',
+    image: '/images/svgs/merch/woman-tee-one.svg',
     description: 'Ultibets Logo Women T-Shirt',
     code: 'women-tshirt',
     material: '100% Cotton',
@@ -113,7 +144,7 @@ export const TeesData: Array<TEESDATA> = [
     id: '5',
     name: 'Ultibets Women T-Shirt',
     price: 29.99,
-    image: '/images/svgs/woman-tee-two.svg',
+    image: '/images/svgs/merch/woman-tee-two.svg',
     description: 'Ultibets Logo Women T-Shirt',
     code: 'women-tshirt',
     material: '100% Cotton',
@@ -127,7 +158,7 @@ export const TeesData: Array<TEESDATA> = [
     id: '6',
     name: 'Ultibets T-Shirt Hoodie',
     price: 59.99,
-    image: '/images/svgs/hoodie-one.svg',
+    image: '/images/svgs/merch/hoodie-one.svg',
     description: 'Ultibets Logo Hoodie',
     code: 'hoodie',
     material: '50% Cotton / 50% Polyester',
@@ -141,7 +172,7 @@ export const TeesData: Array<TEESDATA> = [
     id: '7',
     name: 'Ultibets T-Shirt Hoodie',
     price: 59.99,
-    image: '/images/svgs/hoodie-two.svg',
+    image: '/images/svgs/merch/hoodie-two.svg',
     description: 'Ultibets Logo Hoodie',
     code: 'hoodie',
     material: '50% Cotton / 50% Polyester',
@@ -155,7 +186,7 @@ export const TeesData: Array<TEESDATA> = [
     id: '8',
     name: 'Ultibets T-Shirt Hoodie',
     price: 59.99,
-    image: '/images/svgs/hoodie-three.svg',
+    image: '/images/svgs/merch/hoodie-three.svg',
     description: 'Ultibets Logo Hoodie',
     code: 'hoodie',
     material: '50% Cotton / 50% Polyester',
@@ -169,7 +200,7 @@ export const TeesData: Array<TEESDATA> = [
     id: '9',
     name: 'Ultibets Cap',
     price: 19.99,
-    image: '/images/svgs/cap.svg',
+    image: '/images/svgs/merch/cap.svg',
     description: 'Ultibets Logo Cap',
     code: 'cap',
     material: '100% Cotton',
@@ -183,7 +214,7 @@ export const TeesData: Array<TEESDATA> = [
     id: '10',
     name: 'Ultibets Mug',
     price: 14.49,
-    image: '/images/svgs/mug.svg',
+    image: '/images/svgs/merch/mug.svg',
     description: 'Ultibets Logo Mug',
     code: 'mug',
     material: 'Ceramic',

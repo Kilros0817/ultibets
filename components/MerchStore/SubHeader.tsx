@@ -8,6 +8,10 @@ const SubHeader = () => {
       link: '/merch-store/all-items',
     },
     {
+      name: 'UTBETS Packs',
+      link: '/merch-store/utbets-packs',
+    },
+    {
       name: 'Men T-shirts',
       link: '/merch-store/men-tshirt',
     },

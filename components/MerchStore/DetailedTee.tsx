@@ -18,7 +18,7 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IoMdDoneAll } from 'react-icons/io';
 import { toast } from 'react-toastify';
 import '@fontsource/nunito';
@@ -110,6 +110,10 @@ const DetailedTee = ({
     dispatch(removeItemFromCart({ id, size: newSize }));
     decrementCounter();
   };
+
+  useEffect(() => {
+    setCounter(0)
+  }, [size])
 
   return (
     <Box>
@@ -293,7 +297,7 @@ const DetailedTee = ({
                 Size
               </Text>
               {DetailedItem?.code === 'cap' ||
-              DetailedItem?.code === 'mug' ? null : (
+                DetailedItem?.code === 'mug' ? null : (
                 <Grid
                   ml={'20px'}
                   templateColumns={'repeat(5, 1fr)'}
@@ -440,7 +444,7 @@ const DetailedTee = ({
               <Flex>
                 {' '}
                 <IconButton
-                  disabled={counter === 0}
+                  isDisabled={counter == 0}
                   mt={'2px'}
                   aria-label='Search database'
                   onClick={removeItemHandler}
@@ -451,7 +455,7 @@ const DetailedTee = ({
                     {counter}
                   </Text>
                   <IconButton
-                    disabled={
+                    isDisabled={
                       !size &&
                       !(
                         DetailedItem?.code === 'cap' ||
@@ -466,7 +470,7 @@ const DetailedTee = ({
               </Flex>
 
               <Button
-                disabled={
+                isDisabled={
                   (!size &&
                     !(
                       DetailedItem?.code === 'cap' ||

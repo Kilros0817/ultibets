@@ -199,7 +199,7 @@ const PredictionsModal = ({
 
       if (result) {
         onOpenApproveSuccessAnnounceModal();
-        await getSignature();
+        await getApproval();
       }
       setIsLoading(false)
     } catch (err) {
