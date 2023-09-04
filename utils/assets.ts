@@ -52,6 +52,8 @@ import UltiBetsLeaderBoardAbi from '../abis/UltiBetsLeaderBoard.json';
 import utbetsAirdropAbi from '../abis/utbetsAirdrop.json';
 import UltiBetsTokenAbi from '../abis/UltiBetsToken.json';
 
+import merchStoreAbi from '../abis/MerchStore.json';
+
 export {
     nativeTokenDailyBetsAbiInPM,
     ultibetsTokenDailyBetsAbiInPM,
@@ -65,4 +67,5 @@ export {
     UltiBetsLeaderBoardAbi,
     utbetsAirdropAbi,
     UltiBetsTokenAbi,
+    merchStoreAbi
 }

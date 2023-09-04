@@ -415,11 +415,46 @@ export const utbetsTokenAddresses: {
 	[polygonChainId]: '',
 }
 
+export const usdcAddresses: {
+	[key: number]: string
+} = {
+	[fujiChainId]: '0x4478b6904894911a08Acf07E85cD89B6a2A37b00',
+	[bscTestnetChainId]: '0xC54261f6165734Be513c41Fd9311766aEbD4Cf35',
+	[opGoerliChainId]: '0x07F0Ca4F61d1F334A8C848e74414Ebe8110230F6',
+	[mumbaiChainId]: '0xd317c440F27c1Ac681ef0621FB34e0Cd6eee7628',
+	[avalancheChainId]: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
+	[bscChainId]: '',
+	[opChainId]: '',
+	[polygonChainId]: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
+}
+
 export const airdropContractAddresses = {
 	[fujiChainId]: '0x919E10b18A122719AC63416d4f2b562eb3E554A8',
 	[bscTestnetChainId]: '0xA616458582e934046013557E33321D6919d3AA3D',
 	[opGoerliChainId]: '0x7e2FDda0572085b605EDF9fD2Dd1911B498d4Be0',
 	[mumbaiChainId]: '0x4Edb07D058954B40972F4925C277e488504472C4',
+	[avalancheChainId]: '',
+	[bscChainId]: '',
+	[opChainId]: '',
+	[polygonChainId]: '',
+}
+
+export const merchStoreContractAddresses = {
+	[fujiChainId]: '0xeFd84E5A9c484E106c85A9aac672ECb36B348594',
+	[bscTestnetChainId]: '0xbB4D1A48C625cF11390B69d44C65110bB829A676',
+	[opGoerliChainId]: '0xbcfC81F7255a9A5104422370378E099494287974',
+	[mumbaiChainId]: '0x1e05aa2c71C875d036B900d2D20F3B5f54968A84',
+	[avalancheChainId]: '',
+	[bscChainId]: '',
+	[opChainId]: '',
+	[polygonChainId]: '',
+}
+
+export const symbols = {
+	[fujiChainId]: 'avalanche',
+	[bscTestnetChainId]: 'binance-smart-chain',
+	[opGoerliChainId]: 'optimistic-ethereum',
+	[mumbaiChainId]: 'polygon-pos',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -978,6 +1013,3 @@ export const bridgeURL = 'https://app.chainport.io/';
 export const uniswapURL = "https://app.uniswap.org/#/swap";
 export const uniswapAddLP = "https://app.uniswap.org/#/add/ETH/";
 export const snapshotURL = "https://snapshot.org/#/ultibets.eth";
-
-export const polygonUSDCAddress = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174";
-// export const polygonUSDCAddress = "0x03944D714cE2a05Af2a53B0807E3268115945675";

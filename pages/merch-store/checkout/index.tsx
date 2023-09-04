@@ -83,7 +83,7 @@ const Checkout: NextPage = () => {
         setIsLoading(true);
 
         try {
-            const balance = await getUSDCBalance(address);
+            const balance = await getUSDCBalance(address, chain?.id ?? 0);
             const formattedBalance = formatUnits(balance as any, 6);
             const amount = parseUnits(String(finalAmount), 6);
 
@@ -97,7 +97,7 @@ const Checkout: NextPage = () => {
                 return;
             }
 
-            await transferUSDC("0xe92b2A3eD23D400465211E05062d0Abce7e9cccd", amount);
+            await transferUSDC("0xe92b2A3eD23D400465211E05062d0Abce7e9cccd", amount, chain?.id ?? 0);
             toast.success(`You have successfully sent ${finalAmount} USDC to the contract.`, {
                 position: 'top-right',
                 autoClose: 4000,
