@@ -44,7 +44,7 @@ const SubHeader = () => {
       <Flex
         alignItems={'center'}
         justifyContent={'space-between'}
-        width={['300px', '400px','600px']}
+        width={['380px', '450px','600px']}
         fontSize={['10px', '12px', '14px']}
         mb={'20px'}
       >

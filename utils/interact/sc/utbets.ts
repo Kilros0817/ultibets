@@ -1,7 +1,8 @@
 import { readContract, waitForTransaction, writeContract } from "@wagmi/core";
 import { parseEther } from "viem";
-import { symbols, utbetsTokenAddresses } from "../../config";
+import { merchStoreContractAddresses, symbols, utbetsTokenAddresses } from "../../config";
 import axios from "axios";
+import { merchStoreAbi } from "../../assets";
 // function approve(address spender, uint256 amount) public virtual override returns (bool) {
 export const utbetsApprove = async (tokenAddress: any, spender: string, amount: string) => {
     try {
@@ -117,11 +118,12 @@ export const getAllowance = async (tokenAddress: any, owner: any, spender: any) 
 }
 
 export const getUTBETSPrice = async (chainId: number) => {
-    // const res = await axios.get(
-    //     // @ts-ignore
-    //     `https://api.coingecko.com/api/v3/simple/token_price/${symbols[chainId]}?contract_addresses=${utbetsTokenAddresses[chainId]}&vs_currencies=usd`
-    // );
-    
-    // const tokenPrice = res.data[utbetsTokenAddresses[chainId]].usd;
-    return 0.1
+    const rate =  await readContract({
+        address: (merchStoreContractAddresses as any)[chainId],
+        abi: merchStoreAbi,
+        functionName: "getUTBETSPrice",
+        args: []
+    });
+
+    return Number(rate);
 }

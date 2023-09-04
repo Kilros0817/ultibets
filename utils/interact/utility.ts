@@ -1,7 +1,8 @@
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
-import { EventResultInPM, NFTType, RoundResultInSBC } from "../config";
+import { EventResultInPM, NFTType, RoundResultInSBC, symbols } from "../config";
 import { getFormattedDateString } from "../formatters";
+import axios from "axios";
 
 export const getNFTTypeString = (type: NFTType) => {
     let nftTypeString = '';
@@ -95,3 +96,12 @@ export const getContract = (contractAddress: string, contractAbi: any, provider:
 }
 
 export const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
+export const getNPrice = async (chainId: number) => {
+    const res = await axios.get(
+        // @ts-ignore
+        `https://api.coingecko.com/api/v3/simple/price?ids=${symbols[chainId]}&vs_currencies=usd`
+    );
+
+    return res.data[(symbols as any)[chainId]].usd;
+}

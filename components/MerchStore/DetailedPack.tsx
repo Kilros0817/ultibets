@@ -11,36 +11,29 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import '@fontsource/nunito';
 import { getAllowance, usdcApprove } from '../../utils/interact/sc/usdc';
-import { chainRPCs, merchStoreContractAddresses, mumbaiChainId, usdcAddresses } from '../../utils/config';
+import { chainRPCs, merchStoreContractAddresses, mumbaiChainId, rate, usdcAddresses } from '../../utils/config';
 import { useAccount, useNetwork } from 'wagmi';
 import { formatUnits, parseEther } from 'viem';
 import axios from 'axios';
 import { buyPacks } from '../../utils/interact/sc/merch-store';
+import { getNPrice } from '../../utils/interact/utility';
+import { getUTBETSPrice } from '../../utils/interact/sc/utbets';
+import { PacksData } from '../../constant';
+import { useRouter } from 'next/router';
 
-type DetailedTeeProps = {
-  id: string;
-  image: string;
-  name: string;
-  price: number;
-  description?: string;
-  weight?: number;
-};
-const DetailedPack = ({
-  image,
-  name,
-  price,
-  description,
-  id,
-  weight,
-}: DetailedTeeProps) => {
+
+const DetailedPack = () => {
   const [counter, setCounter] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [utbetsAmount, setUtbetsAmount] = useState(0)
+  const [uAmount, setUAmount] = useState(0);
 
   const [signature, setSignature] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const {chain} = useNetwork();
-  const {address} = useAccount();
+  const { chain } = useNetwork();
+  const { address } = useAccount();
+
+  const router = useRouter();
 
   const [isApproved, setIsApproved] = useState(false);
 
@@ -56,6 +49,9 @@ const DetailedPack = ({
     decrementCounter();
   };
 
+  const pack = PacksData.find((obj) => {
+    return obj.id == router.query.slug;
+  });
 
   const getSignature = async () => {
     setIsLoading(true)
@@ -97,7 +93,7 @@ const DetailedPack = ({
       });
       await initAllowance();
     }
-    else 
+    else
       toast.error(`Error in USDC Approve.`, {
         position: 'top-right',
         autoClose: 2000,
@@ -122,7 +118,7 @@ const DetailedPack = ({
       });
       await initAllowance();
     }
-    else 
+    else
       toast.error(`Failed!`, {
         position: 'top-right',
         autoClose: 2000,
@@ -133,38 +129,54 @@ const DetailedPack = ({
   const initAllowance = async () => {
     const allowance = await getAllowance(usdcAddresses[chain?.id ?? 0], address, (merchStoreContractAddresses as any)[chain?.id ?? 0])
     const amount = formatUnits(allowance as any, 6);
-    
+
     if (+amount >= totalPrice) {
       setIsApproved(true)
       if (totalPrice > 0)
         await getSignature();
-    } 
+    }
     else setIsApproved(false);
   }
 
   useEffect(() => {
-    if (price)
-      setTotalPrice(counter * price)
-    setUtbetsAmount(counter * (weight as number));
-  }, [counter, price])
+    if (pack?.price)
+      setTotalPrice(counter * pack.price)
+
+    setUtbetsAmount(counter * uAmount);
+  }, [counter])
 
   useEffect(() => {
     if (chain?.id)
       initAllowance();
   }, [totalPrice])
 
+  useEffect(() => {
+    const initUAmount = async () => {
+      const nativePrice = await getNPrice(chain?.id ?? 137);
+      const uPrice = await getUTBETSPrice(chain?.id ?? 137)
+      const utbetsPrice = nativePrice * uPrice / rate;
+      const amount = Math.ceil((pack?.price as number) / utbetsPrice * (100 + (pack?.bonus as number)) / 100 * 1000) / 1000
+      setUAmount(amount);
+    } 
+    if (chain?.id && pack) initUAmount();
+  }, [chain, pack])
+
   return (
     <Box>
-      <Box width={'auto'}>
+      <Box maxWidth={'1000px'} margin={'auto'}>
         <Flex
           justifyContent={'center'}
           direction={['column', 'column', 'row', 'row']}
           alignItems='center'
+          margin={'auto'}
+          w={['auto', 'auto', '600px', 'auto']}
+          gap={['30px', '30px', '0px', '0px']}
         >
           <Flex
             direction={'column'}
             mt={['0', '0', '0', 'none']}
             ml={['0', '0', '0', 'none']}
+            width={'40%'}
           >
             <Flex
               border={'1px solid white'}
@@ -179,10 +191,10 @@ const DetailedPack = ({
             >
               {' '}
               <Image
-                src={image}
+                src={pack?.image}
                 width={['300px', '300px', '350px', '560px']}
                 height={['250px', '250px', '240px', '465px']}
-                alt={name}
+                alt={pack?.name}
                 borderRadius={'10px'}
               />
             </Flex>
@@ -195,14 +207,14 @@ const DetailedPack = ({
               ml={'10px'}
               fontFamily={'Nunito'}
             >
-              {name?.toUpperCase()}
+              {pack?.name.toUpperCase()}
             </Text>
           </Flex>
           <Flex
             direction={'column'}
             ml={['0', '0', '50px', '50px']}
             mt={'20px'}
-            w='auto'
+            width={'60%'}
           >
             <Flex gap={'3px'} direction={'column'}>
               <Text
@@ -213,7 +225,7 @@ const DetailedPack = ({
                 mt={'-20px'}
                 ml={'20px'}
               >
-                {description}
+                {pack?.description}
               </Text>
               <Text
                 fontFamily={'Nunito'}
@@ -222,7 +234,7 @@ const DetailedPack = ({
                 fontWeight={'light'}
                 ml={'20px'}
               >
-                {price} USDC
+                {pack?.price} USDC
               </Text>
             </Flex>
             <Flex gap={'8px'} mt={'20px'} direction={'column'}>
@@ -235,7 +247,35 @@ const DetailedPack = ({
               >
                 Description
               </Text>
-              <Flex gap={'5px'} direction={'column'}>
+              <Text
+                fontFamily={'Nunito'}
+                color={'white'}
+                fontSize={'15px'}
+                fontWeight={'light'}
+                ml={'20px'}
+              >
+                {pack?.description1}
+              </Text>
+              <Text
+                fontFamily={'Nunito'}
+                color={'white'}
+                fontSize={'15px'}
+                fontWeight={'light'}
+                ml={'20px'}
+              >
+                {pack?.description2}
+              </Text>
+              <Text
+                fontFamily={'Nunito'}
+                color={'white'}
+                fontSize={'15px'}
+                fontWeight={'light'}
+                ml={'20px'}
+              >
+                {pack?.description3}
+              </Text>
+              <Flex gap={'5px'} direction={'row'}
+              mt={'50px'}>
                 <Text
                   fontFamily={'Nunito'}
                   color={'white'}
@@ -245,8 +285,6 @@ const DetailedPack = ({
                 >
                   Total Price : {totalPrice} USDC
                 </Text>
-              </Flex>
-              <Flex gap={'5px'} direction={'column'}>
                 <Text
                   fontFamily={'Nunito'}
                   color={'white'}
@@ -298,7 +336,7 @@ const DetailedPack = ({
                 _hover={{
                   backgroundColor: '#FC541C',
                 }}
-                onClick={ isApproved ? buyPack : approveUSDC}
+                onClick={isApproved ? buyPack : approveUSDC}
               >
                 <Text fontSize={'20px'}> {isApproved ? 'Buy Packs' : 'Approve'} </Text>
               </Button>

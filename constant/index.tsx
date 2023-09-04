@@ -17,6 +17,19 @@ export type TEESDATA = {
   capacity?: string;
 };
 
+export type PACKDATA = {
+  id: string;
+  name: string;
+  price: number;
+  bonus: number;
+  image: string;
+  description?: string;
+  description1?: string;
+  description2?: string;
+  description3?: string;
+  weight?: number;
+};
+
 // t shirts (men/women): 250g
 // hoodies: 500g
 // Cap: 100g
@@ -52,35 +65,118 @@ export type TEESDATA = {
 // Capacity: 350 ml
 // Washing Temperature: Dish-Washer Compatible
 
-export const PacksData: Array<TEESDATA> = [
+export const PacksData: Array<PACKDATA> = [
   {
     id: '1',
-    name: '1000 UTBETS',
-    weight: 1000,
+    name: 'Starter Pack',
+    price: 0.0000099,
+    bonus: 1,
     image: '/images/svgs/merch/utbets-pack.svg',
-    description: 'UTBETS Packs 1',
+    description: "Starting Packs",
+    description1: "Start your adventure on UltiBets today! Our UTBETS Starting Packs are perfect for beginners.",
+    description2: "Get a special discount when you buy in bulk and unlock the full potential of UltiBets.",
+    description3: "With token utility that lets you dive into our platform's exciting features, you'll be placing predictions and participating in our weekly SBC events in no time."
   },
   {
     id: '2',
-    name: '2500(+300 Bonus) UTBETS',
-    weight: 2500,
+    name: 'Basic Pack',
+    price: 0.0000499,
+    bonus: 2,
     image: '/images/svgs/merch/utbets-pack.svg',
-    description: 'UTBETS Packs 1',
+    description: "Starting Packs",
+    description1: "Start your adventure on UltiBets today! Our UTBETS Starting Packs are perfect for beginners.",
+    description2: "Get a special discount when you buy in bulk and unlock the full potential of UltiBets.",
+    description3: "With token utility that lets you dive into our platform's exciting features, you'll be placing predictions and participating in our weekly SBC events in no time."
   },
   {
     id: '3',
-    name: '6000(+1500 Bonus) UTBETS',
-    weight: 6000,
+    name: 'Advanced Pack',
+    price: 0.0000999,
+    bonus: 3,
     image: '/images/svgs/merch/utbets-pack.svg',
-    description: 'UTBETS Packs 1',
+    description: "Starting Packs",
+    description1: "Start your adventure on UltiBets today! Our UTBETS Starting Packs are perfect for beginners.",
+    description2: "Get a special discount when you buy in bulk and unlock the full potential of UltiBets.",
+    description3: "With token utility that lets you dive into our platform's exciting features, you'll be placing predictions and participating in our weekly SBC events in no time."
   },
   {
     id: '4',
-    name: '10000(+3500 Bonus) UTBETS',
-    weight: 10000,
+    name: 'Expert  Pack',
+    price: 0.0001999,
+    bonus: 4,
     image: '/images/svgs/merch/utbets-pack.svg',
-    description: 'UTBETS Packs 1',
+    description: "Starting Packs",
+    description1: "Start your adventure on UltiBets today! Our UTBETS Starting Packs are perfect for beginners.",
+    description2: "Get a special discount when you buy in bulk and unlock the full potential of UltiBets.",
+    description3: "With token utility that lets you dive into our platform's exciting features, you'll be placing predictions and participating in our weekly SBC events in no time."
   },
+  {
+    id: '5',
+    name: 'Expert  Pack',
+    price: 0.0004999,
+    bonus: 5,
+    image: '/images/svgs/merch/utbets-pack.svg',
+    description: "Starting Packs",
+    description1: "Start your adventure on UltiBets today! Our UTBETS Starting Packs are perfect for beginners.",
+    description2: "Get a special discount when you buy in bulk and unlock the full potential of UltiBets.",
+    description3: "With token utility that lets you dive into our platform's exciting features, you'll be placing predictions and participating in our weekly SBC events in no time."
+  },
+  {
+    id: '6',
+    name: 'Prestige Pack',
+    price: 0.0009999,
+    bonus: 6,
+    image: '/images/svgs/merch/utbets-pack.svg',
+    description: "Pro Packs",
+    description1: "Elevate your UltiBets experience with Pro Packs and lead the way! For the seasoned predictors and experts, our UTBETS Pro Packs are a game-changer.",
+    description2: "Enjoy exclusive discounts when you purchase in bulk and access token utility that amplifies your presence on the UltiBets platform.",
+    description3: "These packs are your key to advanced prediction placement and participation in our thrilling weekly SBC events."
+  },
+  {
+    id: '7',
+    name: 'Majestic Pack',
+    price: 0.0019999,
+    bonus: 7,
+    image: '/images/svgs/merch/utbets-pack.svg',
+    description: "Pro Packs",
+    description1: "Elevate your UltiBets experience with Pro Packs and lead the way! For the seasoned predictors and experts, our UTBETS Pro Packs are a game-changer.",
+    description2: "Enjoy exclusive discounts when you purchase in bulk and access token utility that amplifies your presence on the UltiBets platform.",
+    description3: "These packs are your key to advanced prediction placement and participation in our thrilling weekly SBC events."
+  },
+  {
+    id: '8',
+    name: 'Elite Pack',
+    price: 0.0029999,
+    bonus: 8,
+    image: '/images/svgs/merch/utbets-pack.svg',
+    description: "Pro Packs",
+    description1: "Elevate your UltiBets experience with Pro Packs and lead the way! For the seasoned predictors and experts, our UTBETS Pro Packs are a game-changer.",
+    description2: "Enjoy exclusive discounts when you purchase in bulk and access token utility that amplifies your presence on the UltiBets platform.",
+    description3: "These packs are your key to advanced prediction placement and participation in our thrilling weekly SBC events."
+  },
+  {
+    id: '9',
+    name: 'Legendary Pack',
+    price: 0.0039999,
+    bonus: 9,
+    image: '/images/svgs/merch/utbets-pack.svg',
+    description: "Pro Packs",
+    description1: "Elevate your UltiBets experience with Pro Packs and lead the way! For the seasoned predictors and experts, our UTBETS Pro Packs are a game-changer.",
+    description2: "Enjoy exclusive discounts when you purchase in bulk and access token utility that amplifies your presence on the UltiBets platform.",
+    description3: "These packs are your key to advanced prediction placement and participation in our thrilling weekly SBC events."
+  },
+  {
+    id: '10',
+    name: 'Ultimate Pack',
+    price: 0.0049999,
+    bonus: 10,
+    image: '/images/svgs/merch/utbets-pack.svg',
+    description: "Pro Packs",
+    description1: "Elevate your UltiBets experience with Pro Packs and lead the way! For the seasoned predictors and experts, our UTBETS Pro Packs are a game-changer.",
+    description2: "Enjoy exclusive discounts when you purchase in bulk and access token utility that amplifies your presence on the UltiBets platform.",
+    description3: "These packs are your key to advanced prediction placement and participation in our thrilling weekly SBC events."
+  },
+  
 ]
 
 export const TeesData: Array<TEESDATA> = [

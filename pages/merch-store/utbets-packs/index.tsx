@@ -5,24 +5,25 @@ import Pack from '../../../components/MerchStore/Pack';
 import { useEffect, useState } from 'react';
 import { useNetwork } from 'wagmi';
 import { getUTBETSPrice } from '../../../utils/interact/sc/utbets';
+import { getNPrice } from '../../../utils/interact/utility';
+import { rate } from '../../../utils/config';
 
 const UTBETSPacks = () => {
-  const [price, setPrice] = useState(0)
+  const [utbetsPrice, setUTBETSPrice] = useState(0.1)
   const {chain} = useNetwork();
 
   useEffect(() => {
-    const initPrice = async () => {
-      const nPrice = await getUTBETSPrice(chain?.id ?? 137)
-      setPrice(nPrice)
+    const initNPrice = async () => {
+      const nativePrice = await getNPrice(chain?.id ?? 137);
+      const price = await getUTBETSPrice(chain?.id ?? 137)
+      setUTBETSPrice(nativePrice * price / rate);
     }
-    initPrice()
+    initNPrice()
   }, [chain])
 
   return (
     <Box
       bg={'#1F1F1F'}
-      width={['auto', 'auto', '100vw', '100vw']}
-      height={['auto', 'auto', '100vw', '100vw']}
     >
       <SubHeader />
       <Flex
@@ -48,7 +49,9 @@ const UTBETSPacks = () => {
                 key={pack.id}
                 id={pack.id}
                 name={pack.name}
-                price={price * (pack.weight ?? 0)} 
+                uPrice={utbetsPrice}
+                bonus={pack.bonus}
+                price={pack.price} 
                 image={pack.image}
               />
             );

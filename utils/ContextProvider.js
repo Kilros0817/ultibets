@@ -45,6 +45,7 @@ const ContextProvider = ({ children }) => {
     const [subCategoryInPM, setSubCategoryInPM] = useState(0);
     const [currentPMEventID, setCurrentPMEventID] = useState(0);
     const [referral, setReferral] = useState('');
+    const [nPrice, setNPrice] = useState(0);
 
     return (
         <ChainContext.Provider
@@ -71,6 +72,8 @@ const ContextProvider = ({ children }) => {
                 setCurrentPMEventID,
                 referral,
                 setReferral,
+                nPrice,
+                setNPrice
             }}
         >
             {children}

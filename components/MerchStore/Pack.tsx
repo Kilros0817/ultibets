@@ -1,14 +1,16 @@
 import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-type TeesProps = {
+type PackProps = {
   id: string;
   name: string;
+  bonus: number;
+  uPrice: number;
   price: number;
   image: string;
 };
 
-const Pack = ({ id, name, price, image }: TeesProps) => {
+const Pack = ({ id, name, bonus, price, uPrice, image }: PackProps) => {
   const router = useRouter();
   return (
     <Box>
@@ -26,18 +28,32 @@ const Pack = ({ id, name, price, image }: TeesProps) => {
           border={'1px solid #FFFFFF'}
           boxShadow={'inner'}
           borderRadius={'5px'}
-          // margin='10px'
+          pb={'50px'}
+          _hover={{
+            boxShadow: '0px 0px 10px #FFFFFF',
+          }}
+          onClick={() => {
+            router.push(`/merch-store/utbets-packs/${id}`);
+          }}
         >
+          <Flex
+            my={'20px'}
+          >
+            <Text 
+              m={'auto'} 
+              fontSize={'30px'}
+              fontFamily='Nunito' 
+              fontWeight={'bold'}
+            >
+              {name}
+            </Text>
+
+          </Flex>
           <Flex
             justifyContent={'center'}
             alignItems={'center'}
             cursor={'pointer'}
-            _hover={{
-              boxShadow: '0px 0px 10px #FFFFFF',
-            }}
-            onClick={() => {
-              router.push(`/merch-store/utbets-packs/${id}`);
-            }}
+
           >
             <Image
               src={image}
@@ -60,7 +76,7 @@ const Pack = ({ id, name, price, image }: TeesProps) => {
               fontSize={'10px'}
               fontWeight={'900'}
             >
-              {name?.toUpperCase()}
+              {Math.ceil(price / uPrice * 1000) / 1000} + {Math.ceil(price / uPrice * bonus / 100 * 1000) / 1000} UTBETS
             </Text>
             <Text
               fontWeight={'900'}
@@ -68,7 +84,7 @@ const Pack = ({ id, name, price, image }: TeesProps) => {
               fontSize={'12px'}
             >
               {' '}
-              {price.toLocaleString()} USDC
+              {price} USDC
             </Text>
           </Flex>
           <Button

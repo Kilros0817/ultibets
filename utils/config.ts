@@ -443,7 +443,7 @@ export const merchStoreContractAddresses = {
 	[fujiChainId]: '0xeFd84E5A9c484E106c85A9aac672ECb36B348594',
 	[bscTestnetChainId]: '0xbB4D1A48C625cF11390B69d44C65110bB829A676',
 	[opGoerliChainId]: '0xbcfC81F7255a9A5104422370378E099494287974',
-	[mumbaiChainId]: '0x1e05aa2c71C875d036B900d2D20F3B5f54968A84',
+	[mumbaiChainId]: '0x6991Cdc0c2CE1D83AD06cEF553E93Fd30952c588',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -451,10 +451,10 @@ export const merchStoreContractAddresses = {
 }
 
 export const symbols = {
-	[fujiChainId]: 'avalanche',
-	[bscTestnetChainId]: 'binance-smart-chain',
-	[opGoerliChainId]: 'optimistic-ethereum',
-	[mumbaiChainId]: 'polygon-pos',
+	[fujiChainId]: 'avalanche-2',
+	[bscTestnetChainId]: 'binancecoin',
+	[opGoerliChainId]: 'ethereum',
+	[mumbaiChainId]: 'matic-network',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
@@ -1013,3 +1013,6 @@ export const bridgeURL = 'https://app.chainport.io/';
 export const uniswapURL = "https://app.uniswap.org/#/swap";
 export const uniswapAddLP = "https://app.uniswap.org/#/add/ETH/";
 export const snapshotURL = "https://snapshot.org/#/ultibets.eth";
+
+
+export const rate = 1000000000;
