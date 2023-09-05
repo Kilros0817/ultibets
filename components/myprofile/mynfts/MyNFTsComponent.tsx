@@ -112,7 +112,7 @@ const MyNFTsComponent = ({
     ])
 
     useEffect(() => {
-        fetchDataFromSubgraph7();
+        fetchDataFromSubgraph7(6000);
     }, [
         shouldRender,
     ])

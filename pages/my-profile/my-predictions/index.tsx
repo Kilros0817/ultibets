@@ -81,7 +81,7 @@ const MyPredictions = () => {
   ])
 
   useEffect(() => {
-    fetchDataFromSubgraph2(3000);
+    fetchDataFromSubgraph2(6000);
   }, [shouldRender])
 
   useContractEvent({

@@ -95,7 +95,7 @@ const AdminEventCardList = ({
   ])
 
   useEffect(() => {
-    fetchDataFromSubgraph(3000);
+    fetchDataFromSubgraph(7000);
   }, [shouldRender])
 
   useContractEvent({

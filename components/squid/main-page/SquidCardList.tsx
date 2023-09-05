@@ -61,7 +61,7 @@ const SquidCardList = () => {
   ])
 
   useEffect(() => {
-    fetchDataFromSubgraph5();
+    fetchDataFromSubgraph5(6000);
   }, [
     shouldRender,
   ])

@@ -100,7 +100,7 @@ const SquidBetPage = () => {
   ])
 
   useEffect(() => {
-    fetchDataFromSubgraph4();
+    fetchDataFromSubgraph4(6);
   }, [
     shouldRender,
   ])

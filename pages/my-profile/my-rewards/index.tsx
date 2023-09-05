@@ -72,7 +72,7 @@ const MyRewards = () => {
 
     useEffect(() => {
         console.log("rewardData ", "before");
-        fetchDataFromSubgraph(4000);
+        fetchDataFromSubgraph(6000);
     }, [shouldRender])
 
     useContractEvent({

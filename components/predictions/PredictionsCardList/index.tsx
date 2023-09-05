@@ -104,7 +104,7 @@ const PredictionsCardList = ({
   ])
 
   useEffect(() => {
-    fetchDataFromSubgraph(3000);
+    fetchDataFromSubgraph(6000);
   }, [shouldRender])
 
   useContractEvent({
