@@ -139,7 +139,6 @@ const PredictionsModal = ({
       setEventID(parseInt(cardId));
     }
 
-    console.log(window.atob(referral), "==============referee================")
   }, [router]);
 
   useEffect(() => {

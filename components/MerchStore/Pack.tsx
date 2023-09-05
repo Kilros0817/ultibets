@@ -28,7 +28,7 @@ const Pack = ({ id, name, bonus, price, uPrice, image }: PackProps) => {
           border={'1px solid #FFFFFF'}
           boxShadow={'inner'}
           borderRadius={'5px'}
-          pb={'50px'}
+          pb={'40px'}
           _hover={{
             boxShadow: '0px 0px 10px #FFFFFF',
           }}
@@ -37,12 +37,29 @@ const Pack = ({ id, name, bonus, price, uPrice, image }: PackProps) => {
           }}
         >
           <Flex
-            my={'20px'}
+            backgroundColor={'red'}
+            width={'40%'}
+            float={'right'}
+            borderRadius={'5px'}
           >
-            <Text 
-              m={'auto'} 
+            <Text
+              m={'auto'}
+              fontSize={'12px'}
+              fontFamily='Nunito'
+              fontWeight={'bold'}
+            >
+              {bonus}% UTBETS Bonus
+            </Text>
+          </Flex>
+          <Flex
+            mt={'40px'}
+            mb={'20px'}
+            width={'100%'}
+          >
+            <Text
+              m={'auto'}
               fontSize={'30px'}
-              fontFamily='Nunito' 
+              fontFamily='Nunito'
               fontWeight={'bold'}
             >
               {name}
@@ -62,6 +79,7 @@ const Pack = ({ id, name, bonus, price, uPrice, image }: PackProps) => {
               alt='Ultibets Tshirt'
             />
           </Flex>
+
         </Box>
         <Flex
           justifyContent={'space-between'}
@@ -76,7 +94,7 @@ const Pack = ({ id, name, bonus, price, uPrice, image }: PackProps) => {
               fontSize={'10px'}
               fontWeight={'900'}
             >
-              {Math.ceil(price / uPrice * 1000) / 1000} + {Math.ceil(price / uPrice * bonus / 100 * 1000) / 1000} UTBETS
+              {Math.ceil(price / uPrice * (100 + bonus) / 100 * 1000) / 1000} UTBETS
             </Text>
             <Text
               fontWeight={'900'}
