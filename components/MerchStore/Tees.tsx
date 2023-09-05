@@ -66,7 +66,7 @@ const Tees = ({ id, name, price, image }: TeesProps) => {
               fontWeight={'900'}
               color={'#FFB11C'}
               letterSpacing='1px'
-              fontSize={'12px'}
+              fontSize={'16px'}
             >
               {' '}
               {price} USDC
