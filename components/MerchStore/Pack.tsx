@@ -36,20 +36,36 @@ const Pack = ({ id, name, bonus, price, uPrice, image }: PackProps) => {
             router.push(`/merch-store/utbets-packs/${id}`);
           }}
         >
+          <Flex justifyContent={'space-between'}>
           <Flex
-            backgroundColor={'red'}
-            width={'40%'}
-            float={'right'}
-            borderRadius={'5px'}
-          >
-            <Text
-              m={'auto'}
-              fontSize={'12px'}
-              fontFamily='Nunito'
-              fontWeight={'bold'}
+              backgroundColor={+id <=5 ? '#8f959e' : '#3e4042'}
+              width={'40%'}
+              borderRadius={'5px'}
             >
-              {bonus}% UTBETS Bonus
-            </Text>
+              <Text
+                m={'auto'}
+                fontSize={'12px'}
+                fontFamily='Nunito'
+                fontWeight={'bold'}
+              >
+                {+id <= 5 ? 'STARTING PACK' : 'PRO PACK' }
+              </Text>
+            </Flex>
+            <Flex
+              backgroundColor={'red'}
+              width={'40%'}
+              borderRadius={'5px'}
+            >
+              <Text
+                m={'auto'}
+                fontSize={'12px'}
+                fontFamily='Nunito'
+                fontWeight={'bold'}
+              >
+                {bonus}% UTBETS Bonus
+              </Text>
+            </Flex>
+            
           </Flex>
           <Flex
             mt={'40px'}
