@@ -1015,4 +1015,4 @@ export const uniswapAddLP = "https://app.uniswap.org/#/add/ETH/";
 export const snapshotURL = "https://snapshot.org/#/ultibets.eth";
 
 
-export const rate = 1000000000;
+export const rate = 10000;

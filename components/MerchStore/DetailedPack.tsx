@@ -146,7 +146,7 @@ const DetailedPack = () => {
   }, [counter])
 
   useEffect(() => {
-    if (chain?.id)
+    if (chain?.id && totalPrice > 0)
       initAllowance();
   }, [totalPrice])
 
@@ -183,6 +183,7 @@ const DetailedPack = () => {
               borderRadius={'10px'}
               justifyContent='center'
               alignItems={'center'}
+              py={'20px'}
               mt={'10px'}
               mb={'auto'}
               _hover={{
@@ -192,8 +193,6 @@ const DetailedPack = () => {
               {' '}
               <Image
                 src={pack?.image}
-                width={['300px', '300px', '350px', '560px']}
-                height={['250px', '250px', '240px', '465px']}
                 alt={pack?.name}
                 borderRadius={'10px'}
               />
@@ -283,7 +282,7 @@ const DetailedPack = () => {
                   fontWeight={'light'}
                   ml={'20px'}
                 >
-                  Total Price : {totalPrice} USDC
+                  Total Price : {totalPrice.toLocaleString()} USDC
                 </Text>
                 <Text
                   fontFamily={'Nunito'}
@@ -292,7 +291,7 @@ const DetailedPack = () => {
                   fontWeight={'light'}
                   ml={'20px'}
                 >
-                  You Get: {utbetsAmount} UTBETS
+                  You Get: {utbetsAmount.toLocaleString()} UTBETS
                 </Text>
               </Flex>
             </Flex>
