@@ -26,7 +26,6 @@ const Tees = ({ id, name, price, image }: TeesProps) => {
           border={'1px solid #FFFFFF'}
           boxShadow={'inner'}
           borderRadius={'5px'}
-          // margin='10px'
         >
           <Flex
             justifyContent={'center'}
@@ -57,8 +56,8 @@ const Tees = ({ id, name, price, image }: TeesProps) => {
           <Flex flexDirection={'column'}>
             <Text
               color={'white'}
-              letterSpacing='3px'
-              fontSize={'10px'}
+              letterSpacing='2px'
+              fontSize={'12px'}
               fontWeight={'900'}
             >
               {name?.toUpperCase()}

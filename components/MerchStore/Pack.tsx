@@ -91,7 +91,8 @@ const Pack = ({ id, name, bonus, price, uPrice, image }: PackProps) => {
           <Flex flexDirection={'column'}>
             <Text
               color={'white'}
-              fontSize={'10px'}
+              fontSize={'12px'}
+              letterSpacing='2px'
               fontWeight={'900'}
             >
               {Math.ceil(price / uPrice * (100 + bonus) / 100 * 1000) / 1000} UTBETS
@@ -99,6 +100,7 @@ const Pack = ({ id, name, bonus, price, uPrice, image }: PackProps) => {
             <Text
               fontWeight={'900'}
               color={'#FFB11C'}
+              letterSpacing='1px'
               fontSize={'12px'}
             >
               {' '}
