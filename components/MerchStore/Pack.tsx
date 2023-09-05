@@ -98,7 +98,7 @@ const Pack = ({ id, name, bonus, price, uPrice, image }: PackProps) => {
               {Math.ceil(price / uPrice * (100 + bonus) / 100 * 1000) / 1000} UTBETS
             </Text>
             <Text
-              fontWeight={'800'}
+              fontWeight={'700'}
               color={'#FFB11C'}
               letterSpacing='1px'
               fontSize={'20px'}

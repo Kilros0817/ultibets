@@ -5,7 +5,7 @@ const SubHeader = () => {
   const subCategories = [
     {
       name: 'All Items',
-      link: '/merch-store/all-items',
+      link: '/merch-store',
     },
     {
       name: 'UTBETS Packs',
