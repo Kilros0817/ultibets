@@ -63,10 +63,10 @@ const Tees = ({ id, name, price, image }: TeesProps) => {
               {name?.toUpperCase()}
             </Text>
             <Text
-              fontWeight={'900'}
+              fontWeight={'800'}
               color={'#FFB11C'}
               letterSpacing='1px'
-              fontSize={'16px'}
+              fontSize={'20px'}
             >
               {' '}
               {price} USDC
