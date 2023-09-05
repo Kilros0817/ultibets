@@ -101,7 +101,7 @@ export const PacksData: Array<PACKDATA> = [
   },
   {
     id: '4',
-    name: 'Advanced Pack',
+    name: 'Expert Pack',
     price: 19.99,
     bonus: 4,
     image: '/images/pngs/packs/pack4.png',
@@ -112,7 +112,7 @@ export const PacksData: Array<PACKDATA> = [
   },
   {
     id: '5',
-    name: 'Expert Pack',
+    name: 'Master Pack',
     price: 49.99,
     bonus: 5,
     image: '/images/pngs/packs/pack5.png',
