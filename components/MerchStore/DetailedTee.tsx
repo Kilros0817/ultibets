@@ -93,23 +93,26 @@ const DetailedTee = ({
   };
   const addItemHandler = () => {
     incrementCounter();
+
+  };
+
+  const removeItemHandler = () => {
+    decrementCounter();
+  };
+
+  const addToCart = () => {
     dispatch(
       addItemToCart({
         id,
         price,
+        amount:counter,
         name: description,
         size: size || 'Unique Size',
         image,
         weight,
       })
     );
-  };
-
-  const removeItemHandler = () => {
-    const newSize = size ? size : 'Unique Size';
-    dispatch(removeItemFromCart({ id, size: newSize }));
-    decrementCounter();
-  };
+  }
 
   useEffect(() => {
     setCounter(0)
@@ -479,6 +482,7 @@ const DetailedTee = ({
                   counter === 0
                 }
                 onClick={async () => {
+                  addToCart();
                   onOpen();
                   toast.success(`item Added to cart`, {
                     position: 'top-right',

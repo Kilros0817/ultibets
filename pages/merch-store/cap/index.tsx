@@ -11,7 +11,7 @@ const Cap = () => {
   });
 
   return (
-    <Box bg={'#1F1F1F'} width={'100vw'} height={'100vh'}>
+    <Box bg={'#1F1F1F'}>
       <SubHeader />
       <Flex
         direction={'column'}
@@ -26,7 +26,6 @@ const Cap = () => {
             'repeat(3, 1fr)',
             'repeat(3, 1fr)',
           ]}
-          mr={'25px'}
           gap='50px'
           mb={'20px'}
         >

@@ -37,7 +37,6 @@ const AllItems = () => {
             'repeat(3, 1fr)',
             'repeat(3, 1fr)',
           ]}
-          mr={'25px'}
           gap='50px'
           mb={'20px'}
         >

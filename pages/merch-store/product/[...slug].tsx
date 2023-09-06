@@ -14,8 +14,6 @@ const ProductDetails: NextPage = () => {
   return (
     <Box
       bg={'#1F1F1F'}
-      width={'100vw'}
-      height={['auto', 'auto', '100vh', '100vh']}
     >
       <SubHeader />
       {' '}

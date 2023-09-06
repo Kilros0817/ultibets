@@ -13,6 +13,7 @@ const CartItem = (props: any) => {
       addItemToCart({
         id,
         title,
+        amount: 1,
         price,
         size: size || 'Unique Size',
         weight,

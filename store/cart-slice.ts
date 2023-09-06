@@ -23,12 +23,12 @@ const cartSlice = createSlice({
       const existingItem = state.items.find(
         (item) => item.id === newItem.id && item.size === newItem.size
       );
-      state.totalQuantity++;
+      state.totalQuantity+= newItem.amount;
       if (!existingItem) {
         state.items.push({
           id: newItem.id,
           price: newItem.price,
-          quantity: 1,
+          quantity: newItem.amount,
           totalPrice: newItem.price,
           name: newItem.name,
           size: newItem.size,
@@ -37,7 +37,7 @@ const cartSlice = createSlice({
           totalWeight: newItem.weight,
         });
       } else {
-        existingItem.quantity++;
+        existingItem.quantity += newItem.amount;
         existingItem.totalPrice = existingItem.totalPrice + newItem.price;
         existingItem.totalWeight = existingItem.totalWeight + newItem.weight;
       }

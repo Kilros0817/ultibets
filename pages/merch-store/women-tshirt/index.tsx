@@ -14,8 +14,6 @@ const WomenTshirts = () => {
   return (
     <Box
       bg={'#1F1F1F'}
-      width={['auto', 'auto', '100vw', '100vw']}
-      height={['auto', 'auto', '100vw', '100vw']}
     >
       <SubHeader />
       <Flex
@@ -31,7 +29,6 @@ const WomenTshirts = () => {
             'repeat(3, 1fr)',
             'repeat(3, 1fr)',
           ]}
-          mr={'25px'}
           gap='50px'
           mb={'20px'}
         >
