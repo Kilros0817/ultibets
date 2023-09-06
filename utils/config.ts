@@ -197,7 +197,7 @@ export const AppTitle = {
 	"home": "Home",
 	"prediction-markets": "Prediction Markets",
 	"sbc": "SBC",
-	"utbets-token": "'UltiBets Token",
+	"utbets-token": "UltiBets Token",
 	"merch-store": "Merch Store",
 	"faq": "FAQ",
 	"my-profile": "My Profile",

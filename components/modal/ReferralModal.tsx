@@ -153,7 +153,7 @@ const ReferralModal = ({
                 }}
               ></Flex>
             </a>
-            <a href={"http://instagram.com/ultibetsofficial"} target="_new">
+            <a href={"http://instagram.com"} target="_new">
               {' '}
               <Flex
                 width={'50px'}
@@ -183,7 +183,7 @@ const ReferralModal = ({
                 }}
               ></Flex>
             </a>
-            <a href={"http://discord.gg/EsWqNmTcdr"} target="_new">
+            <a href={"http://discord.gg"} target="_new">
               {' '}
               <Flex
                 width={'50px'}

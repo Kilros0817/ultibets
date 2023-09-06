@@ -61,7 +61,6 @@ const Checkout: NextPage = () => {
     const [isCorrectChain, setIsCorrectChain] = useState(false);
 
     // state for success
-    const [country, setCountry] = useState(countries);
     const router = useRouter();
     const dispatch = useDispatch();
 
@@ -74,6 +73,8 @@ const Checkout: NextPage = () => {
     const Continent = watch('continent');
 
     const getContinet = shippingCost.find((item) => item ?. continent === Continent);
+    
+    const countryList: [string] = (countries as any)[Continent];
 
     let finalShipping = (totalWeight * getContinet ?. price !) / 1000;
     finalShipping = finalShipping ? finalShipping : 0;
@@ -363,16 +364,16 @@ const Checkout: NextPage = () => {
                                                 Country
                                             </option>
                                             {
-                                            country ?. map((item) => {
+                                            countryList?.map((item) => {
                                                 return (
                                                     <option style={
                                                             {color: 'black'}
                                                         }
                                                         key={
-                                                            item.country
+                                                            item
                                                     }>
                                                         {
-                                                        item.country
+                                                        item
                                                     } </option>
                                                 );
                                             })
