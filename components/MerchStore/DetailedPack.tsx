@@ -6,6 +6,7 @@ import {
   IconButton,
   Text,
   Image,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
@@ -20,6 +21,8 @@ import { getNPrice } from '../../utils/interact/utility';
 import { getUTBETSPrice } from '../../utils/interact/sc/utbets';
 import { PacksData } from '../../constant';
 import { useRouter } from 'next/router';
+import AnnounceModal from '../modal/AnnounceModal';
+import { checkIconInGreenBg } from '../../utils/assets';
 
 
 const DetailedPack = () => {
@@ -30,10 +33,23 @@ const DetailedPack = () => {
 
   const [signature, setSignature] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isConfirming, setIsConfirming] = useState(false);
   const { chain } = useNetwork();
   const { address } = useAccount();
 
   const router = useRouter();
+
+  const {
+    isOpen: isOpenBuyPack,
+    onOpen: onOpenBuyPack,
+    onClose: onCloseBuyPack,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenApproveSuccessAnnounceModal,
+    onOpen: onOpenApproveSuccessAnnounceModal,
+    onClose: onCloseApproveSuccessAnnounceModal,
+  } = useDisclosure();
 
   const [isApproved, setIsApproved] = useState(false);
 
@@ -84,24 +100,18 @@ const DetailedPack = () => {
   }
 
   const approveUSDC = async () => {
+    setIsConfirming(true);
     const res = await usdcApprove(totalPrice.toString(), chain?.id ?? 0)
     if (res) {
-      toast.success(`USDC Approved!`, {
-        position: 'top-right',
-        autoClose: 2000,
-        theme: 'dark',
-      });
+      onOpenApproveSuccessAnnounceModal()
       await initAllowance();
     }
-    else
-      toast.error(`Error in USDC Approve.`, {
-        position: 'top-right',
-        autoClose: 2000,
-        theme: 'dark',
-      });
+
+    setIsConfirming(false);
   }
 
   const buyPack = async () => {
+    setIsConfirming(true);
     const res = await buyPacks(
       address,
       totalPrice,
@@ -111,19 +121,11 @@ const DetailedPack = () => {
     )
 
     if (res) {
-      toast.success(`Success!`, {
-        position: 'top-right',
-        autoClose: 2000,
-        theme: 'dark',
-      });
+      onOpenBuyPack()
       await initAllowance();
     }
-    else
-      toast.error(`Failed!`, {
-        position: 'top-right',
-        autoClose: 2000,
-        theme: 'dark',
-      });
+
+    setIsConfirming(false)
   }
 
   const initAllowance = async () => {
@@ -157,7 +159,7 @@ const DetailedPack = () => {
       const utbetsPrice = nativePrice * uPrice / rate;
       const amount = Math.ceil((pack?.price as number) / utbetsPrice * (100 + (pack?.bonus as number)) / 100 * 1000) / 1000
       setUAmount(amount);
-    } 
+    }
     if (chain?.id && pack) initUAmount();
   }, [chain, pack])
 
@@ -274,7 +276,7 @@ const DetailedPack = () => {
                 {pack?.description3}
               </Text>
               <Flex gap={'5px'} direction={'row'}
-              mt={'50px'}>
+                mt={'50px'}>
                 <Text
                   fontFamily={'Nunito'}
                   color={'white'}
@@ -343,6 +345,37 @@ const DetailedPack = () => {
           </Flex>
         </Flex>
       </Box>
+      <AnnounceModal
+        isOpenAnnounceModal={
+          isConfirming
+        }
+        onCloseAnnounceModal={() => setIsConfirming(false)}
+        announceText={'Your transaction is currently processing on the blockchain'}
+        announceGif={true}
+        announceModalButtonText={'Close'}
+      />
+      <AnnounceModal
+        isOpenAnnounceModal={isOpenBuyPack}
+        onCloseAnnounceModal={() => {
+          setIsConfirming(false);
+          onCloseBuyPack()
+        }}
+        announceText={'Bought UTBETS packs.'}
+        announceLogo={checkIconInGreenBg}
+        announceModalButtonText={'Close'}
+      />
+      <AnnounceModal
+        isOpenAnnounceModal={isOpenApproveSuccessAnnounceModal}
+        onCloseAnnounceModal={onCloseApproveSuccessAnnounceModal}
+        announceText={'USDC successfully approved'}
+        announceLogo={checkIconInGreenBg}
+        announceModalButtonText={'Close'}
+        announceModalButtonAction={() => {
+          setIsConfirming(false);
+          onCloseApproveSuccessAnnounceModal();
+        }
+        }
+      />
     </Box>
   );
 };

@@ -218,7 +218,7 @@ const PredictionsModal = ({
       }
     } else {
       const tokenAddress = (utbetsTokenAddresses as any)[chainId];
-       
+
       const balanceOfUtbets = await getUTBETSBalance(tokenAddress, address);
 
       if ((newBetAmount ?? 0) > parseFloat(formatEther(balanceOfUtbets as any))) {
@@ -449,10 +449,8 @@ const PredictionsModal = ({
         announceText={'UTBETS successfully approved'}
         announceLogo={checkIconInGreenBg}
         announceModalButtonText={'Close'}
-        announceModalButtonAction={async () => {
-          await getApproval();
-          onCloseApproveSuccessAnnounceModal();
-        }}
+        announceModalButtonAction={
+          onCloseApproveSuccessAnnounceModal}
       />
       <FinalModal
         isOpenThird={isOpenThird}
