@@ -360,7 +360,7 @@ const DetailedPack = () => {
           setIsConfirming(false);
           onCloseBuyPack()
         }}
-        announceText={'Bought UTBETS packs.'}
+        announceText={'You successfully bought UTBETS packs'}
         announceLogo={checkIconInGreenBg}
         announceModalButtonText={'Close'}
       />
