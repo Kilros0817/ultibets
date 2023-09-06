@@ -183,7 +183,7 @@ const ReferralModal = ({
                 }}
               ></Flex>
             </a>
-            <a href={"http://discord.gg"} target="_new">
+            <a href={"https://discord.com/channels/@me/"} target="_new">
               {' '}
               <Flex
                 width={'50px'}
