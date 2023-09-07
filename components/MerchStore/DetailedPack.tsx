@@ -76,7 +76,6 @@ const DetailedPack = () => {
       const data = {
         chainId: chain?.id ?? 0,
         rpc: (chainRPCs as any)[chain?.id ?? mumbaiChainId],
-        eventID: (parseEther(utbetsAmount?.toString() ?? '0')).toString(),
         bettor: address,
         usdcAmount: totalPrice,
         utbetsAmount: utbetsAmount,

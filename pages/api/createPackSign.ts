@@ -12,12 +12,11 @@ export default async function createPackSign(req: any, res: any) {
         const provider = new ethers.providers.JsonRpcProvider(data.rpc);
         const ultibetsSignContract = new ethers.Contract((ultibetsSignAddresses as any)[data.chainId], ultibetsSignAbi, provider)
         const admin = new ethers.Wallet(`0x${process.env.ADMIN_WALLET_PRIVATE_KEY}`, provider);
-
-
         let sign;
-        const hash = await ultibetsSignContract.getMessageHash(data.bettor,
+        const hash = await ultibetsSignContract.getMessageHashForPack(data.bettor,
             parseUnits(String(data.usdcAmount), 6),
-            parseEther(String(data.utbetsAmount)));
+            parseEther(String(data.utbetsAmount))
+        );
 
         sign = await admin.signMessage(ethers.utils.arrayify(hash));
 

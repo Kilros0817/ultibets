@@ -92,7 +92,7 @@
         "type": "uint256"
       }
     ],
-    "name": "getMessageHash",
+    "name": "getMessageHashForPack",
     "outputs": [
       {
         "internalType": "bytes32",
@@ -256,12 +256,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "_usdcAmount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_utbetsAmount",
+        "name": "_eventID",
         "type": "uint256"
       },
       {
@@ -290,7 +285,12 @@
       },
       {
         "internalType": "uint256",
-        "name": "_eventID",
+        "name": "_usdcAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_utbetsAmount",
         "type": "uint256"
       },
       {
@@ -299,7 +299,7 @@
         "type": "bytes"
       }
     ],
-    "name": "verify",
+    "name": "verifyForPack",
     "outputs": [
       {
         "internalType": "bool",
