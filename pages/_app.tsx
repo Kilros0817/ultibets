@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { polygonMumbai, optimismGoerli, avalancheFuji, bscTestnet, polygon } from "@wagmi/core/chains";
+import { polygonMumbai, avalancheFuji, bscTestnet, polygon, arbitrumGoerli } from "@wagmi/core/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from 'wagmi/providers/public';
 import { ToastContainer } from 'react-toastify'
@@ -27,14 +27,13 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
     ...(process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? [
     ] : [
       polygon,
+      arbitrumGoerli,
       avalancheFuji,
       bscTestnet,
       polygonMumbai,
-      optimismGoerli
     ])
   ],
   [
-    alchemyProvider({apiKey: "SQOWu4glSvD5HKThQY-wpMV2nOHD5B3X"}),
     publicProvider(),
   ]
 );

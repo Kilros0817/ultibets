@@ -8,7 +8,7 @@ import {
     bscTestnetChainId,
     chainRPCs,
     contractAddressesInSBC,
-    opGoerliChainId,
+    arbitrumGoerliChainId,
     fujiChainId,
     mumbaiChainId,
     newChainAttrs,
@@ -32,11 +32,11 @@ export const addEventInPM = async (req: any, res: any) => {
                 contractAddressForNativeToken: contractAddressesInSBC[bscTestnetChainId][0],
                 contractAddressForUtbetsToken: contractAddressesInSBC[bscTestnetChainId][1],
             },
-            opGoerliChainId: {
-                chainId: opGoerliChainId,
-                rpc: (chainRPCs as any)[opGoerliChainId],
-                contractAddressForNativeToken: contractAddressesInSBC[opGoerliChainId][0],
-                contractAddressForUtbetsToken: contractAddressesInSBC[opGoerliChainId][1],
+            arbitrumGoerliChainId: {
+                chainId: arbitrumGoerliChainId,
+                rpc: (chainRPCs as any)[arbitrumGoerliChainId],
+                contractAddressForNativeToken: contractAddressesInSBC[arbitrumGoerliChainId][0],
+                contractAddressForUtbetsToken: contractAddressesInSBC[arbitrumGoerliChainId][1],
             },
             fujiChainId: {
                 chainId: fujiChainId,

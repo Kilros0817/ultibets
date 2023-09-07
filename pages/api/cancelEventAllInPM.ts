@@ -7,7 +7,7 @@ import {
     bscTestnetChainId,
     chainRPCs,
     contractAddressesInDailyBets,
-    opGoerliChainId,
+    arbitrumGoerliChainId,
     fujiChainId,
     mumbaiChainId,
 } from '../../utils/config';
@@ -32,11 +32,11 @@ export const cancelEventAllInPM = async (req: any, res: any) => {
                 contractAddressForNativeToken: contractAddressesInDailyBets[bscTestnetChainId][0],
                 contractAddressForUtbetsToken: contractAddressesInDailyBets[bscTestnetChainId][1],
             },
-            opGoerliChainId: {
-            chainId: opGoerliChainId,
-                rpc: (chainRPCs as any)[opGoerliChainId],
-                contractAddressForNativeToken: contractAddressesInDailyBets[opGoerliChainId][0],
-                contractAddressForUtbetsToken: contractAddressesInDailyBets[opGoerliChainId][1],
+            arbitrumGoerliChainId: {
+            chainId: arbitrumGoerliChainId,
+                rpc: (chainRPCs as any)[arbitrumGoerliChainId],
+                contractAddressForNativeToken: contractAddressesInDailyBets[arbitrumGoerliChainId][0],
+                contractAddressForUtbetsToken: contractAddressesInDailyBets[arbitrumGoerliChainId][1],
             },
             fujiChainId: {
                 chainId: fujiChainId,

@@ -16,7 +16,7 @@ import React, { useState, useEffect, } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from 'react-toastify';
-import { secondsInHalfHour, } from '../../../utils/config';
+import { newChainAttrs, secondsInHalfHour, } from '../../../utils/config';
 import { checkIconInGreenBg } from '../../../utils/assets';
 import { createNewEvent } from '../../../utils/interact/sc/squid-competition';
 import AnnounceModal from '../AnnounceModal';
@@ -60,7 +60,7 @@ const AddEventModalInSBC = ({
     onClose: onCloseAllChainTxAnnounceModal,
   } = useDisclosure();
 
-  const tokenSymbol = isNativeToken ? 'MATIC' : 'Utbets';
+  const tokenSymbol = isNativeToken ? (newChainAttrs as any)[chain?.id ?? 137].nativeToken : 'Utbets';
   const checkIfIsInputValid = () => {
     if (selectedDate.getTime() <= Date.now() + secondsInHalfHour * 1000) {
       toast.warn("Event start time should be at least 30 mins after");
@@ -314,7 +314,7 @@ const AddEventModalInSBC = ({
                 fontFamily={'Nunito'}
               />
             </Flex>
-            {repeatLevel == 1 && (
+            {repeatLevel == 0 && (
               <>
                 <Flex
                   className='sbc-event-registration-cost-wrapper'

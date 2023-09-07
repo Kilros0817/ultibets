@@ -1,12 +1,24 @@
 import { basketballNBALogo, moviesLogo, otherPredictionLogo, soccerEnglandLogo, soccerFranceLogo, soccerGermanLogo, soccerItalyLogo, soccerSpainLogo, soccerUCLLogo, tvshowsLogo, ussportNFLLogo } from "./assets";
 
+const arbitrumChain = {
+	chainId: 42161,
+	logo: '/images/svgs/bg/arbitrum.svg',
+	name: 'Arbitrum',
+	mainnetName: "Arbitrum",
+	alt: 'arbitrum-logo',
+	index: 0,
+	nativeToken: "ETH",
+	entryFee: 0.006,
+	roundFee: 0.003,
+};
+
 const avalancheChain = {
 	chainId: 43114,
 	logo: '/images/pngs/chain-logo/avalanche.svg',
 	name: 'Avalanche',
 	mainnetName: "Avalanche Mainnet",
 	alt: 'avalanche-logo',
-	index: 0,
+	index: 1,
 	nativeToken: "AVAX",
 	entryFee: 0.9,
 	roundFee: 0.45,
@@ -18,22 +30,10 @@ const bscChain = {
 	name: 'BSC',
 	mainnetName: "BSC Mainnet",
 	alt: 'bsc-logo',
-	index: 1,
+	index: 2,
 	nativeToken: "BNB",
 	entryFee: 0.046,
 	roundFee: 0.023,
-};
-
-const optimismChain = {
-	chainId: 10,
-	logo: '/images/pngs/chain-logo/optimism.svg',
-	name: 'Optimism',
-	mainnetName: "Optimism",
-	alt: 'optimism-logo',
-	index: 2,
-	nativeToken: "ETH",
-	entryFee: 0.006,
-	roundFee: 0.003,
 };
 
 const polygonChain = {
@@ -48,44 +48,51 @@ const polygonChain = {
 	roundFee: 8.6,
 };
 
-const arbitrumChain = {
-	chainId: 42161,
-	logo: '/images/svgs/bg/arbitrum.svg',
-	name: 'Arbitrum (soon)',
-	mainnetName: "Arbitrum",
-	alt: 'arbitrum-logo',
-	index: 5,
+const optimismChain = {
+	chainId: 10,
+	logo: '/images/pngs/chain-logo/optimism.svg',
+	name: 'Optimism (soon)',
+	mainnetName: "Optimism",
+	alt: 'optimism-logo',
+	index: 4,
 	nativeToken: "ETH",
+	
 };
 
 const baseChain = {
-	chainId: 42161,
+	chainId: 8453,
 	logo: '/images/svgs/bg/base.svg',
 	name: 'Base (soon)',
 	mainnetName: "Base",
 	alt: 'base-logo',
-	index: 6,
+	index: 5,
 	nativeToken: "ETH",
 };
 
 const ethChain = {
-	chainId: 42161,
+	chainId: 1,
 	logo: '/images/svgs/bg/ethereum.svg',
 	name: 'Ethereum (soon)',
 	mainnetName: "Ethereum",
 	alt: 'Ethereum-logo',
-	index: 7,
+	index: 6,
 	nativeToken: "ETH",
 };
 
 export const chainAttrs = {
 	mainnet: [
+		arbitrumChain,
 		avalancheChain,
 		bscChain,
-		optimismChain,
 		polygonChain,
 	],
 	testnet: [
+		{
+			...arbitrumChain,
+			chainId: 421613,
+			entryFee: 0.002,
+			roundFee: 0.001
+		},
 		{
 			...avalancheChain,
 			chainId: 43113,
@@ -99,12 +106,6 @@ export const chainAttrs = {
 			roundFee: 0.01
 		},
 		{
-			...optimismChain,
-			chainId: 420,
-			entryFee: 0.002,
-			roundFee: 0.001
-		},
-		{
 			...polygonChain,
 			chainId: 80001,
 			entryFee: 0.2,
@@ -112,17 +113,23 @@ export const chainAttrs = {
 		}
 	],
 	soonnet : [
-		arbitrumChain,
+		optimismChain,
 		baseChain,
 		ethChain
 	]
 };
 
 export const newChainAttrs = {
+	[42161]: arbitrumChain,
 	[43114]: avalancheChain,
 	[56]: bscChain,
-	[10]: optimismChain,
 	[137]: polygonChain,
+	[421613]: {
+		...arbitrumChain,
+		chainId: 420,
+		entryFee: 0.002,
+		roundFee: 0.001
+	},
 	[43113]: {
 		...avalancheChain,
 		chainId: 43113,
@@ -134,12 +141,6 @@ export const newChainAttrs = {
 		chainId: 97,
 		entryFee: 0.02,
 		roundFee: 0.01
-	},
-	[420]: {
-		...optimismChain,
-		chainId: 420,
-		entryFee: 0.002,
-		roundFee: 0.001
 	},
 	[80001]: {
 		...polygonChain,
@@ -246,19 +247,19 @@ export const tiers = [
 ];
 
 // testnet
+export const arbitrumGoerliChainId = 421613;
 export const fujiChainId = 43113;
 export const bscTestnetChainId = 97;
 export const mumbaiChainId = 80001;
-export const opGoerliChainId = 420;
 // mainnet
+export const arbitrumChainId = 42161;
 export const avalancheChainId = 43114;
 export const bscChainId = 56;
-export const opChainId = 10;
 export const polygonChainId = 137;
 
 export const supportedChainIds = {
-	"testnet": [fujiChainId, bscTestnetChainId, opGoerliChainId, mumbaiChainId],
-	"mainnet": [avalancheChainId, bscChainId, opChainId, polygonChainId],
+	"testnet": [arbitrumGoerliChainId, fujiChainId, bscTestnetChainId, mumbaiChainId],
+	"mainnet": [arbitrumChainId, avalancheChainId, bscChainId, polygonChainId],
 }
 
 // 0 : native token daily bets contract
@@ -272,9 +273,9 @@ export const contractAddressesInDailyBets = {
 		[0]: '0xA5bb8d1a2D7062e25dF3bF83a0178159b659354b',
 		[1]: '0x0E78f53c0423144AE79f0b7DF89570f8851a537D',
 	},
-	[opGoerliChainId]: {
-		[0]: '0x10af36e2E884e883F3a490D085A56c0A5746d1FC',
-		[1]: '0xCF0946aF572EB8E5e59e4fB223c245986eA3c5d7',
+	[arbitrumGoerliChainId]: {
+		[0]: '0x1dd1e2AC68e2971db21c82d414c1B970E29300c2',
+		[1]: '0x113d2f4992D36FBaCbf27a6b33116A2969EDCD08',
 	},
 	[mumbaiChainId]: {
 		[0]: '0x4671525A35DC4d6568F6B6F1581e486CD940d766',
@@ -289,7 +290,7 @@ export const contractAddressesInDailyBets = {
 		[0]: '',
 		[1]: '',
 	},
-	[opChainId]: {
+	[arbitrumChainId]: {
 		[0]: '',
 		[1]: '',
 	},
@@ -314,9 +315,9 @@ export const contractAddressesInSBC = {
 		[0]: '0xD702bde70BAB9515f8fEF1568f15169f91537f64',
 		[1]: '0x26c7F6C54a51B6C2628d8b63860d609348e6B977',
 	},
-	[opGoerliChainId]: {
-		[0]: '0x70230D98476e1066fd0913D44AA5e4fDD58dfc52',
-		[1]: '0x3D9A52C04e4D75f3efaB19C9363d2f016CBEC389',
+	[arbitrumGoerliChainId]: {
+		[0]: '0xc274B0cb9a835A0DCE5a643B772de689807B924E',
+		[1]: '0x70F0686E2aF283d385c2Ae6359aab8f1f7D086c1',
 	},
 	[avalancheChainId]: {
 		[0]: '',
@@ -326,7 +327,7 @@ export const contractAddressesInSBC = {
 		[0]: '',
 		[1]: '',
 	},
-	[opChainId]: {
+	[arbitrumChainId]: {
 		[0]: '',
 		[1]: '',
 	},
@@ -339,66 +340,66 @@ export const contractAddressesInSBC = {
 export const nftClaimerContract = {
 	[fujiChainId]: '0x648B89422Cf0BB0425dE24848D20A9f4802B9753',
 	[bscTestnetChainId]: '0xfA00D15cC27Db7CD1202FAC9259Ab7968d871421',
-	[opGoerliChainId]: '0xfc305d8C2C71410a8300021060e6Ebb9bfb10dAe',
+	[arbitrumGoerliChainId]: '0xfc305d8C2C71410a8300021060e6Ebb9bfb10dAe',
 	[mumbaiChainId]: '0x6fdcEBEE9c259CcB52267FE3bA558d253C39fa16',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
 export const sbcNFTContract = {
 	[fujiChainId]: '0x6479b5c878a686A1E4f8951e86fe905645460c63',
 	[bscTestnetChainId]: '0xf6d82753cc3D40FE3EB8564CC12916f94ADBD4D6',
-	[opGoerliChainId]: '0x83327fc5E45d58795f64F4a22F7923e086a10902',
+	[arbitrumGoerliChainId]: '0x3F123a13f337d5f0007E20C92f42990F979EEA96',
 	[mumbaiChainId]: '0xA022990fdEa806D2c69e50225Fac5E92782A3257',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
 export const rndGeneratorContract = {
 	[fujiChainId]: '0xe6F42c701d6B2ba62169E25E1233382296523b16',
 	[bscTestnetChainId]: '0x933A68CA54Da87884FE7ccef37D64aF1f54CE937',
-	[opGoerliChainId]: '0xe5fa07268deF20Af6eE3DF501eE2F5A74D110c14',
+	[arbitrumGoerliChainId]: '0xb34B4b500Eaca4236700B09bA510e5DA7C47D060',
 	[mumbaiChainId]: '0x6B8ab16dDa3e31218E15fEae87F1648b7dB87aa7',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
 export const ultibetsSignAddresses = {
 	[fujiChainId]: '0xf6B39c9916ff70811961Aa8512093F860A67f9b5',
 	[bscTestnetChainId]: '0xfE4247807Ac6A9a0381A1bC82a686870519372F5',
-	[opGoerliChainId]: '0x52d23896A083A27ECcDA45f747ef8c9D34b969c2',
+	[arbitrumGoerliChainId]: '0x78FEea2860a97082e5a95aDc68EC41Ca4ccb5004',
 	[mumbaiChainId]: '0x036B91875E53652eFED4709a967D85A3c032f3a3',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
 export const ultibetsRewardAddresses = {
 	[fujiChainId]: '0xD3F1850bef78566bcD5b2e6348181F0B1d7a0A46',
 	[bscTestnetChainId]: '0xF8c348681ef4898010dC6B361642efd667d9a755',
-	[opGoerliChainId]: '0x41a20ADE03A00Be0E01c030720c5583c50Ddc99b',
+	[arbitrumGoerliChainId]: '0x90B5070B456dD0C3E7a614E7a11d82133BD44990',
 	[mumbaiChainId]: '0xC1c641996AEF53313a6F0C3dEe299291960501cE',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
 export const ultiBetsLeaderBoardAddresses = {
 	[fujiChainId]: '0x10F8541CD56f67106c125ac991e59bC5CE9F49ec',
 	[bscTestnetChainId]: '0xBf2Ea383eBE1dCd0Fba30E2E61b7f688b2c1c25f',
-	[opGoerliChainId]: '0xD8d8a41Cc24B0091052C3B56ac6Ca3e33B4c99C5',
+	[arbitrumGoerliChainId]: '0x2B47D435447a4F0eFE9DB225b204331adD860c3A',
 	[mumbaiChainId]: '0x5F5f60eAd2064cC42D49e617f9D4753b7C820645',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
@@ -407,11 +408,11 @@ export const utbetsTokenAddresses: {
 } = {
 	[fujiChainId]: '0xbadafA1404C5902c45c8B3596827Ec3003923D3B',
 	[bscTestnetChainId]: '0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE',
-	[opGoerliChainId]: '0x8369d50a6db55C0bEF4412101A8672F27E621Cf3',
+	[arbitrumGoerliChainId]: '0x011cd85cf9b7D32258290e0550305E04e4A48B20',
 	[mumbaiChainId]: '0x2Ee0BCd22293Cd6b37Eff2765059ADCd9126E605',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
@@ -420,55 +421,55 @@ export const usdcAddresses: {
 } = {
 	[fujiChainId]: '0x4478b6904894911a08Acf07E85cD89B6a2A37b00',
 	[bscTestnetChainId]: '0xC54261f6165734Be513c41Fd9311766aEbD4Cf35',
-	[opGoerliChainId]: '0x07F0Ca4F61d1F334A8C848e74414Ebe8110230F6',
+	[arbitrumGoerliChainId]: '0x9eB85422755D9b05e250413e31720D2a9f36cC6c',
 	[mumbaiChainId]: '0xd317c440F27c1Ac681ef0621FB34e0Cd6eee7628',
 	[avalancheChainId]: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
 }
 
 export const airdropContractAddresses = {
 	[fujiChainId]: '0x919E10b18A122719AC63416d4f2b562eb3E554A8',
 	[bscTestnetChainId]: '0xA616458582e934046013557E33321D6919d3AA3D',
-	[opGoerliChainId]: '0x7e2FDda0572085b605EDF9fD2Dd1911B498d4Be0',
+	[arbitrumGoerliChainId]: '0x83C54b088a7E4904b304Bc253905Da9283eAeC89',
 	[mumbaiChainId]: '0x4Edb07D058954B40972F4925C277e488504472C4',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
 export const merchStoreContractAddresses = {
 	[fujiChainId]: '0xeFd84E5A9c484E106c85A9aac672ECb36B348594',
 	[bscTestnetChainId]: '0xbB4D1A48C625cF11390B69d44C65110bB829A676',
-	[opGoerliChainId]: '0xbcfC81F7255a9A5104422370378E099494287974',
+	[arbitrumGoerliChainId]: '0xB9106A666A05BF085301D934232aEf15a26650E9',
 	[mumbaiChainId]: '0x56AbF3e330868e49c4feda85f8E719484B5F248d',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
 export const symbols = {
 	[fujiChainId]: 'avalanche-2',
 	[bscTestnetChainId]: 'binancecoin',
-	[opGoerliChainId]: 'ethereum',
+	[arbitrumGoerliChainId]: 'ethereum',
 	[mumbaiChainId]: 'matic-network',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
 export const chainRPCs = {
 	[fujiChainId]: 'https://rpc.ankr.com/avalanche_fuji',
 	[bscTestnetChainId]: 'https://bsc-testnet.publicnode.com',
-	[opGoerliChainId]: 'https://side-wispy-dinghy.optimism-goerli.discover.quiknode.pro/72305688905d897d5a9a51b6f4b8c2fc31bf0dd2/',
+	[arbitrumGoerliChainId]: 'https://endpoints.omniatech.io/v1/arbitrum/goerli/public',
 	[mumbaiChainId]: 'https://polygon-mumbai.infura.io/v3/4458cf4d1689497b9a38b1d6bbf05e78',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
@@ -997,15 +998,15 @@ export const subgraphurls = {
 	[fujiChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsavalanche',
 	[bscTestnetChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsbsc',
 	[mumbaiChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetspolygon',
-	[opGoerliChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsop',
+	[arbitrumGoerliChainId]: 'https://api.thegraph.com/subgraphs/name/ultibets/ultibetsarbitrum',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
-	[opChainId]: '',
+	[arbitrumChainId]: '',
 	[polygonChainId]: '',
 }
 
 export const referralChains = [
-	opChainId,
+	arbitrumChainId,
 	mumbaiChainId,
 ]
 

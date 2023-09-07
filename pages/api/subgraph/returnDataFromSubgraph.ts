@@ -2,11 +2,11 @@ import {
     avalancheChainId,
     bscChainId,
     polygonChainId,
-    opChainId,
+    arbitrumChainId,
     fujiChainId,
     bscTestnetChainId,
     mumbaiChainId,
-    opGoerliChainId,
+    arbitrumGoerliChainId,
     subgraphurls,
 } from "../../../utils/config";
 const axios = require("axios");
@@ -35,9 +35,9 @@ export default async function getDataFromSubgraph(req: any, res: any) {
     } else if (chainId == -1) {
         // only used to get if referral is wasted already
         const chainIds = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? [
-            avalancheChainId, bscChainId, opChainId, polygonChainId,
+            avalancheChainId, bscChainId, arbitrumChainId, polygonChainId,
         ] : [
-            fujiChainId, bscTestnetChainId, opGoerliChainId, mumbaiChainId,
+            fujiChainId, bscTestnetChainId, arbitrumGoerliChainId, mumbaiChainId,
         ]
 
         let isSuccess = true;
@@ -79,9 +79,9 @@ export default async function getDataFromSubgraph(req: any, res: any) {
 
         // only used to get if referral is wasted already
         const chainIds = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? [
-            avalancheChainId, bscChainId, opChainId, polygonChainId,
+            avalancheChainId, bscChainId, arbitrumChainId, polygonChainId,
         ] : [
-            fujiChainId, bscTestnetChainId, opGoerliChainId, mumbaiChainId,
+            fujiChainId, bscTestnetChainId, arbitrumGoerliChainId, mumbaiChainId,
         ]
 
         let isSuccess = true;
