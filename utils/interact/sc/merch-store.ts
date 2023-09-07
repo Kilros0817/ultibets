@@ -18,7 +18,7 @@ export const buyPacks = async (
         const { hash } = await writeContract({
             address: (merchStoreContractAddresses as any)[chainId],
             abi: merchStoreAbi,
-            functionName: 'sendPacks',
+            functionName: 'buyPacks',
             args: [account, 
                 parseUnits(String(usdcAmount), 6),
                 parseEther(String(utbetsAmount)),
