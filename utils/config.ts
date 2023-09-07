@@ -443,7 +443,7 @@ export const merchStoreContractAddresses = {
 	[fujiChainId]: '0xeFd84E5A9c484E106c85A9aac672ECb36B348594',
 	[bscTestnetChainId]: '0xbB4D1A48C625cF11390B69d44C65110bB829A676',
 	[opGoerliChainId]: '0xbcfC81F7255a9A5104422370378E099494287974',
-	[mumbaiChainId]: '0xa4FD7753c1cdE39Ab1c8CFC26edc5632eD836479',
+	[mumbaiChainId]: '0x55089DFB73f6A6a0f15fE3b07bf149Bf87D42Ab0',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[opChainId]: '',
