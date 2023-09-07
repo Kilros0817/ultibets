@@ -78,10 +78,12 @@ const DetailedPack = () => {
         rpc: (chainRPCs as any)[chain?.id ?? mumbaiChainId],
         eventID: (parseEther(utbetsAmount?.toString() ?? '0')).toString(),
         bettor: address,
+        usdcAmount: totalPrice,
+        utbetsAmount: utbetsAmount,
       };
 
       const result = await axios.post(
-        '/api/createSignature',
+        '/api/createPackSign',
         data,
         {
           headers: {
