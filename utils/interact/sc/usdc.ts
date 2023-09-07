@@ -1,6 +1,6 @@
 import { readContract, waitForTransaction, writeContract } from "@wagmi/core";
 import { merchStoreContractAddresses, usdcAddresses } from "../../config";
-import { parseEther, parseUnits } from "viem";
+import { parseUnits } from "viem";
 
 export const getUSDCBalance = async (account: any, chainId: number) => {
     const balance = await readContract({
