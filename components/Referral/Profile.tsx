@@ -307,7 +307,7 @@ const Profile = ({
 			<AnnounceModal
 				isOpenAnnounceModal={isOpenClaimFirstBettingRewardSuccessAnnounceModal}
 				onCloseAnnounceModal={onCloseClaimFirstBettingRewardSuccessAnnounceModal}
-				announceText={'You successfully claimed your first prediction reward.'}
+				announceText={'You successfully claimed your first prediction reward from referral.'}
 				announceLogo={checkIconInGreenBg}
 				announceModalButtonText={'Close'}
 			/>
