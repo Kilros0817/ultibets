@@ -465,7 +465,7 @@ export const symbols = {
 export const chainRPCs = {
 	[fujiChainId]: 'https://rpc.ankr.com/avalanche_fuji',
 	[bscTestnetChainId]: 'https://bsc-testnet.publicnode.com',
-	[arbitrumGoerliChainId]: 'https://endpoints.omniatech.io/v1/arbitrum/goerli/public',
+	[arbitrumGoerliChainId]: 'https://arb-goerli.g.alchemy.com/v2/btl1mNqjNlVRsa6SDM-44fZSL_Fx60w9',
 	[mumbaiChainId]: 'https://polygon-mumbai.infura.io/v3/4458cf4d1689497b9a38b1d6bbf05e78',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
