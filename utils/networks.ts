@@ -1,90 +1,45 @@
-export type NETWOKS = {
-  currencySymbol: string;
-  blockExplorer?: string;
-  blockExplorerUrl?: string;
-  chainId?: number;
-  chainName?: string;
-  rpcUrl?: string;
-  currencyName?: string;
-  wrapped?: string;
-};
+import { Chain } from "wagmi";
 
-export const networkConfigs: Record<string | number, NETWOKS> = {
-  1: {
-    currencySymbol: 'ETH',
-    blockExplorerUrl: 'https://etherscan.io/',
-    wrapped: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-  },
-  42: {
-    currencySymbol: 'ETH',
-    blockExplorerUrl: 'https://goerli.etherscan.io/',
-  },
-  '0x539': {
-    chainName: 'Local Chain',
-    currencyName: 'ETH',
-    currencySymbol: 'ETH',
-    rpcUrl: 'http://127.0.0.1:7545',
-  },
-  '0xa86a': {
-    chainId: 43114,
-    chainName: 'Avalanche Mainnet',
-    currencyName: 'AVAX',
-    currencySymbol: 'AVAX',
-    rpcUrl: 'https://api.avax.network/ext/bc/C/rpc',
-    blockExplorerUrl: 'https://cchain.explorer.avax.network/',
-  },
-  '0x38': {
-    chainId: 56,
-    chainName: 'Smart Chain',
-    currencyName: 'BNB',
-    currencySymbol: 'BNB',
-    rpcUrl: 'https://bsc-dataseed.binance.org/',
-    blockExplorerUrl: 'https://bscscan.com/',
-    wrapped: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
-  },
-  '0x61': {
-    chainId: 97,
-    chainName: 'Smart Chain - Testnet',
-    currencyName: 'BNB',
-    currencySymbol: 'BNB',
-    rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-    blockExplorerUrl: 'https://testnet.bscscan.com/',
-  },
-  137: {
-    chainId: 137,
-    chainName: 'Polygon Mainnet',
-    currencyName: 'MATIC',
-    currencySymbol: 'MATIC',
-    rpcUrl: 'https://rpc-mainnet.maticvigil.com/',
-    blockExplorerUrl: 'https://explorer-mainnet.maticvigil.com/',
-    wrapped: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
-  },
-  80001: {
-    chainId: 80001,
-    chainName: 'Mumbai',
-    currencyName: 'MATIC',
-    currencySymbol: 'MATIC',
-    rpcUrl: 'https://rpc-mumbai.matic.today/',
-    blockExplorerUrl: 'https://mumbai.polygonscan.com/',
-  },
-  10: {
-    chainId: 10,
-    chainName: 'Optimism',
-    currencyName: 'ETH',
-    currencySymbol: 'ETH',
-    rpcUrl: 'https://optimism-mainnet.infura.io',
-    blockExplorerUrl: 'https://optimistic.etherscan.io/',
-  },
-};
-
-export const getNativeByChain = (chain: string) =>
-  networkConfigs[chain]?.currencySymbol || 'NATIVE';
-
-export const getChainById = (chain: number) =>
-  networkConfigs[chain]?.chainId || null;
-
-export const getExplorer = (chain: string | number) =>
-  networkConfigs[chain]?.blockExplorerUrl;
-
-export const getWrappedNative = (chain: string) =>
-  networkConfigs[chain]?.wrapped || null;
+export const polygonMumbai = {
+  id: 80001,
+  name: "Polygon Mumbai",
+  network: "maticmum",
+  nativeCurrency: {
+      name: "MATIC",
+      symbol: "MATIC",
+      decimals: 18,
+ },
+  rpcUrls: {
+      alchemy: {
+          http:  ["https://polygon-mumbai.g.alchemy.com/v2"],
+          webSocket:  ["wss://polygon-mumbai.g.alchemy.com/v2"],
+     },
+      infura: {
+          http:  ["https://polygon-mumbai.infura.io/v3"],
+          webSocket:  ["wss://polygon-mumbai.infura.io/ws/v3"],
+     },
+      default: {
+          http:  ["https://matic-mumbai.chainstacklabs.com"],
+     },
+      public: {
+          http:  ["https://polygon-mumbai.g.alchemy.com/v2/SQOWu4glSvD5HKThQY-wpMV2nOHD5B3X"],
+     },
+ },
+  blockExplorers: {
+      etherscan: {
+          name: "PolygonScan",
+          url: "https://mumbai.polygonscan.com",
+     },
+      default: {
+          name: "PolygonScan",
+          url: "https://mumbai.polygonscan.com",
+     },
+ },
+  contracts: {
+      multicall3: {
+          address: "0xca11bde05977b3631167028862be2a173976ca11",
+          blockCreated: 25770160,
+     },
+ },
+  testnet: true,
+} as Chain;

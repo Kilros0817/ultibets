@@ -206,9 +206,9 @@ const FAQS = () => {
                       width: '100%',
                     }}
                   >
+                    <li> - Arbitrum</li>
                     <li> - Avalanche</li>
                     <li> - Binance Smart Chain</li>
-                    <li> - Optimism</li>
                     <li> - Polygon</li>
                   </ul>
                 </Text>
@@ -239,7 +239,7 @@ const FAQS = () => {
                   >
                     <li> - AVAX</li>
                     <li> - BNB</li>
-                    <li> - ETH (Optimism)</li>
+                    <li> - ETH (Arbitrum)</li>
                     <li> - MATIC</li>
                     <li> - UTBETS</li>
                   </ul>

@@ -3,8 +3,8 @@ import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { polygonMumbai, avalancheFuji, bscTestnet, polygon, arbitrumGoerli } from "@wagmi/core/chains";
+import { Chain, configureChains, createConfig, WagmiConfig } from 'wagmi';
+import { avalancheFuji, bscTestnet, polygon, arbitrumGoerli } from "@wagmi/core/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from 'wagmi/providers/public';
 import { ToastContainer } from 'react-toastify'
@@ -20,7 +20,7 @@ import "./utbets-token/token-information/Pie.scss";
 import store from '../store';
 import Layout from '../layouts/layout'
 import theme from '../utils/theme'
-
+import { polygonMumbai } from '../utils/networks';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [

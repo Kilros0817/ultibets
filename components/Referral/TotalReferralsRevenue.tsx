@@ -103,7 +103,7 @@ const TotalReferralsRevenue = ({
             const data = {
                 chainId: chain?.id ?? 0,
                 rpc: (chainRPCs as any)[chain?.id ?? mumbaiChainId],
-                eventID: parseEther(String(claimableReward)), // this is not just eventid, but use here
+                eventID: parseEther(String(claimableReward)).toString(), // this is not just eventid, but use here
                 bettor: address,
             };
 
