@@ -6,7 +6,7 @@ export const getLeaderboardData = async (
 ) => {
     const time = Math.round(Date.now() / 1000) - secondsInMonth
     let query = `{
-        ultiBettors {
+        ultiBettors (where: {onLeaderBoard: true}){
           id
           nameOnLeaderBoard
           onLeaderBoard
