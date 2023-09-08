@@ -340,7 +340,7 @@ export const contractAddressesInSBC = {
 export const nftClaimerContract = {
 	[fujiChainId]: '0x648B89422Cf0BB0425dE24848D20A9f4802B9753',
 	[bscTestnetChainId]: '0xfA00D15cC27Db7CD1202FAC9259Ab7968d871421',
-	[arbitrumGoerliChainId]: '0xfc305d8C2C71410a8300021060e6Ebb9bfb10dAe',
+	[arbitrumGoerliChainId]: '0x3F123a13f337d5f0007E20C92f42990F979EEA96',
 	[mumbaiChainId]: '0x6fdcEBEE9c259CcB52267FE3bA558d253C39fa16',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
@@ -351,7 +351,7 @@ export const nftClaimerContract = {
 export const sbcNFTContract = {
 	[fujiChainId]: '0x6479b5c878a686A1E4f8951e86fe905645460c63',
 	[bscTestnetChainId]: '0xf6d82753cc3D40FE3EB8564CC12916f94ADBD4D6',
-	[arbitrumGoerliChainId]: '0x3F123a13f337d5f0007E20C92f42990F979EEA96',
+	[arbitrumGoerliChainId]: '0xe14da6B48931565E42f8E8Ce6A541Bc8B2Ced344',
 	[mumbaiChainId]: '0xA022990fdEa806D2c69e50225Fac5E92782A3257',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
