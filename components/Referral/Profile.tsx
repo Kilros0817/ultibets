@@ -68,7 +68,7 @@ const Profile = ({
 		const data = {
 			chainId: chain?.id ?? 0,
 			rpc: (chainRPCs as any)[chain?.id ?? mumbaiChainId],
-			eventID: parseEther(referralBettingReward?.toString() ?? '0'), // this is not just eventid, but use here
+			eventID: parseEther(String(referralBettingReward)), // this is not just eventid, but use here
 			bettor: address,
 		};
 
