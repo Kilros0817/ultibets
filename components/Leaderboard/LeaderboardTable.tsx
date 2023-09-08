@@ -114,7 +114,6 @@ const LeaderboardTable = ({
             (async () => {
                 const leaderboardInitialData = await getLeaderboardData(chainId);
                 if (leaderboardInitialData?.isSuccess) {
-                    console.log(leaderboardInitialData?.returnedData, "===============leaderboard data===============")
                     await handleLeaderboardInitialData(leaderboardInitialData?.returnedData);
                 }
             })()
@@ -142,9 +141,9 @@ const LeaderboardTable = ({
     const handleChartRoiPoints = (chartRoiInitialData: RoiLogsType, predictionData: LeaderboardInitialDataPredictionsType[]) => {
         const initTotal = parseFloat(formatEther(BigInt(chartRoiInitialData.totalBetAmount)));
         const initPaid = parseFloat(formatEther(BigInt(chartRoiInitialData.totalPaidAmount)));
-        let points = Array().fill({value: 0});
+        let points = Array().fill({ value: 0 });
         const initROI = initTotal > 0 ? Math.round((initPaid - initTotal) / initTotal * 100) : 0;
-        points.push({value: initROI});
+        points.push({ value: initROI });
         let totalAmount = initTotal;
         let totalPaid = initPaid;
         // @ts-ignore
@@ -156,7 +155,7 @@ const LeaderboardTable = ({
                 totalAmount += betAmount;
                 totalPaid += paidAmount;
                 const pnl = totalPaid - totalAmount;
-                points.push({value: Math.round(pnl / totalAmount * 100)})
+                points.push({ value: Math.round(pnl / totalAmount * 100) })
             }
         })
 
@@ -165,15 +164,15 @@ const LeaderboardTable = ({
 
     const modifyScale = (history: number[]) => {
         const avg =
-          history.reduce((sum, curr) => {
-            return sum + curr;
-          }, 0) / history.length;
+            history.reduce((sum, curr) => {
+                return sum + curr;
+            }, 0) / history.length;
         let newData = history.map(function (value) {
-          return  value - avg + 0.001;
+            return value - avg + 0.001;
         });
         newData[newData.length - 1] += 0.00001;
         return newData;
-      };
+    };
 
 
     const handleLeaderboardInitialData = async (leaderboardInitialData: LeaderboardInitialDataType[]) => {
@@ -210,57 +209,59 @@ const LeaderboardTable = ({
             ]
 
             let totalBettingAmount = 0;
-            if (Number(item.roiLogs[0].timestamp) <= Math.round(Date.now() / 1000) - secondsInWeek) {
-                totalBettingAmount = parseFloat(formatEther(BigInt(item.roiLogs[0].totalBetAmount)));
-            }
-
             const predictions = item?.predictions;
-
-            // @ts-ignore
-            predictions.sort((a, b) => a.event.startTime - b.event.startTime);
-
-            periodItems.map((periodItem) => {
-                const predictionsInPeriod = predictions?.filter(
-                    (item: LeaderboardInitialDataPredictionsType) =>
-                        Number(item.betTime) > Math.round(Date.now() / 1000) - periodItem.timePeriod
-                )
-
-                const totalPredictionAmount = predictionsInPeriod.reduce(
-                    (
-                        sum: number, prediction: LeaderboardInitialDataPredictionsType) =>
-                        sum + parseFloat(formatEther(BigInt(prediction.amount))), 0)
-
-                const totalPaidAmount = predictionsInPeriod.reduce(
-                    (sum: number, prediction: LeaderboardInitialDataPredictionsType) =>
-                        sum + parseFloat(formatEther(BigInt(prediction.paidAmount))), 0)
-
-                let roi = 0;
-                let pnl = 0;
-                if (periodItem.roi == "monthlyRoi") {
-                    totalBettingAmount += totalPredictionAmount;
-                } 
-                if (totalPredictionAmount > 0) {
-                    pnl = totalPaidAmount - totalPredictionAmount;
-                    roi = Math.round(pnl / totalPredictionAmount * 100);
+            let allTimePnl = 0;
+            let allTimeRoi = 0;
+            if (predictions.length > 0) {
+                if (Number(item.roiLogs[0].timestamp) <= Math.round(Date.now() / 1000) - secondsInWeek) {
+                    totalBettingAmount = parseFloat(formatEther(BigInt(item.roiLogs[0].totalBetAmount)));
                 }
 
-                (data as any)[periodItem.roi] = roi == 0 ? 0 : parseFloat(roi.toFixed(1));
-                (data as any)[periodItem.pnl] = pnl == 0 ? 0 : parseFloat(pnl.toFixed(1));
-            })
+                // @ts-ignore
+                predictions.sort((a, b) => a.event.startTime - b.event.startTime);
 
-            let allTimePnl = parseFloat(formatEther(BigInt(item.totalPrize))) - totalBettingAmount;
-            let allTimeRoi = 0;
+                periodItems.map((periodItem) => {
+                    const predictionsInPeriod = predictions?.filter(
+                        (item: LeaderboardInitialDataPredictionsType) =>
+                            Number(item.betTime) > Math.round(Date.now() / 1000) - periodItem.timePeriod
+                    )
+
+                    const totalPredictionAmount = predictionsInPeriod.reduce(
+                        (
+                            sum: number, prediction: LeaderboardInitialDataPredictionsType) =>
+                            sum + parseFloat(formatEther(BigInt(prediction.amount))), 0)
+
+                    const totalPaidAmount = predictionsInPeriod.reduce(
+                        (sum: number, prediction: LeaderboardInitialDataPredictionsType) =>
+                            sum + parseFloat(formatEther(BigInt(prediction.paidAmount))), 0)
+
+                    let roi = 0;
+                    let pnl = 0;
+                    if (periodItem.roi == "monthlyRoi") {
+                        totalBettingAmount += totalPredictionAmount;
+                    }
+                    if (totalPredictionAmount > 0) {
+                        pnl = totalPaidAmount - totalPredictionAmount;
+                        roi = Math.round(pnl / totalPredictionAmount * 100);
+                    }
+
+                    (data as any)[periodItem.roi] = roi == 0 ? 0 : parseFloat(roi.toFixed(1));
+                    (data as any)[periodItem.pnl] = pnl == 0 ? 0 : parseFloat(pnl.toFixed(1));
+                })
+
+                allTimePnl = parseFloat(formatEther(BigInt(item.totalPrize))) - totalBettingAmount;
+
+                const pointsInMonth = handleChartRoiPoints(item.roiLogs[0], item?.predictions);
+
+                data['allTimeChart'] = pointsInMonth;
+            }
+            
 
             if (totalBettingAmount > 0) {
                 allTimeRoi = Math.round(allTimePnl / totalBettingAmount * 100);
             }
             data['allTimePnl'] = allTimePnl == 0 ? 0 : parseFloat(allTimePnl.toFixed(1));
             data['allTimeRoi'] = allTimeRoi == 0 ? 0 : parseFloat(allTimeRoi.toFixed(1));
-
-
-            const pointsInMonth = handleChartRoiPoints(item.roiLogs[0], item?.predictions);
-
-            data['allTimeChart'] = pointsInMonth;
 
             return data;
         }))
