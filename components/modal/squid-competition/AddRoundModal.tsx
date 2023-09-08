@@ -168,7 +168,7 @@ const AddRoundModal = ({
               eventID: ${eventID},
               roundID: ${roundLevel},
               totalPlayers: ${totalPlayers},
-              currentPlayers: ${numberOfWinnersOfThisRound},
+              currentPlayers: ${playersInThisPhase},
             }`,
             opts
           )
@@ -186,7 +186,7 @@ const AddRoundModal = ({
           ctx.fillText('Remaining Players:', 220, 520)
 
           ctx.font = 'bold 14px Nunito'
-          ctx.fillText(`${numberOfWinnersOfThisRound}/${totalPlayers}`, 290, 540)
+          ctx.fillText(`${playersInThisPhase}/${totalPlayers}`, 290, 540)
 
           ctx.font = '14px Nunito'
           ctx.fillText(

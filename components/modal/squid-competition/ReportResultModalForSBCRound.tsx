@@ -74,6 +74,7 @@ const ReportResultModalForSBCRound = ({
     setIsLoading(true)
     if ((numberOfWinnersOfThisRound == 1) && (nftSetStatus < NftSetStatus.WinnerNFTSet)) {
       onOpenAddNFTForSpecialCase();
+      onClose();
     } else {
       try {
         const res = await reportResultForSBCRound(
@@ -171,7 +172,7 @@ const ReportResultModalForSBCRound = ({
         eventID={eventID}
         roundLevel={0}
         totalPlayers={playersInThisPhase}
-        playersInThisPhase={playersInThisPhase}
+        playersInThisPhase={1}
         nftSetStatus={nftSetStatus}
         setNftSetStatus={setNftSetStatus}
       />
