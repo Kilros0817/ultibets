@@ -22,7 +22,7 @@ export const polygonMumbai = {
           http:  ["https://matic-mumbai.chainstacklabs.com"],
      },
       public: {
-          http:  ["https://polygon-mumbai.g.alchemy.com/v2/SQOWu4glSvD5HKThQY-wpMV2nOHD5B3X"],
+          http:  ["https://newest-greatest-sailboat.matic-testnet.quiknode.pro/0ae33f48f69959e577dab9af178f222b78e1bd16/"],
      },
  },
   blockExplorers: {
@@ -66,7 +66,7 @@ export const arbitrumGoerli = {
             http: ["https://goerli-rollup.arbitrum.io/rpc"],
         },
         public: {
-            http: ["https://arb-goerli.g.alchemy.com/v2/btl1mNqjNlVRsa6SDM-44fZSL_Fx60w9"],
+            http: ["https://white-summer-sky.arbitrum-goerli.quiknode.pro/3c84981687194332bc62a9c897e4ad9255ca90e1/"],
         },
     },
     blockExplorers: {
@@ -83,6 +83,79 @@ export const arbitrumGoerli = {
         multicall3: {
             address: "0xca11bde05977b3631167028862be2a173976ca11",
             blockCreated: 88114,
+        },
+    },
+    testnet: true,
+} as Chain;
+
+
+export const avalancheFuji = {
+    id: 43113,
+    name: "Avalanche Fuji",
+    network: "avalanche-fuji",
+    nativeCurrency: {
+        decimals: 18,
+        name: "Avalanche Fuji",
+        symbol: "AVAX",
+    },
+    rpcUrls: {
+        default: {
+            http: ["https://api.avax-test.network/ext/bc/C/rpc"],
+        },
+        public: {
+            http: ["https://blue-methodical-log.avalanche-testnet.quiknode.pro/30bd65de567880d32913c015df543918655554e1/ext/bc/C/rpc/"],
+        },
+    },
+    blockExplorers: {
+        etherscan: {
+            name: "SnowTrace",
+            url: "https://testnet.snowtrace.io",
+        },
+        default: {
+            name: "SnowTrace",
+            url: "https://testnet.snowtrace.io",
+        },
+    },
+    contracts: {
+        multicall3: {
+            address: "0xca11bde05977b3631167028862be2a173976ca11",
+            blockCreated: 7096959,
+        },
+    },
+    testnet: true,
+} as Chain;
+
+export const bscTestnet = {
+    id: 97,
+    name: "Binance Smart Chain Testnet",
+    network: "bsc-testnet",
+    nativeCurrency: {
+        decimals: 18,
+        name: "BNB",
+        symbol: "tBNB",
+    },
+    rpcUrls: {
+        default: {
+            http: ["https://data-seed-prebsc-1-s1.binance.org:8545"],
+        },
+        public: {
+            http: ["https://data-seed-prebsc-1-s1.binance.org:8545"],
+        },
+    },
+    blockExplorers: {
+        etherscan: {
+            name: "BscScan",
+            url: "https://testnet.bscscan.com",
+        },
+        default: {
+            name: "BscScan",
+            url: "https://testnet.bscscan.com",
+        },
+    },
+    contracts: {
+        multicall3: {
+            address: "0xca11bde05977b3631167028862be2a173976ca11",
+            blockCreated: 17422483,
         },
     },
     testnet: true,

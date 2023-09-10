@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { avalancheFuji, bscTestnet, polygon } from "@wagmi/core/chains";
+import { polygon } from "@wagmi/core/chains";
 import { publicProvider } from 'wagmi/providers/public';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -19,7 +19,7 @@ import "./utbets-token/token-information/Pie.scss";
 import store from '../store';
 import Layout from '../layouts/layout'
 import theme from '../utils/theme'
-import { arbitrumGoerli, polygonMumbai } from '../utils/networks';
+import { arbitrumGoerli, avalancheFuji, bscTestnet, polygonMumbai } from '../utils/networks';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
@@ -85,7 +85,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="og:image:url" content="/images/ultibets-logo.svg" />
         <meta property="og:image:alt" content="Visit UltiBets" />
         <meta property="og:title" content="UltiBets.com" />
-        <meta property="og:description" content="Join UltiBets, the first-ever Cryptocurrency Multichain Prediction Market & GameFi Platform operating on four different blockchains: Avalanche, BSC, Optimism, and Polygon. We offer a truly decentralized and immersive experience for crypto enthusiasts. Join us now and start making winning predictions!" />
+        <meta property="og:description" content="Join UltiBets, the first-ever Cryptocurrency Multichain Prediction Market & GameFi Platform operating on four different blockchains: Arbitrum, Avalanche, BSC, and Polygon. We offer a truly decentralized and immersive experience for crypto enthusiasts. Join us now and start making winning predictions!" />
       </Head>
       {
         ready ? (

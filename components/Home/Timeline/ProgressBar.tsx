@@ -82,7 +82,7 @@ const ProgressBar = () => {
         'Squid Bets Competitions Arena & Prediction Building For Daily Predictions',
       item2:
         'Digital Store With Packs & NFTs',
-      item3: 'Native Chain "Meet And Chill" Areas With Exciting Animations & Marketing Operations (Optimism Area In Red, BSC Area In Yellow Etc)',
+      item3: 'Native Chain "Meet And Chill" Areas With Exciting Animations & Marketing Operations (Arbitrum Area In Red, BSC Area In Yellow Etc)',
     },
   ];
 

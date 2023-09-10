@@ -463,10 +463,10 @@ export const symbols = {
 }
 
 export const chainRPCs = {
-	[fujiChainId]: 'https://rpc.ankr.com/avalanche_fuji',
-	[bscTestnetChainId]: 'https://bsc-testnet.publicnode.com',
-	[arbitrumGoerliChainId]: 'https://arb-goerli.g.alchemy.com/v2/btl1mNqjNlVRsa6SDM-44fZSL_Fx60w9',
-	[mumbaiChainId]: 'https://polygon-mumbai.infura.io/v3/4458cf4d1689497b9a38b1d6bbf05e78',
+	[fujiChainId]: 'https://blue-methodical-log.avalanche-testnet.quiknode.pro/30bd65de567880d32913c015df543918655554e1/ext/bc/C/rpc/',
+	[bscTestnetChainId]: 'https://smart-solitary-orb.bsc-testnet.quiknode.pro/7e146d49536f41e7b69c6d06f94a343cc4934760/',
+	[arbitrumGoerliChainId]: 'https://white-summer-sky.arbitrum-goerli.quiknode.pro/3c84981687194332bc62a9c897e4ad9255ca90e1/',
+	[mumbaiChainId]: 'https://newest-greatest-sailboat.matic-testnet.quiknode.pro/0ae33f48f69959e577dab9af178f222b78e1bd16/',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',

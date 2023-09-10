@@ -290,7 +290,7 @@ const FAQS = () => {
               color={'white'}
               mt={activeTwo ? '15px' : '0px'}
             >
-              How do you place a bet on UltiBets?{' '}
+              How do you place a prediction on UltiBets?{' '}
             </Text>
             {
               activeTwo ? (
@@ -836,9 +836,9 @@ const FAQS = () => {
                       width: '100%',
                     }}
                   >
+                    <li>- Arbitrum</li>
                     <li>- Avalanche</li>
                     <li>- BSC</li>
-                    <li>- Optimism</li>
                     <li>- Polygon</li>
                   </ul>
                   </li>

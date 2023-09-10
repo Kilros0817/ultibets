@@ -270,7 +270,7 @@ const RegisterModalInSBC = ({
                                         lineHeight={'18px'}
                                     >
                                         IV. If, for any reasons, you can't or don't have
-                                        enough funds to place a bet before the round deadline,
+                                        enough funds to place a prediction before the round deadline,
                                         you will be eliminated.
                                     </Text>
                                 </Flex>
