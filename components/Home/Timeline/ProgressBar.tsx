@@ -116,7 +116,7 @@ const ProgressBar = () => {
       title: 'Q2-Q4 2024',
       subtitle: 'Platform Improvements',
       item1:
-        'Arbitrum / Base / Ethereum Integration',
+        'Optimism / Base / Ethereum Integration',
       item2:
         'Side Predictions Integration (Over/Under, Scorers, Points/Goals Per Qt/Half)',
       item3: 'Chainlink Price and Data Feeds Integration',
@@ -189,7 +189,7 @@ const ProgressBar = () => {
       title: 'Q2-Q4 2024',
       subtitle: 'Platform Improvements',
       item1:
-        'Arbitrum / Base / Ethereum Integration',
+        'Optimism / Base / Ethereum Integration',
       item2:
         'Side Predictions Integration (Over/Under, Scorers, Points/Goals Per Qt/Half)',
       item3: 'Chainlink Price and Data Feeds Integration',
