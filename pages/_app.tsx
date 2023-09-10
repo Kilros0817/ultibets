@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { polygon } from "@wagmi/core/chains";
+import { avalancheFuji, bscTestnet, polygon } from "@wagmi/core/chains";
 import { publicProvider } from 'wagmi/providers/public';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -19,7 +19,7 @@ import "./utbets-token/token-information/Pie.scss";
 import store from '../store';
 import Layout from '../layouts/layout'
 import theme from '../utils/theme'
-import { arbitrumGoerli, avalancheFuji, bscTestnet, polygonMumbai } from '../utils/networks';
+import { arbitrumGoerli, polygonMumbai } from '../utils/networks';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
