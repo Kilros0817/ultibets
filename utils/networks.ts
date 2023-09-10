@@ -139,7 +139,7 @@ export const bscTestnet = {
             http: ["https://data-seed-prebsc-1-s1.binance.org:8545"],
         },
         public: {
-            http: ["https://data-seed-prebsc-1-s1.binance.org:8545"],
+            http: ["https://smart-solitary-orb.bsc-testnet.quiknode.pro/7e146d49536f41e7b69c6d06f94a343cc4934760/"],
         },
     },
     blockExplorers: {
