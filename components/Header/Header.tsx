@@ -120,9 +120,11 @@ const Header = () => {
               router.push('/');
             }
           }
-        } else if (router.asPath == '/') {
-          router.push('/home');
-        }
+        } 
+      }
+
+      if (router.asPath == '/') {
+        router.push('/home');
       }
 
       const pathName = router.asPath;
