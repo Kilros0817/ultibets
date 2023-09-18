@@ -78,6 +78,7 @@ const CalendarModal = ({
             className='calendar-modal-body'
           >
             <DatePicker
+              calendarStartDay = {1}
               selected={selectedDate}
               onMonthChange={() => setShouldRender(!shouldRender)}
               onChange={(date: Date) => {
