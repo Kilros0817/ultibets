@@ -66,10 +66,8 @@ const SquidBetPage = () => {
 
       let cardId = slug[2];
       if (isNaN(parseInt(cardId))) {
-        console.log("cardI")
         cardId = '1';
       }
-      console.log("cardI: ", cardId)
       setEventID(parseInt(cardId));
     }
   }, [router])
@@ -100,7 +98,7 @@ const SquidBetPage = () => {
   ])
 
   useEffect(() => {
-    fetchDataFromSubgraph4(6);
+    fetchDataFromSubgraph4(6000);
   }, [
     shouldRender,
   ])

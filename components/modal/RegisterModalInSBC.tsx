@@ -19,7 +19,7 @@ import { useChainContext } from '../../utils/Context'
 import { registerOnEvent, registerOnWarriorEvent } from '../../utils/interact/sc/squid-competition'
 import { chainAttrs, contractAddressesInSBC, EventCategory, mumbaiChainId, polygonChainId, utbetsTokenAddresses } from '../../utils/config'
 import AnnounceModal from './AnnounceModal'
-import { checkIconInGreenBg, exclamationIconInRedBg, UltiBetsTokenAbi } from '../../utils/assets'
+import { checkIconInGreenBg, exclamationIconInRedBg } from '../../utils/assets'
 import Account from '../Account'
 import { getAllowance, getUTBETSBalance, utbetsApprove } from '../../utils/interact/sc/utbets';
 import { formatEther } from 'viem';
@@ -132,7 +132,6 @@ const RegisterModalInSBC = ({
             const tokenAddress = (utbetsTokenAddresses as any)[chainId];
             const balanceOfUtbets = await getUTBETSBalance(tokenAddress, address);
             const numberOfBalanceOfUtbetsToken = Number(formatEther(balanceOfUtbets as bigint));
-            console.log("balance of utbets token: ", Number(formatEther(balanceOfUtbets as bigint)));
 
             if ((registerAmount ?? 0) > numberOfBalanceOfUtbetsToken) {
                 onOpenAnnounceModal();
