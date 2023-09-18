@@ -468,7 +468,7 @@ const Checkout: NextPage = () => {
                                     <Button disabled={
                                         !cartItems.length
                                     }
-                                        mt={4}
+                                        my={4}
                                         backgroundColor={'#1F1F1F'}
                                         border='1px solid #FC541C'
                                         _hover={

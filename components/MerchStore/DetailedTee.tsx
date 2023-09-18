@@ -145,8 +145,7 @@ const DetailedTee = ({
               {' '}
               <Image
                 src={image}
-                width={['300px', '300px', '350px', '560px']}
-                height={['250px', '250px', '240px', '465px']}
+                width={['300px', '300px', '350px', '440px']}
                 alt={name}
                 borderRadius={'10px'}
               />

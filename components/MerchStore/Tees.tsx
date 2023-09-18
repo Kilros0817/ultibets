@@ -41,7 +41,6 @@ const Tees = ({ id, name, price, image }: TeesProps) => {
             <Image
               src={image}
               width={['full', '300px', '300px', '300px']}
-              height={['auto', '300px', '300px', '249px']}
               alt='Ultibets Tshirt'
             />
           </Flex>

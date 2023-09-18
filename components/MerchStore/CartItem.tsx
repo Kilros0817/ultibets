@@ -94,8 +94,7 @@ const CartItem = (props: any) => {
           >
             <Image
               src={image}
-              width={['full', 'unset', 'unset', 'full']}
-              height={['full', 'unset', 'unset', 'full']}
+              width={['300px', '300px', '270px', '150px']}
               alt={title}
             />
           </Flex>
