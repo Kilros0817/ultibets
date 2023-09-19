@@ -21,7 +21,6 @@ import { HiOutlineSearch } from 'react-icons/hi'
 import LeaderboardTable from '../../../components/Leaderboard/LeaderboardTable'
 import TokenSelector from '../../../components/predictions/TokenSelector'
 import RegisterInLeaderboardModal from '../../../components/modal/RegisterInLeaderboardModal';
-import Head from 'next/head';
 
 const Leaderboard = () => {
   const starImage = "/images/pngs/prediction-markets/star.svg";
@@ -53,7 +52,6 @@ const Leaderboard = () => {
   return (
     <>
       <Flex
-        className='leaderboard-page-wrapper'
         width={'100%'}
       >
         <Flex
@@ -68,13 +66,9 @@ const Leaderboard = () => {
           my='30px'
           px='30px'
           width={['100%', '100%', 'calc(100% - 90px)', 'calc(100% - 90px)', 'calc(100% - 90px)']}
-          mr={['unset', 'unset', 'unset', 'unset']}
-          className='my-leaderboard-wrapper'
           zIndex={0}
         >
-
           <PredictionsTab />
-
           <Flex
             mt={['41px']}
             justifyContent={['center', 'center', 'start']}

@@ -22,6 +22,7 @@ const CalendarLabel = ({
         <>
             <Flex
                 onClick={onOpen}
+                width={'-moz-available'}
             >
                 <Image
                     mr='9px'

@@ -148,6 +148,8 @@ const PredictionsTab = ({
             width: '0',
             height: '0',
           },
+          'scrollbar-width': 'thin',
+          'scrollbar-color': 'transparent transparent',
         }}
         onScroll={scrollCheck}
       >
@@ -168,6 +170,7 @@ const PredictionsTab = ({
             src={starImage}
           />
           <Text
+            whiteSpace={'nowrap'}
             color={pathName.includes('/leaderboard') ? '#E18833' : 'white'}
             onClick={() => router.push(`/my-profile/leaderboard`)}
           >
@@ -182,6 +185,7 @@ const PredictionsTab = ({
             src={storyTellingImage}
           />
           <Text
+            whiteSpace={'nowrap'}
             color={pathName.includes('/my-predictions') ? '#E18833' : 'white'}
             onClick={() => router.push(`/my-profile/my-predictions`)}
           >
@@ -196,6 +200,7 @@ const PredictionsTab = ({
             src={referralImage}
           />
           <Text
+            whiteSpace={'nowrap'}
             color={pathName.includes('/my-referrals') ? '#E18833' : 'white'}
             onClick={() => router.push(`/my-profile/my-referrals`)}
           >
@@ -210,6 +215,7 @@ const PredictionsTab = ({
             src={dolllarImage}
           />
           <Text
+            whiteSpace={'nowrap'}
             color={pathName.includes('/my-rewards') ? '#E18833' : 'white'}
             onClick={() => router.push(`/my-profile/my-rewards`)}
           >
@@ -224,6 +230,7 @@ const PredictionsTab = ({
             src={myNFTsImage}
           />
           <Text
+            whiteSpace={'nowrap'}
             color={pathName.includes('/my-nfts') ? '#E18833' : 'white'}
             onClick={() => {setCategoryInPM(0); router.push(`/my-profile/my-nfts`)}}
           >
