@@ -13,12 +13,14 @@ type AdminHandleEventButtonProps = {
   setRepeatLevel: (repeatLevel: number) => void,
   onOpenModal: () => void,
   buttonLabel: string,
+  isExpired?: boolean
 }
 
 const AdminHandleEventButton = ({
   setRepeatLevel,
   onOpenModal,
   buttonLabel,
+  isExpired = false,
 }: AdminHandleEventButtonProps) => {
 
   return <Flex
@@ -52,12 +54,12 @@ const AdminHandleEventButton = ({
         _active={{
           backgroundColor: '#FC541C',
         }}
-        pl='25px'
-        pr='25px'
-        py='8px'
-        height='41px'
+        px={isExpired ? '10px' : '25px'}
+        py={isExpired ? '10px' : '8px'}
+        height={isExpired ? '30px' : '41px'}
+        borderRadius={isExpired ? '15px' : '34px'}
         border={'1px solid #FC541C'}
-        borderRadius='34px'
+        zIndex={5}
       >
         <Flex
           direction='row'
@@ -67,8 +69,8 @@ const AdminHandleEventButton = ({
           <Text
             fontFamily={'Nunito'}
             fontStyle='normal'
-            fontSize={'15px'}
-            lineHeight='25px'
+            fontSize={isExpired ? '12px' : '15px'}
+            lineHeight={isExpired ? '14px' : '25px'}
             textTransform={'capitalize'}
             flex='none'
             color={'white'}

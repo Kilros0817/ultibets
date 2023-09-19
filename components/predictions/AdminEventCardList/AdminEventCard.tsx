@@ -231,30 +231,42 @@ const AdminEventCard = ({
               </Flex>
             </Flex>
 
-            <Flex
-              position={'absolute'}
-              right={'0'}
-              top={'5px '}
-            >
-              {
-                (bettingDeadline - secondsInHalfHour < Date.now() / 1000) && (
+            {
+              (bettingDeadline - secondsInHalfHour < Date.now() / 1000) ? (
+                <Flex
+                  position={'absolute'}
+                  right={'0'}
+                  top={'5px '}
+                >
                   <AdminHandleEventButton
                     setRepeatLevel={setRepeatLevel}
                     onOpenModal={onOpenReportResultAnnounceModal}
                     buttonLabel={'Report Results'}
+                    isExpired={true}
                   />
-                )
-              }
-              {
-                (bettingDeadline - secondsInHalfHour >= Date.now() / 1000) && (
+                  <Flex width={'4px'} />
+                  <AdminHandleEventButton
+                    setRepeatLevel={setRepeatLevel}
+                    onOpenModal={onOpenConfirmEventCancelAnnounceModal}
+                    buttonLabel={'Cancel'}
+                    isExpired={true}
+                  />
+                </Flex>
+              ) : (
+                <Flex
+                  position={'absolute'}
+                  right={'0'}
+                  top={'5px '}
+                >
                   <AdminHandleEventButton
                     setRepeatLevel={setRepeatLevel}
                     onOpenModal={onOpenConfirmEventCancelAnnounceModal}
                     buttonLabel={'Cancel'}
                   />
-                )
-              }
-            </Flex>
+                </Flex>
+              )
+            }
+
           </Flex>
         </Flex>
 
