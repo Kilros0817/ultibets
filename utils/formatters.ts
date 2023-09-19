@@ -6,11 +6,20 @@ export const getEllipsisTxt = (str: string, n = 6) => {
 };
 
 // format example: "", "-"
-export const getFormattedDateString = (date: Date, format: string) => {
+export const getFormattedDateString1 = (date: Date, format: string) => {
   const yyyy: any = date.getFullYear();
   let mm: any = addZero(date.getMonth() + 1); // Months start at 0!
   let dd: any = addZero(date.getDate());
   const formattedDate = yyyy + format + mm + format + dd;
+
+  return formattedDate;
+}
+
+export const getFormattedDateString = (date: Date, format: string) => {
+  const yyyy: any = date.getFullYear();
+  let mm: any = addZero(date.getMonth() + 1); // Months start at 0!
+  let dd: any = addZero(date.getDate());
+  const formattedDate = dd + format + mm + format + yyyy;
 
   return formattedDate;
 }

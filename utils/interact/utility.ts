@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
 import { EventResultInPM, NFTType, RoundResultInSBC, symbols } from "../config";
-import { getFormattedDateString } from "../formatters";
+import { getFormattedDateString1 } from "../formatters";
 import axios from "axios";
 
 export const getNFTTypeString = (type: NFTType) => {
@@ -28,7 +28,7 @@ export const getDateAndTimeIntervalsAccordingToUserTimeZone = (date: Date) => {
 
     if (timezoneOffset >= 0) {
         // utc - zones: america
-        const formattedStartDateString = getFormattedDateString(date, "-"); // returns "2023-02-23"
+        const formattedStartDateString = getFormattedDateString1(date, "-"); // returns "2023-02-23"
         const utcStartDate = new Date(formattedStartDateString).getTime() + timezoneOffset * 60 * 1000;
         const startTimestamp = new Date(utcStartDate).getTime() / 1000;
 
@@ -41,13 +41,11 @@ export const getDateAndTimeIntervalsAccordingToUserTimeZone = (date: Date) => {
         }
     } else {
         // utc+ zones:  asia, europe, africa countries
-        const formattedStartDateString = getFormattedDateString(date, "-"); // returns "2023-02-23"
+        const formattedStartDateString = getFormattedDateString1(date, "-"); // returns "2023-02-23"
         const utcStartDate = new Date(formattedStartDateString).getTime() + timezoneOffset * 60 * 1000;
-        const startDateString = getFormattedDateString(new Date(utcStartDate - 1), ""); // returns "20230222"
         const startTimestamp = new Date(utcStartDate).getTime() / 1000;
 
         const milliSecondsInEndTime = new Date(utcStartDate).getTime() + 24 * 3600 * 1000;
-        const endDateString = getFormattedDateString(new Date(milliSecondsInEndTime - 1), "");
         const endTimeStamp = milliSecondsInEndTime / 1000;
 
         return {

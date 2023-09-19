@@ -75,14 +75,14 @@ const SquidRoundInfo = ({
           >
             {/* Date & Time: 07/28 @ 20:00 UTC{' '} */}
             Date & Time: {
-              getFormattedDateString(startTime!, "").slice(4, 6) + "/" +
-              getFormattedDateString(startTime!, "").slice(6, 8)
+              getFormattedDateString(startTime!, "").slice(0, 2) + "/" +
+              getFormattedDateString(startTime!, "").slice(2, 4)
             }
             <Flex
               ml={'10px'}
             >
               @ {
-                getFormattedTime(startTime!).slice(0, 5)
+                getFormattedTime(startTime!).slice(4, 8)
               }
             </Flex>
           </Flex>

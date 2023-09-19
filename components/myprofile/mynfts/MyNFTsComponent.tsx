@@ -331,7 +331,7 @@ const MyNFTsComponent = ({
                                                 <QRCode
                                                     value={`{
                                                         type: ${getNFTTypeString(Number(item.type))},
-                                                        date: ${getFormattedDateString(new Date(item.timestamp * 1000), "-").slice(2)},
+                                                        date: ${getFormattedDateString(new Date(item.timestamp * 1000), "-")},
                                                         eventID: ${item.eventID},
                                                         roundID: ${item.roundLevel},
                                                         totalPlayers: ${item.totalPlayers},
@@ -370,7 +370,7 @@ const MyNFTsComponent = ({
                                                     {`Round ${rounds[item.roundLevel]} `}
                                                 </Flex>
                                                 <Flex>
-                                                    {getFormattedDateString(new Date(item.timestamp * 1000), ".").slice(2)}
+                                                    {getFormattedDateString(new Date(item.timestamp * 1000), ".")}
                                                 </Flex>
                                             </Flex>
                                         </Flex>

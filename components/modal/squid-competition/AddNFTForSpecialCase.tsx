@@ -156,7 +156,7 @@ const AddNFTForSpecialCase = ({
 
           ctx.font = '14px Nunito'
           ctx.fillText(
-            getFormattedDateString(new Date(), '.').slice(2),
+            getFormattedDateString(new Date(), '.'),
             30,
             645
           );
