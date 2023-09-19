@@ -338,10 +338,10 @@ export const contractAddressesInSBC = {
 }
 
 export const nftClaimerContract = {
-	[fujiChainId]: '0x648B89422Cf0BB0425dE24848D20A9f4802B9753',
-	[bscTestnetChainId]: '0xfA00D15cC27Db7CD1202FAC9259Ab7968d871421',
-	[arbitrumGoerliChainId]: '0x3F123a13f337d5f0007E20C92f42990F979EEA96',
-	[mumbaiChainId]: '0x6fdcEBEE9c259CcB52267FE3bA558d253C39fa16',
+	[fujiChainId]: '0x94bDC5B5eE97AEb0CbB059bf20E0dD8182d9E11B',
+	[bscTestnetChainId]: '0xDf613d1228F9E57b7Dc55d0C8cc156d4607A2740',
+	[arbitrumGoerliChainId]: '0x2b0c508bddC1EDb7c51a91E27d5Fd55AC6D597Db',
+	[mumbaiChainId]: '0x0A22Bc0b41D7ea900E39be7fCaB5d47C19fae522',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',
@@ -349,10 +349,10 @@ export const nftClaimerContract = {
 }
 
 export const sbcNFTContract = {
-	[fujiChainId]: '0x94bDC5B5eE97AEb0CbB059bf20E0dD8182d9E11B',
-	[bscTestnetChainId]: '0xDf613d1228F9E57b7Dc55d0C8cc156d4607A2740',
-	[arbitrumGoerliChainId]: '0x2b0c508bddC1EDb7c51a91E27d5Fd55AC6D597Db',
-	[mumbaiChainId]: '0x0A22Bc0b41D7ea900E39be7fCaB5d47C19fae522',
+	[fujiChainId]: '0xbfE2d15670f57B005361DFc7f9fA2195F0BF63f8',
+	[bscTestnetChainId]: '0xfb5bdc30860733C8F73C491D34e3ac5Ec433B667',
+	[arbitrumGoerliChainId]: '0xCA2FE55903a1d95878a988B72e4F0438a8bC69ce',
+	[mumbaiChainId]: '0x4b2564Af742666eFc126189c0E0B0BF3a01a32c2',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',
