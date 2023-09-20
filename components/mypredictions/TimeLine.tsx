@@ -154,7 +154,7 @@ const TimeLine = ({
                     color={'#FFFFFF'}
                     textTransform={'capitalize'}
                     cursor={'pointer'}
-                    width='max-content'
+                    width={'-moz-available'}
                 >
                     <Image
                         mr='9px'
