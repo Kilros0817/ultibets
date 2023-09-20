@@ -30,8 +30,8 @@ export const massClaimSBCNFT = async (
 
 //function claimFreeBetPerk(uint256 _tokenID) external {}
 export const claimFreeBetPerk = async (
-    tokenId: any,
-    chainId: number
+    chainId: number,
+    tokenId: any
 ) => {
     try {
         const { hash } = await writeContract({
