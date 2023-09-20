@@ -4,7 +4,6 @@ export const getRewardData = async (
     address: string,
     chainId?: number,
 ) => {
-    console.log("===========$$$$: ", address);
     let query = `{
         ultiBettors(where: {id: "${address}"}) {
             claimableRewardAmount

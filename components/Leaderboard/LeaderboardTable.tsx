@@ -379,8 +379,8 @@ const LeaderboardTable = ({
                             width: '0',
                             height: '0',
                         },
-                        'scrollbar-width': 'thin',
-                        'scrollbar-color': 'transparent transparent',
+                        'scrollbarWidth': 'thin',
+                        'scrollbarColor': 'transparent transparent',
                     }}
                     onScroll={scrollCheck}
                     display={['none', 'none', 'flex']}

@@ -203,6 +203,7 @@ export const AppTitle = {
 	"faq": "FAQ",
 	"my-profile": "My Profile",
 	"admin": "Admin",
+	"disclaimer": "Disclaimer"
 }
 
 export const sortByItems = [

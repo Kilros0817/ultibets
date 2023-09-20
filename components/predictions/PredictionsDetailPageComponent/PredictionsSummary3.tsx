@@ -250,7 +250,8 @@ const PredictionsSummary3 = ({
             width: '0',
             height: '0',
           },
-          'scrollbar-color': 'transparent transparent',
+          'scrollbarWidth': 'thin',
+          'scrollbarColor': 'transparent transparent',
         }}
         onScroll={scrollCheck}
       >

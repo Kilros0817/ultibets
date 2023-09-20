@@ -257,7 +257,8 @@ const TotalReferralsRevenue = ({
                         width: '0',
                         height: '0',
                     },
-                    'scrollbar-color': 'transparent transparent',
+                    'scrollbarWidth': 'thin',
+                    'scrollbarColor': 'transparent transparent',
                 }}
                 onScroll={scrollCheck}
                 width={['calc(100vw - 130px)', 'calc(100vw - 130px)', 'calc(100vw - 130px)', '100%']}

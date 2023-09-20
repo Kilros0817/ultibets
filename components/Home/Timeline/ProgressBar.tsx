@@ -336,6 +336,8 @@ const ProgressBar = () => {
               width: '0',
               height: '0',
             },
+            'scrollbarWidth': 'thin',
+            'scrollbarColor': 'transparent transparent',
           }}
         >
           <Box width={'100%'}>

@@ -121,7 +121,6 @@ const MyNFTsComponent = ({
         ...contract,
         eventName: 'ClaimNFT',
         listener() {
-            console.log("ClaimNFT listened");
             setShouldRender(!shouldRender);
         },
     });
@@ -282,7 +281,6 @@ const MyNFTsComponent = ({
                                     }}
                                 />
                             </Flex>
-
                             <Box
                                 position={'absolute'}
                                 opacity={0}
@@ -430,7 +428,6 @@ const MyNFTsComponent = ({
                                                 color={'white'}
                                                 background={'transparent'}
                                                 onClick={() => {
-                                                    console.log("token id: ", item.tokenId);
                                                     handleClaimPerks(item.tokenId);
                                                 }}
                                                 isDisabled={!item.isFreeBet}
