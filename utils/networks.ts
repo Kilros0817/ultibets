@@ -22,7 +22,7 @@ export const polygonMumbai = {
           http:  ["https://matic-mumbai.chainstacklabs.com"],
      },
       public: {
-          http:  ["https://polygon-mumbai.g.alchemy.com/v2/SQOWu4glSvD5HKThQY-wpMV2nOHD5B3X"],
+          http:  ["https://polygon-mumbai.g.alchemy.com/v2/Kxrpu__FMzXE9NXf_ieX9jUns2EKesoI"],
      },
  },
   blockExplorers: {
