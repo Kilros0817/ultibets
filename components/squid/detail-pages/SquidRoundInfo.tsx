@@ -82,7 +82,7 @@ const SquidRoundInfo = ({
               ml={'10px'}
             >
               @ {
-                getFormattedTime(startTime!).slice(4, 8)
+                getFormattedTime(startTime!).slice(0, 5)
               }
             </Flex>
           </Flex>
