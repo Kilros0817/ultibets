@@ -4,7 +4,7 @@ import {
 import type { NextPage } from 'next'
 import Carousel from '../components/Container/Carousel'
 
-const Home: NextPage = () => {
+const Main: NextPage = () => {
   return (
     <Box>
       <Carousel />
@@ -12,4 +12,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Main

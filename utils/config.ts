@@ -1,4 +1,4 @@
-import { basketballNBALogo, moviesLogo, otherPredictionLogo, soccerEnglandLogo, soccerFranceLogo, soccerGermanLogo, soccerItalyLogo, soccerSpainLogo, soccerUCLLogo, tvshowsLogo, ussportNFLLogo } from "./assets";
+import { atpLogo, basketballNBALogo, boxingLogo, formulaLogo, mmaLogo, motoLogo, moviesLogo, otherPredictionLogo, soccerEnglandLogo, soccerFranceLogo, soccerGermanLogo, soccerInternationalLogo, soccerItalyLogo, soccerSpainLogo, soccerUCLLogo, tvshowsLogo, ussportNFLLogo, wrcLogo, wtaLogo } from "./assets";
 
 const arbitrumChain = {
 	chainId: 42161,
@@ -513,7 +513,7 @@ export const subCategoriesInPredictionMarkets = {
 			subMenuIndex: 7,
 		},
 		[8]: {
-			logo: otherPredictionLogo,
+			logo: soccerInternationalLogo,
 			name: 'International friendly',
 			subMenuIndex: 8,
 		},
@@ -537,12 +537,12 @@ export const subCategoriesInPredictionMarkets = {
 	// tennis
 	[4]: {
 		[1]: {
-			logo: otherPredictionLogo,
+			logo: atpLogo,
 			name: 'ATP',
 			subMenuIndex: 1,
 		},
 		[2]: {
-			logo: otherPredictionLogo,
+			logo: wtaLogo,
 			name: 'WTA',
 			subMenuIndex: 2,
 		},
@@ -550,12 +550,12 @@ export const subCategoriesInPredictionMarkets = {
 	// combat sports
 	[5]: {
 		[1]: {
-			logo: otherPredictionLogo,
+			logo: boxingLogo,
 			name: 'Boxing',
 			subMenuIndex: 1,
 		},
 		[2]: {
-			logo: otherPredictionLogo,
+			logo: mmaLogo,
 			name: 'MMA',
 			subMenuIndex: 2,
 		},
@@ -563,17 +563,17 @@ export const subCategoriesInPredictionMarkets = {
 	// motorsports
 	[6]: {
 		[1]: {
-			logo: otherPredictionLogo,
+			logo: formulaLogo,
 			name: 'Formula 1',
 			subMenuIndex: 1,
 		},
 		[2]: {
-			logo: otherPredictionLogo,
+			logo: motoLogo,
 			name: 'Moto GP',
 			subMenuIndex: 2,
 		},
 		[3]: {
-			logo: otherPredictionLogo,
+			logo: wrcLogo,
 			name: 'WRC',
 			subMenuIndex: 3,
 		},
@@ -720,7 +720,7 @@ export const sidebarItems = {
 	[9]: {
 		menuIndex: 9,
 		name: 'Politics',
-		icon: '/images/svgs/sidebar/elections.svg',
+		icon: '/images/svgs/sidebar/elections.png',
 		eventType: EventType.Double,
 		keyword: 'politics',
 		isSubCategoryExist: false,

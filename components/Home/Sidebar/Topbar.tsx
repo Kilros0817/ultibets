@@ -64,7 +64,7 @@ const Sidebar = () => {
       id: '8',
       name: 'Politics',
       href: '/politics',
-      icon: '/images/svgs/sidebar/elections.svg',
+      icon: '/images/svgs/sidebar/elections.png',
     },
     {
       id: '9',
