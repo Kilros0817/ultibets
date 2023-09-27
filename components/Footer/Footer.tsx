@@ -81,14 +81,6 @@ const Footer = () => {
               direction={'row'}
               gap={['10px', '20px', '40px', '20px']}
             >
-              <a href="https://medium.com/@ultibets" target="_new">
-                <Image
-                  src={'/images/svgs/medium-logo.svg'}
-                  alt="Medium"
-                  height={27}
-                  width={27}
-                />
-              </a>
               <a href="http://t.me/ultibets" target="_new">
                 <Image
                   src={'/images/svgs/telegram-logo.svg'}

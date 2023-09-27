@@ -28,11 +28,6 @@ const CarouselLink = () => {
       logo: '/images/svgs/slider/discord-logo.svg',
       href: 'http://discord.gg/EsWqNmTcdr',
     },
-    {
-      id: 'medium',
-      logo: '/images/svgs/slider/med.svg',
-      href: 'https://medium.com/@ultibets',
-    },
   ]
   return (
     <Flex mt={'10px'} justifyContent={'center'} alignItems={'center'}>
