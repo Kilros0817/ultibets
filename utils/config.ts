@@ -521,7 +521,7 @@ export const subCategoriesInPredictionMarkets = {
 	// basketball
 	[2]: {
 		[1]: {
-			logo: basketballNBALogo,
+			logo: ussportNFLLogo,
 			name: 'NBA',
 			subMenuIndex: 1,
 		},
