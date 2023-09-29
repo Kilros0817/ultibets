@@ -267,20 +267,20 @@ export const supportedChainIds = {
 // 1 : utbets token daily bets contract
 export const contractAddressesInDailyBets = {
 	[fujiChainId]: {
-		[0]: '0xf72743A7e1574807b2C3Eda11F9c889EE82685D6',
-		[1]: '0x2B7413F8AD128c4936d3cc9dA455De61d4096a02',
+		[0]: '0x12f8EAe47859EbA043f5a00965B0266bf5b888d3',
+		[1]: '0x404D828E7CFf97C855bF323f424173aAEc88f895',
 	},
 	[bscTestnetChainId]: {
-		[0]: '0x7170C595f6Cb4Bf0C1141315D0065EeDE9616673',
-		[1]: '0x6cDC46a68FB7206A4866c65A1C1829Fc38406cE4',
+		[0]: '0xA06dC2D786c32d419aB53eC7bcea2646Ec0F7eDA',
+		[1]: '0x530E1dF7AaC3d50cc804596B71ACA1E96F645FCB',
 	},
 	[arbitrumGoerliChainId]: {
-		[0]: '0x9Ba2810260680D1b6e5546F469265BBbB0616443',
-		[1]: '0xa0FB0544430501e4b17aF8EC6F96f7d2d75195Bd',
+		[0]: '0x308CFdC1262204d19dd2d7B3cF9335c6bBbbB449',
+		[1]: '0x1DdF7671798e6ee8cF97646e26de7179b1854231',
 	},
 	[mumbaiChainId]: {
-		[0]: '0x017320BB908f2a1DbE932Bfaa53170152DEDA794',
-		[1]: '0x9B1B638Ae4225a04ca4441a75D7ec1DD55117a1A',
+		[0]: '0x1cFA1414De432Aa32819382957cE0AE9882a785F',
+		[1]: '0x0960f7f718A8C652b27a351216445c9529C5d311',
 	},
 
 	[avalancheChainId]: {
@@ -305,20 +305,20 @@ export const contractAddressesInDailyBets = {
 // 1 : utbets token betting contract
 export const contractAddressesInSBC = {
 	[fujiChainId]: {
-		[0]: '0x6Fe22A66968219D750435667De56462D544D5603',
-		[1]: '0xBF14e67c1811FB2A52FA56Bf8c0d98B5ac92e6aD',
+		[0]: '0x6b8fDbaB50Ae852e87fa08aEe2Eb8dD691804700',
+		[1]: '0xa5e49C51A0CA08b7e03104A4b678A90eF0a228d6',
 	},
 	[bscTestnetChainId]: {
-		[0]: '0xeF9A695F43909D73b428D773EaF5262049028784',
-		[1]: '0x95b0966168425c8390b1D1129B3C83A11C10a72e',
+		[0]: '0x3754aF9F19d21650678c9D56d1F21e2Cf71885cd',
+		[1]: '0x353397e393D9182Ad8Af9f89C58d0B0f2CF884ea',
 	},
 	[mumbaiChainId]: {
-		[0]: '0x5093Ec43650Ec5f07df2FC255eC291c1f6E6d696',
-		[1]: '0x7ED85a22cA1057c884bB518D565189858FcC8b3A',
+		[0]: '0x8F4712566e0887fe3367bE5c3DA0991e946d048D',
+		[1]: '0x030d194A93ef1d13653231D36eDE5AA9727182fe',
 	},
 	[arbitrumGoerliChainId]: {
-		[0]: '0xd8624E82473F0dA86a36ADa89fb5b871535e8789',
-		[1]: '0x6aA0bcE05E3B622ECE2B36e61F62a64E08bd9Ea0',
+		[0]: '0x2EEB2897b4B0bfeED904e160292AB8C8c65d1903',
+		[1]: '0xa2b7Eb949bD20d66cB27de6F1055d3d665923D23',
 	},
 	[avalancheChainId]: {
 		[0]: '',
@@ -339,10 +339,10 @@ export const contractAddressesInSBC = {
 }
 
 export const nftClaimerContract = {
-	[fujiChainId]: '0x94bDC5B5eE97AEb0CbB059bf20E0dD8182d9E11B',
-	[bscTestnetChainId]: '0xDf613d1228F9E57b7Dc55d0C8cc156d4607A2740',
-	[arbitrumGoerliChainId]: '0x2b0c508bddC1EDb7c51a91E27d5Fd55AC6D597Db',
-	[mumbaiChainId]: '0x0A22Bc0b41D7ea900E39be7fCaB5d47C19fae522',
+	[fujiChainId]: '0xC4537A30a5E4f32FA8F308D5bea64aF8130049E5',
+	[bscTestnetChainId]: '0x56B9AE4B9a3fA0703fdAD2CDD45FD35acF0154ff',
+	[arbitrumGoerliChainId]: '0x7a90184090f4A3BE69948B4db72D73adad2E7044',
+	[mumbaiChainId]: '0xE3508F488361a623bc6EDC22B03EdC9A35E63332',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',
@@ -350,10 +350,10 @@ export const nftClaimerContract = {
 }
 
 export const sbcNFTContract = {
-	[fujiChainId]: '0xbfE2d15670f57B005361DFc7f9fA2195F0BF63f8',
-	[bscTestnetChainId]: '0xfb5bdc30860733C8F73C491D34e3ac5Ec433B667',
-	[arbitrumGoerliChainId]: '0xCA2FE55903a1d95878a988B72e4F0438a8bC69ce',
-	[mumbaiChainId]: '0x4b2564Af742666eFc126189c0E0B0BF3a01a32c2',
+	[fujiChainId]: '0xb683f785deF0807f1bC6Bf20Bbd812d9B3Cfe414',
+	[bscTestnetChainId]: '0xa8F6A9d0924c7d5f80F5583b36BADC7A20Bb8A19',
+	[arbitrumGoerliChainId]: '0xB6cA65CD43692ec819aD20D9bB89C8FAc03803BC',
+	[mumbaiChainId]: '0x5Ef57195f1D8Ac89a23F1f111EE03d6f39a73eC3',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',
@@ -361,10 +361,10 @@ export const sbcNFTContract = {
 }
 
 export const rndGeneratorContract = {
-	[fujiChainId]: '0x31D5E61f2B0f4fA8d17994DC2db5145f22a7D8b8',
-	[bscTestnetChainId]: '0x5cC868972aF42DC9E6724Fa2ab5B81fa6fEA7D27',
-	[arbitrumGoerliChainId]: '0xF0cC8903C27Fd79F5c298c361313C38B443D65aE',
-	[mumbaiChainId]: '0xA0D4571BFa22CE514FC2684A595A8ef1A6b3d88e',
+	[fujiChainId]: '0xE9910C0a2014D77BbFF7E67b091E9aEb8aD6969B',
+	[bscTestnetChainId]: '0x1Fca797F286f23149fEA162B9957C3d446D5eadE',
+	[arbitrumGoerliChainId]: '0xB1b9BfD69661fF41eDbAF0D7624a76D5DA95B8F9',
+	[mumbaiChainId]: '0x9E50E91c3B3931b7a93EF9D18BC8CfA7598Bc45F',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',
@@ -372,10 +372,10 @@ export const rndGeneratorContract = {
 }
 
 export const ultibetsSignAddresses = {
-	[fujiChainId]: '0x11B71d844aF6dC32c1b1D3Bfbe3EaD47544FA47a',
-	[bscTestnetChainId]: '0x3E2dCB0D2a062Ecc5529981926f072F207B6b730',
-	[arbitrumGoerliChainId]: '0x08b02d30486e4eFc9c59617D92c19376ac4310D5',
-	[mumbaiChainId]: '0xb6E78ea5e845a9001364ded8fF3eDe85635bBEb6',
+	[fujiChainId]: '0xcEd3B1c7dD10347F05173432C9682c7F0C39782a',
+	[bscTestnetChainId]: '0xdEC34236C4706a6030e09f4c037F15155f23F937',
+	[arbitrumGoerliChainId]: '0xa44097D96445aD0E8AA8eDe6729b0BE413a9A394',
+	[mumbaiChainId]: '0x8BE7B00eeC99491bab0B6B81589728E8dAb65827',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',
@@ -383,10 +383,10 @@ export const ultibetsSignAddresses = {
 }
 
 export const ultibetsRewardAddresses = {
-	[fujiChainId]: '0xcD84828fCd4f9405Da673b636B8D2687f2048672',
-	[bscTestnetChainId]: '0xff7BA1572F059B8c0Fa2e43F99685428ECb95611',
-	[arbitrumGoerliChainId]: '0xc929ef4FE987B82eE495c7E428D339CfFF3b18C0',
-	[mumbaiChainId]: '0xF973A6156B68e5eAf5C93F85029dc64958b854c7',
+	[fujiChainId]: '0xf291e04b445Ef25a791DFbAdfd19013DCb397fb6',
+	[bscTestnetChainId]: '0x1CF08836d65b3891506a22F5B12e66434142f607',
+	[arbitrumGoerliChainId]: '0x70122b8f9D4bDe0D7A1FF7ceaB5dc166Ee070cdB',
+	[mumbaiChainId]: '0x7C5104659F2Cc97453c37e8783Ed1EB4CBF673EF',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',
@@ -394,10 +394,10 @@ export const ultibetsRewardAddresses = {
 }
 
 export const ultiBetsLeaderBoardAddresses = {
-	[fujiChainId]: '0x018419c2aA903ac47a2b6207e047A179203a026F',
-	[bscTestnetChainId]: '0xE0BAD5B84C1F3dEB2eE260CBf76a41Ca0320De84',
-	[arbitrumGoerliChainId]: '0x238f82A18ccA37d49486b04360D5Ad64CB02F681',
-	[mumbaiChainId]: '0x0fD99aEB86c46106aF108283d02281D763486e61',
+	[fujiChainId]: '0x405F293aeFa59B184534a118718135c3d349611d',
+	[bscTestnetChainId]: '0x11A0517e3DC03512dE280F99A41d07FA4fd77c35',
+	[arbitrumGoerliChainId]: '0x5bbD0EB30B107228ba31d3F2C6Fae4C7116c5C22',
+	[mumbaiChainId]: '0x76904FE7cb4F0813d7dCfeA275E2B0f3959Af819',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',
@@ -431,10 +431,10 @@ export const usdcAddresses: {
 }
 
 export const airdropContractAddresses = {
-	[fujiChainId]: '0xcC5E614e9aCd407DAE318d500261798cC683424e',
-	[bscTestnetChainId]: '0x0Cd2Cd48a78dB430C1CA017Dd45385FEc02F158f',
-	[arbitrumGoerliChainId]: '0x7a28BBc7971aD6dD309eb507E3dE72fF92855A0f',
-	[mumbaiChainId]: '0xd2dEf71F8c264fe1Ce19C825519e8110a13A486b',
+	[fujiChainId]: '0xd88BA1c8a9949032DEdD1D4a0114Ce5b8BA03907',
+	[bscTestnetChainId]: '0xaeA6fFa9c00aF813fCa22667358B5cdB1776a317',
+	[arbitrumGoerliChainId]: '0xb3e808cab6AdDDB0e52760C391da822817387b55',
+	[mumbaiChainId]: '0x1f7BEF79CbaE099737a1DfbBCaC18FBf051FB4B4',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',
@@ -442,10 +442,10 @@ export const airdropContractAddresses = {
 }
 
 export const merchStoreContractAddresses = {
-	[fujiChainId]: '0xeFB02A27744e56f688075a6CA1aeff41Bb23173A',
-	[bscTestnetChainId]: '0x69d109dC14Eed2ea5B798B0677d6Af3887050F37',
-	[arbitrumGoerliChainId]: '0x43A5f5934E4f0b645c491fC288cdc5e108138d54',
-	[mumbaiChainId]: '0x446542Ec8c1b36D17da89EdcD8200d8128532A53',
+	[fujiChainId]: '0xc652580D7c97A963BdD5a9d5dab27a59bBef2d17',
+	[bscTestnetChainId]: '0xC11EAbC2CEE6842d9478204A04BB984Ea0C44b95',
+	[arbitrumGoerliChainId]: '0xfDc08dB75f73E22801c83952c8a39076237Cf8A2',
+	[mumbaiChainId]: '0xe3Bfe116aD8e8346007Ff710F06EE740D17E1A48',
 	[avalancheChainId]: '',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',

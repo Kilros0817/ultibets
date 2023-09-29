@@ -1,0 +1,1050 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_ultiBetsTreasury",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_ultibetsBuyBack",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_sbcNFTClaimer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_ultibetsReward",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "number",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum UltiBetsCore.EventType",
+        "name": "categoryType",
+        "type": "uint8"
+      }
+    ],
+    "name": "AddCategory",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "category",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "subcategory",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "AddSubcategory",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eventID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "category",
+        "type": "uint8"
+      }
+    ],
+    "name": "CancelEvent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "bettor",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eventID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "predict",
+        "type": "uint8"
+      }
+    ],
+    "name": "ClaimCancelBet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "bettor",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eventID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "result",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "ClaimPrize",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eventID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "category",
+        "type": "uint8"
+      }
+    ],
+    "name": "NewEvent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "bettor",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eventID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "decision",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "PlacePrediction",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eventID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "result",
+        "type": "uint8"
+      }
+    ],
+    "name": "ReportResult",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "EmergencySafeWithdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "UTBETSContract",
+    "outputs": [
+      {
+        "internalType": "contract IUltiBetsToken",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_admin",
+        "type": "address"
+      }
+    ],
+    "name": "addAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventType",
+        "name": "_type",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_subcategories",
+        "type": "string[]"
+      }
+    ],
+    "name": "addCategory",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_description",
+        "type": "string"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_category",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_subcategory",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_eventStartTime",
+        "type": "uint256"
+      }
+    ],
+    "name": "addEvent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_oracle",
+        "type": "address"
+      }
+    ],
+    "name": "addOracle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_categoryID",
+        "type": "uint8"
+      }
+    ],
+    "name": "addSubcategory",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "betDataList",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "betId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "bettor",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eventID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "betAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "paidAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "prediction",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "betTime",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_eventID",
+        "type": "uint256"
+      }
+    ],
+    "name": "cancelEvent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "name": "categoryList",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventType",
+        "name": "eType",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "numberOfSubcategories",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "categoryNumber",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_bettor",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_eventID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "_eventResult",
+        "type": "uint8"
+      }
+    ],
+    "name": "checkBetClaimable",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_bettor",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_eventID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "_eventResult",
+        "type": "uint8"
+      }
+    ],
+    "name": "checkBetResult",
+    "outputs": [
+      {
+        "internalType": "enum UltiBetsCore.BetStatus",
+        "name": "result",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_eventID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "_eventResult",
+        "type": "uint8"
+      }
+    ],
+    "name": "claimBetCancelled",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "eventList",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventStatus",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "result",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "category",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "subcategory",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "bettingVolume",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "feeBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "feePercentage",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isAdmin",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isNotFirstBet",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isOracle",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "noticeBetTime",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_eventID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "_eventValue",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_predictionAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_referrer",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "placePrediction",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_eventID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "_eventValue",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_perkRound",
+        "type": "uint8"
+      }
+    ],
+    "name": "placePredictionUsingPerk",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "_category",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_subcategory",
+        "type": "uint8"
+      }
+    ],
+    "name": "readSubcategory",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_eventID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "_result",
+        "type": "uint8"
+      }
+    ],
+    "name": "reportResult",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "sbcNFTClaimer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "_time",
+        "type": "uint16"
+      }
+    ],
+    "name": "setNoticeTime",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_sbcNFTClaimer",
+        "type": "address"
+      }
+    ],
+    "name": "setSBCNFTClaimer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_ultiBetsLeaderBoard",
+        "type": "address"
+      }
+    ],
+    "name": "setUltiBetsLeaderBoard",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_ultiBetsSign",
+        "type": "address"
+      }
+    ],
+    "name": "setUltiBetsSign",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IUltiBetsToken",
+        "name": "_utbets",
+        "type": "address"
+      }
+    ],
+    "name": "setUltiBetsToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_treasury",
+        "type": "address"
+      }
+    ],
+    "name": "setUltiBetsTreasury",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_BuyBack",
+        "type": "address"
+      }
+    ],
+    "name": "setUltibetsBuyBack",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_ultibetsReward",
+        "type": "address"
+      }
+    ],
+    "name": "setUltibetsReward",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalBetNumber",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalEventNumber",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ultiBetsBuyBack",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ultiBetsLeaderBoard",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ultiBetsSign",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ultiBetsTreasury",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ultibetsReward",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawEarnedFees",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_eventID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum UltiBetsCore.EventResult",
+        "name": "_betValue",
+        "type": "uint8"
+      }
+    ],
+    "name": "withdrawGain",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

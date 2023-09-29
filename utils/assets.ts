@@ -46,14 +46,14 @@ export const polygonLogo = '/images/pngs/chain-logo/polygon.svg';
 export const perkMoneyLogo = '/images/pngs/my-nfts/perk-money-logo.svg';
 
 // abis
-import nativeTokenDailyBetsAbiInPM from '../abis/DailyBets.json';
-import ultibetsTokenDailyBetsAbiInPM from '../abis/DailyBetsUTBETS.json';
-import nativeTokenBetsAbiInSBC from '../abis/SquidBets.json';
-import ultibetsTokenBetsAbiInSBC from '../abis/SquidBetsUTBETS.json';
-import nftClaimerAbi from '../abis/nftClaimer.json';
-import rndGeneratorAbi from '../abis/rndRgenContract.json';
-import sbcNFTAbi from '../abis/sbcNFTContract.json';
-import ultibetsSignAbi from '../abis/ultibetsSignContract.json';
+import nativeTokenDailyBetsAbiInPM from '../abis/DailyPredictions.json';
+import ultibetsTokenDailyBetsAbiInPM from '../abis/UTBETSDailyPredictions.json';
+import nativeTokenBetsAbiInSBC from '../abis/SBCRounds.json';
+import ultibetsTokenBetsAbiInSBC from '../abis/SBCUTBETSRounds.json';
+import nftClaimerAbi from '../abis/SBCNFTClaimer.json';
+import rndGeneratorAbi from '../abis/UltiBetsVRF.json';
+import sbcNFTAbi from '../abis/SBCNFT.json';
+import ultibetsSignAbi from '../abis/UltiBetsSign.json';
 import ultibetsRewardAbi from '../abis/UltibetsReward.json';
 import UltiBetsLeaderBoardAbi from '../abis/UltiBetsLeaderBoard.json';
 
