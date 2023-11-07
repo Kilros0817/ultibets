@@ -72,6 +72,7 @@ export const transferUSDC = async (account: any, amount: any, chainId: number) =
 };
 
 export const usdcApprove = async (amount: string, chainId: number) => {
+    console.log(amount ,"==========amount==========")
     try {
         const { hash } = await writeContract({
             address: (usdcAddresses as any)[chainId],

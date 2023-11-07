@@ -9,20 +9,19 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import '@fontsource/nunito';
 import { getAllowance, usdcApprove } from '../../utils/interact/sc/usdc';
 import { chainRPCs, merchStoreContractAddresses, mumbaiChainId, rate, usdcAddresses } from '../../utils/config';
 import { useAccount, useNetwork } from 'wagmi';
-import { formatUnits, parseEther } from 'viem';
+import { formatUnits } from 'viem';
 import axios from 'axios';
 import { buyPacks } from '../../utils/interact/sc/merch-store';
 import { getNPrice } from '../../utils/interact/utility';
 import { getUTBETSPrice } from '../../utils/interact/sc/utbets';
 import { PacksData } from '../../constant';
-import { useRouter } from 'next/router';
 import AnnounceModal from '../modal/AnnounceModal';
 import { checkIconInGreenBg } from '../../utils/assets';
+import { useRouter } from 'next/router';
 
 
 const DetailedPack = () => {

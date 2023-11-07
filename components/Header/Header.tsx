@@ -89,6 +89,7 @@ const Header = () => {
   }
 
   useEffect(() => {
+    const pathName = router.asPath;
     (async () => {
       // adblock 
       let isAdblock = await detectAnyAdblocker();
@@ -97,7 +98,7 @@ const Header = () => {
       }
 
       if (process.env.NEXT_PUBLIC_IS_GEOBLOCK == "true") {
-        if (router.asPath.includes('prediction-markets') || router.asPath.includes('sbc')) {
+        if (pathName.includes('prediction-markets') || pathName.includes('sbc')) {
           // adblock 
           const isAdblock = await detectAnyAdblocker();
           if (isAdblock) {
@@ -108,8 +109,7 @@ const Header = () => {
           } else {
             const info = await getData();
             if (bannedCountries.includes(info.country_name) || bannedCountriesCodes.includes(info.country_code)) {
-              if (router.asPath == '/') {
-                console.log("yes")
+              if (pathName == '/') {
                 return;
               } else {
                 router.push('/');
@@ -120,14 +120,13 @@ const Header = () => {
               router.push('/');
             }
           }
-        } 
+        }
       }
 
-      if (router.asPath == '/') {
+      if (pathName == '/') {
         router.push('/home');
       }
 
-      const pathName = router.asPath;
       const slug = pathName.split('/')
       if (slug.length >= 2) {
         //@ts-ignore
@@ -360,20 +359,18 @@ const Header = () => {
             className='logo-icon-wrapper'
             mr='20px'
           >
-            <NextLink href="/" passHref>
-              <Link
-                href="/"
-                width={['60px', '60px', '60px', width <= limitSizeBetweenDesktopandMobile ? '60px' : '150px', '150px']}
-              >
-                {' '}
-                <Image
-                  src="/images/ultibets-logo.svg"
-                  alt="logo"
-                  width='60px'
-                  height='60px'
-                />
-              </Link>
-            </NextLink>
+            <Link
+              href="/"
+              width={['60px', '60px', '60px', width <= limitSizeBetweenDesktopandMobile ? '60px' : '150px', '150px']}
+            >
+              {' '}
+              <Image
+                src="/images/ultibets-logo.svg"
+                alt="logo"
+                width='60px'
+                height='60px'
+              />
+            </Link>
           </Flex>
 
           {/* navbar links(shows in desktop size) */}

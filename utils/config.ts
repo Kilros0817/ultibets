@@ -420,10 +420,10 @@ export const utbetsTokenAddresses: {
 export const usdcAddresses: {
 	[key: number]: string
 } = {
-	[fujiChainId]: '0xbadafA1404C5902c45c8B3596827Ec3003923D3B',
-	[bscTestnetChainId]: '0x11CD8f66Fe38eBc9eA2bfAD4b7927fE4035657eE',
-	[arbitrumGoerliChainId]: '0x011cd85cf9b7D32258290e0550305E04e4A48B20',
-	[mumbaiChainId]: '0x2Ee0BCd22293Cd6b37Eff2765059ADCd9126E605',
+	[fujiChainId]: '0x4478b6904894911a08Acf07E85cD89B6a2A37b00',
+	[bscTestnetChainId]: '0xC54261f6165734Be513c41Fd9311766aEbD4Cf35',
+	[arbitrumGoerliChainId]: '0x9eB85422755D9b05e250413e31720D2a9f36cC6c',
+	[mumbaiChainId]: '0xd317c440F27c1Ac681ef0621FB34e0Cd6eee7628',
 	[avalancheChainId]: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
 	[bscChainId]: '',
 	[arbitrumChainId]: '',

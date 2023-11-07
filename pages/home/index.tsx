@@ -49,7 +49,6 @@ const Home = () => {
         <JoinUs />
       </Box>
     </>
-
   );
 };
 

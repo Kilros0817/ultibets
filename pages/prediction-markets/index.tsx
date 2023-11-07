@@ -33,8 +33,8 @@ const PredictionMarkets = () => {
   }, []);
 
   useEffect(() => {
-        let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
-      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId;    let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
+    let chainId = (chain?.id != undefined && Object.keys(newChainAttrs).includes(chain?.id?.toString())) ? chain.id :
+      process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == "mainnet" ? polygonChainId : mumbaiChainId; let currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == chainId);
     if (currentChainAttrsItem.length == 0) {
       const temporaryChainId = process.env.NEXT_PUBLIC_MAINNET_OR_TESTNET == 'mainnet' ? 137 : 80001
       currentChainAttrsItem = currentMainnetOrTestnetAttrs.filter(item => item.chainId == temporaryChainId);
@@ -45,9 +45,8 @@ const PredictionMarkets = () => {
   const { setReferral } = useChainContext();
 
   useEffect(() => {
-    const asPath = router.asPath;
-
-    const pieces = asPath.split('?r=');
+    const pathName = router.asPath;
+    const pieces = pathName.split('?r=');
     if (pieces.length == 2) {
       const referral = pieces[1];
       setReferral(referral);

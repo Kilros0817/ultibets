@@ -1,4 +1,7 @@
-import { getNFTTypeString } from "../../../utils/interact/utility"
+import { NextApiRequest, NextApiResponse } from 'next'
+import { getNFTTypeString } from '../../../utils/interact/utility'
+import { withIronSessionApiRoute } from 'iron-session/next';
+import { ironOptions } from '../../../lib/iron'
 const { Readable } = require('stream')
 const axios = require('axios')
 const FormData = require('form-data')
@@ -22,8 +25,6 @@ const pinFileToIPFS = async (imgData: any) => {
         },
       }
     )
-
-    console.log("pinata file url: ", res.data);
 
     return {
       isSuccess: true,
@@ -74,17 +75,18 @@ function constructJSON(data: any, imageHash: string) {
       image: `ipfs://${imageHash}`,
       attributes: [
         {
-          "trait_type": "event id",
-          "value": `Squid Bet #${data.eventID}`,
+          trait_type: 'event id',
+          value: `Squid Bet #${data.eventID}`,
         },
         {
-          "trait_type": "round id",
-          "value": data.roundLevel > 0 ? `Round ${data.roundLevel}` : `Final Winner`,
+          trait_type: 'round id',
+          value:
+            data.roundLevel > 0 ? `Round ${data.roundLevel}` : `Final Winner`,
         },
         {
-          "trait_type": "nft type",
-          "value": getNFTTypeString(data.nftType),
-        }
+          trait_type: 'nft type',
+          value: getNFTTypeString(data.nftType),
+        },
       ],
     },
   }
@@ -92,9 +94,13 @@ function constructJSON(data: any, imageHash: string) {
   return json_data
 }
 
-export const uploadNFT = async (req: any, res: any) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  // @ts-ignore
+  if (!req.session?.siwe) {
+    res.status(401).json({ message: 'You have to first sign_in' })
+    return
+  }
+
   try {
     const data = req.body
     let result = await pinFileToIPFS(data)
@@ -126,4 +132,4 @@ export const uploadNFT = async (req: any, res: any) => {
   }
 }
 
-export default uploadNFT;
+export default withIronSessionApiRoute(handler, ironOptions);

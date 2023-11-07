@@ -1,7 +1,6 @@
 import {
   Flex,
 } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import '@fontsource/nunito'
 import '@fontsource/inter'
@@ -35,6 +34,7 @@ import { EventDetailDataType } from '../../utils/types'
 import { getUserBetDataInPM } from '../../utils/interact/thegraph/getUserBetDataInPM'
 import { getUserInviteStatus } from '../../utils/interact/thegraph/getUserInviteStatus'
 import { formatEther } from 'viem'
+import { useRouter } from 'next/router';
 
 type PredictionPageProps = {
 }

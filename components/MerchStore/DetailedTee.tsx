@@ -17,31 +17,16 @@ import {
   useDisclosure,
   Image,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { IoMdDoneAll } from 'react-icons/io';
 import { toast } from 'react-toastify';
 import '@fontsource/nunito';
 import { TeesData } from '../../constant';
 import { useDispatch } from 'react-redux';
-import { addItemToCart, removeItemFromCart } from '../../store/cart-slice';
+import { addItemToCart } from '../../store/cart-slice';
+import { useRouter } from 'next/router';
 
-type DetailedTeeProps = {
-  id: string;
-  image: string;
-  name: string;
-  price: number;
-  description?: string;
-  weight?: number;
-};
-const DetailedTee = ({
-  image,
-  name,
-  price,
-  description,
-  id,
-  weight,
-}: DetailedTeeProps) => {
+const DetailedTee = () => {
   const [counter, setCounter] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -93,7 +78,6 @@ const DetailedTee = ({
   };
   const addItemHandler = () => {
     incrementCounter();
-
   };
 
   const removeItemHandler = () => {
@@ -103,13 +87,13 @@ const DetailedTee = ({
   const addToCart = () => {
     dispatch(
       addItemToCart({
-        id,
-        price,
-        amount:counter,
-        name: description,
+        id: DetailedItem?.id,
+        price: DetailedItem?.price,
+        amount: counter,
+        name: DetailedItem?.description,
         size: size || 'Unique Size',
-        image,
-        weight,
+        image: DetailedItem?.image,
+        weight: DetailedItem?.weight,
       })
     );
   }
@@ -144,9 +128,9 @@ const DetailedTee = ({
             >
               {' '}
               <Image
-                src={image}
+                src={DetailedItem?.image}
                 width={['300px', '300px', '350px', '440px']}
-                alt={name}
+                alt={DetailedItem?.name}
                 borderRadius={'10px'}
               />
             </Flex>
@@ -159,7 +143,7 @@ const DetailedTee = ({
               ml={'10px'}
               fontFamily={'Nunito'}
             >
-              {name?.toUpperCase()}
+              {DetailedItem?.name?.toUpperCase()}
             </Text>
           </Flex>
           <Flex
@@ -177,7 +161,7 @@ const DetailedTee = ({
                 mt={'-20px'}
                 ml={'20px'}
               >
-                {description}
+                {DetailedItem?.description}
               </Text>
               <Text
                 fontFamily={'Nunito'}
@@ -186,7 +170,7 @@ const DetailedTee = ({
                 fontWeight={'light'}
                 ml={'20px'}
               >
-                {price} USDC
+                {DetailedItem?.price} USDC
               </Text>
             </Flex>
             <Flex gap={'8px'} mt={'20px'} direction={'column'}>
@@ -537,21 +521,21 @@ const DetailedTee = ({
               <Flex justifyContent={'space-between'}>
                 <Flex flexDirection={'column'} justifyContent='center'>
                   <Text fontSize={['14px', '18px', '18px', '16px']}>
-                    {description}
+                    {DetailedItem?.description}
                   </Text>
                   <Text fontSize={['12px', '12px', '12px', '13px']}>
                     {`Size: ${size || 'Unique size'}`}
                   </Text>
                   <Text fontSize={['12px', '12px', '12px', '13px']}>
-                    {`Price: ${price} USDC`}
+                    {`Price: ${DetailedItem?.price} USDC`}
                   </Text>
                 </Flex>
                 <Flex>
                   <Image
-                    src={image}
+                    src={DetailedItem?.image}
                     width={130}
                     height={100}
-                    alt={description}
+                    alt={DetailedItem?.description}
                   />
                 </Flex>
               </Flex>
@@ -579,9 +563,9 @@ const DetailedTee = ({
               <Button
                 width={['150px', '100px', 'unset', 'unset']}
                 onClick={() =>
-                  router.push({
-                    pathname: '/merch-store/checkout',
-                  })
+                  router.push(
+                    '/merch-store/checkout',
+                  )
                 }
                 variant='ghost'
                 _hover={{
