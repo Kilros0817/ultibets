@@ -3,6 +3,9 @@ import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import { connectorsForWallets, getDefaultWallets, RainbowKitProvider, createAuthenticationAdapter, RainbowKitAuthenticationProvider, AuthenticationStatus } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
+import {
+  trustWallet, ledgerWallet
+} from '@rainbow-me/rainbowkit/wallets';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { avalancheFuji, bscTestnet, polygon } from "@wagmi/core/chains";
 import { publicProvider } from 'wagmi/providers/public';
@@ -48,6 +51,13 @@ const { wallets } = getDefaultWallets({
 
 const connectors = connectorsForWallets([
   ...wallets,
+  {
+    groupName: "Other",
+    wallets: [
+      trustWallet({projectId, chains}),
+      ledgerWallet({projectId, chains}),
+    ]
+  }
 ])
 
 const config = createConfig({
